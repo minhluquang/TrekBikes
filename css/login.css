@@ -1,0 +1,283 @@
+.mb10px {
+  margin-bottom: 10px;
+}
+
+.user__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  overflow: hidden;
+  z-index: 100;
+  opacity: 1;
+  background-color: #fff;
+  height: 550px;
+  width: 450px;
+  border-radius: 10px;
+  top: 50%;
+  left: 50%;
+  display: none;
+  transform: translate(-50%, -50%);
+  transition: all 0.8s ease-in-out;
+  animation: bottomUp 0.8s ease-in-out;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.register,
+.login {
+  position: absolute;
+  width: 100%;
+  height: 550px;
+  top: 50%;
+  left: 50%;
+}
+
+.user__wrapper.user__active {
+  display: block;
+  z-index: 12;
+  opacity: 1;
+}
+
+.user__wrapper.register__active .register {
+  transition: all 0.5s linear;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.user__wrapper.register__active .login {
+  transition: all 0.5s linear;
+  transform: translate(50%, -50%);
+}
+
+.user__wrapper.login__active .login {
+  transition: all 0.5s linear;
+  transform: translate(-50%, -50%);
+}
+
+.user__wrapper.login__active .register {
+  transition: all 0.5s linear;
+  transform: translate(-150%, -50%);
+}
+
+.register__info,
+.login__info {
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.login__info form {
+  width: 100%;
+}
+
+.register__info .form__close,
+.login__info .form__close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  border: none;
+  font-size: 32px;
+  background-color: transparent;
+  cursor: pointer;
+  color: #333;
+}
+
+.register__info .form__close:hover,
+.login__info .form__close:hover {
+  color: rgb(255, 68, 68);
+}
+
+.login__info h1,
+.register__info h1 {
+  text-align: center;
+}
+
+.login__info--input,
+.register__info--input {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  flex-direction: column;
+}
+
+.login__info--input label,
+.register__info--input label {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+
+.login__info--input input,
+.register__info--input input {
+  border-radius: 5px;
+  height: 40px;
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #eeeeee;
+  border: none;
+}
+
+.login__info--input p,
+.register__info--input p {
+  margin: 10px 0 0;
+  color: rgb(255, 92, 92);
+}
+
+.policy {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.policy a {
+  text-decoration: none;
+  color: var(--hover-color);
+}
+
+.login__info--submit,
+.register__info--submit {
+  width: 100%;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  height: 40px;
+  font-weight: 600;
+  box-shadow: rgb(154, 154, 154) 0px 3px 0px 0px;
+}
+
+.login__info--submit:active,
+.register__info--submit:active {
+  transform: scale(0.95);
+}
+
+.login__info--submit {
+  margin-bottom: 15px;
+}
+
+.login__info--create__other,
+.regis__info--create__other {
+  width: 100%;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 2px solid #333;
+  padding: 10px 0;
+  height: 40px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login__info--create__other:active,
+.regis__info--create__other:active {
+  transform: scale(0.95);
+}
+
+.login__info--create__other svg,
+.regis__info--create__other svg {
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+}
+
+.forgot__password {
+  text-align: center;
+  margin: 0 0 10px;
+}
+
+.forgot__password a {
+  color: #333;
+  text-decoration: none;
+}
+
+/* .register__again {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.signin,
+.register__again {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register__again p,
+.signin p {
+  font-size: 14px;
+  color: #333;
+  margin-right: 5px;
+}
+
+.register__again button,
+.signin button {
+  border: none;
+  background-color: transparent;
+  color: var(--hover-color);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+@keyframes bottomUp {
+  from {
+    height: 0;
+    opacity: 0;
+    transform: translate(-50%, 0%);
+  }
+  to {
+    height: 550px;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  10% {
+    width: 0;
+  }
+
+  50% {
+    width: 450px;
+  }
+}
+
+@keyframes hideRegister {
+  0% {
+    transform: translate(-100%, -50%);
+  }
+
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes changeToRegister {
+  0% {
+    opacity: 0;
+    transform: translate(-100%, -50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}

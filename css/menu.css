@@ -1,0 +1,104 @@
+/* HIDE MENU */
+.hide__menu {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: #fff;
+  width: 100%;
+  height: auto;
+  padding: 50px 20px;
+  color: #333;
+  z-index: 11;
+  opacity: 0;
+  cursor: default;
+  display: none;
+  transition: all 0.5s;
+  box-shadow: rgba(46, 46, 46, 0.2) 0px 8px 24px;
+}
+
+.hide__menu.active {
+  display: block;
+  opacity: 1;
+}
+
+.hide__menu--close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  border: none;
+  font-size: 32px;
+  background-color: transparent;
+  cursor: pointer;
+  color: #333;
+}
+
+.hide__menu--close:hover {
+  color: rgb(255, 32, 32);
+}
+
+.hide__menu h1 {
+  font-size: 40px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.hide__menu--list__extention {
+  color: #333;
+  list-style-type: none;
+  font-size: 16px !important;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.hide__menu--list__extention .header__bottom--extention-item {
+  margin: 20px 0;
+  cursor: pointer;
+  display: block !important;
+  position: relative;
+}
+
+.hide__menu--list__extention .header__bottom--extention-item i {
+  margin-right: 15px;
+  font-size: 18px;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 50%;
+  background-color: #333;
+  color: #fff;
+  cursor: default;
+}
+
+.hide__menu--list__extention .header__bottom--extention-item span {
+  font-size: 20px;
+}
+
+.hide__menu--list__types {
+  height: auto;
+}
+
+.hide__menu--list__type {
+  text-align: left;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  width: 100%;
+  padding: 15px 10px;
+  margin: 10px 0;
+  background-color: #333;
+  box-shadow: rgb(154, 154, 154) 0px 5px 0px 0px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+.hide__menu--list__type:focus {
+  outline: none;
+}
+
+.hide__menu--list__type:active {
+  transform: scale(0.95);
+}
