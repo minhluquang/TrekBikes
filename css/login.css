@@ -12,7 +12,7 @@
   opacity: 1;
   background-color: #fff;
   height: 550px;
-  width: 450px;
+  width: 900px;
   border-radius: 10px;
   top: 50%;
   left: 50%;
@@ -23,13 +23,16 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
+.register__background,
+.login__background {
+  position: absolute;
+}
+
 .register,
 .login {
   position: absolute;
+  height: 100%;
   width: 100%;
-  height: 550px;
-  top: 50%;
-  left: 50%;
 }
 
 .user__wrapper.user__active {
@@ -38,29 +41,139 @@
   opacity: 1;
 }
 
-.user__wrapper.register__active .register {
+.register__background,
+.login__background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 50px;
+  text-align: center;
+}
+
+.register__background h1,
+.login__background h1 {
+  font-size: 40px;
+}
+
+.register__background p,
+.login__background p {
+  margin: 30px 0;
+  color: #eeeeee;
+}
+
+.register__background button,
+.login__background button {
+  background-color: #fff;
+  border: none;
+  color: #333;
+  height: 50px;
+  width: 150px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: rgb(154, 154, 154) 0px 3px 0px 0px;
+}
+
+.register__background button:focus,
+.login__background button:focus {
+  outline: none;
+}
+
+.register__background button:active,
+.login__background button:active {
+  transform: translateY(3px);
+  box-shadow: rgb(154, 154, 154) 0px 0px 0px 0px;
+}
+
+.user__wrapper.register__active .register__info {
   transition: all 0.5s linear;
-  top: 50%;
-  left: 50%;
-  width: 100%;
+  top: 0;
+  transform: translate(100%, 0);
+  width: 50%;
   height: 100%;
   position: absolute;
-  transform: translate(-50%, -50%);
+  z-index: 13;
+  background-color: #fff;
 }
 
-.user__wrapper.register__active .login {
-  transition: all 0.5s linear;
-  transform: translate(50%, -50%);
+.user__wrapper.register__active .register__background {
+  top: 0;
+  transform: translate(0, 0);
+  width: 50%;
+  height: 100%;
+  background-color: #333;
+  color: #fff;
+  z-index: 14;
+  transition: transform 0.5s linear;
 }
 
-.user__wrapper.login__active .login {
-  transition: all 0.5s linear;
-  transform: translate(-50%, -50%);
+.user__wrapper.register__active .login__background {
+  top: 0;
+  transform: translate(0, 0);
+  width: 50%;
+  height: 100%;
+  background-color: #333;
+  color: #fff;
+  z-index: 12;
+  transition: transform 0.5s linear;
 }
 
-.user__wrapper.login__active .register {
+.user__wrapper.register__active .login__info {
+  width: 450px;
+  height: 100%;
+  transform: translate(100%, 0);
   transition: all 0.5s linear;
-  transform: translate(-150%, -50%);
+  z-index: 12;
+  background-color: #fff;
+}
+
+.user__wrapper.login__active .form__close--global {
+  color: #fff;
+}
+
+.user__wrapper.login__active .login__info {
+  transition: all 0.5s linear;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  transform: translate(0, 0);
+  z-index: 13;
+  background-color: #fff;
+  transition: all 0.5s linear;
+}
+
+.user__wrapper.login__active .login__background {
+  transform: translate(100%, 0);
+  top: 0;
+  height: 100%;
+  width: 50%;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  z-index: 14;
+  transition: transform 0.5s linear;
+}
+
+.user__wrapper.login__active .register__info {
+  transition: all 0.5s linear;
+  top: 0;
+  transform: translate(0%, 0);
+  height: 100%;
+  width: 50%;
+  background-color: #fff;
+  z-index: 12;
+}
+
+.user__wrapper.login__active .register__background {
+  transition: transform 0.5s linear;
+  top: 0;
+  transform: translate(100%, 0);
+  height: 100%;
+  width: 50%;
+  background-color: #fff;
+  z-index: 12;
 }
 
 .register__info,
@@ -79,6 +192,18 @@
   width: 100%;
 }
 
+.user__wrapper .form__close--global {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+  border: none;
+  background: transparent;
+  color: #333;
+  font-size: 28px;
+  cursor: pointer;
+}
+
 .register__info .form__close,
 .login__info .form__close {
   position: absolute;
@@ -91,6 +216,7 @@
   color: #333;
 }
 
+.user__wrapper .form__close--global:hover,
 .register__info .form__close:hover,
 .login__info .form__close:hover {
   color: rgb(255, 68, 68);
@@ -131,13 +257,18 @@
 .register__info--input p {
   margin: 10px 0 0;
   color: rgb(255, 92, 92);
+  display: none;
+}
+
+.login__info--input.active p,
+.register__info--input.active p {
+  display: block;
 }
 
 .policy {
-  margin-top: 10px;
+  margin: 20px 0 15px;
   text-align: center;
   font-size: 14px;
-  margin-bottom: 15px;
 }
 
 .policy a {
@@ -162,7 +293,8 @@
 
 .login__info--submit:active,
 .register__info--submit:active {
-  transform: scale(0.95);
+  transform: translateY(3px);
+  box-shadow: rgb(154, 154, 154) 0px 0px 0px 0px;
 }
 
 .login__info--submit {
@@ -187,7 +319,7 @@
 
 .login__info--create__other:active,
 .regis__info--create__other:active {
-  transform: scale(0.95);
+  transform: translateY(2px);
 }
 
 .login__info--create__other svg,
@@ -199,7 +331,7 @@
 
 .forgot__password {
   text-align: center;
-  margin: 0 0 10px;
+  margin: 20px 0 10px;
 }
 
 .forgot__password a {
@@ -240,44 +372,41 @@
 }
 
 @keyframes bottomUp {
-  from {
+  0% {
     height: 0;
     opacity: 0;
-    transform: translate(-50%, 0%);
+    transform: translate(-50%, 80%);
   }
-  to {
+
+  40% {
+    transform: translate(-50%, -100%);
+  }
+
+  100% {
     height: 550px;
     opacity: 1;
     transform: translate(-50%, -50%);
   }
-
-  10% {
-    width: 0;
-  }
-
-  50% {
-    width: 450px;
-  }
 }
 
-@keyframes hideRegister {
+@keyframes fade {
   0% {
-    transform: translate(-100%, -50%);
-  }
-
-  100% {
-    transform: translate(-50%, -50%);
-  }
-}
-
-@keyframes changeToRegister {
-  0% {
-    opacity: 0;
-    transform: translate(-100%, -50%);
-  }
-
-  100% {
+    height: 550px;
     opacity: 1;
-    transform: translate(-50%, -50%);
+  }
+
+  20% {
+    width: 900px;
+  }
+
+  80% {
+    height: 50px;
+    width: 0px;
+  }
+
+  100% {
+    opacity: 0;
+    width: 0;
+    height: 0;
   }
 }

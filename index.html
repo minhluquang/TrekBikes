@@ -13,6 +13,7 @@
     <script type="module" defer src="./script.js"></script>
     <script defer src="./script/login.js"></script>
     <script defer src="./script/menu.js"></script>
+    <script defer src="./script/slider.js"></script>
   </head>
   <body>
     <!-- =========== START: HEADER =========== -->
@@ -193,7 +194,7 @@
 
         <div class="header__slider--bars"></div>
       </div>
-      
+
       <!-- =========== END: HEADER SLIDER =========== -->
     </div>
 
@@ -354,11 +355,14 @@
     <div class="overlay"></div>
     <!-- Login/create account -->
     <div class="user__wrapper">
+      <button class="form__close--global">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
       <div class="register">
         <div class="register__info">
-          <button class="form__close">
+          <!-- <button class="form__close">
             <i class="fa-solid fa-xmark"></i>
-          </button>
+          </button> -->
           <h1>Tạo tài khoản</h1>
           <form>
             <div class="register__info--input">
@@ -387,18 +391,24 @@
             <button class="register__info--submit">Đăng ký</button>
           </form>
 
-          <div class="signin">
+          <!-- <div class="signin">
             <p>Bạn đã có tài khoản?</p>
             <button>Đăng nhập</button>
-          </div>
+          </div> -->
+        </div>
+
+        <div class="register__background">
+          <h1>Chào mừng bạn trở lại</h1>
+          <p>Để giữ kết nối với chúng tôi, vui lòng đăng nhập bằng thông tin cá nhân của bạn</p>
+          <button>Đăng nhập</button>
         </div>
       </div>
 
       <div class="login">
         <div class="login__info">
-          <button class="form__close">
+          <!-- <button class="form__close">
             <i class="fa-solid fa-xmark"></i>
-          </button>
+          </button> -->
           <h1>Đăng nhập</h1>
           <form>
             <div class="login__info--input">
@@ -467,10 +477,15 @@
             </button>
           </form>
 
-          <div class="register__again">
+          <!-- <div class="register__again">
             <p>Bạn chưa có tài khoản?</p>
             <button>Đăng ký</button>
-          </div>
+          </div> -->
+        </div>
+        <div class="login__background">
+          <h1>Chào, bạn!</h1>
+          <p>Nhập thông tin cá nhân của bạn và bắt đầu hành trình với chúng tôi</p>
+          <button>Đăng ký</button>
         </div>
       </div>
     </div>

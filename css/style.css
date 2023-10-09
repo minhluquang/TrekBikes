@@ -127,6 +127,10 @@ body {
   line-height: 60px;
 }
 
+.active .header__bottom--list ul li a {
+  height: 60px;
+}
+
 .header__bottom--list ul li a {
   display: block;
   height: 80px;

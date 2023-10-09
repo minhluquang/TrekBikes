@@ -24,7 +24,7 @@ section4Btn.addEventListener('click', e => {
 
 // ============================= Start: Switch mode reg/log
 //Change to login
-const signinBtn = document.querySelector('.signin button');
+const signinBtn = document.querySelector('.register__background button');
 const loginForm = document.querySelector('.login');
 const closeBtnFormLogin = document.querySelector('.login__info .form__close');
 
@@ -34,7 +34,7 @@ signinBtn.addEventListener('click', e => {
 });
 
 //Change to register when show login form
-const registerAgain = document.querySelector('.register__again');
+const registerAgain = document.querySelector('.login__background button');
 registerAgain.addEventListener('click', e => {
   userWrapper.classList.add('register__active');
   userWrapper.classList.remove('login__active');
@@ -43,19 +43,23 @@ registerAgain.addEventListener('click', e => {
 
 // ============================= Start: HIDE FORM
 const hideFormRegLogin = () => {
-  overlay.classList.remove('active__overlay');
-  userWrapper.classList.remove('user__active');
-  userWrapper.classList.remove('register__active');
-  userWrapper.classList.remove('login__active');
+  userWrapper.style.animation = `fade 1s ease-in`;
+  setTimeout(() => {
+    overlay.classList.remove('active__overlay');
+    userWrapper.classList.remove('user__active');
+    userWrapper.classList.remove('register__active');
+    userWrapper.classList.remove('login__active');
+    userWrapper.style.animation = `bottomUp 1s ease-in-out`;
+  }, 900);
 };
 
-closeBtnFormRes.addEventListener('click', e => {
-  hideFormRegLogin();
-});
+// closeBtnFormRes.addEventListener('click', e => {
+//   hideFormRegLogin();
+// });
 
-closeBtnFormLogin.addEventListener('click', e => {
-  hideFormRegLogin();
-});
+// closeBtnFormLogin.addEventListener('click', e => {
+//   hideFormRegLogin();
+// });
 
 overlay.addEventListener('click', e => {
   hideFormRegLogin();
@@ -73,4 +77,10 @@ registerSubmitBtn.addEventListener('click', e => {
   const name = registerNameValue.value.trim();
   const email = registerEmailValue.value.trim();
   const password = registerPasswordValue.value.trim();
+});
+
+// Close form by button
+const btnCloseGlobal = document.querySelector('.user__wrapper .form__close--global');
+btnCloseGlobal.addEventListener('click', e => {
+  hideFormRegLogin();
 });
