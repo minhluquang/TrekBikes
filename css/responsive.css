@@ -128,6 +128,38 @@
   .footer-copyright {
     margin: 20px 10px 0;
   }
+
+  /* START: REG/LOG FORM ON LOW DEVICE */
+  .user__wrapper {
+    width: 450px;
+  }
+
+  .user__wrapper.register__active .register__info,
+  .user__wrapper.login__active .login__info {
+    width: 100%;
+    transform: translate(0);
+  }
+
+  .user__wrapper.login__active .register__info {
+    width: 100%;
+    transform: translateX(-100%);
+  }
+
+  .user__wrapper.login__active .form__close--global {
+    color: #333;
+  }
+
+  .signin,
+  .register__again {
+    display: block !important;
+    text-align: center;
+  }
+
+  .register__background,
+  .login__background {
+    display: none;
+  }
+  /* END: REG/LOG FORM ON LOW DEVICE */
 }
 
 @media (min-width: 475px) and (max-width: 640px) {
@@ -150,6 +182,38 @@
     width: 0;
     opacity: 0;
   }
+
+  /* START: REG/LOG FORM ON LOW DEVICE */
+  .user__wrapper {
+    width: 450px;
+  }
+
+  .user__wrapper.register__active .register__info,
+  .user__wrapper.login__active .login__info {
+    width: 100%;
+    transform: translate(0);
+  }
+
+  .user__wrapper.login__active .register__info {
+    width: 100%;
+    transform: translateX(-100%);
+  }
+
+  .user__wrapper.login__active .form__close--global {
+    color: #333;
+  }
+
+  .signin,
+  .register__again {
+    display: block !important;
+    text-align: center;
+  }
+
+  .register__background,
+  .login__background {
+    display: none;
+  }
+  /* END: REG/LOG FORM ON LOW DEVICE */
 }
 
 /* >= Tablet */
@@ -252,12 +316,12 @@
     display: block !important;
     text-align: center;
   }
-  /* END: REG/LOG FORM ON LOW DEVICE */
 
   .register__background,
   .login__background {
     display: none;
   }
+  /* END: REG/LOG FORM ON LOW DEVICE */
 }
 
 /* > PC low resolution */

@@ -23,11 +23,6 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-.register__background,
-.login__background {
-  position: absolute;
-}
-
 .register,
 .login {
   position: absolute;
@@ -43,6 +38,7 @@
 
 .register__background,
 .login__background {
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;

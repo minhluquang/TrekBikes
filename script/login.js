@@ -36,18 +36,17 @@ signinBtn.addEventListener('click', e => {
 //Change to login when on low device
 const signinBtnOnLowDevice = document.querySelector('.signin button');
 const registerAgainOnLowDevice = document.querySelector('.register__again button');
-console.log(registerAgainOnLowDevice)
 const loginInfo = document.querySelector('.login__info');
 
-signinBtnOnLowDevice.addEventListener('click', (e) => {
+signinBtnOnLowDevice.addEventListener('click', e => {
   userWrapper.classList.add('login__active');
   userWrapper.classList.remove('register__active');
-})
+});
 
-registerAgainOnLowDevice.addEventListener('click', (e) => {
+registerAgainOnLowDevice.addEventListener('click', e => {
   userWrapper.classList.remove('login__active');
   userWrapper.classList.add('register__active');
-})
+});
 
 //Change to register when show login form
 const registerAgain = document.querySelector('.login__background button');
@@ -72,22 +71,76 @@ const hideFormRegLogin = () => {
 overlay.addEventListener('click', e => {
   hideFormRegLogin();
 });
-// ============================= End: HIDE FORM
-
-// =========================== start: LOGIC FOR REGISTER ===========================
-const registerSubmitBtn = document.querySelector('.register__info--submit');
-const registerNameValue = document.querySelector('.register__info--input-name');
-const registerEmailValue = document.querySelector('.register__info--input-name');
-const registerPasswordValue = document.querySelector('.register__info--input-email');
-
-registerSubmitBtn.addEventListener('click', e => {
-  const name = registerNameValue.value.trim();
-  const email = registerEmailValue.value.trim();
-  const password = registerPasswordValue.value.trim();
-});
 
 // Close form by button
 const btnCloseGlobal = document.querySelector('.user__wrapper .form__close--global');
 btnCloseGlobal.addEventListener('click', e => {
   hideFormRegLogin();
 });
+// ============================= End: HIDE FORM
+
+// =========================== start: LOGIC FOR REGISTER ===========================
+import ACCOUNT_DATA from '../database/accounts.js';
+
+const registerSubmitBtn = document.querySelector('.register__info--submit');
+const registerNameValue = document.querySelector('.register__info--input-name');
+const registerEmailValue = document.querySelector('.register__info--input-email');
+const registerPasswordValue = document.querySelector('.register__info--input-password');
+
+const registerInputFullName = document.querySelector('.register__info--input__full-name');
+const registerInputEmail = document.querySelector('.register__info--input__full-email');
+const registerInputPassword = document.querySelector('.register__info--input__full-password');
+
+let isValidRegister = true;
+
+registerSubmitBtn.addEventListener('click', e => {
+  e.preventDefault();
+  const name = registerNameValue.value.trim();
+  const email = registerEmailValue.value.trim();
+  const password = registerPasswordValue.value.trim();
+
+  if (name.length === 0) {
+    registerInputFullName.classList.add('active');
+    isValidRegister = false;
+  } else {
+    registerInputFullName.classList.remove('active');
+    isValidRegister = true;
+  }
+
+  if (email.length === 0 || !email.includes('@')) {
+    registerInputEmail.classList.add('active');
+    isValidRegister = false;
+  } else {
+    registerInputEmail.classList.remove('active');
+    isValidRegister = true;
+  }
+
+  if (password.length <= 8) {
+    registerInputPassword.classList.add('active');
+    isValidRegister = false;
+  } else {
+    registerInputPassword.classList.remove('active');
+    isValidRegister = true;
+  }
+
+  if (isValidRegister) {
+    ACCOUNT_DATA.push({ name: name, email: email, password: password });
+
+    registerNameValue.value = '';
+    registerEmailValue.value = '';
+    registerPasswordValue.value = '';
+
+    localStorage.setItem('ACCOUNT_DATA', JSON.stringify(ACCOUNT_DATA));
+  }
+});
+
+const getData = () => {
+  const dataFromLocalStorage = JSON.parse(localStorage.getItem('ACCOUNT_DATA'));
+  const updateData = [...ACCOUNT_DATA, ...dataFromLocalStorage];
+  ACCOUNT_DATA.length = 0
+  ACCOUNT_DATA.push(...updateData);
+};
+
+getData();
+// =========================== end: LOGIC FOR REGISTER ===========================
+
