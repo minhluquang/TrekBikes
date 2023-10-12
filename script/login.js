@@ -33,6 +33,22 @@ signinBtn.addEventListener('click', e => {
   userWrapper.classList.remove('register__active');
 });
 
+//Change to login when on low device
+const signinBtnOnLowDevice = document.querySelector('.signin button');
+const registerAgainOnLowDevice = document.querySelector('.register__again button');
+console.log(registerAgainOnLowDevice)
+const loginInfo = document.querySelector('.login__info');
+
+signinBtnOnLowDevice.addEventListener('click', (e) => {
+  userWrapper.classList.add('login__active');
+  userWrapper.classList.remove('register__active');
+})
+
+registerAgainOnLowDevice.addEventListener('click', (e) => {
+  userWrapper.classList.remove('login__active');
+  userWrapper.classList.add('register__active');
+})
+
 //Change to register when show login form
 const registerAgain = document.querySelector('.login__background button');
 registerAgain.addEventListener('click', e => {
@@ -53,14 +69,6 @@ const hideFormRegLogin = () => {
   }, 900);
 };
 
-// closeBtnFormRes.addEventListener('click', e => {
-//   hideFormRegLogin();
-// });
-
-// closeBtnFormLogin.addEventListener('click', e => {
-//   hideFormRegLogin();
-// });
-
 overlay.addEventListener('click', e => {
   hideFormRegLogin();
 });
@@ -68,7 +76,6 @@ overlay.addEventListener('click', e => {
 
 // =========================== start: LOGIC FOR REGISTER ===========================
 const registerSubmitBtn = document.querySelector('.register__info--submit');
-
 const registerNameValue = document.querySelector('.register__info--input-name');
 const registerEmailValue = document.querySelector('.register__info--input-name');
 const registerPasswordValue = document.querySelector('.register__info--input-email');

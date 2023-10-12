@@ -315,6 +315,10 @@ body {
 .header__bottom--hide-menu {
   cursor: pointer;
   display: none;
+  background: #333;
+  padding: 5px 10px;
+  color: #fff;
+  border-radius: 5px;
 }
 
 /* HEADER SLIDER */
@@ -738,9 +742,11 @@ body {
   left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0;
+  /* opacity: 0; */
   display: none;
+  transform: translateX(0);
   opacity: 1;
+  z-index: 11;
   transition: all 0.5s;
 }
 

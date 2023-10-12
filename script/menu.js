@@ -1,15 +1,43 @@
-// let timingAnimation = 500
+const hideMenuBtn = document.querySelector('.header__bottom--hide-menu');
+const closeMenuBtn = document.querySelector('.hide__menu--close');
+const hideMenu = document.querySelector('.hide__menu');
+const iconUp = document.querySelector('.header__bottom--extention__icon--up');
+const iconDown = document.querySelector('.header__bottom--extention__icon--down');
 
-// Show hide menu
-
-const hideMenuBtn = document.getElementById('barsBtn');
-const hideMenu = document.getElementById('hide__menu')
-const closeMenuBtn = document.getElementById('closeBtn')
-
+//Open hide menu
 hideMenuBtn.addEventListener('click', e => {
-  hideMenu.classList.add('active')
-})
+  hideMenu.classList.add('active');
+  overlay.classList.add('active__overlay');
+});
+
+//Close menu function
+const closeMenu = () => {
+  hideMenu.classList.remove('active');
+  overlay.classList.remove('active__overlay');
+};
 
 closeMenuBtn.addEventListener('click', e => {
-  hideMenu.classList.remove('active');
-})
+  closeMenu();
+});
+
+overlay.addEventListener('click', e => {
+  closeMenu();
+});
+
+//Account click event
+const accountBtn = document.querySelector('.hide__menu--list__extention .header__bottom--extention-user');
+
+accountBtn.addEventListener('click', e => {
+  closeMenu();
+  openFormRegister();
+});
+
+//Show more catelogy
+const catelogyBtn = document.querySelector('.hide__menu--list__extention .header__bottom--extention-cate');
+const hideMenuList = document.querySelector('.hide__menu--list__types');
+
+catelogyBtn.addEventListener('click', e => {
+  hideMenuList.classList.toggle('active');
+  iconDown.classList.toggle('hidden');
+  iconUp.classList.toggle('active');
+});

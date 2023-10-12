@@ -132,39 +132,7 @@
         </div>
 
         <div class="header__bottom--hide-menu">
-          <i class="fa-solid fa-bars" id="barsBtn"></i>
-          <div class="hide__menu" id="hide__menu">
-            <button class="hide__menu--close">
-              <i class="fa-solid fa-xmark" id="closeBtn"></i>
-            </button>
-            <h1>TREK</h1>
-            <div class="hide__menu--list__extention">
-              <div class="header__bottom--extention-item header__bottom--extention-user">
-                <i class="fa-solid fa-user"></i>
-                <span>Đăng ký / Đăng nhập</span>
-              </div>
-              <div class="header__bottom--extention-item header__bottom--extention-love">
-                <i class="fa-solid fa-heart"></i>
-                <span>Yêu thích</span>
-              </div>
-              <div class="header__bottom--extention-item header__bottom--extention-cart">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span>Giỏ hàng</span>
-              </div>
-            </div>
-
-            <div class="hide__menu--list__types">
-              <button class="hide__menu--list__type">MOUNTAIN</button>
-
-              <button class="hide__menu--list__type">ROAD</button>
-
-              <button class="hide__menu--list__type">TOURING</button>
-
-              <button class="hide__menu--list__type">ELECTRIC</button>
-
-              <button class="hide__menu--list__type">KIDS</button>
-            </div>
-          </div>
+          <i class="fa-solid fa-bars"></i>
         </div>
       </div>
 
@@ -174,8 +142,8 @@
 
       <div class="header__slider">
         <video src="./imgs/bg/NF24 US Video Marquee_1080p.mp4" muted></video>
-        <video src="./imgs/bg/STOKE Apparel SS22_1080p.mp4" muted></video>
-        <video src="./imgs/bg/Trek Émonda SLR Crazy Light Crazy Fast_1080p.mp4" muted></video>
+        <video src="./imgs/bg/Fuel EX_ Ace of All Trails.mp4" muted></video>
+        <video src="./imgs/bg/Trek Madone SLR  Fast Forward_1080p.mp4" muted></video>
 
         <ul class="dots">
           <li class="active"></li>
@@ -366,20 +334,20 @@
           <h1>Tạo tài khoản</h1>
           <form>
             <div class="register__info--input">
-              <label for="">Tên đầy đủ</label>
-              <input class="register__info--input-name" type="text" placeholder="Nhập tên của bạn" />
+              <label for="registerName">Tên đầy đủ</label>
+              <input class="register__info--input-name" id="registerName" type="text" placeholder="Nhập tên của bạn" />
               <p>* Vui lòng điền tên đầy đủ</p>
             </div>
 
             <div class="register__info--input">
-              <label for="">Địa chỉ email</label>
-              <input class="register__info--input-email" type="email" placeholder="Nhập email của bạn" />
+              <label for="registerEmail">Địa chỉ email</label>
+              <input class="register__info--input-email" id="registerEmail" type="email" placeholder="Nhập email của bạn" />
               <p>* Vui lòng điền email</p>
             </div>
 
             <div class="register__info--input">
-              <label for="">Mật khẩu</label>
-              <input class="register__info--input-password" type="password" placeholder="Nhập mật khẩu của bạn" />
+              <label for="registerPassword">Mật khẩu</label>
+              <input class="register__info--input-password" id="registerPassword" type="password" placeholder="Nhập mật khẩu của bạn" />
               <p>* Vui lòng điền mật khẩu</p>
             </div>
 
@@ -388,13 +356,13 @@
               <a href="">Chính sách bảo mật</a>
             </p>
 
-            <button class="register__info--submit">Đăng ký</button>
+            <input type="submit" class="register__info--submit"></input>
           </form>
 
-          <!-- <div class="signin">
+          <div class="signin" style="display: none;">
             <p>Bạn đã có tài khoản?</p>
             <button>Đăng nhập</button>
-          </div> -->
+          </div>
         </div>
 
         <div class="register__background">
@@ -425,7 +393,7 @@
               <a href="#">Bạn quên mật khẩu?</a>
             </div>
 
-            <button class="login__info--submit">Đăng nhập</button>
+            <input type="submit" class="login__info--submit"></input>
 
             <button class="login__info--create__other mb10px">
               <svg
@@ -477,16 +445,55 @@
             </button>
           </form>
 
-          <!-- <div class="register__again">
+          <div class="register__again" style="display: none;">
             <p>Bạn chưa có tài khoản?</p>
             <button>Đăng ký</button>
-          </div> -->
+          </div>
         </div>
         <div class="login__background">
           <h1>Chào, bạn!</h1>
           <p>Nhập thông tin cá nhân của bạn và bắt đầu hành trình với chúng tôi</p>
           <button>Đăng ký</button>
         </div>
+      </div>
+    </div>
+
+    <div class="hide__menu">
+      <button class="hide__menu--close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h1>TREK</h1>
+      <div class="hide__menu--list__extention">
+        <div class="header__bottom--extention-item header__bottom--extention-user">
+          <i class="fa-solid fa-user"></i>
+          <span>Tài khoản</span>
+          <i class="header__bottom--extention__icon fa-solid fa-arrow-right"></i>
+        </div>
+        <div class="header__bottom--extention-item header__bottom--extention-love">
+          <i class="fa-solid fa-heart"></i>
+          <span>Yêu thích</span>
+          <i class="header__bottom--extention__icon fa-solid fa-arrow-right"></i>
+        </div>
+        <div class="header__bottom--extention-item header__bottom--extention-cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Giỏ hàng</span>
+          <i class="header__bottom--extention__icon fa-solid fa-arrow-right"></i>
+        </div>
+
+        <div class="header__bottom--extention-item header__bottom--extention-cate">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>Danh mục</span>
+          <i class="header__bottom--extention__icon header__bottom--extention__icon--down fa-solid fa-caret-down"></i>
+          <i class="header__bottom--extention__icon header__bottom--extention__icon--up fa-solid fa-caret-up"></i>
+        </div>
+      </div>
+
+      <div class="hide__menu--list__types">
+        <div class="hide__menu--list__type"><a href="">MOUNTAIN</a></div>
+        <div class="hide__menu--list__type"><a href="">ROAD</a></div>
+        <div class="hide__menu--list__type"><a href="">TOURING</a></div>
+        <div class="hide__menu--list__type"><a href="">ELECTRIC</a></div>
+        <div class="hide__menu--list__type"><a href="">KIDS</a></div>
       </div>
     </div>
   </body>
