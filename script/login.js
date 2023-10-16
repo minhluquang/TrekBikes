@@ -1,17 +1,20 @@
+let isLoggedIn = false;
+const popUp = document.querySelector('.pop-up');
 // ============================= Start: SHOW FORM REG/LOG
 const userBtn = document.querySelector('.header__bottom--extention-user');
-const registerForm = document.querySelector('.register');
 const overlay = document.querySelector('.overlay');
-const closeBtnFormRes = document.querySelector('.register__info .form__close');
 const userWrapper = document.querySelector('.user__wrapper');
 
 const openFormRegister = () => {
-  userWrapper.classList.add('user__active');
-  userWrapper.classList.add('register__active');
-  overlay.classList.add('active__overlay');
+  if (!isLoggedIn) {
+    userWrapper.classList.add('user__active');
+    userWrapper.classList.add('register__active');
+    overlay.classList.add('active__overlay');
+  }
 };
 
 userBtn.addEventListener('click', e => {
+  checkLoggedIn();
   openFormRegister();
 });
 
@@ -25,8 +28,6 @@ section4Btn.addEventListener('click', e => {
 // ============================= Start: Switch mode reg/log
 //Change to login
 const signinBtn = document.querySelector('.register__background button');
-const loginForm = document.querySelector('.login');
-const closeBtnFormLogin = document.querySelector('.login__info .form__close');
 
 signinBtn.addEventListener('click', e => {
   userWrapper.classList.add('login__active');
@@ -36,7 +37,6 @@ signinBtn.addEventListener('click', e => {
 //Change to login when on low device
 const signinBtnOnLowDevice = document.querySelector('.signin button');
 const registerAgainOnLowDevice = document.querySelector('.register__again button');
-const loginInfo = document.querySelector('.login__info');
 
 signinBtnOnLowDevice.addEventListener('click', e => {
   userWrapper.classList.add('login__active');
@@ -47,6 +47,7 @@ registerAgainOnLowDevice.addEventListener('click', e => {
   userWrapper.classList.remove('login__active');
   userWrapper.classList.add('register__active');
 });
+//
 
 //Change to register when show login form
 const registerAgain = document.querySelector('.login__background button');
@@ -83,52 +84,67 @@ btnCloseGlobal.addEventListener('click', e => {
 import ACCOUNT_DATA from '../database/accounts.js';
 
 const registerSubmitBtn = document.querySelector('.register__info--submit');
-const registerNameValue = document.querySelector('.register__info--input-name');
-const registerEmailValue = document.querySelector('.register__info--input-email');
-const registerPasswordValue = document.querySelector('.register__info--input-password');
+const registerNameInput = document.querySelector('.register__info--input-name');
+const registerEmailInput = document.querySelector('.register__info--input-email');
+const registerPasswordInput = document.querySelector('.register__info--input-password');
 
-const registerInputFullName = document.querySelector('.register__info--input__full-name');
-const registerInputEmail = document.querySelector('.register__info--input__full-email');
-const registerInputPassword = document.querySelector('.register__info--input__full-password');
-
-let isValidRegister = true;
+const showMessageNameRes = document.querySelector('.register__info--input__full-name p');
+const showMessageEmailRes = document.querySelector('.register__info--input__full-email p');
+const showMessagePasswordRes = document.querySelector('.register__info--input__full-password p');
 
 registerSubmitBtn.addEventListener('click', e => {
   e.preventDefault();
-  const name = registerNameValue.value.trim();
-  const email = registerEmailValue.value.trim();
-  const password = registerPasswordValue.value.trim();
+  const name = registerNameInput.value.trim();
+  const email = registerEmailInput.value.trim();
+  const password = registerPasswordInput.value.trim();
+
+  let isValidName = true;
+  let isValidEmail = true;
+  let isValidPassword = true;
 
   if (name.length === 0) {
-    registerInputFullName.classList.add('active');
-    isValidRegister = false;
+    showMessageNameRes.innerText = '* Bạn chưa nhập tên đầy đủ';
+    isValidName = false;
   } else {
-    registerInputFullName.classList.remove('active');
-    isValidRegister = true;
+    showMessageNameRes.innerText = '';
   }
 
-  if (email.length === 0 || !email.includes('@')) {
-    registerInputEmail.classList.add('active');
-    isValidRegister = false;
+  if (email.length === 0) {
+    showMessageEmailRes.innerText = '* Bạn chưa nhập email';
+    isValidEmail = false;
+  } else if (!email.includes('@')) {
+    showMessageEmailRes.innerText = '* Email không hợp lệ';
+    isValidEmail = false;
   } else {
-    registerInputEmail.classList.remove('active');
-    isValidRegister = true;
+    if (ACCOUNT_DATA.length > 0) {
+      const isExist = ACCOUNT_DATA.find(account => account.email === email);
+      if (isExist) {
+        showMessageEmailRes.innerText = '* Email đã tồn tại';
+        isValidEmail = false;
+      } else {
+        showMessageEmailRes.innerText = '';
+      }
+    }
   }
 
-  if (password.length <= 8) {
-    registerInputPassword.classList.add('active');
-    isValidRegister = false;
+  if (password.length === 0) {
+    showMessagePasswordRes.innerText = '* Bạn chưa nhập mật khẩu';
+    isValidPassword = false;
+  } else if (password.length <= 8) {
+    showMessagePasswordRes.innerText = '* Mật khẩu phải trên 8 ký tự';
+    isValidPassword = false;
   } else {
-    registerInputPassword.classList.remove('active');
-    isValidRegister = true;
+    showMessagePasswordRes.innerText = '';
   }
+
+  const isValidRegister = isValidName && isValidEmail && isValidPassword;
 
   if (isValidRegister) {
     ACCOUNT_DATA.push({ name: name, email: email, password: password });
 
-    registerNameValue.value = '';
-    registerEmailValue.value = '';
-    registerPasswordValue.value = '';
+    registerNameInput.value = '';
+    registerEmailInput.value = '';
+    registerPasswordInput.value = '';
 
     localStorage.setItem('ACCOUNT_DATA', JSON.stringify(ACCOUNT_DATA));
   }
@@ -136,11 +152,104 @@ registerSubmitBtn.addEventListener('click', e => {
 
 const getData = () => {
   const dataFromLocalStorage = JSON.parse(localStorage.getItem('ACCOUNT_DATA'));
-  const updateData = [...ACCOUNT_DATA, ...dataFromLocalStorage];
-  ACCOUNT_DATA.length = 0
-  ACCOUNT_DATA.push(...updateData);
+  if (dataFromLocalStorage) {
+    const updateData = [...ACCOUNT_DATA, ...dataFromLocalStorage];
+    ACCOUNT_DATA.length = 0;
+    ACCOUNT_DATA.push(...updateData);
+  }
 };
 
 getData();
 // =========================== end: LOGIC FOR REGISTER ===========================
 
+// =========================== start: LOGIC FOR REGISTER ===========================
+const loginSubmitBtn = document.querySelector('.login__info--submit');
+const loginEmailInput = document.querySelector('.login__info--input-email');
+const loginPasswordInput = document.querySelector('.login__info--input-password');
+
+const showMessageEmailLog = document.querySelector('.login__info--input__full-email p');
+const showMessagePasswordLog = document.querySelector('.login__info--input__full-password p');
+
+loginSubmitBtn.addEventListener('click', e => {
+  e.preventDefault();
+
+  const email = loginEmailInput.value.trim();
+  const password = loginPasswordInput.value.trim();
+
+  let isValidEmail = true;
+  let isValidPassword = true;
+
+  if (email.length === 0) {
+    showMessageEmailLog.innerText = '* Bạn chưa nhập email';
+    isValidEmail = false;
+  } else if (!email.includes('@') && email !== 'admin') {
+    showMessageEmailLog.innerText = '* Email không hợp lệ';
+    isValidEmail = false;
+  } else {
+    showMessageEmailLog.innerText = '';
+  }
+
+  if (password.length === 0) {
+    showMessagePasswordLog.innerText = '* Bạn chưa nhập mật khẩu';
+    isValidPassword = false;
+  } else if (password.length <= 8 && password !== 'admin') {
+    showMessagePasswordLog.innerText = '* Mật khẩu phải trên 8 ký tự';
+    isValidPassword = false;
+  } else {
+    showMessagePasswordLog.innerText = '';
+  }
+
+  const isValidLogin = isValidEmail && isValidPassword;
+
+  if (isValidLogin) {
+    const findAccount = ACCOUNT_DATA.find(account => {
+      return account.email === email;
+    });
+
+    if (findAccount) {
+      if (findAccount.password === password) {
+        loginEmailInput.value = '';
+        loginPasswordInput.value = '';
+        localStorage.setItem('userLogin', JSON.stringify(findAccount));
+        showPopup();
+        checkLoggedIn();
+      } else {
+        showMessagePasswordLog.innerText = '* Bạn nhập sai mật khẩu';
+      }
+    } else {
+      showMessageEmailLog.innerText = '* Email không tồn tại';
+    }
+  }
+});
+
+// popup section
+const showPopup = () => {
+  popUp.classList.add('active');
+  userWrapper.classList.remove('user__active');
+  userWrapper.classList.remove('register__active');
+  overlay.classList.add('active__overlay');
+};
+
+const popupBtn = document.querySelector('.pop-up button');
+popupBtn.addEventListener('click', e => {
+  popUp.classList.remove('active');
+  hideFormRegLogin();
+});
+
+// =========================== end: LOGIC FOR REGISTER ===========================
+
+// =========================== start: IF LOGGEDIN ===========================
+const welcomeUser = document.querySelector('.user-welcome');
+const userName = welcomeUser.querySelector('p:last-child');
+
+const checkLoggedIn = () => {
+  const userLogin = JSON.parse(localStorage.getItem('userLogin'));
+  if (userLogin) {
+    isLoggedIn = true;
+    userName.innerText = userLogin.name;
+    welcomeUser.classList.add('active');
+    userBtn.removeEventListener('click', openFormRegister);
+  }
+};
+
+checkLoggedIn();
