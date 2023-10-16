@@ -678,6 +678,6 @@ const DATA_BASE = [
     dataColors: ['#000000', '#0093dd'],
     ID: '196185'
   }
-]
+];
 
-export default DATA_BASE
+export default DATA_BASE;

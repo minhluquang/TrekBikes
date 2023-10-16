@@ -14,10 +14,6 @@ reseizeAndLoadEvent.forEach(event => {
   });
 });
 
-
-
-
-
 //Sticky Navigation;
 const header = document.querySelector('.header');
 const topHeader = document.querySelector('.header__top');
