@@ -47,7 +47,6 @@ registerAgainOnLowDevice.addEventListener('click', e => {
   userWrapper.classList.remove('login__active');
   userWrapper.classList.add('register__active');
 });
-//
 
 //Change to register when show login form
 const registerAgain = document.querySelector('.login__background button');
