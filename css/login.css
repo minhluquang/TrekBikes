@@ -253,12 +253,6 @@
 .register__info--input p {
   margin: 10px 0 0;
   color: rgb(255, 92, 92);
-  display: none;
-}
-
-.login__info--input.active p,
-.register__info--input.active p {
-  display: block;
 }
 
 .policy {
