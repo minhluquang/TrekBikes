@@ -1,0 +1,246 @@
+
+
+
+a{
+    text-decoration: none;
+    color: black;
+}
+ul{
+    list-style: none;
+}
+.navbar{
+    top: 0;
+    width: 100%;
+    background-color: #fff;
+    padding:  10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    z-index: 9999;
+    
+}
+.navbar-brand{
+    width: 20%;
+    font-family: 'Kaushan Script', cursive;
+    margin-left: 100px;
+    font-size: 40px;
+    font-weight: bold;
+  
+  
+}
+.navbar-toggler{
+    display: none;
+    font-size: 24px;
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.05);
+    position: relative;
+    border: none;
+    cursor: pointer;
+    transition: transform .3s ease;
+}
+
+
+
+.navbar .navbar-container{
+    display: flex;
+    width: 100%;
+
+}
+
+
+
+
+.navbar-collapse{
+
+    
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.navbar-nav{
+    margin-right: 20px;
+    font-size: 22px;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    
+}
+.nav-item{
+    font-size: 24px;
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+.nav-item::after {
+    content: "";
+    width: 0;
+    height: 7px;
+    background-color: red;
+    position: absolute;
+    bottom: -25%;
+    left: 0;
+ 
+    transition: width 0.3s ease;
+  
+}
+
+.nav-item:hover::after {
+    /* Loại bỏ .nav-item sau khi :hover */
+    width: 100%;
+}
+.nav-item .item-cart {
+    position: absolute;
+    text-align: center;
+    width: 15px;
+    height: 15px;
+    padding: 2px;
+    top: 0;
+    font-size: 12px;
+    background-color: red;
+    border-radius: 5px;
+    right: 0;
+
+}
+
+.form-container{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.input-search{
+    width: 100%;
+
+    display: flex;
+    gap: 3%;
+}
+
+.input-search input{
+    
+    width: 80%;
+    padding:0px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(237, 237, 237);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+    transition: all .3s ease;
+    opacity: 0.7;
+   
+}
+.input-search input:focus{
+
+    opacity: 1;
+}
+.input-search #submit-btn{
+    width: 10%;
+    height: 30px;
+    background: #333;
+    color: white;
+    font-size: 20px;
+   border: none;
+   border-radius: 12px;
+    box-shadow: 0px 4px 0px 0px rgb(207, 205, 205);
+   cursor: pointer;
+   transition: all 0.3s ease;
+}
+.input-search #submit-btn:hover{
+   box-shadow: none;
+}
+
+form input:hover{   
+    box-shadow: none;
+   
+}
+
+form input:focus{
+    
+   outline: 2px solid #3333;
+}
+
+
+.nav-dropdown{
+    display: none;
+    width: 210px;
+    height: 100px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    
+}
+.nav-dropdown .menu{
+    
+    background-color: #3333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    border-radius: 10px;
+}
+.nav-dropdown .menu .item{
+   
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    border-top: 1px solid white;
+    
+}
+
+
+.nav-dropdown .menu li a{
+    color: black;
+    font-weight: bold;
+   
+}
+
+
+
+
+.searchValue{
+  
+    width: 80%;   
+    max-height: 730%;
+   
+    position: absolute;
+    top: 120%;
+    left: 0%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: #fff;
+    overflow: auto;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    /* border: 1px solid gray;*/
+    border-radius: 5px; 
+}
+
+.searchValue .searchItem{
+    padding: 5px;
+    width: 100%;   
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   border-top: 1px solid white;
+}
+.searchValue .searchItem img{
+    width: 70px;
+    height: 50px;   
+    object-fit: cover;
+}
+.searchValue .searchItem p{
+   color: black;
+}

@@ -7,20 +7,19 @@
 
     <link rel="icon" href="./imgs/logo/OIP.jpg" />
     <link rel="stylesheet" href="./fontawesome-free-6.4.2-web/css/all.min.css" />
-    <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/search.css" />
-    <link rel="stylesheet" href="./css/menu.css" />
-    <link rel="stylesheet" href="./css/login.css" />
-    <link rel="stylesheet" href="./css/popUp.css" />
-    <link rel="stylesheet" href="./css/toasts.css" />
-    <link rel="stylesheet" href="./css/responsive.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./components/search/search.css" />
+    <link rel="stylesheet" href="./components/menu/menu.css" />
+    <link rel="stylesheet" href="./components/login/login.css" />
+    <link rel="stylesheet" href="./components/popup/popUp.css" />
+    <link rel="stylesheet" href="./components/responsive/responsive.css" />
 
     <script type="module" defer src="./database/accounts.js"></script>
     <script defer src="./script.js"></script>
-    <script type="module" defer src="./script/login.js"></script>
-    <script type="module" defer src="./script/search.js"></script>
-    <script type="module" defer src="./script/menu.js"></script>
-    <script defer src="./script/slider.js"></script>
+    <script type="module" defer src="./components/login/login.js"></script>
+    <script type="module" defer src="./components/search/search.js"></script>
+    <script type="module" defer src="./components/menu/menu.js"></script>
+    <script defer src="./components/slider/slider.js"></script>
   </head>
   <body>
     <!-- =========== START: HEADER =========== -->
@@ -65,19 +64,19 @@
         <div class="header__bottom--list">
           <ul>
             <li>
-              <a href="">MOUNTAIN</a>
+              <a href="./html/product/product.html">MOUNTAIN</a>
             </li>
             <li>
-              <a href="">ROAD</a>
+              <a href="./html/product/product.html">ROAD</a>
             </li>
             <li>
-              <a href="">TOURING</a>
+              <a href="./html/product/product.html">TOURING</a>
             </li>
             <li>
-              <a href="">ELECTRIC</a>
+              <a href="./html/product/product.html">ELECTRIC</a>
             </li>
             <li>
-              <a href="">KIDS</a>
+              <a href="./html/product/product.html">KIDS</a>
             </li>
           </ul>
         </div>
@@ -100,7 +99,7 @@
               <i class="fa-solid fa-heart"></i>
             </div>
           </a>
-          <a href="">
+          <a href="./html/cart.html">
             <div class="header__bottom--extention-item header__bottom--extention-cart">
               <i class="fa-solid fa-cart-shopping"></i>
             </div>
@@ -122,9 +121,9 @@
       <!-- =========== START: HEADER SLIDER =========== -->
 
       <div class="header__slider">
-        <video src="./imgs/bg/NF24 US Video Marquee_1080p.mp4" muted></video>
-        <video src="./imgs/bg/Fuel EX_ Ace of All Trails.mp4" muted></video>
-        <video src="./imgs/bg/Trek Madone SLR  Fast Forward_1080p.mp4" muted></video>
+        <video src="./database/images/sliderVideos/NF24 US Video Marquee_1080p.mp4" muted></video>
+        <video src="./database/images/sliderVideos/Fuel EX_ Ace of All Trails.mp4" muted></video>
+        <video src="./database/images/sliderVideos/Trek Madone SLR  Fast Forward_1080p.mp4" muted></video>
 
         <ul class="dots">
           <li class="active"></li>
@@ -497,8 +496,6 @@
           <div class="hide__menu--list__type"><a href="">KIDS</a></div>
         </div>
       </div>
-
-      
     </div>
 
     <div class="pop-up">

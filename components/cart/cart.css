@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Outline&family=Dancing+Script:wght@400;500;600;700&family=Kaushan+Script&family=Manrope:wght@300;400;500;600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&family=Poppins:ital,wght@0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800&family=Press+Start+2P&family=Roboto:wght@100&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+a{
+    color: #fff;
+    text-decoration: none;
+}
+.header{
+    width: 100%;
+    color: #fff;
+    position: fixed;
+    z-index: 9999;
+   
+    /* display: flex;
+    justify-content: space-around;
+    align-items: center; */
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    background-color: #333;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.header .header-brand{
+    margin-left: 50%;
+    font-size: 50px;
+    font-family: 'Kaushan Script', cursive;
+}
+.header form{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+    gap: 10px;
+
+}
+.header form input{
+    width: 60%;
+    height: 35px;
+    border-radius: 5px;
+    outline: none;
+    padding: 10px;
+    
+}
+.header form button{
+    font-size: 20px;
+    width: 10%;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(255, 81, 81);
+    cursor: pointer;
+    
+    
+}
+.title{
+    font-size: 20px;
+    font-family: 'Kaushan Script', cursive;
+}
+
+
+.cart-info_container{
+    margin: 0 auto;
+    width: 80vw;
+    height: 100vh;
+    /* background-color: blue; */
+    transform: translateY(12%);
+}
+
+.cart-header{
+    width: 100%;
+    display: flex;
+
+}
+
+
+.name{
+    width: 50%;
+}
+
+.menu{
+    width: 50%;
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu li h3{
+    font-size: 15px;
+}
+.cart-info{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+    
+}
+.info-item-container{
+    width: 100%;
+    display: flex;
+}
+.info-item-container .name-img{
+    width: 50%; 
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; 
+    gap: 10px;
+}
+.info-item-container .name-img img{
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.info-item-container .item-info{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.info-item-container .item-info .total-price {
+   margin-right: 13%;
+}
+.id{
+    display: none;
+    opacity: 0;
+}
+
+
+

@@ -88,7 +88,7 @@ btnCloseGlobal.addEventListener('click', e => {
 // ============================= End: HIDE FORM
 
 // =========================== start: LOGIC FOR REGISTER ===========================
-import ACCOUNT_DATA from '../database/accounts.js';
+import ACCOUNT_DATA from '../../database/accounts.js';
 
 const registerSubmitBtn = document.querySelector('.register__info--submit');
 const registerNameInput = document.querySelector('.register__info--input-name');
@@ -149,11 +149,16 @@ registerSubmitBtn.addEventListener('click', e => {
   if (isValidRegister) {
     ACCOUNT_DATA.push({ name: name, email: email, password: password });
 
+    localStorage.setItem('ACCOUNT_DATA', JSON.stringify(ACCOUNT_DATA));
+    localStorage.setItem('userLogin', JSON.stringify({ name: name, email: email, password: password }));
+
+    location.reload();
+
     registerNameInput.value = '';
     registerEmailInput.value = '';
     registerPasswordInput.value = '';
 
-    localStorage.setItem('ACCOUNT_DATA', JSON.stringify(ACCOUNT_DATA));
+    checkLoggedIn();
   }
 });
 
@@ -215,11 +220,13 @@ loginSubmitBtn.addEventListener('click', e => {
 
     if (findAccount) {
       if (findAccount.password === password) {
+        localStorage.setItem('userLogin', JSON.stringify(findAccount));
+        // showPopup();
+        location.reload();
+
         loginEmailInput.value = '';
         loginPasswordInput.value = '';
-        localStorage.setItem('userLogin', JSON.stringify(findAccount));
-        showPopup();
-        location.reload();
+
         checkLoggedIn();
       } else {
         showMessagePasswordLog.innerText = '* Bạn nhập sai mật khẩu';
@@ -271,7 +278,7 @@ const checkLoggedIn = () => {
 
     // FOR ACOUNT BTN ON HIDE MENU
     userIconHideMenu.classList.add('active-down');
-    userIconHideMenu.addEventListener('click', e => { 
+    userIconHideMenu.addEventListener('click', e => {
       userListOnLowDevice.classList.toggle('active');
       userIconHideMenu.classList.toggle('active-down');
       userIconHideMenu.classList.toggle('active-up');

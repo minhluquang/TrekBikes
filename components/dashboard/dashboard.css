@@ -1,0 +1,40 @@
+.dashboard {
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    transition: left 0.3s;
+    z-index: 999999;
+    padding: 10px;
+}
+
+.dashboard.show {
+    left: 0;
+}
+
+.dashboard h1 {
+    margin: 0;
+}
+
+.dashboard i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.menu-button {
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+}
+
+.dash-board-icon-close {
+    cursor: pointer;
+}
