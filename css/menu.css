@@ -18,6 +18,20 @@
   transform: translate(100%, 0);
   transition: all 0.5s;
   box-shadow: rgba(46, 46, 46, 0.2) 0px 8px 24px;
+  overflow: scroll;
+}
+
+.hide__menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.hide__menu::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 5px;
+}
+
+.hide__menu::-webkit-scrollbar-track {
+  background: #ecebeb; /* Màu nền của thanh cuộn */
 }
 
 .hide__menu.active {
@@ -119,6 +133,44 @@
   font-size: 20px;
 }
 
+.hide__menu--user__list {
+  height: 0;
+  opacity: 0;
+  transition: 0.2s all linear;
+}
+
+.hide__menu--user__list.active {
+  opacity: 1;
+  height: 40px;
+}
+
+.hide__menu--user__list div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide__menu--user__list div:hover {
+  color: var(--hover-color);
+}
+
+.hide__menu--user__list div button {
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  background: transparent;
+  text-decoration: none;
+  color: #333;
+  padding: 10px 10px;
+  display: block;
+  cursor: pointer;
+  width: 100%;
+}
+
+.hide__menu--user__list div button:hover {
+  color: var(--hover-color);
+}
+
 .hide__menu--list__types {
   height: 0;
   transition: all 0.5s linear;
@@ -153,7 +205,6 @@
   padding: 10px 10px;
   display: block;
 }
-
 
 .hide__menu--list__type a:hover {
   color: var(--hover-color);

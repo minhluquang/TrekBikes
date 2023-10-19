@@ -329,12 +329,6 @@
   text-decoration: none;
 }
 
-/* .register__again {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
 .signin,
 .register__again {
   position: absolute;
@@ -359,6 +353,33 @@
   font-weight: 700;
   font-size: 15px;
   cursor: pointer;
+}
+
+/* start: CSS WHEN LOGIN OR NON LOGIN ON LOW DEVICE (HIDE MENU) */
+.hide__menu--list__extention .header__bottom--extention-user .header__bottom--extention__icon--up,
+.hide__menu--list__extention .header__bottom--extention-user .header__bottom--extention__icon--down {
+  display: none;
+}
+
+.active-up .header__bottom--extention__icon--right,
+.active-down .header__bottom--extention__icon--right {
+  display: none;
+}
+
+.active-up .header__bottom--extention__icon--up {
+  display: block!important;
+}
+
+.active-up .header__bottom--extention__icon--down {
+  display: none!important;
+}
+
+.active-down .header__bottom--extention__icon--down {
+  display: block!important;
+}
+
+.active-down .header__bottom--extention__icon--up {
+  display: none!important;
 }
 
 @keyframes bottomUp {

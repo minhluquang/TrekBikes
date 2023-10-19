@@ -25,20 +25,18 @@ overlay.addEventListener('click', e => {
 });
 
 //Account click event
-const userBtn = document.querySelector('.header__bottom--extention-user');
+const userBtn = document.querySelector('.hide__menu--list__extention .header__bottom--extention-user');
 const userWrapper = document.querySelector('.user__wrapper');
+
+// userBtn.addEventListener('click', (e) => {
+//   hideMenu.classList.remove('active');
+// })
 
 const openFormRegister = () => {
   userWrapper.classList.add('user__active');
   userWrapper.classList.add('register__active');
   overlay.classList.add('active__overlay');
 };
-
-const accountBtn = document.querySelector('.hide__menu--list__extention .header__bottom--extention-user');
-accountBtn.addEventListener('click', e => {
-  closeMenu();
-  openFormRegister();
-});
 
 //Show more catelogy
 const catelogyBtn = document.querySelector('.hide__menu--list__extention .header__bottom--extention-cate');
