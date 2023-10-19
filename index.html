@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="./fontawesome-free-6.4.2-web/css/all.min.css" />
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/search.css" />
-    <link rel="stylesheet" href="./css/login.css" />
     <link rel="stylesheet" href="./css/menu.css" />
+    <link rel="stylesheet" href="./css/login.css" />
     <link rel="stylesheet" href="./css/popUp.css" />
     <link rel="stylesheet" href="./css/toasts.css" />
     <link rel="stylesheet" href="./css/responsive.css" />
@@ -85,9 +85,14 @@
         <div class="header__bottom--extention">
           <div class="header__bottom--extention-item header__bottom--extention-user">
             <i class="fa-solid fa-user"></i>
-            <!-- <ul class="header__bottom--user__list">
-              <li>Đăng xuất</li>
-            </ul> -->
+            <ul class="header__bottom--user__list">
+              <li>
+                <button class="logout">
+                  <i class="fa-solid fa-door-open"></i>
+                  Đăng xuất
+                </button>
+              </li>
+            </ul>
           </div>
 
           <a href="">
@@ -103,51 +108,7 @@
           <div class="header__bottom--extention-item header__bottom--extention-search">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="Tìm kiếm sản phẩm" />
-            <div class="search__result">
-              <!-- <div class="header__bottom--result__item">
-                <img src="./imgs/bikes/Marlin4_22_29759_D_Primary 1.png" alt="bike" />
-                <div class="header__bottom--result__item--content">
-                  <div class="result__item--price">
-                    <h2>Marlin 4 Gen 2</h2>
-                    <p>5.000.000đ</p>
-                  </div>
-                  <button>Chi tiết</button>
-                </div>
-              </div>
-
-              <div class="header__bottom--result__item">
-                <img src="./imgs/bikes/Marlin4_22_29759_D_Primary 1.png" alt="bike" />
-                <div class="header__bottom--result__item--content">
-                  <div class="result__item--price">
-                    <h2>Marlin 4 Gen 2</h2>
-                    <p>5.000.000đ</p>
-                  </div>
-                  <button>Chi tiết</button>
-                </div>
-              </div>
-
-              <div class="header__bottom--result__item">
-                <img src="./imgs/bikes/Marlin4_22_29759_D_Primary 1.png" alt="bike" />
-                <div class="header__bottom--result__item--content">
-                  <div class="result__item--price">
-                    <h2>Marlin 4 Gen 2</h2>
-                    <p>5.000.000đ</p>
-                  </div>
-                  <button>Chi tiết</button>
-                </div>
-              </div>
-
-              <div class="header__bottom--result__item">
-                <img src="./imgs/bikes/Marlin4_22_29759_D_Primary 1.png" alt="bike" />
-                <div class="header__bottom--result__item--content">
-                  <div class="result__item--price">
-                    <h2>Marlin 4 Gen 2</h2>
-                    <p>5.000.000đ</p>
-                  </div>
-                  <button>Chi tiết</button>
-                </div>
-              </div> -->
-            </div>
+            <div class="search__result"></div>
           </div>
         </div>
 
@@ -504,7 +465,12 @@
         <div class="header__bottom--extention-item header__bottom--extention-user">
           <i class="fa-solid fa-user"></i>
           <span>Tài khoản</span>
-          <i class="header__bottom--extention__icon fa-solid fa-arrow-right"></i>
+          <i class="header__bottom--extention__icon header__bottom--extention__icon--right fa-solid fa-arrow-right"></i>
+          <i class="header__bottom--extention__icon header__bottom--extention__icon--down fa-solid fa-caret-down"></i>
+          <i class="header__bottom--extention__icon header__bottom--extention__icon--up fa-solid fa-caret-up"></i>
+        </div>
+        <div class="hide__menu--user__list">
+          <div class="hide__menu--list__type"><button>Đăng xuất</button></div>
         </div>
         <div class="header__bottom--extention-item header__bottom--extention-love">
           <i class="fa-solid fa-heart"></i>
@@ -523,15 +489,16 @@
           <i class="header__bottom--extention__icon header__bottom--extention__icon--down fa-solid fa-caret-down"></i>
           <i class="header__bottom--extention__icon header__bottom--extention__icon--up fa-solid fa-caret-up"></i>
         </div>
+        <div class="hide__menu--list__types">
+          <div class="hide__menu--list__type"><a href="">MOUNTAIN</a></div>
+          <div class="hide__menu--list__type"><a href="">ROAD</a></div>
+          <div class="hide__menu--list__type"><a href="">TOURING</a></div>
+          <div class="hide__menu--list__type"><a href="">ELECTRIC</a></div>
+          <div class="hide__menu--list__type"><a href="">KIDS</a></div>
+        </div>
       </div>
 
-      <div class="hide__menu--list__types">
-        <div class="hide__menu--list__type"><a href="">MOUNTAIN</a></div>
-        <div class="hide__menu--list__type"><a href="">ROAD</a></div>
-        <div class="hide__menu--list__type"><a href="">TOURING</a></div>
-        <div class="hide__menu--list__type"><a href="">ELECTRIC</a></div>
-        <div class="hide__menu--list__type"><a href="">KIDS</a></div>
-      </div>
+      
     </div>
 
     <div class="pop-up">
