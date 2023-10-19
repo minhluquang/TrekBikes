@@ -1,4 +1,5 @@
-import DATA_BASE from '../db.js';
+import DUMMY_PRODUCTS from '../../database/products.js';
+
 const resultSearch = document.querySelector('.search__result');
 const inputSearch = document.querySelector('.header__bottom--extention-search input');
 
@@ -9,9 +10,11 @@ inputSearch.addEventListener('input', e => {
     return;
   }
 
-  DATA_BASE.forEach(item => {
+  DUMMY_PRODUCTS.forEach(item => {
     const itemName = item.name.toLowerCase();
     const inputValue = e.target.value.toLowerCase();
+
+    console.log(item);
 
     if (itemName.includes(inputValue)) {
       const html = `
@@ -26,6 +29,7 @@ inputSearch.addEventListener('input', e => {
           </div>
         </div>
       `;
+
       resultSearch.insertAdjacentHTML('afterbegin', html);
     }
   });
