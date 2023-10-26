@@ -85,10 +85,16 @@
           <div class="header__bottom--extention-item header__bottom--extention-user">
             <i class="fa-solid fa-user"></i>
             <ul class="header__bottom--user__list">
+              <li class="adminManager__item" style="display: none">
+                <button class="adminManager">
+                  <i class="fa-solid fa-hammer"></i>
+                  <p>Quản lý</p>
+                </button>
+              </li>
               <li>
                 <button class="logout">
                   <i class="fa-solid fa-door-open"></i>
-                  Đăng xuất
+                  <p>Đăng xuất</p>
                 </button>
               </li>
             </ul>
@@ -332,12 +338,20 @@
 
             <div class="register__info--input register__info--input__full-password">
               <label for="registerPassword">Mật khẩu</label>
-              <input
-                class="register__info--input-password"
-                id="registerPassword"
-                type="password"
-                placeholder="Nhập mật khẩu của bạn"
-              />
+              <div class="password__container">
+                <input
+                  class="register__info--input-password"
+                  id="registerPassword"
+                  type="password"
+                  placeholder="Nhập mật khẩu của bạn"
+                />
+                <button class="showEyeRegister">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+                <button class="hideEyeRegister hide" >
+                  <i class="fa-solid fa-eye-slash"></i>
+                </button>
+              </div>
               <p></p>
             </div>
 
@@ -377,12 +391,28 @@
 
             <div class="login__info--input login__info--input__full-password">
               <label for="loginPassword">Mật khẩu</label>
-              <input
+              <!-- <input
                 class="login__info--input-password"
                 id="loginPassword"
                 type="password"
                 placeholder="Nhập mật khẩu của bạn"
-              />
+              /> -->
+
+
+              <div class="password__container">
+                <input
+                  class="login__info--input-password"
+                  id="loginPassword"
+                  type="password"
+                  placeholder="Nhập mật khẩu của bạn"
+                />
+                <button class="showEyeLogin">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+                <button class="hideEyeLogin hide" >
+                  <i class="fa-solid fa-eye-slash"></i>
+                </button>
+              </div>
               <p></p>
             </div>
 
@@ -469,6 +499,7 @@
           <i class="header__bottom--extention__icon header__bottom--extention__icon--up fa-solid fa-caret-up"></i>
         </div>
         <div class="hide__menu--user__list">
+          <div class="hide__menu--list__type adminManager__item" style="display: none"><button>Quản lý</button></div>
           <div class="hide__menu--list__type"><button>Đăng xuất</button></div>
         </div>
         <div class="header__bottom--extention-item header__bottom--extention-love">

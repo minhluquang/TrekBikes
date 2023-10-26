@@ -238,18 +238,18 @@ loginSubmitBtn.addEventListener('click', e => {
 });
 
 // popup section
-const showPopup = () => {
-  popUp.classList.add('active');
-  userWrapper.classList.remove('user__active');
-  userWrapper.classList.remove('register__active');
-  overlay.classList.add('active__overlay');
-};
+// const showPopup = () => {
+//   popUp.classList.add('active');
+//   userWrapper.classList.remove('user__active');
+//   userWrapper.classList.remove('register__active');
+//   overlay.classList.add('active__overlay');
+// };
 
-const popupBtn = document.querySelector('.pop-up button');
-popupBtn.addEventListener('click', e => {
-  popUp.classList.remove('active');
-  hideFormRegLogin();
-});
+// const popupBtn = document.querySelector('.pop-up button');
+// popupBtn.addEventListener('click', e => {
+//   popUp.classList.remove('active');
+//   hideFormRegLogin();
+// });
 
 // =========================== end: LOGIC FOR REGISTER ===========================
 
@@ -257,6 +257,7 @@ popupBtn.addEventListener('click', e => {
 const welcomeUser = document.querySelector('.user-welcome');
 const userName = welcomeUser.querySelector('p:last-child');
 const userList = document.querySelector('.header__bottom--user__list');
+const section4 = document.querySelector('.section--4-container');
 
 const checkLoggedIn = () => {
   const userLogin = JSON.parse(localStorage.getItem('userLogin'));
@@ -275,6 +276,10 @@ const checkLoggedIn = () => {
     userBtn.addEventListener('mouseover', e => {
       userList.style.display = 'block';
     });
+    userBtn.addEventListener('mouseout', e => {
+      userList.style.display = 'none';
+    });
+    section4.style.display = 'none';
 
     // FOR ACOUNT BTN ON HIDE MENU
     userIconHideMenu.classList.add('active-down');
@@ -283,6 +288,11 @@ const checkLoggedIn = () => {
       userIconHideMenu.classList.toggle('active-down');
       userIconHideMenu.classList.toggle('active-up');
     });
+
+    if (userLogin.email === 'admin') {
+      console.log(document.querySelectorAll('.adminManager__item'));
+      document.querySelectorAll('.adminManager__item').forEach(item => (item.style.display = 'block'));
+    }
   } else {
     userList.style.display = 'none';
     userIconHideMenu.addEventListener('click', e => {
@@ -306,3 +316,39 @@ const logoutHandler = () => {
 logoutLowDeviceBtn.addEventListener('click', logoutHandler);
 
 logoutBtn.addEventListener('click', logoutHandler);
+// =========================== end: LOGOUT LOGIC ===========================
+
+// =========================== start: VIEW/UNVIEW PASSWORD ===========================
+const showEyeRegister = document.querySelector('.showEyeRegister');
+const hideEyeRegister = document.querySelector('.hideEyeRegister');
+
+showEyeRegister.addEventListener('click', e => {
+  e.preventDefault();
+  registerPasswordInput.type = 'text';
+  showEyeRegister.classList.toggle('hide');
+  hideEyeRegister.classList.toggle('hide');
+});
+
+hideEyeRegister.addEventListener('click', e => {
+  e.preventDefault();
+  registerPasswordInput.type = 'password';
+  showEyeRegister.classList.toggle('hide');
+  hideEyeRegister.classList.toggle('hide');
+});
+
+const showEyeLogin = document.querySelector('.showEyeLogin');
+const hideEyeLogin = document.querySelector('.hideEyeLogin');
+
+showEyeLogin.addEventListener('click', e => {
+  e.preventDefault();
+  loginPasswordInput.type = 'text';
+  showEyeLogin.classList.toggle('hide');
+  hideEyeLogin.classList.toggle('hide');
+});
+
+hideEyeLogin.addEventListener('click', e => {
+  e.preventDefault();
+  loginPasswordInput.type = 'password';
+  showEyeLogin.classList.toggle('hide');
+  hideEyeLogin.classList.toggle('hide');
+});

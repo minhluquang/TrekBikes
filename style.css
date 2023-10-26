@@ -248,6 +248,15 @@ body {
   outline: none;
 }
 
+.header__bottom--user__list li i {
+  float: left;
+  margin-left: 5px;
+}
+
+.header__bottom--user__list li p {
+  float: left;
+  margin-left: 10px;
+}
 
 /* .header__bottom--user__list li:first-child {
   border-top-left-radius: 5px;

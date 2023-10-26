@@ -249,10 +249,57 @@
   border: none;
 }
 
+.register__info--input .register__info--input-password {
+  padding-right: 50px;
+}
+
 .login__info--input p,
 .register__info--input p {
   margin: 10px 0 0;
   color: rgb(255, 92, 92);
+}
+
+.password__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.password__container input {
+  width: 100%;
+}
+
+.password__container button {
+  position: absolute;
+  right: 0;
+  width: 40px;
+  background-color: #333;
+  color: #fff;
+  height: 37px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 1px;
+  box-shadow: rgb(154, 154, 154) 0px 3px 0px 0px;
+  line-height: 40px;
+  border: none;
+}
+
+.password__container button:focus {
+  outline: none;
+}
+
+.password__container button:active {
+  transform: translateY(3px);
+  box-shadow: rgb(154, 154, 154) 0px 0px 0px 0px;
+}
+
+.password__container i {
+}
+
+.hide {
+  display: none;
 }
 
 .policy {
@@ -367,19 +414,19 @@
 }
 
 .active-up .header__bottom--extention__icon--up {
-  display: block!important;
+  display: block !important;
 }
 
 .active-up .header__bottom--extention__icon--down {
-  display: none!important;
+  display: none !important;
 }
 
 .active-down .header__bottom--extention__icon--down {
-  display: block!important;
+  display: block !important;
 }
 
 .active-down .header__bottom--extention__icon--up {
-  display: none!important;
+  display: none !important;
 }
 
 @keyframes bottomUp {
