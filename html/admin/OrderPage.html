@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trek - Quản lý cửa hàng</title>
+    <link rel="stylesheet" href="../../fontawesome-free-6.4.2-web/css/all.min.css" />
+    <link rel="stylesheet" href="../../components/OrderAdmin/OrderAdmin.css" />
+
+    <script defer src="../../components/OrderAdmin/OrderAdmin.css"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="admin__taskbar">
+        <div class="admin__taskbar--header">
+          <div class="admin__taskbar--header__img">
+            <img src="../../database/images/logo/trek_logo_vertical_red.png" alt="" />
+          </div>
+          <div class="admin__taskbar--header__content">
+            <h1>Admin</h1>
+            <div class="admin__taskbar--header__status">
+              <span></span>
+              <p>Online</p>
+            </div>
+          </div>
+        </div>
+        <div class="hr"></div>
+        <ul class="admin__taskbar--body__list">
+          <li class="admin__taskbar--body__item">
+            <a href="">
+              <i class="fa-solid fa-house-chimney"></i>
+              Trang chủ
+            </a>
+          </li>
+          <li class="admin__taskbar--body__item">
+            <a href="">
+              <i class="fa-solid fa-bicycle"></i>
+              Sản phẩm
+            </a>
+          </li>
+          <li class="admin__taskbar--body__item">
+            <a href="">
+              <i class="fa-solid fa-cart-shopping"></i>
+              Đơn hàng
+            </a>
+          </li>
+          <li class="admin__taskbar--body__item">
+            <a href="">
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+              Cấu hình
+            </a>
+          </li>
+          <li class="admin__taskbar--body__item">
+            <a href="">
+              <i class="fa-solid fa-chart-column"></i>
+              Thống kế
+            </a>
+          </li>
+        </ul>
+
+        <button class="admin__task--footer">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Đăng xuất
+        </button>
+      </div>
+
+      <div class="admin__content">
+        <div class="admin__content--header">
+          <h1>Quản lý đơn hàng</h1>
+        </div>
+
+        <div class="admin__content--body">
+          <div class="admin__content--body__top">
+            <div class="admin__content--body__search">
+              <h1>Tìm kiếm</h1>
+              <input type="text" placeholder="Nhập nội dung cần tìm kiếm" />
+              <button>
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+
+            <div class="admin__content--body__filter">
+              <h1>Lọc theo</h1>
+              <input type="date" />
+            </div>
+          </div>
+
+          <div class="admin__content--body__content">
+            <ul class="admin__content--body__list">
+              <li class="admin__content--body__id">Mã khách hàng</li>
+              <li class="admin__content--body__img">Hình ảnh</li>
+              <li class="admin__content--body__name">Tên sản phẩm</li>
+              <li class="admin__content--body__qnt">Số lượng</li>
+              <li class="admin__content--body__status">Trạng thái</li>
+              <li class="admin__content--body__btn">Xóa</li>
+            </ul>
+            <div class="admin__content--body__products">
+              <ul class="admin__content--body__products--item isActiveStatus">
+                <li class="admin__content--body__id products--item__id">123123781239</li>
+                <li class="admin__content--body__img products--item__img">
+                  <div>
+                    <img src="../../database/images/productImgs/520Disc_19_24000_A_Primary-571x379.jpg" alt="" />
+                  </div>
+                </li>
+                <li class="admin__content--body__name products--item__name">Procaliber 9.7 [2024]</li>
+                <li class="admin__content--body__qnt products--item__qnt">
+                  <input type="number" min="1" step="1" />
+                </li>
+                <li class="admin__content--body__status products--item__status">
+                  Đã xử lý
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </li>
+                <li class="admin__content--body__btn products--item__btn">
+                  <button><i class="fa-solid fa-x"></i></button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
