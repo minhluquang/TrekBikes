@@ -147,12 +147,17 @@ registerSubmitBtn.addEventListener('click', e => {
   const isValidRegister = isValidName && isValidEmail && isValidPassword;
 
   if (isValidRegister) {
-    ACCOUNT_DATA.push({ name: name, email: email, password: password });
+    const id = Date.now().toString();
+    const date = new Date().toISOString();
+    ACCOUNT_DATA.push({ id: id, name: name, email: email, password: password, dateRegister: date });
 
     localStorage.setItem('ACCOUNT_DATA', JSON.stringify(ACCOUNT_DATA));
-    localStorage.setItem('userLogin', JSON.stringify({ name: name, email: email, password: password }));
+    localStorage.setItem(
+      'userLogin',
+      JSON.stringify({ id: id, name: name, email: email, password: password, dateRegister: date })
+    );
 
-    location.reload();
+    // location.reload();
 
     registerNameInput.value = '';
     registerEmailInput.value = '';
@@ -284,13 +289,12 @@ const checkLoggedIn = () => {
     // FOR ACOUNT BTN ON HIDE MENU
     userIconHideMenu.classList.add('active-down');
     userIconHideMenu.addEventListener('click', e => {
-      userListOnLowDevice.classList.toggle('active');
+      userListOnLowDevice.classList.toggle('active__onHideMenu');
       userIconHideMenu.classList.toggle('active-down');
       userIconHideMenu.classList.toggle('active-up');
     });
 
     if (userLogin.email === 'admin') {
-      console.log(document.querySelectorAll('.adminManager__item'));
       document.querySelectorAll('.adminManager__item').forEach(item => (item.style.display = 'block'));
     }
   } else {
@@ -306,7 +310,7 @@ checkLoggedIn();
 
 // =========================== start: LOGOUT LOGIC ===========================
 const logoutBtn = document.querySelector('.logout');
-const logoutLowDeviceBtn = document.querySelector('.hide__menu--list__type button');
+const logoutLowDeviceBtn = document.querySelector('.hide__menu--list__type.logout__item');
 
 const logoutHandler = () => {
   localStorage.removeItem('userLogin');

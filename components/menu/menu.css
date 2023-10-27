@@ -141,6 +141,11 @@
 
 .hide__menu--user__list.active {
   opacity: 1;
+  height: 40px;
+}
+
+.hide__menu--user__list.active__onHideMenu {
+  opacity: 1;
   height: 80px;
 }
 
