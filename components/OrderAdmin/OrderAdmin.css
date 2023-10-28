@@ -298,6 +298,115 @@ body {
 }
 /* End: Task */
 
+/* Start: Filter */
+.admin__content--body__filter {
+  height: auto;
+  width: 60%;
+  background-color: #fff;
+  margin: 20px 20px 0;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.admin__content--body__filter h1 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.admin__content--body__filter--gr1,
+.admin__content--body__filter--gr2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.body__filter--nameClient {
+  width: 60%;
+}
+
+.body__filter--nameClient p,
+.body__filter--idClient p,
+.body__filter--status p,
+.body__filter--nameProduct p,
+.body__filter--quantity p {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.body__filter--nameClient input,
+.body__filter--idClient input,
+.body__filter--status select,
+.body__filter--nameProduct input,
+.body__filter--quantity input {
+  width: 100%;
+  height: 35px;
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #333;
+}
+
+.body__filter--idClient {
+  width: 20%;
+}
+
+.body__filter--status {
+  width: 20%;
+}
+
+.admin__content--body__filter--gr2 {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.body__filter--nameProduct {
+  width: 60%;
+}
+.body__filter--quantity {
+  width: 20%;
+}
+
+.body__filter--actions {
+  float: right;
+}
+
+.body__filter--actions button {
+  border: none;
+  height: 40px;
+  width: 80px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-weight: 600;
+}
+
+.body__filter--actions button:focus {
+  outline: none;
+}
+
+.body__filter--actions button:active {
+  transform: translateY(3px);
+  box-shadow: rgb(154, 154, 154) 0px 0px 0px 0px;
+}
+
+.body__filter--action__reset {
+  color: #333;
+  background-color: #eee;
+  box-shadow: rgb(154, 154, 154) 0px 3px 0px 0px;
+}
+
+.body__filter--action__filter {
+  color: #333;
+  background-color: rgb(69, 220, 69);
+  box-shadow: rgba(48, 191, 13, 0.983) 0px 3px 0px 0px;
+}
+/* End: Filter */
+
 /* Start: Content */
 .admin__content {
   position: relative;
@@ -322,6 +431,7 @@ body {
   transition: all 0.5s;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 3px 0px 2px 0px rgba(0, 0, 0, 0.3);
 }
 
 .admin__content--header::before {
@@ -448,14 +558,6 @@ body {
   border-radius: 5px;
   position: absolute;
   right: 0px;
-}
-
-.admin__content--body__filter {
-  width: 300px;
-}
-
-.admin__content--body__filter input {
-  width: 50%;
 }
 
 .admin__content--body__content {
@@ -774,7 +876,8 @@ body {
 }
 
 .modal__actions button {
-  color: #eee;
+  color: #333;
+  font-weight: 600;
   border: none;
   padding: 5px 10px;
   border-radius: 5px;
@@ -793,11 +896,12 @@ body {
 }
 
 .modal__action--exit {
+  color: #fff !important;
   background-color: red;
   box-shadow: rgb(248, 119, 119) 0px 3px 0px 0px;
 }
 
-.modal__action--process{
+.modal__action--process {
   background-color: rgb(69, 220, 69);
   box-shadow: rgba(48, 191, 13, 0.983) 0px 3px 0px 0px;
 }
@@ -810,7 +914,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0,0,0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 11;
   opacity: 0;
   transition: all 0.5s;

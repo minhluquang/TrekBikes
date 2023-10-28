@@ -64,7 +64,24 @@ btnProcess.addEventListener('click', e => {
 const deleteBtns = document.querySelectorAll('.products--item__btn');
 
 deleteBtns.forEach((item, idx) => {
-  item.addEventListener('click', (e) => {
+  item.addEventListener('click', e => {
     // Logic
-  })
-})
+  });
+});
+// end: Delete item
+
+// start: filter
+const filterBtn = document.querySelector('.body__filter--action__filter');
+const contentListProduct = document.querySelector('.admin__content--body__list');
+
+filterBtn.addEventListener('click', e => {
+  e.preventDefault();
+  console.log(contentListProduct.getBoundingClientRect().top);
+
+  window.scrollTo({
+    top: contentListProduct.getBoundingClientRect().top + window.scrollY - contentListProduct.clientHeight,
+    behavior: 'smooth'
+  });
+});
+
+// end: filter

@@ -81,20 +81,55 @@
           <i class="fa-solid fa-bars"></i>
           <p>Danh mục</p>
         </div>
-        <div class="admin__content--header__search">
+        <!-- <div class="admin__content--header__search">
           <input type="text" placeholder="Nhập nội dung cần tìm kiếm" />
           <div>
             <i class="fa-solid fa-magnifying-glass"></i>
           </div>
-        </div>
+        </div> -->
         <div class="admin__content--header__user">
           <p><i class="fa-solid fa-user-shield"></i>Nguyễn Văn A</p>
         </div>
       </div>
+
       <div class="admin__content">
         <div class="admin__content--body">
           <div class="admin__content--body__top">
-            <div class="admin__content--body__filter"></div>
+            <form class="admin__content--body__filter">
+              <h1>Lọc sản phẩm</h1>
+              <div class="admin__content--body__filter--gr1">
+                <div class="body__filter--nameClient">
+                  <p>Tên khách hàng</p>
+                  <input type="text" value="" placeholder="Nhập tên khách hàng" />
+                </div>
+                <div class="body__filter--idClient">
+                  <p>Mã khách hàng</p>
+                  <input type="text" value="" placeholder="Nhập mã khách hàng" />
+                </div>
+                <div class="body__filter--status">
+                  <p>Trạng thái</p>
+                  <select name="" id="">
+                    <option value="">Chọn trạng thái</option>
+                    <option value="valid">Đã xử lý</option>
+                    <option value="invalid">Chưa xử lý</option>
+                  </select>
+                </div>
+              </div>
+              <div class="admin__content--body__filter--gr2">
+                <div class="body__filter--nameProduct">
+                  <p>Tên sản phẩm</p>
+                  <input type="text" value="" placeholder="Nhập tên sản phẩm" />
+                </div>
+                <div class="body__filter--quantity">
+                  <p>Số lượng</p>
+                  <input type="number" value="" placeholder="Nhập số lượng" />
+                </div>
+              </div>
+              <div class="body__filter--actions">
+                <button type="reset" class="body__filter--action__reset">Reset</button>
+                <button class="body__filter--action__filter">Lọc</button>
+              </div>
+            </form>
           </div>
 
           <div class="admin__content--body__content">
