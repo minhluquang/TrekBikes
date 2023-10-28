@@ -7,21 +7,25 @@
     <link rel="stylesheet" href="../../fontawesome-free-6.4.2-web/css/all.min.css" />
     <link rel="stylesheet" href="../../components/OrderAdmin/OrderAdmin.css" />
 
-    <script defer src="../../components/OrderAdmin/OrderAdmin.css"></script>
+    <script defer src="../../components/OrderAdmin/OrderAdmin.js"></script>
   </head>
   <body>
     <div class="container">
       <div class="admin__taskbar">
         <div class="admin__taskbar--header">
-          <div class="admin__taskbar--header__img">
+          <!-- <div class="admin__taskbar--header__img">
             <img src="../../database/images/logo/trek_logo_vertical_red.png" alt="" />
-          </div>
+          </div> -->
           <div class="admin__taskbar--header__content">
-            <h1>Admin</h1>
-            <div class="admin__taskbar--header__status">
+            <div>
+              <img src="../../database/images/logo/logo_on_menu_adm.jpg" alt="" />
+            </div>
+
+            <h1>AdminHub</h1>
+            <!-- <div class="admin__taskbar--header__status">
               <span></span>
               <p>Online</p>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="hr"></div>
@@ -29,60 +33,68 @@
           <li class="admin__taskbar--body__item">
             <a href="">
               <i class="fa-solid fa-house-chimney"></i>
-              Trang chủ
+              <p>Trang chủ</p>
             </a>
           </li>
           <li class="admin__taskbar--body__item">
             <a href="">
               <i class="fa-solid fa-bicycle"></i>
-              Sản phẩm
+              <p>Sản phẩm</p>
             </a>
           </li>
-          <li class="admin__taskbar--body__item">
+          <li class="admin__taskbar--body__item active">
             <a href="">
               <i class="fa-solid fa-cart-shopping"></i>
-              Đơn hàng
+              <p>Đơn hàng</p>
             </a>
           </li>
           <li class="admin__taskbar--body__item">
             <a href="">
               <i class="fa-solid fa-screwdriver-wrench"></i>
-              Cấu hình
+              <p>Cấu hình</p>
             </a>
           </li>
           <li class="admin__taskbar--body__item">
             <a href="">
               <i class="fa-solid fa-chart-column"></i>
-              Thống kế
+              <p>Thống kế</p>
             </a>
           </li>
         </ul>
 
-        <button class="admin__task--footer">
-          <i class="fa-solid fa-right-from-bracket"></i>
-          Đăng xuất
-        </button>
-      </div>
+        <div class="hr"></div>
 
-      <div class="admin__content">
-        <div class="admin__content--header">
-          <h1>Quản lý đơn hàng</h1>
+        <div class="admin__taskbar--footer">
+          <button>
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <p>Đăng xuất</p>
+          </button>
         </div>
 
+        <!-- <button class="admin__task--footer">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Đăng xuất
+        </button> -->
+      </div>
+      <div class="admin__content--header">
+        <div class="admin__content--header__cate">
+          <i class="fa-solid fa-bars"></i>
+          <p>Danh mục</p>
+        </div>
+        <div class="admin__content--header__search">
+          <input type="text" placeholder="Nhập nội dung cần tìm kiếm" />
+          <div>
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+        </div>
+        <div class="admin__content--header__user">
+          <p><i class="fa-solid fa-user-shield"></i>Nguyễn Văn A</p>
+        </div>
+      </div>
+      <div class="admin__content">
         <div class="admin__content--body">
           <div class="admin__content--body__top">
-            <div class="admin__content--body__search">
-              <h1>Tìm kiếm</h1>
-              <input type="text" placeholder="Nhập nội dung cần tìm kiếm" />
-              <button>
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </button>
-            </div>
-
-            <div class="admin__content--body__filter">
-              <h1>Lọc theo</h1>
-              <input type="date" />
-            </div>
+            <div class="admin__content--body__filter"></div>
           </div>
 
           <div class="admin__content--body__content">
@@ -114,10 +126,150 @@
                   <button><i class="fa-solid fa-x"></i></button>
                 </li>
               </ul>
+              <ul class="admin__content--body__products--item isNonActiveStatus">
+                <li class="admin__content--body__id products--item__id">123123781239</li>
+                <li class="admin__content--body__img products--item__img">
+                  <div>
+                    <img src="../../database/images/productImgs/520Disc_19_24000_A_Primary-571x379.jpg" alt="" />
+                  </div>
+                </li>
+                <li class="admin__content--body__name products--item__name">Procaliber 9.7 [2024]</li>
+                <li class="admin__content--body__qnt products--item__qnt">
+                  <input type="number" min="1" step="1" />
+                </li>
+                <li class="admin__content--body__status products--item__status">
+                  Chưa xử lý
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </li>
+                <li class="admin__content--body__btn products--item__btn">
+                  <button><i class="fa-solid fa-x"></i></button>
+                </li>
+              </ul>
+              <ul class="admin__content--body__products--item isActiveStatus">
+                <li class="admin__content--body__id products--item__id">123123781239</li>
+                <li class="admin__content--body__img products--item__img">
+                  <div>
+                    <img src="../../database/images/productImgs/520Disc_19_24000_A_Primary-571x379.jpg" alt="" />
+                  </div>
+                </li>
+                <li class="admin__content--body__name products--item__name">Procaliber 9.7 [2024]</li>
+                <li class="admin__content--body__qnt products--item__qnt">
+                  <input type="number" min="1" step="1" />
+                </li>
+                <li class="admin__content--body__status products--item__status">
+                  Đã xử lý
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </li>
+                <li class="admin__content--body__btn products--item__btn">
+                  <button><i class="fa-solid fa-x"></i></button>
+                </li>
+              </ul>
+              <ul class="admin__content--body__products--item isActiveStatus">
+                <li class="admin__content--body__id products--item__id">123123781239</li>
+                <li class="admin__content--body__img products--item__img">
+                  <div>
+                    <img src="../../database/images/productImgs/520Disc_19_24000_A_Primary-571x379.jpg" alt="" />
+                  </div>
+                </li>
+                <li class="admin__content--body__name products--item__name">Procaliber 9.7 [2024]</li>
+                <li class="admin__content--body__qnt products--item__qnt">
+                  <input type="number" min="1" step="1" />
+                </li>
+                <li class="admin__content--body__status products--item__status">
+                  Đã xử lý
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </li>
+                <li class="admin__content--body__btn products--item__btn">
+                  <button><i class="fa-solid fa-x"></i></button>
+                </li>
+              </ul>
+              <ul class="admin__content--body__products--item isActiveStatus">
+                <li class="admin__content--body__id products--item__id">123123781239</li>
+                <li class="admin__content--body__img products--item__img">
+                  <div>
+                    <img src="../../database/images/productImgs/520Disc_19_24000_A_Primary-571x379.jpg" alt="" />
+                  </div>
+                </li>
+                <li class="admin__content--body__name products--item__name">Procaliber 9.7 [2024]</li>
+                <li class="admin__content--body__qnt products--item__qnt">
+                  <input type="number" min="1" step="1" />
+                </li>
+                <li class="admin__content--body__status products--item__status">
+                  Đã xử lý
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </li>
+                <li class="admin__content--body__btn products--item__btn">
+                  <button><i class="fa-solid fa-x"></i></button>
+                </li>
+              </ul>
+              <ul class="admin__content--body__products--item isActiveStatus">
+                <li class="admin__content--body__id products--item__id">123123781239</li>
+                <li class="admin__content--body__img products--item__img">
+                  <div>
+                    <img src="../../database/images/productImgs/520Disc_19_24000_A_Primary-571x379.jpg" alt="" />
+                  </div>
+                </li>
+                <li class="admin__content--body__name products--item__name">Procaliber 9.7 [2024]</li>
+                <li class="admin__content--body__qnt products--item__qnt">
+                  <input type="number" min="1" step="1" />
+                </li>
+                <li class="admin__content--body__status products--item__status">
+                  Đã xử lý
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </li>
+                <li class="admin__content--body__btn products--item__btn">
+                  <button><i class="fa-solid fa-x"></i></button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="pagination">
+            <div>
+              <i class="fa-solid fa-chevron-left"></i>
+              Trang
+              <input type="text" value="1" />
+              của 20
+              <i class="fa-solid fa-chevron-right"></i>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="overlay"></div>
+
+    <div class="modal">
+      <form action="">
+        <div class="modal__content">
+          <div class="modal__content--header">
+            <h1>Thông tin chi tiết</h1>
+          </div>
+          <div class="modal__content--id__user">
+            <h1>Mã khách hàng</h1>
+            <p>123456789</p>
+          </div>
+          <div class="modal__content--username">
+            <h1>Tên khách hàng</h1>
+            <p>Nguyễn Thị B</p>
+          </div>
+          <div class="modal__content--product">
+            <ul class="modal__content--product__title">
+              <li class="product__title--id">Mã sản phẩm</li>
+              <li class="product__title--name">Tên sản phẩm</li>
+              <li class="product__title--qnt">Số lượng</li>
+            </ul>
+            <ul class="modal__content--product__item">
+              <li class="product__item--id">a07c4d6ca1</li>
+              <li class="product__item--name">Procaliber 9.7 [2024]</li>
+              <li class="product__item--qnt">4</li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal__actions">
+          <button class="modal__action--exit">Thoát</button>
+          <button class="modal__action--process">Xử lý</button>
+        </div>
+      </form>
     </div>
   </body>
 </html>

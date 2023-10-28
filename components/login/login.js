@@ -322,7 +322,14 @@ logoutLowDeviceBtn.addEventListener('click', logoutHandler);
 logoutBtn.addEventListener('click', logoutHandler);
 // =========================== end: LOGOUT LOGIC ===========================
 
-// =========================== start: VIEW/UNVIEW PASSWORD ===========================
+// =========================== start: GO TO ADMIN PAGE ===========================
+const manageBtn = document.querySelector('.adminManager');
+
+manageBtn.addEventListener('click', e => {
+  window.location.href = '/html/admin/OrderPage.html';
+});
+
+// =========================== end: GO TO ADMIN PAGE ===========================
 const showEyeRegister = document.querySelector('.showEyeRegister');
 const hideEyeRegister = document.querySelector('.hideEyeRegister');
 
