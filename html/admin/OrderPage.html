@@ -259,13 +259,17 @@
             </div>
           </div>
           <div class="pagination">
-            <div>
-              <i class="fa-solid fa-chevron-left"></i>
-              Trang
-              <input type="text" value="1" />
-              của 20
-              <i class="fa-solid fa-chevron-right"></i>
-            </div>
+            <button data-goto="1" data-of="6" class="btn--inline pagination__btn--prev">
+              <i class="fa-solid fa-arrow-left"></i>
+              <span>1</span>
+              <span> of 6</span>
+            </button>
+            <span class="currentPage">2</span>
+            <button data-goto="3" data-of="6" class="btn--inline pagination__btn--next">
+              <span>3</span>
+              <span> of 6</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
           </div>
         </div>
       </div>
