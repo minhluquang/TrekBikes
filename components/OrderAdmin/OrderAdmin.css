@@ -331,7 +331,8 @@ body {
 .body__filter--idClient p,
 .body__filter--status p,
 .body__filter--nameProduct p,
-.body__filter--quantity p {
+.body__filter--quantity p,
+.body__filter--type p {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 5px;
@@ -341,7 +342,8 @@ body {
 .body__filter--idClient input,
 .body__filter--status select,
 .body__filter--nameProduct input,
-.body__filter--quantity input {
+.body__filter--quantity input,
+.body__filter--type select {
   width: 100%;
   height: 35px;
   padding: 5px 10px;
@@ -363,10 +365,16 @@ body {
   justify-content: start;
   align-items: center;
 }
+
 .body__filter--nameProduct {
   width: 60%;
 }
+
 .body__filter--quantity {
+  width: 20%;
+}
+
+.body__filter--type {
   width: 20%;
 }
 
@@ -719,6 +727,7 @@ body {
 .pagination button {
   border: none;
   background-color: #333;
+  box-shadow: rgb(154, 154, 154) 0px 3px 0px 0px;
   color: #fff;
   height: 40px;
   padding: 5px 10px;
@@ -729,6 +738,11 @@ body {
 
 .pagination button:focus {
   outline: none;
+}
+
+.pagination button:active {
+  transform: translateY(3px);
+  box-shadow: rgb(154, 154, 154) 0px 0px 0px 0px;
 }
 
 .currentPage {
@@ -751,12 +765,14 @@ body {
   visibility: hidden;
   transition: transform 0.5s;
   opacity: 0;
-  transform: translateY(-100%) scale(0);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%) scale(0);
 }
 
 .modal.active {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translate(-50%, -50%) scale(1);
   visibility: visible;
 }
 
@@ -793,7 +809,8 @@ body {
 .modal__content--id__user p,
 .modal__content--username p {
   font-size: 16px;
-  min-width: 120px;
+  min-width: 200px;
+  max-width: 100%;
   padding: 5px 10px;
   background-color: #eee;
   height: 30px;

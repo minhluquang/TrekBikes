@@ -157,7 +157,7 @@ registerSubmitBtn.addEventListener('click', e => {
       JSON.stringify({ id: id, name: name, email: email, password: password, dateRegister: date })
     );
 
-    // location.reload();
+    location.reload();
 
     registerNameInput.value = '';
     registerEmailInput.value = '';

@@ -1,7 +1,7 @@
 const DUMMY_PRODUCTS = [
   {
     name: 'Procaliber 9.7 [2024]',
-    imgSrc: 'database\\images\\productImgs\\Procaliber97_24_WHT_Primary-571x379.jpg',
+    imgSrc: '\\database\\images\\productImgs\\Procaliber97_24_WHT_Primary-571x379.jpg',
     price: '105.000.000 VND',
     dataColors: ['#ffffff', '#000000'],
     ID: 'a07c4d6ca1',
@@ -9,7 +9,7 @@ const DUMMY_PRODUCTS = [
   },
   {
     name: 'Fuel EX 5 Gen 6 [2023]',
-    imgSrc: 'database\\images\\productImgs\\FueL_EX5-2023_gen6_Hero-571x379.jpg',
+    imgSrc: '\\database\\images\\productImgs\\FueL_EX5-2023_gen6_Hero-571x379.jpg',
     price: '65.000.000 VND',
     dataColors: ['#303030', '#000000'],
     ID: '36b9b496cb',
@@ -17,7 +17,7 @@ const DUMMY_PRODUCTS = [
   },
   {
     name: 'Domane AL 4 Gen 3  Copy',
-    imgSrc: 'database\\images\\productImgs\\Domane_AL4_Disc_23_BLK-571x379.jpg',
+    imgSrc: '\\database\\images\\productImgs\\Domane_AL4_Disc_23_BLK-571x379.jpg',
     price: 'Giá liên hệ VND',
     dataColors: ['#000000', '#4c4c4c'],
     ID: 'e9e7f2281e',
@@ -25,7 +25,7 @@ const DUMMY_PRODUCTS = [
   },
   {
     name: 'Domane AL 4 Gen 3',
-    imgSrc: 'database\\images\\productImgs\\Domane_AL4_Disc_23_BLK-571x379.jpg',
+    imgSrc: '\\database\\images\\productImgs\\Domane_AL4_Disc_23_BLK-571x379.jpg',
     price: '39.900.000 VND',
     dataColors: ['#383838', '#000000'],
     ID: '1daa4c0e22',
@@ -41,7 +41,7 @@ const DUMMY_PRODUCTS = [
   },
   {
     name: 'Domane SL 6 [2023] Gen 4',
-    imgSrc: 'database\\images\\productImgs\\Domane-SL-6-23-BLK_Hero-571x379.jpg',
+    imgSrc: '\\database\\images\\productImgs\\Domane-SL-6-23-BLK_Hero-571x379.jpg',
     price: '110.000.000 VND',
     dataColors: ['#000000', '#474747'],
     ID: '8872825731',

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../../fontawesome-free-6.4.2-web/css/all.min.css" />
     <link rel="stylesheet" href="../../components/OrderAdmin/OrderAdmin.css" />
 
-    <script defer src="../../components/OrderAdmin/OrderAdmin.js"></script>
+    <script type="module" defer src="../../components/OrderAdmin/OrderAdmin.js"></script>
   </head>
   <body>
     <div class="container">
@@ -124,6 +124,17 @@
                   <p>Số lượng</p>
                   <input type="number" value="" placeholder="Nhập số lượng" />
                 </div>
+                <div class="body__filter--type">
+                  <p>Loại xe</p>
+                  <select name="" id="">
+                    <option value="">Chọn loại xe</option>
+                    <option value="mountain">Mountain</option>
+                    <option value="road">Road</option>
+                    <option value="touring">Touring</option>
+                    <option value="electric">Electric</option>
+                    <option value="kids">Kids</option>
+                  </select>
+                </div>
               </div>
               <div class="body__filter--actions">
                 <button type="reset" class="body__filter--action__reset">Reset</button>
@@ -142,120 +153,7 @@
               <li class="admin__content--body__btn">Xóa</li>
             </ul>
             <div class="admin__content--body__products">
-              <ul class="admin__content--body__products--item isActiveStatus">
-                <li class="admin__content--body__id products--item__id">123123781239</li>
-                <li class="admin__content--body__img products--item__img">
-                  <div>
-                    <img src="../../database/images/productImgs/520Disc_19_24000_A_Primary-571x379.jpg" alt="" />
-                  </div>
-                </li>
-                <li class="admin__content--body__name products--item__name">Procaliber 9.7 [2024]</li>
-                <li class="admin__content--body__qnt products--item__qnt">
-                  <input type="number" min="1" step="1" />
-                </li>
-                <li class="admin__content--body__status products--item__status">
-                  Đã xử lý
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </li>
-                <li class="admin__content--body__btn products--item__btn">
-                  <button><i class="fa-solid fa-x"></i></button>
-                </li>
-              </ul>
-              <ul class="admin__content--body__products--item isNonActiveStatus">
-                <li class="admin__content--body__id products--item__id">123123781239</li>
-                <li class="admin__content--body__img products--item__img">
-                  <div>
-                    <img src="../../database/images/productImgs/520Disc_19_24000_A_Primary-571x379.jpg" alt="" />
-                  </div>
-                </li>
-                <li class="admin__content--body__name products--item__name">Procaliber 9.7 [2024]</li>
-                <li class="admin__content--body__qnt products--item__qnt">
-                  <input type="number" min="1" step="1" />
-                </li>
-                <li class="admin__content--body__status products--item__status">
-                  Chưa xử lý
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </li>
-                <li class="admin__content--body__btn products--item__btn">
-                  <button><i class="fa-solid fa-x"></i></button>
-                </li>
-              </ul>
-              <ul class="admin__content--body__products--item isActiveStatus">
-                <li class="admin__content--body__id products--item__id">123123781239</li>
-                <li class="admin__content--body__img products--item__img">
-                  <div>
-                    <img src="../../database/images/productImgs/520Disc_19_24000_A_Primary-571x379.jpg" alt="" />
-                  </div>
-                </li>
-                <li class="admin__content--body__name products--item__name">Procaliber 9.7 [2024]</li>
-                <li class="admin__content--body__qnt products--item__qnt">
-                  <input type="number" min="1" step="1" />
-                </li>
-                <li class="admin__content--body__status products--item__status">
-                  Đã xử lý
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </li>
-                <li class="admin__content--body__btn products--item__btn">
-                  <button><i class="fa-solid fa-x"></i></button>
-                </li>
-              </ul>
-              <ul class="admin__content--body__products--item isActiveStatus">
-                <li class="admin__content--body__id products--item__id">123123781239</li>
-                <li class="admin__content--body__img products--item__img">
-                  <div>
-                    <img src="../../database/images/productImgs/520Disc_19_24000_A_Primary-571x379.jpg" alt="" />
-                  </div>
-                </li>
-                <li class="admin__content--body__name products--item__name">Procaliber 9.7 [2024]</li>
-                <li class="admin__content--body__qnt products--item__qnt">
-                  <input type="number" min="1" step="1" />
-                </li>
-                <li class="admin__content--body__status products--item__status">
-                  Đã xử lý
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </li>
-                <li class="admin__content--body__btn products--item__btn">
-                  <button><i class="fa-solid fa-x"></i></button>
-                </li>
-              </ul>
-              <ul class="admin__content--body__products--item isActiveStatus">
-                <li class="admin__content--body__id products--item__id">123123781239</li>
-                <li class="admin__content--body__img products--item__img">
-                  <div>
-                    <img src="../../database/images/productImgs/520Disc_19_24000_A_Primary-571x379.jpg" alt="" />
-                  </div>
-                </li>
-                <li class="admin__content--body__name products--item__name">Procaliber 9.7 [2024]</li>
-                <li class="admin__content--body__qnt products--item__qnt">
-                  <input type="number" min="1" step="1" />
-                </li>
-                <li class="admin__content--body__status products--item__status">
-                  Đã xử lý
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </li>
-                <li class="admin__content--body__btn products--item__btn">
-                  <button><i class="fa-solid fa-x"></i></button>
-                </li>
-              </ul>
-              <ul class="admin__content--body__products--item isActiveStatus">
-                <li class="admin__content--body__id products--item__id">123123781239</li>
-                <li class="admin__content--body__img products--item__img">
-                  <div>
-                    <img src="../../database/images/productImgs/520Disc_19_24000_A_Primary-571x379.jpg" alt="" />
-                  </div>
-                </li>
-                <li class="admin__content--body__name products--item__name">Procaliber 9.7 [2024]</li>
-                <li class="admin__content--body__qnt products--item__qnt">
-                  <input type="number" min="1" step="1" />
-                </li>
-                <li class="admin__content--body__status products--item__status">
-                  Đã xử lý
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </li>
-                <li class="admin__content--body__btn products--item__btn">
-                  <button><i class="fa-solid fa-x"></i></button>
-                </li>
-              </ul>
+              <!-- GONNA APPLY CODE HERE BY FILE ORDERADMIN.JS -->
             </div>
           </div>
           <div class="pagination">
@@ -279,31 +177,7 @@
 
     <div class="modal">
       <form action="">
-        <div class="modal__content">
-          <div class="modal__content--header">
-            <h1>Thông tin chi tiết</h1>
-          </div>
-          <div class="modal__content--id__user">
-            <h1>Mã khách hàng</h1>
-            <p>123456789</p>
-          </div>
-          <div class="modal__content--username">
-            <h1>Tên khách hàng</h1>
-            <p>Nguyễn Thị B</p>
-          </div>
-          <div class="modal__content--product">
-            <ul class="modal__content--product__title">
-              <li class="product__title--id">Mã sản phẩm</li>
-              <li class="product__title--name">Tên sản phẩm</li>
-              <li class="product__title--qnt">Số lượng</li>
-            </ul>
-            <ul class="modal__content--product__item">
-              <li class="product__item--id">a07c4d6ca1</li>
-              <li class="product__item--name">Procaliber 9.7 [2024]</li>
-              <li class="product__item--qnt">4</li>
-            </ul>
-          </div>
-        </div>
+        <!-- Data will be applied here by Javascript -->
         <div class="modal__actions">
           <button class="modal__action--exit">Thoát</button>
           <button class="modal__action--process">Xử lý</button>
