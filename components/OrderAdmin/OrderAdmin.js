@@ -105,11 +105,11 @@ localStorage.setItem('userData', JSON.stringify(DUMMY_DATA));
 const listProducts = document.querySelector('.admin__content--body__products');
 
 const renderItemsProcessed = user => {
-  user.bought.forEach((item, idx) => {
+  user?.bought.forEach((item, idx) => {
     // Find data by current item's id
     const findDataProduct = DUMMY_PRODUCTS.find(product => product.ID === item.id);
 
-    const html = `<ul class="admin__content--body__products--item isActiveStatus">
+    const html = `<ul class="admin__content--body__products--item isActiveStatus" pid="${item.id}">
         <li class="admin__content--body__id products--item__id" id="${user.id}">${user.id}</li>
         <li class="admin__content--body__img products--item__img">
           <div>
@@ -133,7 +133,7 @@ const renderItemsProcessed = user => {
 };
 
 const renderItemsIsProcessing = user => {
-  user.isProcessing.forEach((item, idx) => {
+  user?.isProcessing.forEach((item, idx) => {
     const findDataProduct = DUMMY_PRODUCTS.find(product => product.ID === item.id);
     const html = `<ul class="admin__content--body__products--item isNonActiveStatus" pid="${item.id}">
         <li class="admin__content--body__id products--item__id" id="${user.id}">${user.id}</li>
@@ -157,32 +157,9 @@ const renderItemsIsProcessing = user => {
     listProducts.insertAdjacentHTML('beforeend', html);
   });
 };
-
-const renderProducts = () => {
-  // If data isn't an array, then convert to array
-  let data;
-  if (Array.isArray(userData)) {
-    data = userData;
-  } else {
-    data = [userData];
-  }
-
-  // Clear product when render
-  listProducts.innerHTML = '';
-
-  data.forEach((user, idx) => {
-    renderItemsIsProcessing(user);
-    renderItemsProcessed(user);
-
-    // clickEditHandler(user);
-  });
-};
-
-renderProducts();
 // end: apply html into layout
 
 // start: Logic for filter products
-
 const submitBtn = document.querySelector('.body__filter--action__filter');
 
 let data;
@@ -247,25 +224,49 @@ submitBtn.addEventListener('click', e => {
     data.forEach(user => {
       renderItemsProcessed(user);
       clickIconHandler();
+      clickDeleteBtnHandler();
     });
   } else if (isProcessed === 'processing') {
     data.forEach(user => {
       renderItemsIsProcessing(user);
       clickIconHandler();
+      clickDeleteBtnHandler();
     });
   } else if (isProcessed === 'all') {
     data.forEach(user => {
       renderItemsIsProcessing(user);
       renderItemsProcessed(user);
       clickIconHandler();
+      clickDeleteBtnHandler();
     });
   }
 });
-
 // end: Logic for filter products
 
-// start: Logic for click edit status handler
+// start: rendered products
+const renderProducts = filtered => {
+  // If data isn't an array, then convert to array
+  let data;
+  if (Array.isArray(userData)) {
+    data = userData;
+  } else {
+    data = [userData];
+  }
 
+  // Clear product when render
+  listProducts.innerHTML = '';
+
+  data.forEach((user, idx) => {
+    renderItemsIsProcessing(user);
+    renderItemsProcessed(user);
+    // clickEditHandler(user);
+  });
+};
+
+renderProducts();
+// end: rendered products
+
+// start: Logic for click edit status handler
 const updateProcessingHandler = (user, currentPID) => {
   user.isProcessing = user.isProcessing.filter(product => product.id !== currentPID);
 };
@@ -291,11 +292,13 @@ const clickedProcessBtnHandler = (user, currentPID, currenQNT) => {
     closeModal();
     renderProducts();
     clickIconHandler();
+    clickDeleteBtnHandler();
+    sortProductsNonActiveFirst();
     localStorage.setItem('userData', JSON.stringify(userData));
   });
 };
 
-const updateLocalStorageHandler = (currentUID, currentPID, currenQNT) => {
+const updateLocalStorageForProcessHandler = (currentUID, currentPID, currenQNT) => {
   userData.forEach((user, idx) => {
     if (user.id.toString() === currentUID) {
       showModal(user, currentPID, currenQNT);
@@ -315,10 +318,84 @@ const clickIconHandler = () => {
     const currenQNT = item.querySelector('.products--item__qnt input').value;
 
     iconBtn.addEventListener('click', e => {
-      updateLocalStorageHandler(currentUID, currentPID, currenQNT);
+      updateLocalStorageForProcessHandler(currentUID, currentPID, currenQNT);
     });
   });
 };
-
-clickIconHandler();
 // end: Logic for click edit status handler
+
+// start: logic click delete btn
+const deleteProduct = (currentUID, currentPID, isNonActiveItem) => {
+  userData.forEach(user => {
+    if (user.id.toString() === currentUID) {
+      if (isNonActiveItem) {
+        user.isProcessing = user.isProcessing.filter(item => item.id !== currentPID);
+      } else if (!isNonActiveItem) {
+        user.bought = user.bought.filter(item => item.id !== currentPID);
+      }
+    }
+  });
+};
+
+const updateLocalStorageForDeleteHandler = () => {
+  renderProducts();
+  localStorage.setItem('userData', JSON.stringify(userData));
+  clickIconHandler();
+  clickDeleteBtnHandler();
+  sortProductsNonActiveFirst();
+};
+
+const clickDeleteBtnHandler = () => {
+  const productsList = document.querySelectorAll('.admin__content--body__products ul');
+  productsList.forEach(item => {
+    const deleteBtnElements = item.querySelectorAll('.products--item__btn button');
+    const isNonActiveItem = item.classList.contains('isNonActiveStatus');
+    const currentPID = item.getAttribute('pid');
+    const currentUID = item.querySelector('.products--item__id').getAttribute('id');
+
+    deleteBtnElements.forEach(btn => {
+      btn.addEventListener('click', e => {
+        deleteProduct(currentUID, currentPID, isNonActiveItem);
+        updateLocalStorageForDeleteHandler();
+      });
+    });
+  });
+};
+// end: logic click delete btn
+
+// start: sort all products is non active on top
+const sortProductsNonActiveFirst = () => {
+  const productList = document.querySelector('.admin__content--body__products');
+
+  const items = productList.querySelectorAll('.admin__content--body__products--item');
+
+  const nonActiveItems = [];
+  const activeItems = [];
+
+  items.forEach(item => {
+    if (item.classList.contains('isNonActiveStatus')) {
+      nonActiveItems.push(item);
+    } else {
+      activeItems.push(item);
+    }
+  });
+
+  productList.innerHTML = '';
+
+  nonActiveItems.forEach(item => {
+    productList.appendChild(item);
+  });
+
+  activeItems.forEach(item => {
+    productList.appendChild(item);
+  });
+};
+// end: sort all products is non active on top
+
+const init = () => {
+  clickIconHandler();
+  clickDeleteBtnHandler();
+  sortProductsNonActiveFirst();
+};
+
+init();
