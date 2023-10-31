@@ -2,6 +2,7 @@ import DUMMY_DATA from '../../database/userData.js';
 import DUMMY_PRODUCTS from '../../database/products.js';
 const userData = JSON.parse(localStorage.getItem('userData'));
 
+//start: Toggle taskbar menu
 const toggleMenuIcon = document.querySelector('.admin__content--header__cate');
 const container = document.querySelector('.container');
 const adminMenu = document.querySelector('.admin__taskbar');
@@ -23,16 +24,7 @@ logoutBtnOnAdminPage.addEventListener('click', e => {
   localStorage.removeItem('userLogin');
   window.location.href = window.location.origin + '/';
 });
-
-// start: Delete item
-const deleteBtns = document.querySelectorAll('.products--item__btn');
-
-deleteBtns.forEach((item, idx) => {
-  item.addEventListener('click', e => {
-    // Logic
-  });
-});
-// end: Delete item
+//end: Toggle taskbar menu
 
 // start: Open set status
 const modal = document.querySelector('.modal');
@@ -164,7 +156,6 @@ const submitBtn = document.querySelector('.body__filter--action__filter');
 
 let data;
 let isProcessed;
-
 submitBtn.addEventListener('click', e => {
   e.preventDefault();
   const inputNameClientValue = document.querySelector('.body__filter--nameClient input').value;
@@ -186,7 +177,9 @@ submitBtn.addEventListener('click', e => {
         behavior: 'smooth'
       });
     });
-    resetBtn.addEventListener('click', renderProducts);
+    resetBtn.addEventListener('click', e => {
+      init();
+    });
   }
   // If data isn't an array, then convert to array
 
@@ -219,7 +212,6 @@ submitBtn.addEventListener('click', e => {
   }
 
   listProducts.innerHTML = '';
-
   if (isProcessed === 'processed') {
     data.forEach(user => {
       renderItemsProcessed(user);
@@ -238,8 +230,11 @@ submitBtn.addEventListener('click', e => {
       renderItemsProcessed(user);
       clickIconHandler();
       clickDeleteBtnHandler();
+      sortProductsNonActiveFirst();
     });
   }
+
+  paginationHandler();
 });
 // end: Logic for filter products
 
@@ -263,7 +258,6 @@ const renderProducts = filtered => {
   });
 };
 
-renderProducts();
 // end: rendered products
 
 // start: Logic for click edit status handler
@@ -290,10 +284,8 @@ const clickedProcessBtnHandler = (user, currentPID, currenQNT) => {
     updateProcessingHandler(user, currentPID);
     updateBoughtHandler(user, currentPID, currenQNT);
     closeModal();
-    renderProducts();
-    clickIconHandler();
-    clickDeleteBtnHandler();
-    sortProductsNonActiveFirst();
+    init();
+    paginationHandler();
     localStorage.setItem('userData', JSON.stringify(userData));
   });
 };
@@ -337,15 +329,14 @@ const deleteProduct = (currentUID, currentPID, isNonActiveItem) => {
   });
 };
 
-const updateLocalStorageForDeleteHandler = () => {
-  renderProducts();
-  localStorage.setItem('userData', JSON.stringify(userData));
-  clickIconHandler();
-  clickDeleteBtnHandler();
-  sortProductsNonActiveFirst();
-};
+function updateLocalStorageForDeleteHandler() {
+  init();
+  paginationHandler();
 
-const clickDeleteBtnHandler = () => {
+  localStorage.setItem('userData', JSON.stringify(userData));
+}
+
+function clickDeleteBtnHandler() {
   const productsList = document.querySelectorAll('.admin__content--body__products ul');
   productsList.forEach(item => {
     const deleteBtnElements = item.querySelectorAll('.products--item__btn button');
@@ -360,7 +351,7 @@ const clickDeleteBtnHandler = () => {
       });
     });
   });
-};
+}
 // end: logic click delete btn
 
 // start: sort all products is non active on top
@@ -393,9 +384,82 @@ const sortProductsNonActiveFirst = () => {
 // end: sort all products is non active on top
 
 const init = () => {
+  renderProducts();
   clickIconHandler();
   clickDeleteBtnHandler();
   sortProductsNonActiveFirst();
 };
 
 init();
+
+// start: pagination
+function paginationHandler() {
+  const productItems = document.querySelectorAll('.admin__content--body__products ul');
+  let currentPage = 0;
+  const itemsPerPage = 6;
+  const totalPages = Math.ceil(productItems.length / itemsPerPage);
+  let storeItemsPerPage = [];
+
+  function renderLayoutPagination() {
+    document.querySelector('.admin__content--body__products').innerHTML = '';
+    const startIdx = currentPage * itemsPerPage;
+    const endIdx = Math.min(currentPage * itemsPerPage + itemsPerPage, productItems.length);
+
+    for (let i = startIdx; i < endIdx; i++) {
+      storeItemsPerPage.push(productItems[i]);
+    }
+    storeItemsPerPage.forEach(item => {
+      document.querySelector('.admin__content--body__products').appendChild(item);
+    });
+
+    storeItemsPerPage = [];
+  }
+
+  // Checking on first page
+  function renderPaginationBtn(isProcessed) {
+    const pagination = document.querySelector('.pagination');
+    pagination.innerHTML = '';
+    const html = `
+      <button data-goto="${currentPage - 1}" data-of="${totalPages}" class="btn--inline pagination__btn--prev ${
+      currentPage === 0 ? 'hide' : ''
+    }">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>${currentPage}</span>
+        <span> of ${totalPages}</span>
+      </button>
+      <span class="currentPage">${currentPage + 1}</span>
+      <button data-goto="${currentPage + 1}" data-of="${totalPages}" class="btn--inline pagination__btn--next ${
+      currentPage === totalPages - 1 ? 'hide' : ''
+    }"  >
+        <span>${currentPage + 2}</span>
+        <span> of ${totalPages}</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>`;
+    pagination.insertAdjacentHTML('afterbegin', html);
+    nextPageHandler();
+    prevPageHandler();
+  }
+
+  function nextPageHandler() {
+    const nextPageBtn = document.querySelector('.pagination__btn--next');
+    nextPageBtn.addEventListener('click', e => {
+      currentPage += 1;
+      renderLayoutPagination();
+      renderPaginationBtn();
+    });
+  }
+
+  function prevPageHandler() {
+    const prevPageBtn = document.querySelector('.pagination__btn--prev');
+    prevPageBtn.addEventListener('click', e => {
+      currentPage -= 1;
+      renderLayoutPagination();
+      renderPaginationBtn();
+    });
+  }
+
+  renderLayoutPagination();
+  renderPaginationBtn();
+}
+paginationHandler();
+// end: pagination

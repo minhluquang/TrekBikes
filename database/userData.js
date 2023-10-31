@@ -15,6 +15,11 @@ const DUMMY_DATA = [
         id: 'e9e7f2281e',
         qnt: 2
       },
+      { id: '36b9b496cb', qnt: 2 },
+      { id: '36b9b496cb', qnt: 2 },
+      { id: '36b9b496cb', qnt: 2 },
+      { id: '36b9b496cb', qnt: 2 },
+      { id: '36b9b496cb', qnt: 2 },
       { id: '36b9b496cb', qnt: 2 }
     ],
     isProcessing: [
@@ -32,16 +37,37 @@ const DUMMY_DATA = [
     username: 'luquangminh',
     password: 'daylamatkhau',
     like: [],
-    cart: [
-      { id: '36b9b496cb', qnt: 1 }
-    ],
+    cart: [{ id: '36b9b496cb', qnt: 1 }],
     bought: [
       {
         id: 'e9e7f2281e',
         qnt: 1
       }
     ],
+    isProcessing: [{ id: '36b9b496cb', qnt: 1 }]
+  },
+  {
+    id: 77777,
+    email: 'test@test.com',
+    name: 'javascript',
+    username: 'luquangminh',
+    password: 'khongphaimatkhau',
+    like: [],
+    cart: [{ id: '36b9b496cb', qnt: 1 }],
+    bought: [
+      {
+        id: 'e9e7f2281e',
+        qnt: 1
+      },
+      {
+        id: 'e9e7f2281e',
+        qnt: 1
+      }
+    ],
     isProcessing: [
+      { id: '36b9b496cb', qnt: 1 },
+      { id: '36b9b496cb', qnt: 1 },
+      { id: '36b9b496cb', qnt: 1 },
       { id: '36b9b496cb', qnt: 1 }
     ]
   }

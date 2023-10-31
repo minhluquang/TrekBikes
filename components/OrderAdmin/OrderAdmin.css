@@ -962,3 +962,9 @@ body {
   visibility: visible;
 }
 /* end: Overlay */
+
+
+.pagination__btn--prev.hide,
+.pagination__btn--next.hide {
+  visibility: hidden;
+}
