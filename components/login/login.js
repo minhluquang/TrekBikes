@@ -324,6 +324,11 @@ logoutBtn.addEventListener('click', logoutHandler);
 
 // =========================== start: GO TO ADMIN PAGE ===========================
 const manageBtn = document.querySelector('.adminManager');
+const manageLowDeviceBtn = document.querySelector('.hide__menu--list__type.adminManager__item');
+
+manageLowDeviceBtn.addEventListener('click', e => {
+  window.location.href = '/html/admin/OrderPage.html';
+});
 
 manageBtn.addEventListener('click', e => {
   window.location.href = '/html/admin/OrderPage.html';

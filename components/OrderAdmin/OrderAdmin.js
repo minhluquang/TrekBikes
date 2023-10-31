@@ -158,7 +158,7 @@ let data;
 let isProcessed;
 submitBtn.addEventListener('click', e => {
   e.preventDefault();
-  const inputNameClientValue = document.querySelector('.body__filter--nameClient input').value;
+  const inputNameClientValue = document.querySelector('.body__filter--nameClient input').value.toLowerCase();
   const inputIdClientValue = document.querySelector('.body__filter--idClient input').value;
   const selectStatusValue = document.querySelector('.body__filter--status select').value;
 
@@ -179,6 +179,7 @@ submitBtn.addEventListener('click', e => {
     });
     resetBtn.addEventListener('click', e => {
       init();
+      paginationHandler();
     });
   }
   // If data isn't an array, then convert to array
