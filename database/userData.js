@@ -1,32 +1,28 @@
 const DUMMY_DATA = [
   {
-    id: 1,
-    email: 'test@test.com',
-    name: 'Lữ Quang Minh',
-    username: 'luquangminh',
-    password: 'daylamatkhau',
+    id: "16988",
+    name: "Nguyễn Văn A",
+    email: "nguyenvana@test.com",
+    password: "nguyenvana@test.com",
+    dateRegister: "2023-11-02T02:27:58.674Z",
     like: [],
-    cart: [
-      { id: 'a07c4d6ca1', qnt: 4 },
-      { id: '36b9b496cb', qnt: 1 }
-    ],
-    bought: [
-      {
-        id: 'e9e7f2281e',
-        qnt: 2
-      },
-      { id: '36b9b496cb', qnt: 2 },
-      { id: '36b9b496cb', qnt: 4 }
-    ],
-    isProcessing: [
-      { id: '36b9b496cb', qnt: 2 },
-      { id: '36b9b496cb', qnt: 2 },
-      {
-        id: 'e9e7f2281e',
-        qnt: 1
-      }
-    ]
+    cart: [],
+    bought: [],
+    isProcessing: []
+  },
+  {
+    id: "16999",
+    name: "Nguyễn Văn B",
+    email: "nguyenvanb@test.com",
+    password: "nguyenvanb@test.com",
+    dateRegister: "2023-11-02T02:28:25.586Z",
+    like: [],
+    cart: [],
+    bought: [],
+    isProcessing: []
   }
 ];
+
+
 
 export default DUMMY_DATA;

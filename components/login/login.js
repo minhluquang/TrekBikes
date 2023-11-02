@@ -149,12 +149,32 @@ registerSubmitBtn.addEventListener('click', e => {
   if (isValidRegister) {
     const id = Date.now().toString();
     const date = new Date().toISOString();
-    ACCOUNT_DATA.push({ id: id, name: name, email: email, password: password, dateRegister: date });
+    ACCOUNT_DATA.push({
+      id: id,
+      name: name,
+      email: email,
+      password: password,
+      dateRegister: date,
+      like: [],
+      cart: [],
+      bought: [],
+      isProcessing: []
+    });
 
     localStorage.setItem('ACCOUNT_DATA', JSON.stringify(ACCOUNT_DATA));
     localStorage.setItem(
       'userLogin',
-      JSON.stringify({ id: id, name: name, email: email, password: password, dateRegister: date })
+      JSON.stringify({
+        id: id,
+        name: name,
+        email: email,
+        password: password,
+        dateRegister: date,
+        like: [],
+        cart: [],
+        bought: [],
+        isProcessing: []
+      })
     );
 
     location.reload();
@@ -327,11 +347,11 @@ const manageBtn = document.querySelector('.adminManager');
 const manageLowDeviceBtn = document.querySelector('.hide__menu--list__type.adminManager__item');
 
 manageLowDeviceBtn.addEventListener('click', e => {
-  window.location.href = '/html/admin/OrderPage.html';
+  window.location.href = '/html/admin/Home.html';
 });
 
 manageBtn.addEventListener('click', e => {
-  window.location.href = '/html/admin/OrderPage.html';
+  window.location.href = '/html/admin/Home.html';
 });
 
 // =========================== end: GO TO ADMIN PAGE ===========================

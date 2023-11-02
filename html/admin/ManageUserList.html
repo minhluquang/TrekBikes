@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trek - Quản lý cửa hàng</title>
     <link rel="stylesheet" href="../../fontawesome-free-6.4.2-web/css/all.min.css" />
-    <link rel="stylesheet" href="../../components/OrderAdmin/OrderAdmin.css" />
-    <link rel="stylesheet" href="../../components/OrderAdmin/Reponsive.css" />
+    <link rel="stylesheet" href="../../components/ManageUserList/ManageUserList.css" />
 
-    <script type="module" defer src="../../components/OrderAdmin/OrderAdmin.js"></script>
-    <script type="module" defer src="../../components/OrderAdmin/Reponsive.js"></script>
+    <script type="module" defer src="../../components/ManageUserList/ManageUserList.js"></script>
   </head>
   <body>
     <div class="container">
@@ -47,14 +45,14 @@
               <p>Sản phẩm</p>
             </a>
           </li>
-          <li class="admin__taskbar--body__item active">
-            <a href="#">
+          <li class="admin__taskbar--body__item">
+            <a href="./OrderPage.html">
               <i class="fa-solid fa-cart-shopping"></i>
               <p>Đơn hàng</p>
             </a>
           </li>
-          <li class="admin__taskbar--body__item">
-            <a href="./ManageUserList.html">
+          <li class="admin__taskbar--body__item active">
+            <a href="#">
               <i class="fa-solid fa-user"></i>
               <p>Khách hàng</p>
             </a>
@@ -107,23 +105,15 @@
         <div class="admin__content--body">
           <div class="admin__content--body__top">
             <form class="admin__content--body__filter">
-              <h1>Lọc sản phẩm</h1>
+              <h1>Lọc thông tin người dùng</h1>
               <div class="admin__content--body__filter--gr1">
                 <div class="body__filter--nameClient">
                   <p>Tên khách hàng</p>
-                  <input type="text" placeholder="Nhập mã sản phẩm" />
+                  <input type="text" placeholder="Nhập tên khách hàng" />
                 </div>
                 <div class="body__filter--idClient">
                   <p>Mã khách hàng</p>
                   <input type="text" placeholder="Nhập mã khách hàng" />
-                </div>
-                <div class="body__filter--status">
-                  <p>Trạng thái</p>
-                  <select name="" id="">
-                    <option value="all">Chọn trạng thái</option>
-                    <option value="valid">Đã xử lý</option>
-                    <option value="invalid">Chưa xử lý</option>
-                  </select>
                 </div>
               </div>
               <!-- <div class="admin__content--body__filter--gr2">
@@ -153,13 +143,21 @@
           <div class="admin__content--body__content">
             <ul class="admin__content--body__list">
               <li class="admin__content--body__id">Mã khách hàng</li>
-              <li class="admin__content--body__img">Hình ảnh</li>
-              <li class="admin__content--body__name">Tên sản phẩm</li>
-              <li class="admin__content--body__qnt">Số lượng</li>
-              <li class="admin__content--body__status">Trạng thái</li>
+              <li class="admin__content--body__name">Tên khách hàng</li>
+              <li class="admin__content--body__email">Email</li>
+              <li class="admin__content--body__dateRegister">Ngày đăng ký</li>
               <li class="admin__content--body__btn">Xóa</li>
             </ul>
-            <div class="admin__content--body__products">
+            <div class="admin__content--body__users">
+              <!-- <ul class="admin__content--body__users--item" uid="1">
+                <li class="admin__content--body__id users--item__id" id="1">1</li>
+                <li class="admin__content--body__name users--item__name">Lữ Quang Minh</li>
+                <li class="admin__content--body__email users--item__email">test@test.com</li>
+                <li class="admin__content--body__dateRegister users--item__dateRegister">11/02/2023</li>
+                <li class="admin__content--body__btn users--item__btn">
+                  <button><i class="fa-solid fa-x"></i></button>
+                </li>
+              </ul> -->
               <!-- GONNA APPLY CODE HERE BY FILE ORDERADMIN.JS -->
             </div>
           </div>
