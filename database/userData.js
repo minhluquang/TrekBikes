@@ -16,13 +16,10 @@ const DUMMY_DATA = [
         qnt: 2
       },
       { id: '36b9b496cb', qnt: 2 },
-      { id: '36b9b496cb', qnt: 2 },
-      { id: '36b9b496cb', qnt: 2 },
-      { id: '36b9b496cb', qnt: 2 },
-      { id: '36b9b496cb', qnt: 2 },
       { id: '36b9b496cb', qnt: 2 }
     ],
     isProcessing: [
+      { id: '36b9b496cb', qnt: 2 },
       { id: '36b9b496cb', qnt: 2 },
       {
         id: 'e9e7f2281e',
@@ -64,12 +61,7 @@ const DUMMY_DATA = [
         qnt: 1
       }
     ],
-    isProcessing: [
-      { id: '36b9b496cb', qnt: 1 },
-      { id: '36b9b496cb', qnt: 1 },
-      { id: '36b9b496cb', qnt: 1 },
-      { id: '36b9b496cb', qnt: 1 }
-    ]
+    isProcessing: [{ id: '36b9b496cb', qnt: 1 }]
   }
 ];
 

@@ -319,12 +319,25 @@ const clickIconHandler = () => {
 
 // start: logic click delete btn
 const deleteProduct = (currentUID, currentPID, isNonActiveItem) => {
+  let deleted = false;
   userData.forEach(user => {
     if (user.id.toString() === currentUID) {
       if (isNonActiveItem) {
-        user.isProcessing = user.isProcessing.filter(item => item.id !== currentPID);
+        user.isProcessing = user.isProcessing.filter(item => {
+          if (item.id === currentPID && !deleted) {
+            deleted = true;
+            return false;
+          }
+          return true;
+        });
       } else if (!isNonActiveItem) {
-        user.bought = user.bought.filter(item => item.id !== currentPID);
+        user.bought = user.bought.filter(item => {
+          if (item.id === currentPID && !deleted) {
+            deleted = true;
+            return false;
+          }
+          return true;
+        });
       }
     }
   });
