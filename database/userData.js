@@ -16,7 +16,7 @@ const DUMMY_DATA = [
         qnt: 2
       },
       { id: '36b9b496cb', qnt: 2 },
-      { id: '36b9b496cb', qnt: 2 }
+      { id: '36b9b496cb', qnt: 4 }
     ],
     isProcessing: [
       { id: '36b9b496cb', qnt: 2 },
@@ -26,42 +26,6 @@ const DUMMY_DATA = [
         qnt: 1
       }
     ]
-  },
-  {
-    id: 9999999999,
-    email: 'test@test.com',
-    name: 'khong',
-    username: 'luquangminh',
-    password: 'daylamatkhau',
-    like: [],
-    cart: [{ id: '36b9b496cb', qnt: 1 }],
-    bought: [
-      {
-        id: 'e9e7f2281e',
-        qnt: 1
-      }
-    ],
-    isProcessing: [{ id: '36b9b496cb', qnt: 1 }]
-  },
-  {
-    id: 77777,
-    email: 'test@test.com',
-    name: 'javascript',
-    username: 'luquangminh',
-    password: 'khongphaimatkhau',
-    like: [],
-    cart: [{ id: '36b9b496cb', qnt: 1 }],
-    bought: [
-      {
-        id: 'e9e7f2281e',
-        qnt: 1
-      },
-      {
-        id: 'e9e7f2281e',
-        qnt: 1
-      }
-    ],
-    isProcessing: [{ id: '36b9b496cb', qnt: 1 }]
   }
 ];
 

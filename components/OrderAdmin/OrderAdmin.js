@@ -109,7 +109,7 @@ const renderItemsProcessed = user => {
           </div>
         </li>
         <li class="admin__content--body__name products--item__name">${findDataProduct.name}</li>
-        <li class="admin__content--body__qnt products--item__qnt">
+        <li class="admin__content--body__qnt products--item__qnt" data-qnt=${item.qnt}>
           <input type="number" min="1" step="1" value="${item.qnt}" readonly/>
         </li>
         <li class="admin__content--body__status products--item__status">
@@ -135,7 +135,7 @@ const renderItemsIsProcessing = user => {
           </div>
         </li>
         <li class="admin__content--body__name products--item__name">${findDataProduct.name}</li>
-        <li class="admin__content--body__qnt products--item__qnt">
+        <li class="admin__content--body__qnt products--item__qnt" data-qnt=${item.qnt}>
           <input type="number" min="1" step="1" value="${item.qnt}" readonly/>
         </li>
         <li class="admin__content--body__status products--item__status">
