@@ -7,6 +7,7 @@
 
     <link rel="icon" href="./imgs/logo/OIP.jpg" />
     <link rel="stylesheet" href="./fontawesome-free-6.4.2-web/css/all.min.css" />
+<<<<<<< HEAD
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/search.css" />
     <link rel="stylesheet" href="./css/login.css" />
@@ -14,13 +15,22 @@
     <link rel="stylesheet" href="./css/popUp.css" />
     <link rel="stylesheet" href="./css/toasts.css" />
     <link rel="stylesheet" href="./css/responsive.css" />
+    <link rel="stylesheet" href="./css/page_info.css">
+=======
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./components/search/search.css" />
+    <link rel="stylesheet" href="./components/menu/menu.css" />
+    <link rel="stylesheet" href="./components/login/login.css" />
+    <link rel="stylesheet" href="./components/popup/popUp.css" />
+    <link rel="stylesheet" href="./components/responsive/responsive.css" />
+>>>>>>> e3b21a046cf549f0cd7fd33367ee040bd1aef7b6
 
     <script type="module" defer src="./database/accounts.js"></script>
     <script defer src="./script.js"></script>
-    <script type="module" defer src="./script/login.js"></script>
-    <script type="module" defer src="./script/search.js"></script>
-    <script type="module" defer src="./script/menu.js"></script>
-    <script defer src="./script/slider.js"></script>
+    <script type="module" defer src="./components/login/login.js"></script>
+    <script type="module" defer src="./components/search/search.js"></script>
+    <script type="module" defer src="./components/menu/menu.js"></script>
+    <script defer src="./components/slider/slider.js"></script>
   </head>
   <body>
     <!-- =========== START: HEADER =========== -->
@@ -65,19 +75,19 @@
         <div class="header__bottom--list">
           <ul>
             <li>
-              <a href="">MOUNTAIN</a>
+              <a href="./html/product/product.html">MOUNTAIN</a>
             </li>
             <li>
-              <a href="">ROAD</a>
+              <a href="./html/product/product.html">ROAD</a>
             </li>
             <li>
-              <a href="">TOURING</a>
+              <a href="./html/product/product.html">TOURING</a>
             </li>
             <li>
-              <a href="">ELECTRIC</a>
+              <a href="./html/product/product.html">ELECTRIC</a>
             </li>
             <li>
-              <a href="">KIDS</a>
+              <a href="./html/product/product.html">KIDS</a>
             </li>
           </ul>
         </div>
@@ -85,9 +95,20 @@
         <div class="header__bottom--extention">
           <div class="header__bottom--extention-item header__bottom--extention-user">
             <i class="fa-solid fa-user"></i>
-            <!-- <ul class="header__bottom--user__list">
-              <li>Đăng xuất</li>
-            </ul> -->
+            <ul class="header__bottom--user__list">
+              <li class="adminManager__item" style="display: none">
+                <button class="adminManager">
+                  <i class="fa-solid fa-hammer"></i>
+                  <p>Quản lý</p>
+                </button>
+              </li>
+              <li>
+                <button class="logout">
+                  <i class="fa-solid fa-door-open"></i>
+                  <p>Đăng xuất</p>
+                </button>
+              </li>
+            </ul>
           </div>
 
           <a href="">
@@ -95,7 +116,7 @@
               <i class="fa-solid fa-heart"></i>
             </div>
           </a>
-          <a href="">
+          <a href="./html/cart.html">
             <div class="header__bottom--extention-item header__bottom--extention-cart">
               <i class="fa-solid fa-cart-shopping"></i>
             </div>
@@ -103,51 +124,7 @@
           <div class="header__bottom--extention-item header__bottom--extention-search">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="Tìm kiếm sản phẩm" />
-            <div class="search__result">
-              <!-- <div class="header__bottom--result__item">
-                <img src="./imgs/bikes/Marlin4_22_29759_D_Primary 1.png" alt="bike" />
-                <div class="header__bottom--result__item--content">
-                  <div class="result__item--price">
-                    <h2>Marlin 4 Gen 2</h2>
-                    <p>5.000.000đ</p>
-                  </div>
-                  <button>Chi tiết</button>
-                </div>
-              </div>
-
-              <div class="header__bottom--result__item">
-                <img src="./imgs/bikes/Marlin4_22_29759_D_Primary 1.png" alt="bike" />
-                <div class="header__bottom--result__item--content">
-                  <div class="result__item--price">
-                    <h2>Marlin 4 Gen 2</h2>
-                    <p>5.000.000đ</p>
-                  </div>
-                  <button>Chi tiết</button>
-                </div>
-              </div>
-
-              <div class="header__bottom--result__item">
-                <img src="./imgs/bikes/Marlin4_22_29759_D_Primary 1.png" alt="bike" />
-                <div class="header__bottom--result__item--content">
-                  <div class="result__item--price">
-                    <h2>Marlin 4 Gen 2</h2>
-                    <p>5.000.000đ</p>
-                  </div>
-                  <button>Chi tiết</button>
-                </div>
-              </div>
-
-              <div class="header__bottom--result__item">
-                <img src="./imgs/bikes/Marlin4_22_29759_D_Primary 1.png" alt="bike" />
-                <div class="header__bottom--result__item--content">
-                  <div class="result__item--price">
-                    <h2>Marlin 4 Gen 2</h2>
-                    <p>5.000.000đ</p>
-                  </div>
-                  <button>Chi tiết</button>
-                </div>
-              </div> -->
-            </div>
+            <div class="search__result"></div>
           </div>
         </div>
 
@@ -161,9 +138,9 @@
       <!-- =========== START: HEADER SLIDER =========== -->
 
       <div class="header__slider">
-        <video src="./imgs/bg/NF24 US Video Marquee_1080p.mp4" muted></video>
-        <video src="./imgs/bg/Fuel EX_ Ace of All Trails.mp4" muted></video>
-        <video src="./imgs/bg/Trek Madone SLR  Fast Forward_1080p.mp4" muted></video>
+        <video src="./database/images/sliderVideos/NF24 US Video Marquee_1080p.mp4" muted></video>
+        <video src="./database/images/sliderVideos/Fuel EX_ Ace of All Trails.mp4" muted></video>
+        <video src="./database/images/sliderVideos/Trek Madone SLR  Fast Forward_1080p.mp4" muted></video>
 
         <ul class="dots">
           <li class="active"></li>
@@ -246,6 +223,106 @@
     </div> -->
 
     <!-- SECTION 3: NEWS (NGOC)-->
+<<<<<<< HEAD
+=======
+       <div class="info_container">
+        <div class="product">
+          <div class="left">
+            
+            <div class="image"><img src="./database/images/productImgs/mountain.webp" alt=""></div>
+          </div>
+          <div class="right">
+            <div class="type">Mountain-1</div>
+            <div class="name">1-Fuel EXe 9.9 XX AXS T-TYPE</div>
+            <div class="content">
+              <p>Sở hữu thiết kế hiện đại, cá tính . Chiếc xe này mang đến cảm giác lái mạnh mẽ và ấn tượng, phù hợp với những người yêu thích leo núi và muốn thể hiện cá tính của mình</p>
+              <ul class="custom-list">  
+                <li>Động cơ Shimano EP8-RS mạnh mẽ và êm ái</li>
+                <li>Pin 720Wh cho tầm hoạt động dài</li>
+                <li>Khung 900 Series Alpha Aluminum nhẹ và bền</li>
+                <li>Vành Bontrager Kovee XXX 30 carbon nhẹ và bền</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="product reverse">
+          <div class="left">
+            
+            <div class="image"><img src="./database/images/productImgs/mountain.webp" alt=""></div>
+          </div>
+          <div class="right">
+            <div class="type">Mountain-2</div>
+            <div class="name">2-Fuel EXe 9.9 XX AXS T-TYPE</div>
+            <div class="content">
+              <p>Sở hữu thiết kế hiện đại, cá tính . Chiếc xe này mang đến cảm giác lái mạnh mẽ và ấn tượng, phù hợp với những người yêu thích leo núi và muốn thể hiện cá tính của mình</p>
+              <ul class="custom-list">  
+                <li>Động cơ Shimano EP8-RS mạnh mẽ và êm ái</li>
+                <li>Pin 720Wh cho tầm hoạt động dài</li>
+                <li>Khung 900 Series Alpha Aluminum nhẹ và bền</li>
+                <li>Vành Bontrager Kovee XXX 30 carbon nhẹ và bền</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="product">
+          <div class="left">
+            
+            <div class="image"><img src="./database/images/productImgs/mountain.webp" alt=""></div>
+          </div>
+          <div class="right">
+            <div class="type">Mountain-3</div>
+            <div class="name">3-Fuel EXe 9.9 XX AXS T-TYPE</div>
+            <div class="content">
+              <p>Sở hữu thiết kế hiện đại, cá tính . Chiếc xe này mang đến cảm giác lái mạnh mẽ và ấn tượng, phù hợp với những người yêu thích leo núi và muốn thể hiện cá tính của mình</p>
+              <ul class="custom-list">  
+                <li>Động cơ Shimano EP8-RS mạnh mẽ và êm ái</li>
+                <li>Pin 720Wh cho tầm hoạt động dài</li>
+                <li>Khung 900 Series Alpha Aluminum nhẹ và bền</li>
+                <li>Vành Bontrager Kovee XXX 30 carbon nhẹ và bền</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="product reverse">
+          <div class="left">
+           
+            <div class="image"><img src="./database/images/productImgs/mountain.webp" alt=""></div>
+          </div>
+          <div class="right">
+            <div class="type">Mountain-4</div>
+            <div class="name">4-Fuel EXe 9.9 XX AXS T-TYPE</div>
+            <div class="content">
+              <p>Sở hữu thiết kế hiện đại, cá tính . Chiếc xe này mang đến cảm giác lái mạnh mẽ và ấn tượng, phù hợp với những người yêu thích leo núi và muốn thể hiện cá tính của mình</p>
+              <ul class="custom-list">  
+                <li>Động cơ Shimano EP8-RS mạnh mẽ và êm ái</li>
+                <li>Pin 720Wh cho tầm hoạt động dài</li>
+                <li>Khung 900 Series Alpha Aluminum nhẹ và bền</li>
+                <li>Vành Bontrager Kovee XXX 30 carbon nhẹ và bền</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="product">
+          <div class="left">
+           
+            <div class="image"><img src="./database/images/productImgs/mountain.webp" alt=""></div>
+          </div>
+          <div class="right">
+            <div class="type">Mountain-5</div>
+            <div class="name">5-Fuel EXe 9.9 XX AXS T-TYPE</div>
+            <div class="content">
+              <p>Sở hữu thiết kế hiện đại, cá tính . Chiếc xe này mang đến cảm giác lái mạnh mẽ và ấn tượng, phù hợp với những người yêu thích leo núi và muốn thể hiện cá tính của mình</p>
+              <ul class="custom-list">  
+                <li>Động cơ Shimano EP8-RS mạnh mẽ và êm ái</li>
+                <li>Pin 720Wh cho tầm hoạt động dài</li>
+                <li>Khung 900 Series Alpha Aluminum nhẹ và bền</li>
+                <li>Vành Bontrager Kovee XXX 30 carbon nhẹ và bền</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+       </div>
+>>>>>>> develop
     <div class="section--4-container">
       <div class="section section--4 grid wide">
         <h1>Thể thao là cuộc sống, chúng tôi sẽ nâng cao cuộc sống của bạn bằng xe đạp!</h1>
@@ -371,12 +448,20 @@
 
             <div class="register__info--input register__info--input__full-password">
               <label for="registerPassword">Mật khẩu</label>
-              <input
-                class="register__info--input-password"
-                id="registerPassword"
-                type="password"
-                placeholder="Nhập mật khẩu của bạn"
-              />
+              <div class="password__container">
+                <input
+                  class="register__info--input-password"
+                  id="registerPassword"
+                  type="password"
+                  placeholder="Nhập mật khẩu của bạn"
+                />
+                <button class="showEyeRegister">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+                <button class="hideEyeRegister hide" >
+                  <i class="fa-solid fa-eye-slash"></i>
+                </button>
+              </div>
               <p></p>
             </div>
 
@@ -416,12 +501,28 @@
 
             <div class="login__info--input login__info--input__full-password">
               <label for="loginPassword">Mật khẩu</label>
-              <input
+              <!-- <input
                 class="login__info--input-password"
                 id="loginPassword"
                 type="password"
                 placeholder="Nhập mật khẩu của bạn"
-              />
+              /> -->
+
+
+              <div class="password__container">
+                <input
+                  class="login__info--input-password"
+                  id="loginPassword"
+                  type="password"
+                  placeholder="Nhập mật khẩu của bạn"
+                />
+                <button class="showEyeLogin">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+                <button class="hideEyeLogin hide" >
+                  <i class="fa-solid fa-eye-slash"></i>
+                </button>
+              </div>
               <p></p>
             </div>
 
@@ -503,7 +604,13 @@
         <div class="header__bottom--extention-item header__bottom--extention-user">
           <i class="fa-solid fa-user"></i>
           <span>Tài khoản</span>
-          <i class="header__bottom--extention__icon fa-solid fa-arrow-right"></i>
+          <i class="header__bottom--extention__icon header__bottom--extention__icon--right fa-solid fa-arrow-right"></i>
+          <i class="header__bottom--extention__icon header__bottom--extention__icon--down fa-solid fa-caret-down"></i>
+          <i class="header__bottom--extention__icon header__bottom--extention__icon--up fa-solid fa-caret-up"></i>
+        </div>
+        <div class="hide__menu--user__list">
+          <div class="hide__menu--list__type adminManager__item" style="display: none"><button>Quản lý</button></div>
+          <div class="hide__menu--list__type logout__item"><button>Đăng xuất</button></div>
         </div>
         <div class="header__bottom--extention-item header__bottom--extention-love">
           <i class="fa-solid fa-heart"></i>
@@ -522,14 +629,13 @@
           <i class="header__bottom--extention__icon header__bottom--extention__icon--down fa-solid fa-caret-down"></i>
           <i class="header__bottom--extention__icon header__bottom--extention__icon--up fa-solid fa-caret-up"></i>
         </div>
-      </div>
-
-      <div class="hide__menu--list__types">
-        <div class="hide__menu--list__type"><a href="">MOUNTAIN</a></div>
-        <div class="hide__menu--list__type"><a href="">ROAD</a></div>
-        <div class="hide__menu--list__type"><a href="">TOURING</a></div>
-        <div class="hide__menu--list__type"><a href="">ELECTRIC</a></div>
-        <div class="hide__menu--list__type"><a href="">KIDS</a></div>
+        <div class="hide__menu--list__types">
+          <div class="hide__menu--list__type"><a href="">MOUNTAIN</a></div>
+          <div class="hide__menu--list__type"><a href="">ROAD</a></div>
+          <div class="hide__menu--list__type"><a href="">TOURING</a></div>
+          <div class="hide__menu--list__type"><a href="">ELECTRIC</a></div>
+          <div class="hide__menu--list__type"><a href="">KIDS</a></div>
+        </div>
       </div>
     </div>
 
