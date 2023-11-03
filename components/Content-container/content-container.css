@@ -1,0 +1,16 @@
+.content-container{
+    width: 80%;
+    margin-top: 20px;
+   
+   
+ 
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+   
+    z-index: 0;
+    font-family: 'Poppins', sans-serif;  
+  
+}

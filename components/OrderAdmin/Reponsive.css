@@ -1,0 +1,276 @@
+@media (max-width: 650px) {
+  .admin__content--body__qnt {
+    display: none;
+  }
+  .products--item__status {
+    padding: 0 5px;
+  }
+}
+
+/* >= Mobile */
+@media (min-width: 320px) and (max-width: 740px) {
+  .admin__content--header {
+    left: 0;
+  }
+
+  .admin__taskbar {
+    transform: translateX(-100%);
+  }
+
+  .hide .admin__content--header {
+    left: 0;
+  }
+
+  .hide .admin__taskbar {
+    transform: translateX(0);
+    width: 280px !important;
+    z-index: 12;
+    transition: all 0.5s;
+  }
+
+  .hide .admin__content {
+    left: 0;
+    width: 100%;
+  }
+
+  .hide .admin__taskbar .admin__taskbar--body__item a p,
+  .hide .admin__taskbar .admin__taskbar--header__content h1,
+  .hide .admin__taskbar .admin__taskbar--footer button p {
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hide .admin__taskbar .admin__taskbar--body__item i {
+    text-align: start;
+    margin-right: 10px;
+    width: auto;
+  }
+
+  .hide .admin__taskbar--footer,
+  .hide .admin__taskbar .admin__taskbar--body__item.active {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .hide .admin__taskbar--footer p {
+    line-height: 50px;
+  }
+
+  .admin__content {
+    width: 100%;
+    left: 0;
+  }
+
+  .admin__content--body__filter--gr1 {
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+  }
+
+  .admin__content--body__filter--gr1 div {
+    width: 100%;
+  }
+
+  .admin__content--body__img {
+    display: none;
+  }
+
+  .admin__content--body__id {
+    flex: 0.4 !important;
+  }
+  .admin__content--body__qnt {
+    flex: 0.3 !important;
+  }
+}
+
+/* Tablet - PC low resolution */
+@media (min-width: 740px) and (max-width: 1023px) {
+  .admin__content--header {
+    left: 0;
+  }
+
+  .admin__taskbar {
+    transform: translateX(-100%);
+  }
+
+  .hide .admin__content--header {
+    left: 0;
+  }
+
+  .hide .admin__taskbar {
+    transform: translateX(0);
+    width: 280px !important;
+    z-index: 12;
+    transition: all 0.5s;
+  }
+
+  .hide .admin__content {
+    left: 0;
+    width: 100%;
+  }
+
+  .hide .admin__taskbar .admin__taskbar--body__item a p,
+  .hide .admin__taskbar .admin__taskbar--header__content h1,
+  .hide .admin__taskbar .admin__taskbar--footer button p {
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hide .admin__taskbar .admin__taskbar--body__item i {
+    text-align: start;
+    margin-right: 10px;
+    width: auto;
+  }
+
+  .hide .admin__taskbar--footer,
+  .hide .admin__taskbar .admin__taskbar--body__item.active {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .hide .admin__taskbar--footer p {
+    line-height: 50px;
+  }
+
+  .admin__content {
+    width: 100%;
+    left: 0;
+  }
+
+  .admin__content--body__filter--gr1 {
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+  }
+
+  .admin__content--body__filter--gr1 div {
+    width: 100%;
+  }
+
+  .admin__content--body__id {
+    flex: 0.4 !important;
+  }
+}
+
+/* > PC low resolution */
+@media (min-width: 1024px) and (max-width: 1239px) {
+  .admin__content--body__filter--gr1 div {
+    width: 100%;
+  }
+
+  .admin__content--body__filter--gr1 {
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+  }
+
+  .admin__content--body__id {
+    flex: 0.3 !important;
+    font-size: 16px;
+    margin: 0 2px;
+  }
+  .products--item__qnt input {
+    width: 40px;
+    max-width: 100%;
+    font-size: 16px;
+  }
+  .products--item__status {
+    margin: 0 2px;
+  }
+  .admin__content--body__btn {
+    flex: 0.15 !important;
+  }
+}
+
+/* Large resolution */
+@media (min-width: 1024px) {
+  .admin__content--body__id {
+    flex: 0.3 !important;
+  }
+}
+
+/* Responsive Column */
+.grid {
+  width: 100%;
+  display: block;
+  padding: 0;
+}
+
+.grid.wide {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -12px;
+}
+
+.col {
+  padding: 0 12px;
+}
+
+/* Small */
+@media (max-width: 740px) {
+  .col.c-6 {
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+
+  .col.c-12 {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  .col.c-12-bi {
+    flex-basis: 80%;
+    max-width: 80%;
+    margin: 0 20px 40px;
+  }
+}
+
+/* Medium */
+@media (min-width: 740px) and (max-width: 1095px) {
+  .col.m-6 {
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+
+  .col.m-6-bi {
+    flex-basis: 40%;
+    max-width: 40%;
+    margin: 0 20px 40px;
+  }
+
+  .col.m-12 {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  .footer-item {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+}
+
+/* Large */
+@media (min-width: 1096px) {
+  .col.l-4-bi {
+    flex-basis: 30%;
+    max-width: 30%;
+    margin: 0 12px 24px;
+  }
+
+  .col.l-3 {
+    flex-basis: 25% !important;
+    max-width: 25% !important;
+  }
+
+  .col.l-2 {
+    flex-basis: 20%;
+    max-width: 20%;
+  }
+}
