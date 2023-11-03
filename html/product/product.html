@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="../../components/Root.css">
+    <link rel="stylesheet" href="../../components/Reponsive.css">
+    <link rel="stylesheet" href="../../components/Navbar/Navbar.css">   
+    <link rel="stylesheet" href="../../components/html.css">
+    
+    <link rel="stylesheet" href="../../components/Content-container/content-container.css">
+    <link rel="stylesheet" href="../../components/container.css">
+    <link rel="stylesheet" href="../../components/slideshow/Sideshow.css">
+    <link rel="stylesheet" href="../../components/filter/filter.css">
+    
+   <link rel="stylesheet" href="../../components/Content-container/filter-product_container.css">
+    <link rel="stylesheet" href="../../components/product/product.css">
+    <link rel="stylesheet" href="../../components/dashboard/dashboard.css">
+    <link rel="stylesheet" href="../../components/product/overlay.css">
+    <title>Document</title>
+  
+</head>
+<body>
+   
+    <div class="overlay" id="overlay" >
+       
+    <div class="product-item-info" >
+        <div class="bought-overlay">
+            <div class="bought">
+
+                <i class="fa-solid fa-xmark" id="bought-close-icon"></i>
+                <p>đang chờ thanh toán</p>
+            </div>
+          
+        
+        </div>
+        <div class="close-toggler" id="close-toggler">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="product-item-focus">
+            <div class="overlay-img">
+                <img src="" alt="" id="overlay-img">
+                <button id="overlayLike"><i class="fa-solid fa-heart"></i></button>
+            </div>
+
+            <div class="operation">
+                <div class="name">
+                    kkdkldlalaldl
+                </div>
+                <div class="type">
+                    loại xe: xe địa hình
+                </div>
+                <div class="insurance">
+                    bảo hành: 5 năm
+                </div>
+                <div class="">
+                    Vận chuyển: Vân chuyển trong nước
+                </div>
+                <div class="price-info">
+                    giá: 4888488484848
+                </div>
+                <div class="btn-overlay">
+                    <button id="overlay-buy-now">Mua ngay</button>
+                    <button id="overlay-add-cart">thêm vào giỏ hàng</button>
+                </div>
+
+            </div>
+        </div>
+        
+    </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="dashboard" id="dash-board">
+            <div class="dash-board-icon-close" id="dash-board-icon-close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <h1>Your Dashboard</h1>
+        
+        </div>
+
+
+
+       <nav class="navbar">
+            <div class="navbar-container">
+                <a class="navbar-brand" href="#">Trek</a>
+                
+                <div class="navbar-collapse">
+                    <form class="form-container" style="position: relative;">
+                        <div class="input-search">
+
+                            <input type="text" id="input"  id="input">
+                          
+                            <button type="submit" id="submit-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                        
+                       
+                    <div class="searchValue" id="searchValue">
+                        <!-- <div class="searchItem">
+                            <img src="images/2077100_2017_A_1_Procaliber_Frameset-571x379.jpeg" >
+                            <p>kasdjkfjkafjdkasjkldjklf</p>
+                        </div> -->
+                       
+                       
+                        
+                    </div>
+                    
+                    </form>
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
+                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-heart"></i></a>
+                        
+                        </li>
+                        <li class="nav-item" id="nav-item-cart">
+                        <a href="./page/cartPage/cart.html" class="nav-link"><i class="fa-solid fa-cart-shopping"></i></a>
+                        
+                    
+                        </li>
+                     
+                    </ul>
+                    
+                </div>
+
+
+                <div class="navbar-dropdown">
+                    <button class="navbar-toggler"  id="navbar-toggler" type="button">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="nav-dropdown" id="nav-dropdown">
+                        <ul class="menu">
+                            <li class="item"><a href="#">login</a></li>
+                            <li class="item"><a href="#">sign up</a></li>
+                            <li class="item"><a href="#">cart</a></li>
+                            <li class="item"><a href="#">like</a></li>               
+                        </ul>
+                    </div>
+
+                </div>
+          
+            </div>
+            
+
+       </nav>
+
+       <div class="content-container">
+
+            <div class="slideshow">
+
+
+                <div class="slideshow-img" id="slideshow-img">
+
+                    <img id="slide-img" src="img/SupercaliberSLR_99_X0-AXS_RED_ALT1.jpg" alt="">
+                    <img id="slide-img" src="img/SupercaliberSLR_99_X0-AXS_PRS_ALT1.jpg" alt="">
+                    <img id="slide-img" src="img/TOP-FUEL-8_ALT1.jpg" alt="">
+                    
+                </div>
+
+
+                
+                <div class="dots">
+                    <div class="dot" style="background-color: red;">
+                    </div>
+                    <div class="dot" ></div>
+                    <div class="dot" ></div>
+                </div>
+                <div class="slide-btn" >
+                    <button class="btn prev-btn" id="slide-prev-btn">Prev</button>
+                    <button class="btn next-btn" id="slide-next-btn">Next</button>
+                </div>
+            
+            
+            </div>
+  
+            <div class="filter-icon-container" 
+            style="width: 100%;
+            display: flex;
+            align-items: flex-start;
+            margin-top: 20px;
+            justify-content: flex-start;
+            "
+            
+            >
+            
+                <div class="filter-toggler"  style="cursor: pointer; width: 50px;height: 50px;">
+                    <a class="filterIcon" >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </a>
+                </div>
+                <p style="padding-left: 10px;
+                 font-family: 'Kaushan Script', cursive
+                ">Filter</p>
+
+            </div>
+            <div class="filter-product_container">
+                <div class="filter" id="filter">
+                    <!-- Filter Button -->
+                   
+                </div>
+                <div class="product" id="product">
+                    <h1 
+                    style="width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-family: 'Kaushan Script', cursive;
+                    transform: translateY(-30px);
+                    " 
+                    >Product</h1>
+                    <div class="product-list" id="productList">
+                       
+                    </div>  
+                    <div class="return-to-page" id="return-to-page"
+                    >
+                        <button id="return-page">quay lại trang</button>
+                    </div>
+                    <div class="paging" id="paging">
+                    
+                        <button id="prevPage"><i class="fa-solid fa-chevron-left"></i></button>
+                        <div id="page-start">
+                            1
+                        </div>
+                        <!-- <div class="start-container">
+                                            </div> -->
+                        <div class="prev-item">
+                            <h1 id="prev-item1">...</h1>
+                        </div>
+                        <!-- <div class="prev-container">
+                                        
+                                            </div> -->
+                        <ul id="pagination" class="pagination">
+                            <li id="id1">1</li>
+                            <li id="id2">2</li>
+                            <li id="id3">3</li>
+                        </ul>
+                        <div class="prev-item">
+                            <h1 id="prev-item2">...</h1>
+                        </div>
+                    
+                        <div id="page-end">
+                            9
+                        </div>
+                    
+                        <button id="nextPage"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+            </div>
+       </div>
+
+
+       <footer style="width: 100vw; height: 500px; background-color: red;">
+
+       </footer>
+
+
+
+
+       <script type="module" src="./data/data.js"></script>
+       <script type="module" src="./components/Content-container/product/product.js"></script>
+    <script src="./components/Content-container/filter/filter.js"></script>
+   <script src="./components/Content-container/slideshow/Slideshow.js"></script>
+   <script type="module" src="./components/Navbar/Navbar.js"></script>
+</body>
+</html>
