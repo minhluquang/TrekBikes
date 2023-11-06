@@ -99,6 +99,19 @@ const showMessageNameRes = document.querySelector('.register__info--input__full-
 const showMessageEmailRes = document.querySelector('.register__info--input__full-email p');
 const showMessagePasswordRes = document.querySelector('.register__info--input__full-password p');
 
+function generateRandomUserID(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let userID = '';
+  const charactersLength = characters.length;
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charactersLength);
+    userID += characters.charAt(randomIndex);
+  }
+
+  return userID;
+}
+
 registerSubmitBtn.addEventListener('click', e => {
   e.preventDefault();
   const name = registerNameInput.value.trim();
@@ -147,10 +160,9 @@ registerSubmitBtn.addEventListener('click', e => {
   const isValidRegister = isValidName && isValidEmail && isValidPassword;
 
   if (isValidRegister) {
-    const id = Date.now().toString();
     const date = new Date().toISOString();
     ACCOUNT_DATA.push({
-      id: id,
+      id: generateRandomUserID(5),
       name: name,
       email: email,
       password: password,
@@ -165,7 +177,7 @@ registerSubmitBtn.addEventListener('click', e => {
     localStorage.setItem(
       'userLogin',
       JSON.stringify({
-        id: id,
+        id: generateRandomUserID(5),
         name: name,
         email: email,
         password: password,

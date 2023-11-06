@@ -63,14 +63,14 @@ submitBtn.addEventListener('click', e => {
   }
 
   init(data);
-  // paginationHandler();
+  paginationHandler();
 });
 
 const resetBtn = document.querySelector('.body__filter--action__reset');
 resetBtn.addEventListener('click', e => {
   const data = JSON.parse(localStorage.getItem('ACCOUNT__DATA'));
   init(data);
-  // paginationHandler();
+  paginationHandler();
 });
 
 // end: Logic for filter products
@@ -168,7 +168,7 @@ function paginationHandler() {
   }
 
   // Checking on first page
-  function renderPaginationBtn(isProcessed) {
+  function renderPaginationBtn() {
     const pagination = document.querySelector('.pagination');
     pagination.innerHTML = '';
     const html = `
