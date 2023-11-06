@@ -125,6 +125,7 @@ const deleteUserHandler = btn => {
   localStorage.setItem('ACCOUNT__DATA', JSON.stringify(data));
   renderUsersInfo(data);
   clickedDeleteBtnHandler();
+  paginationHandler();
 };
 
 const clickedDeleteBtnHandler = () => {
@@ -143,3 +144,74 @@ const init = data => {
 };
 
 init();
+
+// start: pagination
+function paginationHandler() {
+  const productItems = document.querySelectorAll('.admin__content--body__users ul');
+  let currentPage = 0;
+  const itemsPerPage = 6;
+  const totalPages = Math.ceil(productItems.length / itemsPerPage);
+  let storeItemsPerPage = [];
+
+  function renderLayoutPagination() {
+    document.querySelector('.admin__content--body__users').innerHTML = '';
+    const startIdx = currentPage * itemsPerPage;
+    const endIdx = Math.min(currentPage * itemsPerPage + itemsPerPage, productItems.length);
+
+    for (let i = startIdx; i < endIdx; i++) {
+      storeItemsPerPage.push(productItems[i]);
+    }
+    storeItemsPerPage.forEach(item => {
+      document.querySelector('.admin__content--body__users').appendChild(item);
+    });
+    storeItemsPerPage = [];
+  }
+
+  // Checking on first page
+  function renderPaginationBtn(isProcessed) {
+    const pagination = document.querySelector('.pagination');
+    pagination.innerHTML = '';
+    const html = `
+      <button data-goto="${currentPage - 1}" data-of="${totalPages}" class="btn--inline pagination__btn--prev ${
+      currentPage === 0 ? 'hide' : ''
+    }">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>${currentPage}</span>
+        <span> of ${totalPages}</span>
+      </button>
+      <span class="currentPage">${currentPage + 1}</span>
+      <button data-goto="${currentPage + 1}" data-of="${totalPages}" class="btn--inline pagination__btn--next ${
+      currentPage === totalPages - 1 ? 'hide' : ''
+    }"  >
+        <span>${currentPage + 2}</span>
+        <span> of ${totalPages}</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>`;
+    pagination.insertAdjacentHTML('afterbegin', html);
+    nextPageHandler();
+    prevPageHandler();
+  }
+
+  function nextPageHandler() {
+    const nextPageBtn = document.querySelector('.pagination__btn--next');
+    nextPageBtn.addEventListener('click', e => {
+      currentPage += 1;
+      renderLayoutPagination();
+      renderPaginationBtn();
+    });
+  }
+
+  function prevPageHandler() {
+    const prevPageBtn = document.querySelector('.pagination__btn--prev');
+    prevPageBtn.addEventListener('click', e => {
+      currentPage -= 1;
+      renderLayoutPagination();
+      renderPaginationBtn();
+    });
+  }
+
+  renderLayoutPagination();
+  renderPaginationBtn();
+}
+paginationHandler();
+// end: pagination
