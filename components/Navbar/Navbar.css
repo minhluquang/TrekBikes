@@ -10,7 +10,7 @@ ul{
 }
 .navbar{
     top: 0;
-    width: 100%;
+    width: 100vw;
     background-color: #fff;
     padding:  10px;
     display: flex;
@@ -27,6 +27,8 @@ ul{
     margin-left: 100px;
     font-size: 40px;
     font-weight: bold;
+    text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3),
+            0px -4px 10px rgba(255, 255, 255, 0.3);
   
   
 }
@@ -35,12 +37,13 @@ ul{
     font-size: 24px;
     padding: 8px 12px;
     margin: 5px;
-    border-radius: 5px;
+    border-radius: 12px;
     background-color: rgba(0, 0, 0, 0.05);
     position: relative;
     border: none;
     cursor: pointer;
     transition: transform .3s ease;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 
@@ -77,9 +80,10 @@ ul{
     font-size: 24px;
     padding: 8px 12px;
     margin: 5px;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.05);
     position: relative;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 .nav-item::after {
     content: "";
@@ -101,14 +105,19 @@ ul{
 .nav-item .item-cart {
     position: absolute;
     text-align: center;
+    
     width: 15px;
     height: 15px;
+    
+    
     padding: 2px;
     top: 0;
     font-size: 12px;
-    background-color: red;
+    background-color: #1E90FF;
     border-radius: 5px;
     right: 0;
+    color: white;
+    
 
 }
 
@@ -136,7 +145,7 @@ ul{
     border: none;
     border-radius: 10px;
     background-color: rgb(237, 237, 237);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
     transition: all .3s ease;
     opacity: 0.7;
    
@@ -153,18 +162,12 @@ ul{
     font-size: 20px;
    border: none;
    border-radius: 12px;
-    box-shadow: 0px 4px 0px 0px rgb(207, 205, 205);
+box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
    cursor: pointer;
    transition: all 0.3s ease;
 }
-.input-search #submit-btn:hover{
-   box-shadow: none;
-}
 
-form input:hover{   
-    box-shadow: none;
-   
-}
+
 
 form input:focus{
     
@@ -183,13 +186,15 @@ form input:focus{
 }
 .nav-dropdown .menu{
     
-    background-color: #3333;
+    background-color: #333;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     list-style: none;
     border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    
 }
 .nav-dropdown .menu .item{
    
@@ -197,12 +202,18 @@ form input:focus{
     width: 100%;
     padding: 10px;
     border-top: 1px solid white;
+    cursor: pointer;
+    
+}
+.nav-dropdown .menu .item:hover{
+   
+   background-color: #828282;
     
 }
 
 
 .nav-dropdown .menu li a{
-    color: black;
+    color: white;
     font-weight: bold;
    
 }
@@ -234,8 +245,18 @@ form input:focus{
    display: flex;
    justify-content: space-between;
    align-items: center;
+
    border-top: 1px solid white;
+   cursor: pointer;
 }
+.searchValue .searchItem span{
+    position: absolute;
+    opacity: 0;
+}
+.searchValue .searchItem:hover{
+    background-color: #828282;
+}
+
 .searchValue .searchItem img{
     width: 70px;
     height: 50px;   
@@ -244,3 +265,19 @@ form input:focus{
 .searchValue .searchItem p{
    color: black;
 }
+
+.nav-item .item-heart {
+    position: absolute;
+    text-align: center;
+    width: 15px;
+    height: 15px;
+    padding: 2px;
+    top: 0;
+    font-size: 12px;
+    background-color: #1E90FF;
+    border-radius: 5px;
+    right: 0;
+    color: white;
+
+}
+

@@ -8,7 +8,8 @@ const logoImg = document.querySelector('.admin__taskbar--header__content div');
 init.forEach(item => {
   window.addEventListener(item, e => {
     if (window.innerWidth <= 1024) {
-      logoImg.innerHTML = '<img src="../../database/images/logo/logo_on_menu_adm.jpg" alt="" />';
+      console.log(123);
+      logoImg.innerHTML = '<img src="../../../database/images/logo/logo_on_menu_adm.jpg" alt="" />';
 
       menuBtn.addEventListener('click', e => {
         overlay.classList.add('active');
@@ -25,6 +26,9 @@ init.forEach(item => {
       });
     } else {
       closeBtn.classList.remove('active');
+      menuBtn.addEventListener('click', e => {
+        overlay.classList.remove('active');
+      });
     }
   });
 });

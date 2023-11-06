@@ -347,11 +347,11 @@ const manageBtn = document.querySelector('.adminManager');
 const manageLowDeviceBtn = document.querySelector('.hide__menu--list__type.adminManager__item');
 
 manageLowDeviceBtn.addEventListener('click', e => {
-  window.location.href = '/html/admin/Home.html';
+  window.location.href = '/html/page/admin/Home.html';
 });
 
 manageBtn.addEventListener('click', e => {
-  window.location.href = '/html/admin/Home.html';
+  window.location.href = '/html/page/admin/Home.html';
 });
 
 // =========================== end: GO TO ADMIN PAGE ===========================
@@ -388,3 +388,25 @@ hideEyeLogin.addEventListener('click', e => {
   showEyeLogin.classList.toggle('hide');
   hideEyeLogin.classList.toggle('hide');
 });
+
+// start: Checking login when click loveIcon/cartIcon
+const loveIcon = document.querySelector('.header__bottom--extention-love');
+const loveBtn = loveIcon.parentElement;
+
+const cartIcon = document.querySelector('.header__bottom--extention-cart');
+const cartBtn = cartIcon.parentElement;
+
+const userLogin = JSON.parse(localStorage.getItem('userLogin'));
+
+if (!userLogin) {
+  loveBtn.addEventListener('click', e => {
+    e.preventDefault();
+    openFormRegister();
+  });
+
+  cartBtn.addEventListener('click', e => {
+    e.preventDefault();
+    openFormRegister();
+  });
+}
+// end: Checking login when click loveIcon/cartIcon

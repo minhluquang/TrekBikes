@@ -12,9 +12,9 @@ toggleMenuIcon.addEventListener('click', e => {
   const isHide = document.querySelector('.container.hide');
 
   if (isHide) {
-    logoMenu.src = '../../database/images/logo/logo_on_menu_adm.jpg';
+    logoMenu.src = '../../../database/images/logo/logo_on_menu_adm.jpg';
   } else {
-    logoMenu.src = '../../database/images/logo/logo_on_hideMenu_adm.jpg';
+    logoMenu.src = '../../../database/images/logo/logo_on_hideMenu_adm.jpg';
   }
   container.classList.toggle('hide');
 });
@@ -41,6 +41,7 @@ const showModal = (user, currentPID, currenQNT) => {
   const findDataProduct = DUMMY_PRODUCTS.find(product => product.ID === currentPID);
   const price = parseFloat(findDataProduct.price.replace('VND', '').split('.').join(''));
 
+  console.log(findDataProduct);
   form.innerHTML = '';
 
   // Apply data

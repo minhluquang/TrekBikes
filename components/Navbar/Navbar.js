@@ -1,9 +1,10 @@
-import data from '../../data/data.js'
+import DUMMY_PRODUCTS from '../../../database/products.js'
+const data = DUMMY_PRODUCTS;
 const navbarToggle = document.getElementById('navbar-toggler')
 const navDropdown = document.getElementById('nav-dropdown')
-const togglerIcon = navbarToggle.querySelectorAll('i');
+const userLocal = JSON.parse(localStorage.getItem('User'));
 const input = document.getElementById('input');
-const closeIcon = '<i class="fa-solid fa-xmark"></i>'
+const statusSearch = document.getElementById('statusSearch');
 if (!localStorage.getItem('inputSearchCheck')) {
 
     console.log('Mã đã chạy lần đầu tiên');
@@ -23,8 +24,8 @@ const productList = document.getElementById('productList');
 const inputSearch = JSON.parse(localStorage.getItem('inputSearch'));
 const paging = document.getElementById('paging')
 const returnPage = document.getElementById('return-to-page');
-console.log(returnPage)
-console.log(database)
+const overlay = document.getElementById('overlay')
+
 
 function displayItem(startIndex, endIndex) {
     productList.innerHTML = '';
@@ -40,7 +41,7 @@ function displayItem(startIndex, endIndex) {
             productItem.innerHTML = `
                        <div class = "id">${data[i].ID}</div>
                          <div class="imgSrc">
-                         <img src="${data[i].imgSrc}">
+                         <img src="/${data[i].imgSrc}">
                          <div class="overlay-hover">
                          
                         <div class="top-button">                  
@@ -66,13 +67,13 @@ function displayItem(startIndex, endIndex) {
                     `;
             productList.appendChild(productItem);
 
+
         } else {
             return;
         }
     }
 
 }
-
 
 
 
@@ -90,43 +91,212 @@ navbarToggle.addEventListener('click', () => {
 
 })
 
+const overlayPrice = overlay.querySelector('#overlay-price')
+const overlayClose = overlay.querySelector('#close-toggler');
+
+const overlayAddCart = overlay.querySelector('#overlay-add-cart')
+
+const toastAddCart = document.querySelector('.toast-add-cart');
+const toastSaveProduct = document.querySelector('.toast-save-product');
+const toast = document.querySelectorAll('.toast');
+const toastContainer = document.querySelector('.toast-container')
+const overlayid = document.getElementById('overlayid');
+const navItemHeart = document.getElementById('nav-item-heart')
 input.addEventListener('input', (event) => {
     event.preventDefault();
-    const inputValue = input.value.toLowerCase();
+    if (input.value.length < 0 || input.value === '') {
+        searchValue.style.display = 'none';
+    } else {
+        searchValue.style.display = 'block';
+        const inputValue = input.value.toLowerCase();
 
-    inputSearch[0] = inputValue;
-    localStorage.setItem('inputSearch', JSON.stringify(inputSearch));
-    const matchingNames = database.filter(e => e.name.toLowerCase().includes(inputValue));
-    if (event.key === 'enter') {
-        alert('tên sản phẩm')
-    }
-    if (inputValue === "") {
+        inputSearch[0] = inputValue;
+        localStorage.setItem('inputSearch', JSON.stringify(inputSearch));
+        const matchingNames = database.filter(e => e.name.toLowerCase().includes(inputValue));
+        if (event.key === 'enter') {
+            alert('tên sản phẩm')
+        }
+        if (inputValue === "") {
+            searchValue.innerHTML = '';
+            searchValue.style.border = 'none'
+            return;
+        }
+
         searchValue.innerHTML = '';
-        searchValue.style.border = 'none'
-        return;
+        matchingNames.forEach(e => {
+            const searchInfoValue = document.createElement('div');
+            searchInfoValue.classList.add('searchItem');
+            searchInfoValue.innerHTML = `
+                <span id="id">${e.ID}</span>
+                 <img src="/${e.imgSrc}">
+                <p>${e.name}</p>
+            `;
+            searchValue.appendChild(searchInfoValue);
+            searchValue.style.border = '1px solid gray';
+            const id = searchInfoValue.querySelector('#id');
+            const overlayid = overlay.querySelector('#overlayid');
+            const overlayImg = overlay.querySelector('img');
+
+            const closeToggle = overlay.querySelector('#close-toggler');
+            const overlayName = overlay.querySelector('.name');
+            const overlayPrice = overlay.querySelector('#overlay-price');
+            const overlayLike = overlay.querySelector('#overlayLike');
+            let checkLike = true;
+            const like = document.querySelector('#like');
+            const ElementImg = document.querySelector('img')
+            const ElementInfo = document.querySelector('.overlay-click')
+
+            searchInfoValue.addEventListener('click', () => {
+
+                overlay.style.display = 'flex';
+                searchValue.style.display = 'none';
+                overlayName.innerText = e.name;
+                overlayImg.src = `/${e.imgSrc}`;
+                overlayPrice.innerText = e.price;
+                overlayid.innerHTML = id.textContent;
+                console.log(overlayid);
+                overlayClose.addEventListener('click', () => {
+
+                    overlay.style.display = 'none';
+                })
+                let checkLikeOverlay = true;
+                for (let i = 0; i < userLocal[0].like.length; i++) {
+                    if (userLocal[0].like[i] == id.textContent) {
+                        checkLikeOverlay = false;
+                        checkLike = false;
+
+                    }
+                }
+
+                overlayLike.addEventListener('click', () => {
+                    const toastText = toastContainer.querySelector('h3');
+                    for (let i = 0; i < userLocal[0].like.length; i++) {
+                        if (userLocal[0].like[i] == id.textContent) {
+                            checkLikeOverlay = false;
+                            checkLike = false;
+                            userLocal[0].like.splice(i, 1);
+                        }
+
+                    }
+                    if (checkLikeOverlay) {
+
+                        like.style.color = 'red';
+                        checkLike = false;
+                        checkLikeOverlay = !checkLikeOverlay;
+                        toastContainer.style.display = 'flex';
+
+                        toastText.innerText = 'Đã thêm vào danh mục yêu thích'
+                        toastSaveProduct.style.display = 'flex';
+
+                        userLocal[0].like.push(id.textContent);
+                    } else {
+
+                        toastText.innerText = 'Đã xóa khỏi danh mục yêu thích';
+
+                        toastContainer.style.display = 'flex';
+
+
+                        toastSaveProduct.style.display = 'flex';
+
+                        overlayLike.style.color = 'gray';
+                        like.style.color = 'gray';
+                        checkLike = true;
+                        checkLikeOverlay = !checkLikeOverlay;
+                    }
+                    const itemHeart = document.createElement('p');
+                    itemHeart.classList.add("item-heart");
+                    itemHeart.innerText = `${userLocal[0].like.length}`;
+                    navItemHeart.appendChild(itemHeart)
+                    const updateLike = [...new Set(userLocal[0].like)];
+                    userLocal[0].like = updateLike;
+                    localStorage.setItem('User', JSON.stringify(userLocal));
+
+
+                })
+                toast.forEach(e => {
+                    const exitToast = e.querySelector('.exit');
+                    exitToast.addEventListener('click', () => {
+                        toastContainer.style.display = 'none';
+                        e.style.display = 'none';
+                    })
+                })
+
+            })
+
+        });
+
     }
-    searchValue.innerHTML = '';
-    matchingNames.forEach(e => {
-        const searchInfoValue = document.createElement('div');
-        searchInfoValue.classList.add('searchItem');
-        searchInfoValue.innerHTML = `
-             <img src="${e.imgSrc}">
-            <p>${e.name}</p>
-        `;
-        searchValue.appendChild(searchInfoValue);
-        searchValue.style.border = '1px solid gray'
-    });
 
 
 })
+const navItemCart = document.getElementById('nav-item-cart');
 
-submitBtn.addEventListener('click', () => {
+let quantity = 0;
+const clickAddCart = () => {
+    console.log(overlayid);
+    for (let i = 0; i < userLocal[0].cart.length; i++) {
 
+        if (userLocal[0].cart[i].id === overlayid.textContent) {
+            quantity = parseInt(userLocal[0].cart[i].quantity);
+            break;
+        }
+    }
+    quantity = quantity + 1;
+    toastContainer.style.display = 'flex'
+    toastAddCart.style.display = 'flex';
+    var currentTime = new Date();
 
+    var ngay = currentTime.getDate();
+    var thang = currentTime.getMonth() + 1;
+    var nam = currentTime.getFullYear();
+    var gio = currentTime.getHours();
+    var phut = currentTime.getMinutes();
+    var giay = currentTime.getSeconds();
+
+    const processAt = {
+        id: overlayid.textContent,
+        time: `${gio}:${phut}:${giay}`,
+        date: `${ngay}/${thang}/${nam} `,
+    }
+    const process = {
+        id: overlayid.textContent,
+        quantity: quantity
+    }
+    // alert(quantity);
+    let found = false;
+    if (userLocal[0].cart.length > 0) {
+        for (let i = 0; i < userLocal[0].cart.length; i++) {
+            if (process.id === userLocal[0].cart[i].id) {
+                userLocal[0].cart[i].quantity = quantity;
+                found = true;
+                break;
+            }
+        }
+    }
+    if (!found) {
+        userLocal[0].cart.push(process);
+        quantity = 0;
+    }
+    userLocal[0].createCartAt.push(processAt);
+    // alert("Ngày " + ngay + "/" + thang + "/" + nam + " lúc " + gio + ":" + phut + ":" + giay)
+    localStorage.setItem('User', JSON.stringify(userLocal));
+    const itemCart = document.createElement('p');
+    itemCart.classList.add("item-cart");
+    itemCart.innerText = `${userLocal[0].cart.length}`;
+    navItemCart.appendChild(itemCart);
+}
+
+overlayAddCart.addEventListener('click', () => {
+    clickAddCart();
+});
+
+submitBtn.addEventListener('click', (e) => {
+
+    e.preventDefault();
     const matchingProduct = database.filter(e => e.name.toLowerCase().includes(inputSearch[0].trim().toLowerCase()));
 
 
-    console.log(matchingProduct)
+
     productList.innerHTML = ''
     input.innerHTML = ''
 
@@ -143,13 +313,13 @@ submitBtn.addEventListener('click', () => {
             matchingProduct.forEach(e => {
                 let colors = e.dataColors;
                 paging.style.display = 'none';
-
+                statusSearch.innerText = 'Các sản phẩm tìm thấy'
                 let productItem = document.createElement('div');
                 productItem.classList.add('product-item');
                 productItem.innerHTML = `
                            <div class = "id">${e.ID}</div>
                              <div class="imgSrc">
-                             <img src="${e.imgSrc}">
+                             <img src="/${e.imgSrc}">
                              <div class="overlay-hover">
     
                             <div class="top-button">                  
@@ -175,11 +345,208 @@ submitBtn.addEventListener('click', () => {
     
                         `;
                 productList.appendChild(productItem);
-                returnPage.style.display = 'flex'
+                returnPage.style.display = 'flex';
+                const like = productItem.querySelector('#like');
+                const addCart = productItem.querySelector('#add-cart');
+
+                const overlayClick = productItem.querySelector('.overlay-click');
+
+
+                for (let i = 0; i < userLocal[0].like.length; i++) {
+                    if (userLocal[0].like[i] == e.ID) {
+
+                        like.style.color = 'red';
+                    }
+                }
+                let checkLike = true;
+                overlayClick.addEventListener('click', () => {
+                    overlay.style.display = 'flex';
+                    const overlayImg = overlay.querySelector('img');
+
+                    const closeToggle = overlay.querySelector('#close-toggler');
+                    const overlayName = overlay.querySelector('.name');
+
+                    const overlayLike = overlay.querySelector('#overlayLike');
+
+
+
+                    const overlayid = overlay.querySelector('#overlayid');
+                    overlayid.innerHTML = e.ID;
+                    closeToggle.addEventListener('click', () => {
+                        overlay.style.display = 'none';
+                        toastContainer.style.display = 'none';
+                    })
+                    overlayName.innerHTML = e.name;
+                    overlayImg.src = `/${e.imgSrc}`;
+                    overlayPrice.innerHTML = e.price;
+                    let checkLikeOverlay = true;
+                    for (let i = 0; i < userLocal[0].like.length; i++) {
+                        if (userLocal[0].like[i] == e.ID) {
+                            checkLikeOverlay = false;
+                            checkLike = false;
+
+                        }
+                    }
+                    overlayLike.addEventListener('click', () => {
+
+                        const toastText = toastContainer.querySelector('h3');
+                        for (let i = 0; i < userLocal[0].like.length; i++) {
+                            if (userLocal[0].like[i] == e.ID) {
+                                checkLikeOverlay = false;
+                                checkLike = false;
+
+
+                                userLocal[0].like.splice(i, 1);
+                            }
+
+                        }
+                        if (checkLikeOverlay) {
+
+                            like.style.color = 'red';
+                            checkLike = false;
+                            checkLikeOverlay = !checkLikeOverlay;
+                            toastContainer.style.display = 'flex';
+
+                            toastText.innerText = 'Đã thêm vào danh mục yêu thích'
+                            toastSaveProduct.style.display = 'flex';
+
+                            userLocal[0].like.push(e.ID);
+                        } else {
+
+                            toastText.innerText = 'Đã xóa khỏi danh mục yêu thích';
+
+                            toastContainer.style.display = 'flex';
+
+
+                            toastSaveProduct.style.display = 'flex';
+
+                            overlayLike.style.color = 'gray';
+                            like.style.color = 'gray';
+                            checkLike = true;
+                            checkLikeOverlay = !checkLikeOverlay;
+                        }
+                        const itemHeart = document.createElement('p');
+                        itemHeart.classList.add("item-heart");
+                        itemHeart.innerText = `${userLocal[0].like.length}`;
+                        navItemHeart.appendChild(itemHeart)
+                        const updateLike = [...new Set(userLocal[0].like)]
+                        userLocal[0].like = updateLike;
+                        localStorage.setItem('User', JSON.stringify(userLocal));
+
+                        // localStorage.setItem('User', JSON.stringify(userLocal))
+
+                    })
+                    toast.forEach(e => {
+                        const exitToast = e.querySelector('.exit');
+                        exitToast.addEventListener('click', () => {
+                            toastContainer.style.display = 'none';
+                            e.style.display = 'none';
+
+
+                        })
+                    })
+
+                })
+
+                addCart.addEventListener('click', () => {
+
+                    for (let i = 0; i < userLocal[0].cart.length; i++) {
+
+                        if (userLocal[0].cart[i].id === e.ID) {
+                            quantity = parseInt(userLocal[0].cart[i].quantity);
+                            break;
+                        }
+                    }
+                    quantity = quantity + 1;
+                    alert('đã thêm vao giỏ hàng')
+
+
+                    var currentTime = new Date();
+
+
+                    var ngay = currentTime.getDate();
+                    var thang = currentTime.getMonth() + 1;
+                    var nam = currentTime.getFullYear();
+                    var gio = currentTime.getHours();
+                    var phut = currentTime.getMinutes();
+                    var giay = currentTime.getSeconds();
+
+
+                    const processAt = {
+                        id: overlayid.textContent,
+                        time: `${gio}:${phut}:${giay}`,
+                        date: `${ngay}/${thang}/${nam} `,
+                    }
+                    const process = {
+                        id: e.ID,
+                        quantity: quantity
+                    }
+                    // alert(quantity);
+                    let found = false;
+
+                    if (userLocal[0].cart.length > 0) {
+                        for (let i = 0; i < userLocal[0].cart.length; i++) {
+                            if (process.id === userLocal[0].cart[i].id) {
+                                userLocal[0].cart[i].quantity = quantity;
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!found) {
+                        userLocal[0].cart.push(process);
+                        quantity = 0;
+                    }
+
+
+
+                    userLocal[0].createCartAt.push(processAt);
+
+                    localStorage.setItem('User', JSON.stringify(userLocal));
+                    const itemCart = document.createElement('p');
+                    itemCart.classList.add("item-cart");
+                    itemCart.innerText = `${userLocal[0].cart.length}`;
+                    navItemCart.appendChild(itemCart);
+
+                });
+                like.addEventListener('click', () => {
+                    for (let i = 0; i < userLocal[0].like.length; i++) {
+                        if (userLocal[0].like[i] === e.ID) {
+                            checkLike = false;
+                            like.style.color = 'red';
+                            userLocal[0].like.splice(i, 1);
+                        }
+                    }
+                    if (checkLike) {
+                        like.style.color = 'red';
+
+                        checkLike = !checkLike;
+                        userLocal[0].like.push(e.ID);
+                    } else {
+                        like.style.color = '#A0A0A0';
+                        overlayLike.style.color = '#A0A0A0';
+                        checkLike = !checkLike;
+                    }
+                    const updateLike = [...new Set(userLocal[0].like)];
+
+
+                    const itemHeart = document.createElement('p');
+                    itemHeart.classList.add("item-heart");
+                    itemHeart.innerText = `${userLocal[0].like.length}`;
+                    navItemHeart.appendChild(itemHeart)
+                    userLocal[0].like = updateLike;
+                    console.log(userLocal);
+                    localStorage.setItem('User', JSON.stringify(userLocal));
+
+
+                })
             })
         } else if (matchingProduct.length <= 0) {
+            statusSearch.innerText = 'Không tìm thấy sản phẩm'
             alert('Không tìm thấy sản phẩm ');
             displayItem(0, 10)
+            document.location.reload();
             paging.style.display = 'flex';
             returnPage.style.display = 'none'
         }
@@ -189,6 +556,9 @@ submitBtn.addEventListener('click', () => {
 returnPage.addEventListener('click', () => {
     document.location.reload();
 })
+
+
+
 // window.addEventListener('popstate', (event) => {
 //     alert('Quay lại trang');
 // });

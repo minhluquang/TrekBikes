@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trek - Quản lý cửa hàng</title>
+    <link rel="stylesheet" href="../../../fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="../../../components/fonts.css">
+    <link rel="stylesheet" href="../../../components/ManageUserList/ManageUserList.css" />
+
+    <script type="module" defer src="../../../components/ManageUserList/ManageUserList.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="admin__taskbar">
+        <div class="close-btn-low-device">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="admin__taskbar--header">
+          <!-- <div class="admin__taskbar--header__img">
+            <img src="../../database/images/logo/trek_logo_vertical_red.png" alt="" />
+          </div> -->
+          <div class="admin__taskbar--header__content">
+            <div>
+              <img src="../../../database/images/logo/logo_on_menu_adm.jpg" alt="" />
+            </div>
+
+            <h1>AdminHub</h1>
+            <!-- <div class="admin__taskbar--header__status">
+              <span></span>
+              <p>Online</p>
+            </div> -->
+          </div>
+        </div>
+        <div class="hr"></div>
+        <ul class="admin__taskbar--body__list">
+          <li class="admin__taskbar--body__item">
+            <a href="./Home.html">
+              <i class="fa-solid fa-house-chimney"></i>
+              <p>Trang chủ</p>
+            </a>
+          </li>
+          <li class="admin__taskbar--body__item">
+            <a href="">
+              <i class="fa-solid fa-bicycle"></i>
+              <p>Sản phẩm</p>
+            </a>
+          </li>
+          <li class="admin__taskbar--body__item">
+            <a href="./OrderPage.html">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <p>Đơn hàng</p>
+            </a>
+          </li>
+          <li class="admin__taskbar--body__item active">
+            <a href="#">
+              <i class="fa-solid fa-user"></i>
+              <p>Khách hàng</p>
+            </a>
+          </li>
+          <li class="admin__taskbar--body__item">
+            <a href="./AddNewProduct.html">
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+              <p>Cấu hình</p>
+            </a>
+          </li>
+        </ul>
+
+        <div class="hr"></div>
+
+        <div class="admin__taskbar--footer">
+          <button>
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <p>Đăng xuất</p>
+          </button>
+        </div>
+
+        <!-- <button class="admin__task--footer">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Đăng xuất
+        </button> -->
+      </div>
+      <div class="admin__content--header">
+        <div class="admin__content--header__cate">
+          <i class="fa-solid fa-bars"></i>
+          <p>Danh mục</p>
+        </div>
+        <!-- <div class="admin__content--header__search">
+          <input type="text" placeholder="Nhập nội dung cần tìm kiếm" />
+          <div>
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+        </div> -->
+        <div class="admin__content--header__user">
+          <p><i class="fa-solid fa-user-shield"></i>Nguyễn Văn A</p>
+        </div>
+      </div>
+
+      <div class="admin__content">
+        <div class="admin__content--body">
+          <div class="admin__content--body__top">
+            <form class="admin__content--body__filter">
+              <h1>Lọc thông tin người dùng</h1>
+              <div class="admin__content--body__filter--gr1">
+                <div class="body__filter--nameClient">
+                  <p>Tên khách hàng</p>
+                  <input type="text" placeholder="Nhập tên khách hàng" />
+                </div>
+                <div class="body__filter--idClient">
+                  <p>Mã khách hàng</p>
+                  <input type="text" placeholder="Nhập mã khách hàng" />
+                </div>
+              </div>
+              <!-- <div class="admin__content--body__filter--gr2">
+                <div class="body__filter--idProduct">
+                  <p>Mã sản phẩm</p>
+                  <input type="text" placeholder="Nhập mã sản phẩm" />
+                </div>
+                <div class="body__filter--type">
+                  <p>Loại xe</p>
+                  <select name="" id="">
+                    <option value="">Chọn loại xe</option>
+                    <option value="mountain">Mountain</option>
+                    <option value="road">Road</option>
+                    <option value="touring">Touring</option>
+                    <option value="electric">Electric</option>
+                    <option value="kids">Kids</option>
+                  </select>
+                </div>
+              </div> -->
+              <div class="body__filter--actions">
+                <button type="reset" class="body__filter--action__reset">Reset</button>
+                <button class="body__filter--action__filter">Lọc</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="admin__content--body__content">
+            <ul class="admin__content--body__list">
+              <li class="admin__content--body__id">Mã khách hàng</li>
+              <li class="admin__content--body__name">Tên khách hàng</li>
+              <li class="admin__content--body__email">Email</li>
+              <li class="admin__content--body__dateRegister">Ngày đăng ký</li>
+              <li class="admin__content--body__btn">Xóa</li>
+            </ul>
+            <div class="admin__content--body__users">
+              <!-- <ul class="admin__content--body__users--item" uid="1">
+                <li class="admin__content--body__id users--item__id" id="1">1</li>
+                <li class="admin__content--body__name users--item__name">Lữ Quang Minh</li>
+                <li class="admin__content--body__email users--item__email">test@test.com</li>
+                <li class="admin__content--body__dateRegister users--item__dateRegister">11/02/2023</li>
+                <li class="admin__content--body__btn users--item__btn">
+                  <button><i class="fa-solid fa-x"></i></button>
+                </li>
+              </ul> -->
+              <!-- GONNA APPLY CODE HERE BY FILE ORDERADMIN.JS -->
+            </div>
+          </div>
+          <div class="pagination">
+            <button data-goto="1" data-of="6" class="btn--inline pagination__btn--prev">
+              <i class="fa-solid fa-arrow-left"></i>
+              <span>1</span>
+              <span> of 6</span>
+            </button>
+            <span class="currentPage">2</span>
+            <button data-goto="3" data-of="6" class="btn--inline pagination__btn--next">
+              <span>3</span>
+              <span> of 6</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay"></div>
+
+    <div class="modal">
+      <form action="">
+        <!-- Data will be applied here by Javascript -->
+      </form>
+    </div>
+  </body>
+</html>

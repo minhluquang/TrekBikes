@@ -8,9 +8,9 @@ toggleMenuIcon.addEventListener('click', e => {
 
   console.log(isHide);
   if (isHide) {
-    logoMenu.src = '../../database/images/logo/logo_on_menu_adm.jpg';
+    logoMenu.src = '../../../database/images/logo/logo_on_menu_adm.jpg';
   } else {
-    logoMenu.src = '../../database/images/logo/logo_on_hideMenu_adm.jpg';
+    logoMenu.src = '../../../database/images/logo/logo_on_hideMenu_adm.jpg';
   }
   container.classList.toggle('hide');
 });
