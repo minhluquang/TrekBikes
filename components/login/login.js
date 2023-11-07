@@ -170,7 +170,7 @@ registerSubmitBtn.addEventListener('click', e => {
       like: [],
       cart: [],
       bought: [],
-      isProcessing: []
+      processing: []
     });
 
     localStorage.setItem('ACCOUNT_DATA', JSON.stringify(ACCOUNT_DATA));
@@ -185,7 +185,7 @@ registerSubmitBtn.addEventListener('click', e => {
         like: [],
         cart: [],
         bought: [],
-        isProcessing: []
+        processing: []
       })
     );
 
@@ -404,11 +404,18 @@ hideEyeLogin.addEventListener('click', e => {
 // start: Checking login when click loveIcon/cartIcon
 const loveIcon = document.querySelector('.header__bottom--extention-love');
 const loveBtn = loveIcon.parentElement;
+const loveBtnLowDevice = document.querySelector('.hide__menu--list__extention .header__bottom--extention-love');
 
 const cartIcon = document.querySelector('.header__bottom--extention-cart');
 const cartBtn = cartIcon.parentElement;
+const cartBtnLowDevice = document.querySelector('.hide__menu--list__extention .header__bottom--extention-cart');
 
 const userLogin = JSON.parse(localStorage.getItem('userLogin'));
+
+const closeMenu = () => {
+  hideMenu.classList.remove('active');
+  overlay.classList.add('active__overlay');
+};
 
 if (!userLogin) {
   loveBtn.addEventListener('click', e => {
@@ -416,9 +423,21 @@ if (!userLogin) {
     openFormRegister();
   });
 
+  loveBtnLowDevice.addEventListener('click', e => {
+    e.preventDefault();
+    openFormRegister();
+    closeMenu();
+  });
+
   cartBtn.addEventListener('click', e => {
     e.preventDefault();
     openFormRegister();
+  });
+
+  cartBtnLowDevice.addEventListener('click', e => {
+    e.preventDefault();
+    openFormRegister();
+    closeMenu();
   });
 }
 // end: Checking login when click loveIcon/cartIcon

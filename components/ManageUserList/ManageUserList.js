@@ -77,8 +77,8 @@ resetBtn.addEventListener('click', e => {
 
 // start: Apply layout user list
 const usersContainer = document.querySelector('.admin__content--body__users');
-import DUMMY_DATA from '../../database/userData.js';
-localStorage.setItem('ACCOUNT__DATA', JSON.stringify(DUMMY_DATA));
+// import DUMMY_DATA from '../../database/userData.js';
+// localStorage.setItem('ACCOUNT__DATA', JSON.stringify(DUMMY_DATA));
 
 const renderUsersInfo = userList => {
   userList = userList || JSON.parse(localStorage.getItem('ACCOUNT__DATA'));

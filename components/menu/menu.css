@@ -107,6 +107,12 @@
   cursor: default;
 }
 
+.header__bottom--extention-love,
+.header__bottom--extention-cart {
+  color: #333;
+  text-decoration: none;
+}
+
 .hide__menu--list__extention .header__bottom--extention__icon {
   background-color: transparent !important;
   font-size: 20px !important;
