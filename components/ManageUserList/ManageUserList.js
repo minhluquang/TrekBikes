@@ -17,7 +17,7 @@ toggleMenuIcon.addEventListener('click', e => {
 
 const logoutBtnOnAdminPage = document.querySelector('.admin__taskbar--footer');
 logoutBtnOnAdminPage.addEventListener('click', e => {
-  localStorage.removeItem('userLogin');
+  localStorage.removeItem('User');
   window.location.href = window.location.origin + '/';
 });
 

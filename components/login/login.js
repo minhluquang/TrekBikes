@@ -175,7 +175,7 @@ registerSubmitBtn.addEventListener('click', e => {
 
     localStorage.setItem('ACCOUNT_DATA', JSON.stringify(ACCOUNT_DATA));
     localStorage.setItem(
-      'userLogin',
+      'User',
       JSON.stringify({
         id: generateRandomUserID(5),
         name: name,
@@ -257,7 +257,7 @@ loginSubmitBtn.addEventListener('click', e => {
 
     if (findAccount) {
       if (findAccount.password === password) {
-        localStorage.setItem('userLogin', JSON.stringify(findAccount));
+        localStorage.setItem('User', JSON.stringify(findAccount));
         // showPopup();
         location.reload();
 
@@ -297,7 +297,7 @@ const userList = document.querySelector('.header__bottom--user__list');
 const section4 = document.querySelector('.section--4-container');
 
 const checkLoggedIn = () => {
-  const userLogin = JSON.parse(localStorage.getItem('userLogin'));
+  const userLogin = JSON.parse(localStorage.getItem('User'));
   const userListOnLowDevice = document.querySelector('.hide__menu--user__list');
   const userNameOnLowDevice = document.querySelector(
     '.hide__menu--list__extention .header__bottom--extention-user span'
@@ -345,7 +345,7 @@ const logoutBtn = document.querySelector('.logout');
 const logoutLowDeviceBtn = document.querySelector('.hide__menu--list__type.logout__item');
 
 const logoutHandler = () => {
-  localStorage.removeItem('userLogin');
+  localStorage.removeItem('User');
   location.reload();
 };
 
@@ -410,7 +410,7 @@ const cartIcon = document.querySelector('.header__bottom--extention-cart');
 const cartBtn = cartIcon.parentElement;
 const cartBtnLowDevice = document.querySelector('.hide__menu--list__extention .header__bottom--extention-cart');
 
-const userLogin = JSON.parse(localStorage.getItem('userLogin'));
+const userLogin = JSON.parse(localStorage.getItem('User'));
 
 const closeMenu = () => {
   hideMenu.classList.remove('active');

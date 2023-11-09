@@ -1,3 +1,28 @@
+// start: Xử lý đóng mở taskbar
+const toggleMenuIcon = document.querySelector('.admin__content--header__cate');
+const container = document.querySelector('.container');
+const adminMenu = document.querySelector('.admin__taskbar');
+const logoMenu = document.querySelector('.admin__taskbar--header__content img');
+
+toggleMenuIcon.addEventListener('click', e => {
+  const isHide = document.querySelector('.container.hide');
+
+  console.log(isHide);
+  if (isHide) {
+    logoMenu.src = '../../../database/images/logo/logo_on_menu_adm.jpg';
+  } else {
+    logoMenu.src = '../../../database/images/logo/logo_on_hideMenu_adm.jpg';
+  }
+  container.classList.toggle('hide');
+});
+
+// Xử lý đăng xuất tài khoản
+const logoutBtnOnAdminPage = document.querySelector('.admin__taskbar--footer');
+logoutBtnOnAdminPage.addEventListener('click', e => {
+  localStorage.removeItem('User');
+  window.location.href = window.location.origin + '/';
+});
+
 const taskbarItems = document.querySelectorAll('.admin__taskbar--body__list li');
 const contentElements = document.querySelectorAll('.admin__content');
 
