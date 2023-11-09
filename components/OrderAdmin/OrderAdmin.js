@@ -5,7 +5,6 @@ const userData = JSON.parse(localStorage.getItem('userData'));
 //start: Toggle taskbar menu
 const toggleMenuIcon = document.querySelector('.admin__content--header__cate');
 const container = document.querySelector('.container');
-const adminMenu = document.querySelector('.admin__taskbar');
 const logoMenu = document.querySelector('.admin__taskbar--header__content img');
 
 toggleMenuIcon.addEventListener('click', e => {
@@ -153,34 +152,23 @@ const renderItemsIsProcessing = user => {
 // end: apply html into layout
 
 // start: Logic for filter products
-const submitBtn = document.querySelector('.body__filter--action__filter');
-
+const submitBtn = document.querySelector('.order--filter__btn');
 let data;
 let isProcessed;
 submitBtn.addEventListener('click', e => {
   e.preventDefault();
-  const inputNameClientValue = document.querySelector('.body__filter--nameClient input').value.toLowerCase();
-  const inputIdClientValue = document.querySelector('.body__filter--idClient input').value;
-  const selectStatusValue = document.querySelector('.body__filter--status select').value;
+  const inputNameClientValue = document.querySelector('#orderNameClient input').value.toLowerCase();
+  const inputIdClientValue = document.querySelector('#orderIdClient input').value;
+  const selectStatusValue = document.querySelector('#orderStatus select').value;
 
   if (!inputNameClientValue && !inputIdClientValue && !selectStatusValue) {
     return;
   } else {
-    const filterBtn = document.querySelector('.body__filter--action__filter');
-    const resetBtn = document.querySelector('.body__filter--action__reset');
-    const contentListProduct = document.querySelector('.admin__content--body__list');
+    const contentListProduct = document.querySelector('#orderList');
 
-    filterBtn.addEventListener('click', e => {
-      e.preventDefault();
-
-      window.scrollTo({
-        top: contentListProduct.getBoundingClientRect().top + window.scrollY - contentListProduct.clientHeight,
-        behavior: 'smooth'
-      });
-    });
-    resetBtn.addEventListener('click', e => {
-      init();
-      paginationHandler();
+    window.scrollTo({
+      top: contentListProduct.getBoundingClientRect().top + window.scrollY - contentListProduct.clientHeight,
+      behavior: 'smooth'
     });
   }
   // If data isn't an array, then convert to array
@@ -238,6 +226,13 @@ submitBtn.addEventListener('click', e => {
 
   paginationHandler();
 });
+
+const resetBtn = document.querySelector('.order--reset__btn');
+resetBtn.addEventListener('click', e => {
+  init();
+  paginationHandler();
+});
+
 // end: Logic for filter products
 
 // start: rendered products
@@ -432,10 +427,12 @@ function paginationHandler() {
 
   // Checking on first page
   function renderPaginationBtn(isProcessed) {
-    const pagination = document.querySelector('.pagination');
+    const pagination = document.querySelector('.pagination__order');
     pagination.innerHTML = '';
     const html = `
-      <button data-goto="${currentPage - 1}" data-of="${totalPages}" class="btn--inline pagination__btn--prev ${
+      <button data-goto="${
+        currentPage - 1
+      }" data-of="${totalPages}" class="btn--inline pagination__order--pagination__btn--prev ${
       currentPage === 0 ? 'hide' : ''
     }">
         <i class="fa-solid fa-arrow-left"></i>
@@ -443,8 +440,10 @@ function paginationHandler() {
         <span> of ${totalPages}</span>
       </button>
       <span class="currentPage">${currentPage + 1}</span>
-      <button data-goto="${currentPage + 1}" data-of="${totalPages}" class="btn--inline pagination__btn--next ${
-      currentPage === totalPages - 1 ? 'hide' : ''
+      <button data-goto="${
+        currentPage + 1
+      }" data-of="${totalPages}" class="btn--inline pagination__order--pagination__btn--next ${
+      currentPage === totalPages - 1 || totalPages === 0 ? 'hide' : ''
     }"  >
         <span>${currentPage + 2}</span>
         <span> of ${totalPages}</span>
@@ -456,7 +455,7 @@ function paginationHandler() {
   }
 
   function nextPageHandler() {
-    const nextPageBtn = document.querySelector('.pagination__btn--next');
+    const nextPageBtn = document.querySelector('.pagination__order--pagination__btn--next');
     nextPageBtn.addEventListener('click', e => {
       currentPage += 1;
       renderLayoutPagination();
@@ -465,7 +464,7 @@ function paginationHandler() {
   }
 
   function prevPageHandler() {
-    const prevPageBtn = document.querySelector('.pagination__btn--prev');
+    const prevPageBtn = document.querySelector('.pagination__order--pagination__btn--prev');
     prevPageBtn.addEventListener('click', e => {
       currentPage -= 1;
       renderLayoutPagination();

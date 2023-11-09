@@ -22,26 +22,22 @@ logoutBtnOnAdminPage.addEventListener('click', e => {
 });
 
 // start: Logic for filter products
-const submitBtn = document.querySelector('.body__filter--action__filter');
+const submitBtn = document.querySelector('.user--filter__btn');
 
 let data;
 submitBtn.addEventListener('click', e => {
   e.preventDefault();
-  const inputNameClientValue = document.querySelector('.body__filter--nameClient input').value.toLowerCase();
-  const inputIdClientValue = document.querySelector('.body__filter--idClient input').value;
+  const inputNameClientValue = document.querySelector('#userNameClient input').value.toLowerCase();
+  const inputIdClientValue = document.querySelector('#userIdClient input').value;
+
   if (!inputNameClientValue && !inputIdClientValue) {
     return;
   } else {
-    const filterBtn = document.querySelector('.body__filter--action__filter');
-    const usersContainer = document.querySelector('.admin__content--body__users');
+    const usersContainer = document.querySelector('#userList');
 
-    filterBtn.addEventListener('click', e => {
-      e.preventDefault();
-
-      window.scrollTo({
-        top: usersContainer.getBoundingClientRect().top + window.scrollY - usersContainer.clientHeight,
-        behavior: 'smooth'
-      });
+    window.scrollTo({
+      top: usersContainer.getBoundingClientRect().top + window.scrollY - usersContainer.clientHeight,
+      behavior: 'smooth'
     });
   }
 
@@ -66,7 +62,7 @@ submitBtn.addEventListener('click', e => {
   paginationHandler();
 });
 
-const resetBtn = document.querySelector('.body__filter--action__reset');
+const resetBtn = document.querySelector('.user--reset__btn');
 resetBtn.addEventListener('click', e => {
   const data = JSON.parse(localStorage.getItem('ACCOUNT__DATA'));
   init(data);
@@ -77,8 +73,8 @@ resetBtn.addEventListener('click', e => {
 
 // start: Apply layout user list
 const usersContainer = document.querySelector('.admin__content--body__users');
-// import DUMMY_DATA from '../../database/userData.js';
-// localStorage.setItem('ACCOUNT__DATA', JSON.stringify(DUMMY_DATA));
+import DUMMY_DATA from '../../database/userData.js';
+localStorage.setItem('ACCOUNT__DATA', JSON.stringify(DUMMY_DATA));
 
 const renderUsersInfo = userList => {
   userList = userList || JSON.parse(localStorage.getItem('ACCOUNT__DATA'));
@@ -169,10 +165,12 @@ function paginationHandler() {
 
   // Checking on first page
   function renderPaginationBtn() {
-    const pagination = document.querySelector('.pagination');
+    const pagination = document.querySelector('.pagination__user');
     pagination.innerHTML = '';
     const html = `
-      <button data-goto="${currentPage - 1}" data-of="${totalPages}" class="btn--inline pagination__btn--prev ${
+      <button data-goto="${
+        currentPage - 1
+      }" data-of="${totalPages}" class="btn--inline pagination__user--pagination__btn--prev ${
       currentPage === 0 ? 'hide' : ''
     }">
         <i class="fa-solid fa-arrow-left"></i>
@@ -180,9 +178,11 @@ function paginationHandler() {
         <span> of ${totalPages}</span>
       </button>
       <span class="currentPage">${currentPage + 1}</span>
-      <button data-goto="${currentPage + 1}" data-of="${totalPages}" class="btn--inline pagination__btn--next ${
-      currentPage === totalPages - 1 ? 'hide' : ''
-    }"  >
+      <button data-goto="${
+        currentPage + 1
+      }" data-of="${totalPages}" class="btn--inline pagination__user--pagination__btn--next ${
+      currentPage === totalPages - 1 || totalPages === 0 ? 'hide' : ''
+    } "  >
         <span>${currentPage + 2}</span>
         <span> of ${totalPages}</span>
         <i class="fa-solid fa-arrow-right"></i>
@@ -193,7 +193,7 @@ function paginationHandler() {
   }
 
   function nextPageHandler() {
-    const nextPageBtn = document.querySelector('.pagination__btn--next');
+    const nextPageBtn = document.querySelector('.pagination__user--pagination__btn--next');
     nextPageBtn.addEventListener('click', e => {
       currentPage += 1;
       renderLayoutPagination();
@@ -202,7 +202,7 @@ function paginationHandler() {
   }
 
   function prevPageHandler() {
-    const prevPageBtn = document.querySelector('.pagination__btn--prev');
+    const prevPageBtn = document.querySelector('.pagination__user--pagination__btn--prev');
     prevPageBtn.addEventListener('click', e => {
       currentPage -= 1;
       renderLayoutPagination();
