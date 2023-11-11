@@ -28,6 +28,7 @@ if(userLocal[0].cart.length <= 0){
     menu.style.display ='flex';
     toast.display = 'none';
 }
+
 function displayProductItems() {
 
     for (let i = 0; i < data.length; i++) {
@@ -123,6 +124,11 @@ infoContainer.forEach((element, index) => {
             cartInfo.removeChild(element);
             localStorage.setItem('User', JSON.stringify(userLocal));
         }
+        const priceFloat = parseFloat(price.textContent.replace(/\D/g, ''));
+        const totalPrice =  parseFloat(totalPriceDisplay.textContent.replace(/\D/g,''));
+        
+        const currentPrice = totalPrice - priceFloat;
+        totalPriceDisplay.innerText = currentPrice.toLocaleString() + ' ' + 'VND';
 
 
         localStorage.setItem('User', JSON.stringify(userLocal));
@@ -135,6 +141,15 @@ infoContainer.forEach((element, index) => {
         quantityDisplay.innerText = userLocal[0].cart[index].quantity;
         console.log(userLocal[0].cart[index].quantity);
         localStorage.setItem('User', JSON.stringify(userLocal));
+        const priceFloat = parseFloat(price.textContent.replace(/\D/g, ''));
+        const totalPrice = parseFloat(totalPriceDisplay.textContent.replace(/\D/g, ''));
+
+        const currentPrice = totalPrice + priceFloat;
+        totalPriceDisplay.innerText = currentPrice.toLocaleString() + ' ' + 'VND';
+
+
+        localStorage.setItem('User', JSON.stringify(userLocal));
+        // alert(id.textContent);
 
     })
     checkbox.addEventListener('click', () => {

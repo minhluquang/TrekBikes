@@ -78,6 +78,7 @@
 }
 .product-information {
   width: 100%;
+  transform: translateY(5px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -86,6 +87,7 @@
   font-family: var(--fontFamily);
   cursor: pointer;
   color: white;
+
   padding: 0px 12px 20px;
   background-color: #828282;
   /* font-weight: bold; */
@@ -162,153 +164,6 @@
   cursor: pointer;
 }
 
-.paging {
-  text-shadow: none;
-  width: 50%;
-  height: 50px;
-  margin: 0 auto;
-  margin-top: 30px;
-  /* background-color: aqua; */
-  font-family: 'Poppins', sans-serif;
-  justify-content: center;
-  display: flex;
-  gap: 13%;
-  align-items: center;
-  box-shadow: none;
-}
-
-#prev-item1 {
-  display: none;
-  transform: translateX(300%);
-}
-
-.end-container {
-  width: 70px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.start-container {
-  width: 70px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#id1 {
-  padding: 1px 5px;
-  background-color: #333;
-  color: white;
-  border-radius: 3px;
-}
-
-#id2 {
-  padding: 1px 5px;
-  border-radius: 3px;
-}
-
-#id3 {
-  padding: 1px 5px;
-  border-radius: 3px;
-}
-
-#prevPage {
-  padding: 10px 20px;
-  background-color: #333;
-  font-size: 20px;
-  color: white;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-
-  transform: translateX(300%);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-}
-
-#nextPage {
-  padding: 10px 20px;
-  font-size: 20px;
-  background-color: #333;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transform: translateX(-290%);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-}
-
-.pagination {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  text-decoration: none;
-  gap: 10px;
-}
-
-a {
-  text-decoration: none;
-}
-
-.pagination li {
-  margin: 5px;
-}
-
-.active {
-  background-color: red;
-}
-
-.prev-item {
-  background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#prev-item2 {
-  transform: translateX(-250%);
-}
-
-.prev-container {
-  width: 100px;
-  height: 50px;
-
-  text-align: center;
-}
-
-.next-container {
-  width: 100px;
-  height: 50px;
-
-  text-align: center;
-}
-
-#page-end {
-  display: block;
-  cursor: pointer;
-  text-decoration: underline;
-  transform: translateX(-1000%);
-  text-decoration: underline;
-}
-
-#page-start {
-  display: none;
-  cursor: pointer;
-  text-decoration: underline;
-  transform: translateX(1200%);
-}
 .color-dots {
   display: flex;
   gap: 5px;
@@ -344,4 +199,55 @@ a {
   cursor: pointer;
   margin-top: 50px;
   font-weight: bold;
+}
+
+
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: #333;
+  color: white;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.pagination a:first-child {
+  background-color: #333;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0 10px;
+
+}
+
+.pagination a:last-child {
+  background-color: #333;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+#prevBtn:hover,
+#nextBtn:hover {
+  background-color: #333;
 }
