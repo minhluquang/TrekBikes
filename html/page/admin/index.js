@@ -7,7 +7,6 @@ const logoMenu = document.querySelector('.admin__taskbar--header__content img');
 toggleMenuIcon.addEventListener('click', e => {
   const isHide = document.querySelector('.container.hide');
 
-  console.log(isHide);
   if (isHide) {
     logoMenu.src = '../../../database/images/logo/logo_on_menu_adm.jpg';
   } else {
