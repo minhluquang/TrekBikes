@@ -22,7 +22,7 @@ let check = false;
 const database = data;
 const productList = document.getElementById('productList');
 const inputSearch = JSON.parse(localStorage.getItem('inputSearch'));
-const paging = document.getElementById('paging')
+const paging = document.getElementById('pagination')
 const returnPage = document.getElementById('return-to-page');
 const overlay = document.getElementById('overlay')
 
