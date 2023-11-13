@@ -6,9 +6,9 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   background-color: #eee;
 }
 
@@ -375,4 +375,73 @@ body {
 
 .hideItem {
   display: none;
+}
+
+/* Admin Product */
+
+.admin-product table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.admin-product td, th {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+.admin-product .menu tr {
+  background-color: #333;
+  
+}
+
+.admin-product .menu th {
+  color: white;
+  text-align: center;
+}
+
+.admin-product .content th {
+  align-items: center;
+}
+
+.admin-product .content .image {
+  width: 150px;
+  height: 100px;
+}
+
+.admin-product .name {
+  width: 250px;
+}
+.admin-product .date-update {
+  width: 250px;
+}
+.admin-product .date-creat {
+  width: 250px;
+}
+.admin-product .copy {
+  width: 100px;
+  color: blue;
+}
+.admin-product .edit {
+  width: 100px;
+  color: blue;
+}
+.admin-product .delete {
+  width: 100px;
+  color: blue;
+}
+
+:hover.copy{
+  color: red;
+}
+:hover.edit{
+  color: red;
+}
+:hover.delete{
+  color: red;
+}
+.admin-product .image img {
+  width: auto;
+  height: 80px;
+  margin-left: 20px;
 }
