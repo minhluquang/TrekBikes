@@ -6,10 +6,8 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   background-color: #eee;
+  overflow-x: hidden;
 }
 
 .container {
@@ -27,6 +25,14 @@ body {
   top: 0;
   bottom: 0;
   transition: all 0.5s;
+}
+
+.admin__content {
+  width: calc(100vw - 300px) !important;
+}
+
+.hide .admin__content {
+  width: calc(100vw - 120px) !important;
 }
 
 .hide .admin__taskbar {
@@ -344,6 +350,8 @@ body {
   font-weight: 600;
 }
 
+.pagination__user--pagination__btn--prev.hide,
+.pagination__user--pagination__btn--next.hide,
 .pagination__order--pagination__btn--prev.hide,
 .pagination__order--pagination__btn--next.hide,
 .pagination__btn--prev.hide,
@@ -378,13 +386,13 @@ body {
 }
 
 /* Admin Product */
-
 .admin-product table {
   border-collapse: collapse;
   width: 100%;
 }
 
-.admin-product td, th {
+.admin-product td,
+th {
   border: 1px solid black;
   padding: 8px;
   text-align: left;
@@ -392,7 +400,6 @@ body {
 
 .admin-product .menu tr {
   background-color: #333;
-  
 }
 
 .admin-product .menu th {
@@ -431,13 +438,13 @@ body {
   color: blue;
 }
 
-:hover.copy{
+:hover.copy {
   color: red;
 }
-:hover.edit{
+:hover.edit {
   color: red;
 }
-:hover.delete{
+:hover.delete {
   color: red;
 }
 .admin-product .image img {

@@ -279,7 +279,7 @@ const DUMMY_PRODUCTS = [
   {
     name: 'Supercaliber 9.9 AXS',
     imgSrc: 'database\\images\\productImgs\\Supercaliber99AXS_20_28896_A_Primary-571x379.jpg',
-    price: 'Giá liên hệ VND',
+    price: '270.000.000 VND',
     dataColors: ['#2d2d2d', '#bcb5ad'],
     ID: '81c705846c',
     type: 'mountain'
@@ -624,7 +624,7 @@ const DUMMY_PRODUCTS = [
   {
     name: 'Supercaliber 9.9 XX1',
     imgSrc: 'database\\images\\productImgs\\Supercaliber-99-XX1-CNBLK-2021-571x379.jpg',
-    price: 'Giá liên hệ VND',
+    price: '270.000.000 VND',
     dataColors: ['#2d2d2d', '#bcb5ad'],
     ID: 'd2007de4a0',
     type: 'mountain'
@@ -716,7 +716,7 @@ const DUMMY_PRODUCTS = [
     dataColors: ['#03c8ee', '#000000'],
     ID: '92b6ce9636',
     type: 'mountain'
-  },
+  }
 ];
 
 export default DUMMY_PRODUCTS;

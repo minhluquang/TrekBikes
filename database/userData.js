@@ -6,9 +6,43 @@ const DUMMY_DATA = [
     password: 'nguyenvanb@test.com',
     dateRegister: '2023-11-02T02:28:25.586Z',
     like: [],
-    cart: [],
+    cart: [
+      {
+        id: '36b9b496cb',
+        quantity: 2
+      },
+      {
+        id: 'e9e7f2281e',
+        quantity: 3
+      },
+      {
+        id: 'd746baad05',
+        quantity: 1
+      },
+      {
+        id: '1daa4c0e22',
+        quantity: 1
+      }
+    ],
     bought: [],
-    isProcessing: []
+    processing: [
+      {
+        id: '36b9b496cb',
+        quantity: 3
+      },
+      {
+        id: 'e9e7f2281e',
+        quantity: 1
+      },
+      {
+        id: 'd746baad05',
+        quantity: 2
+      },
+      {
+        id: '1daa4c0e22',
+        quantity: 1
+      }
+    ]
   },
   {
     id: '6',
@@ -19,7 +53,24 @@ const DUMMY_DATA = [
     like: [],
     cart: [],
     bought: [],
-    isProcessing: []
+    processing: [
+      {
+        id: '36b9b496cb',
+        quantity: 3
+      },
+      {
+        id: 'e9e7f2281e',
+        quantity: 1
+      },
+      {
+        id: 'd746baad05',
+        quantity: 2
+      },
+      {
+        id: '1daa4c0e22',
+        quantity: 1
+      }
+    ]
   },
   {
     id: '7',

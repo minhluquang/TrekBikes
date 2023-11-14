@@ -419,10 +419,8 @@
   padding: 20px;
   border-radius: 10px;
   transition: transform 0.5s;
-  visibility: hidden;
-  opacity: 0;
+
   transform: translate(-50%, -100%) scale(0);
-  /* transform: translate(-50%, -50%); */
   top: 50%;
   left: 50%;
 }
@@ -433,174 +431,74 @@
   visibility: visible;
 }
 
-.modal__content--header h1 {
-  text-align: center;
-  margin-bottom: 20px;
+.modal--delete {
+
 }
 
-.modal__content--id__user {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-}
-
-.modal__content--id__user h1 {
-  border-top-left-radius: 5px;
-  border-bottom: 1px solid #eee;
-}
-
-.modal__content--username h1 {
-  border-bottom-left-radius: 5px;
-}
-
-.modal__content--id__user h1,
-.modal__content--username h1 {
-  height: 30px;
-  font-size: 18px;
-  background-color: #333;
-  color: #fff;
-  padding: 5px 10px;
-  width: 180px;
-}
-
-.modal__content--id__user p,
-.modal__content--username p {
-  font-size: 16px;
-  min-width: 200px;
-  max-width: 100%;
-  padding: 5px 10px;
-  background-color: #eee;
-  height: 30px;
-}
-
-.modal__content--id__user p {
-  border-top-right-radius: 5px;
-  border-bottom: 1px solid #333;
-}
-
-.modal__content--username p {
-  border-bottom-right-radius: 5px;
-}
-
-.modal__content--username {
+.modal--delete__header {
   margin-bottom: 10px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
+  position: relative;
 }
 
-.modal__content--product {
-  margin-top: 20px;
+.modal--delete__header::after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: -5px;
+  height: 1px;
   width: 100%;
-  background-color: #eee;
-  border-radius: 5px;
-  margin-bottom: 20px;
+  background-color: #333;
 }
 
-.modal__content--product__item,
-.modal__content--product__title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  list-style-type: none;
-  gap: 10px;
+.modal--delete__header h1 {
+  font-size: 20px;
 }
 
-.modal__content--img {
-  width: 100%;
-  border: 2px solid #333;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-bottom: 20px;
-}
-
-.modal__content--img img {
-  width: 100%;
-  object-fit: cover;
-}
-
-.modal__conent--total__amount {
+.modal--delete__content {
   display: flex;
   justify-content: center;
-  align-items: end;
-  flex-direction: column;
-  margin-bottom: 20px;
+  align-items: center;
+  padding: 20px 0;
 }
 
-.modal__conent--total__amount h1 {
+.modal--delete__content p {
   font-size: 18px;
-  color: #333;
-  margin-bottom: 4px;
 }
 
-.modal__conent--total__amount p {
-  font-size: 16px;
-  color: #333;
-}
-
-.product__title--id,
-.product__item--id {
-  flex: 0.5;
-}
-.product__title--name,
-.product__item--name {
-  flex: 1;
-}
-
-.product__title--qnt,
-.product__item--qnt {
-  text-align: end;
-  flex: 0.3;
-}
-
-.modal__content--product__title {
-  background-color: #333;
-  color: #fff;
-  height: 30px;
-  padding: 0 10px;
-  border-radius: 5px;
-}
-
-.modal__content--product__item {
-  background-color: #eee;
-  height: auto;
-  padding: 5px 10px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.modal__actions {
+.modal--delete__footer {
   float: right;
+  margin-top: 10px;
 }
 
-.modal__actions button {
-  color: #333;
-  font-weight: 600;
+.modal--delete__footer button {
   border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  width: 80px;
-}
-
-.modal__actions button:focus {
   outline: none;
+  font-size: 16px;
+  padding: 10px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  color: #333;
+  font-weight: bold;
 }
 
-.modal__actions button:active {
-  box-shadow: rgb(154, 154, 154) 0px 0px 0px 0px;
+.modal--delete__footer button:active {
   transform: translateY(3px);
+  box-shadow: rgb(154, 154, 154) 0px 0px 0px 0px;
 }
 
-.modal__action--exit {
-  color: #fff !important;
-  background-color: red;
-  box-shadow: rgb(248, 119, 119) 0px 3px 0px 0px;
+.modal--delete__footer button + button {
+  margin-left: 10px;
 }
 
-.modal__action--process {
+.modal--delete__footer--delete {
+  color: rgb(73, 26, 26)!important;
   background-color: rgb(69, 220, 69);
   box-shadow: rgba(48, 191, 13, 0.983) 0px 3px 0px 0px;
+}
+
+.modal--delete__footer--exit{
+  background-color: #eee;
+  box-shadow: rgb(154, 154, 154) 0px 3px 0px 0px;
 }
 /* end: Modal */

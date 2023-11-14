@@ -17,11 +17,15 @@ const showModal = (user, currentPID, currenQNT) => {
   const findDataProduct = DUMMY_PRODUCTS.find(product => product.ID === currentPID);
   const price = parseFloat(findDataProduct.price.replace('VND', '').split('.').join(''));
 
-  console.log(findDataProduct);
-  form.innerHTML = '';
+  modal.innerHTML = '';
+
+  if (form) {
+    form.innerHTML = '';
+  }
 
   // Apply data
   const html = `
+  <form action="">
     <div class="modal__content">
       <div class="modal__content--header">
         <h1>Thông tin chi tiết</h1>
@@ -47,7 +51,7 @@ const showModal = (user, currentPID, currenQNT) => {
         </ul>
       </div>
       <div class="modal__content--img">
-        <img src="${findDataProduct.imgSrc}" alt="Hình ảnh xe đạp">
+        <img src="/${findDataProduct.imgSrc}" alt="Hình ảnh xe đạp">
       </div>
       <div class="modal__conent--total__amount">
         <h1>Tổng tiền</h1>
@@ -59,9 +63,10 @@ const showModal = (user, currentPID, currenQNT) => {
       <button class="modal__action--exit">Thoát</button>
       <button class="modal__action--process">Xử lý</button>
     </div>
+  </form>
     `;
 
-  form.insertAdjacentHTML('afterbegin', html);
+  modal.insertAdjacentHTML('afterbegin', html);
   modal.classList.add('active');
   overlay.classList.add('active');
 };
@@ -74,7 +79,7 @@ localStorage.setItem('userData', JSON.stringify(DUMMY_DATA));
 const listProducts = document.querySelector('.admin__content--body__products');
 
 const renderItemsProcessed = user => {
-  user?.bought.forEach((item, idx) => {
+  user?.bought?.forEach((item, idx) => {
     // Find data by current item's id
     const findDataProduct = DUMMY_PRODUCTS.find(product => product.ID === item.id);
 
@@ -82,12 +87,12 @@ const renderItemsProcessed = user => {
         <li class="admin__content--body__id products--item__id" id="${user.id}">${user.id}</li>
         <li class="admin__content--body__img products--item__img">
           <div>
-            <img src="${findDataProduct.imgSrc}" alt="" />
+            <img src="/${findDataProduct.imgSrc}" alt="Hình ảnh xe đạp" />
           </div>
         </li>
         <li class="admin__content--body__name products--item__name">${findDataProduct.name}</li>
-        <li class="admin__content--body__qnt products--item__qnt" data-qnt=${item.qnt}>
-          <input type="number" min="1" step="1" value="${item.qnt}" readonly/>
+        <li class="admin__content--body__qnt products--item__qnt" data-qnt=${item.quantity}>
+          <p>${item.quantity}</p>
         </li>
         <li class="admin__content--body__status products--item__status">
           Đã xử lý
@@ -102,18 +107,18 @@ const renderItemsProcessed = user => {
 };
 
 const renderItemsIsProcessing = user => {
-  user?.isProcessing.forEach((item, idx) => {
+  user?.processing?.forEach((item, idx) => {
     const findDataProduct = DUMMY_PRODUCTS.find(product => product.ID === item.id);
     const html = `<ul class="admin__content--body__products--item isNonActiveStatus" pid="${item.id}">
         <li class="admin__content--body__id products--item__id" id="${user.id}">${user.id}</li>
         <li class="admin__content--body__img products--item__img">
           <div>
-            <img src="${findDataProduct.imgSrc}" alt="" />
+            <img src="/${findDataProduct.imgSrc}" alt="Hình ảnh xe đạp" />
           </div>
         </li>
         <li class="admin__content--body__name products--item__name">${findDataProduct.name}</li>
-        <li class="admin__content--body__qnt products--item__qnt" data-qnt=${item.qnt}>
-          <input type="number" min="1" step="1" value="${item.qnt}" readonly/>
+        <li class="admin__content--body__qnt products--item__qnt" data-qnt=${item.quantity}>
+          <p>${item.quantity}</p>
         </li>
         <li class="admin__content--body__status products--item__status">
           Chưa xử lý
@@ -236,11 +241,11 @@ const renderProducts = filtered => {
 
 // start: Logic for click edit status handler
 const updateProcessingHandler = (user, currentPID) => {
-  user.isProcessing = user.isProcessing.filter(product => product.id !== currentPID);
+  user.processing = user.processing.filter(product => product.id !== currentPID);
 };
 
 const updateBoughtHandler = (user, currentPID, currenQNT) => {
-  user.bought.unshift({ id: currentPID, qnt: parseInt(currenQNT) });
+  user.bought.unshift({ id: currentPID, quantity: parseInt(currenQNT) });
 };
 
 const clickedExitBtnhandler = () => {
@@ -281,7 +286,7 @@ const clickIconHandler = () => {
     const iconBtn = item.querySelector('.products--item__status i');
     const currentPID = item.getAttribute('pid');
     const currentUID = item.querySelector('.products--item__id').getAttribute('id');
-    const currenQNT = item.querySelector('.products--item__qnt input').value;
+    const currenQNT = parseInt(item.querySelector('.products--item__qnt').textContent);
 
     iconBtn.addEventListener('click', e => {
       updateLocalStorageForProcessHandler(currentUID, currentPID, currenQNT);
@@ -296,7 +301,7 @@ const deleteProduct = (currentUID, currentPID, isNonActiveItem) => {
   userData.forEach(user => {
     if (user.id.toString() === currentUID) {
       if (isNonActiveItem) {
-        user.isProcessing = user.isProcessing.filter(item => {
+        user.processing = user.processing.filter(item => {
           if (item.id === currentPID && !deleted) {
             deleted = true;
             return false;
@@ -323,6 +328,28 @@ function updateLocalStorageForDeleteHandler() {
   localStorage.setItem('userData', JSON.stringify(userData));
 }
 
+const renderModalContent = () => {
+  modal.innerHTML = '';
+
+  modal.classList.add('active');
+  overlay.classList.add('active');
+
+  const html = `
+  <div class="modal--delete">
+    <header class="modal--delete__header">
+      <h1>Xóa dữ liệu</h1>
+    </header>
+    <div class="modal--delete__content">
+      <p>Bạn có muốn xóa dữ liệu này không?</p>
+    </div>
+    <div class="modal--delete__footer">
+      <button class="modal--delete__footer--delete">Chắc chắn</button>
+      <button class="modal--delete__footer--exit">Không</button>
+    </div>
+  </div>`;
+  modal.insertAdjacentHTML('afterbegin', html);
+};
+
 function clickDeleteBtnHandler() {
   const productsList = document.querySelectorAll('.admin__content--body__products ul');
   productsList.forEach(item => {
@@ -333,8 +360,20 @@ function clickDeleteBtnHandler() {
 
     deleteBtnElements.forEach(btn => {
       btn.addEventListener('click', e => {
-        deleteProduct(currentUID, currentPID, isNonActiveItem);
-        updateLocalStorageForDeleteHandler();
+        renderModalContent();
+
+        const acpDeleteBtn = document.querySelector('.modal--delete__footer--delete');
+        const exitDeleteBtn = document.querySelector('.modal--delete__footer--exit');
+
+        acpDeleteBtn.addEventListener('click', e => {
+          deleteProduct(currentUID, currentPID, isNonActiveItem);
+          updateLocalStorageForDeleteHandler();
+          closeModal();
+        });
+
+        exitDeleteBtn.addEventListener('click', e => {
+          closeModal();
+        });
       });
     });
   });

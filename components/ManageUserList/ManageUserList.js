@@ -81,6 +81,54 @@ const renderUsersInfo = userList => {
 // end: Apply layout user list
 
 // start: delete user
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+
+const showModal = () => {
+  modal.classList.add('active');
+  overlay.classList.add('active');
+};
+
+const renderModalContent = () => {
+  showModal();
+  modal.innerHTML = '';
+  const html = `
+  <div class="modal--delete">
+    <header class="modal--delete__header">
+      <h1>Xóa dữ liệu</h1>
+    </header>
+    <div class="modal--delete__content">
+      <p>Bạn có muốn xóa dữ liệu này không?</p>
+    </div>
+    <div class="modal--delete__footer">
+      <button class="modal--delete__footer--delete">Chắc chắn</button>
+      <button class="modal--delete__footer--exit">Không</button>
+    </div>
+  </div>`;
+  modal.insertAdjacentHTML('afterbegin', html);
+};
+
+const closeModal = () => {
+  modal.classList.remove('active');
+  overlay.classList.remove('active');
+};
+
+const showModalHandler = btn => {
+  renderModalContent();
+
+  const acpDeleteBtn = document.querySelector('.modal--delete__footer--delete');
+  const exitDeleteBtn = document.querySelector('.modal--delete__footer--exit');
+
+  acpDeleteBtn.addEventListener('click', e => {
+    deleteUserHandler(btn);
+    closeModal();
+  });
+
+  exitDeleteBtn.addEventListener('click', e => {
+    closeModal();
+  });
+};
+
 const deleteUserHandler = btn => {
   const currentParent = btn.closest('.admin__content--body__users--item');
   const currentUID = currentParent.getAttribute('uid');
@@ -105,7 +153,7 @@ const clickedDeleteBtnHandler = () => {
   const btnDeleteElements = document.querySelectorAll('.admin__content--body__btn.users--item__btn button');
   btnDeleteElements.forEach(btn => {
     btn.addEventListener('click', e => {
-      deleteUserHandler(btn);
+      showModalHandler(btn);
     });
   });
 };
