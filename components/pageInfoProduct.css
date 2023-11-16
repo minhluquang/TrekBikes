@@ -7,17 +7,17 @@
 }
 
 .info_container .product {
-  margin-bottom: 200px;
-  height: auto;
+  margin-bottom: 100px;
+  height: 500px;
   max-width: 100%;
-  /* border: 2px solid; */
   display: flex;
   flex-direction: row;
+  transition: all 1s;
 }
 
 .info_container .product.reverse {
-  margin-bottom: 200px;
-  height: 400px;
+  margin-bottom: 100px;
+  height: 500px;
   max-width: 100%;
   display: flex;
   flex-direction: row-reverse;
@@ -26,19 +26,71 @@
 .info_container .product .left {
   height: 100%;
   width: 50%;
-  /* border-right: 2px solid   ; */
+  transform: translateX(-80%);
+  opacity: 0;
+  transition: 0.5s all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info_container .product.reverse .right .image,
+.info_container .product .left .image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .info_container .product .right {
   height: 100%;
   width: 50%;
+  transform: translateX(80%);
+  opacity: 0;
+  transition: 0.5s all;
 }
+
+.info_container .product.reverse .left {
+  height: 100%;
+  width: 50%;
+  transform: translateX(-80%);
+  opacity: 0;
+  transition: 0.5s all;
+}
+
+.info_container .product.reverse .left .image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info_container .product.reverse .right {
+  height: 100%;
+  width: 50%;
+  transform: translateX(80%);
+  opacity: 0;
+  transition: 0.5s all;
+}
+
+.product.active .right,
+.product.active .left,
+.product.reverse.active .right,
+.product.reverse.active .left {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.info_container .product.reverse .right .image img,
 .info_container .product .left .image img {
   width: 80%;
   height: auto;
-  margin-left: 80px;
-  margin-top: -31px;
+  /* margin-left: 80px;
+  margin-top: -31px; */
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .info_container .product .right .type {
@@ -96,9 +148,11 @@
 
 .info_container .product .right .type:hover {
   color: #fab913;
+  cursor: default;
 }
 .info_container .product .right .name:hover {
   color: #fab913;
+  cursor: default;
 }
 
 @media (min-width: 1024px) and (max-width: 1239px) {
@@ -106,25 +160,29 @@
     margin-bottom: 100px;
     height: auto;
     width: 100%;
-    /* border: 2px solid; */
     display: flex;
     flex-direction: row;
   }
 
   .info_container .product.reverse {
     margin-bottom: 100px;
-    height: 300px;
+    height: 500px;
     max-width: 100%;
-    /* border: 2px solid; */
     display: flex;
     flex-direction: row-reverse;
   }
+
+  .info_container .product.reverse .image,
+  .info_container .product .left .image {
+    overflow: hidden;
+  }
+
   .info_container .product .left .image img {
     min-width: 380px;
-    height: auto;
     margin-left: 80px;
     margin-top: -50px;
     position: relative;
+    object-fit: cover;
   }
 
   .info_container .product .right .type {
@@ -172,28 +230,26 @@
   .info_container .product.reverse {
     display: flex;
     flex-direction: column-reverse;
-    /* border: 2px solid; */
     width: 100%;
     height: auto;
     margin-bottom: 100px;
   }
 
+  .info_container .product.reverse .left,
   .info_container .product .left {
     height: auto;
     width: 100%;
-    /* margin-bottom: 200px; */
-    /* border-right: 2px solid; */
-    /* border-bottom: 2px solid; */
   }
 
+  .info_container .product.reverse .left .image img,
   .info_container .product .left .image img {
     width: 60%;
     height: auto;
     margin-left: 40px;
     margin-top: -30px;
     position: relative;
-    /* top: -70px; */
     min-width: 530px;
+    margin: 0 auto;
   }
 
   .info_container .product .right .type {
@@ -214,8 +270,21 @@
     top: 25px;
   }
 
+  .info_container .product.reverse .right,
   .info_container .product .right {
     height: auto;
+    width: 100%;
+  }
+
+  .info_container .product .right .content p {
+    margin-right: 25px;
+  }
+
+  .info_container .product .right ul.custom-list {
+    margin-right: 25px;
+  }
+
+  .info_container .product.reverse .right {
     width: 100%;
   }
 
@@ -232,28 +301,32 @@
   .info_container .product.reverse {
     display: flex;
     flex-direction: column-reverse;
-    /* border: 2px solid; */
     width: 100%;
     height: auto;
     margin-bottom: 100px;
   }
 
+  .info_container .product.reverse .left,
   .info_container .product .left {
     height: auto;
     width: 100%;
-    /* border-right: 2px solid; */
-    /* border-bottom: 2px solid; */
+  }
+  
+  .info_container .product.reverse .right ul.custom-list,
+  .info_container .product .right ul.custom-list {
+    margin-right: 25px;
   }
 
+  .info_container .product.reverse .left .image img,
   .info_container .product .left .image img {
     width: 70%;
     height: auto;
     margin-left: 10px;
     margin-top: 0;
     margin-bottom: -20px;
-    /* position: relative; */
     top: -40px;
     min-width: 280px;
+    margin: 0 auto;
   }
 
   .info_container .product .right .type {
@@ -275,6 +348,8 @@
     left: 32px;
     top: 25px;
   }
+
+  .info_container .product.reverse .right,
   .info_container .product .right {
     height: auto;
     width: 100%;
@@ -296,11 +371,13 @@
     left: 32px;
   }
 
+  .info_container .product.reverse .right .content p,
   .info_container .product .right .content p {
     margin-top: 45px;
     margin-bottom: 15px;
-    font-size: 16px;
     margin-left: 35px;
+    margin-right: 35px;
+    font-size: 16px;
   }
   .info_container .product .right ul.custom-list li {
     margin-bottom: 7px;
