@@ -7,7 +7,8 @@ console.log(DUMMY_PRODUCTS);
 const toastAddCart = document.querySelector('.toast-add-cart');
 const toastSaveProduct = document.querySelector('.toast-save-product');
 const toast = document.querySelectorAll('.toast');
-const toastContainer = document.querySelector('.toast-container')
+const toastContainer = document.querySelector('.toast-container');
+const navItemProcess = document.getElementById('nav-item-process')
 
 const overlayAddCart = document.getElementById('overlay-add-cart');
 const overlayid = document.getElementById('overlayid');
@@ -63,7 +64,7 @@ if (!localStorage.getItem('codeHasRunBefore')) {
 
   console.log('Mã không chạy nữa');
 }
-const userLocal = JSON.parse(localStorage.getItem('User'));
+const userLocal = JSON.parse(localStorage.getItem('userData'));
 
 if (userLocal && userLocal.length > 0) {
   const firstUserLike = userLocal[0];
@@ -103,21 +104,7 @@ const clickAddCart = () => {
       break;
     }
   }
-  quantity = quantity + 1;
-  toastContainer.style.display = 'flex'
-  toastAddCart.style.display = 'flex';
-  var currentTime = new Date();
-  var ngay = currentTime.getDate();
-  var thang = currentTime.getMonth() + 1;
-  var nam = currentTime.getFullYear();
-  var gio = currentTime.getHours();
-  var phut = currentTime.getMinutes();
-  var giay = currentTime.getSeconds();
-  const processAt = {
-    id: overlayid.textContent,
-    time: `${gio}:${phut}:${giay}`,
-    date: `${ngay}/${thang}/${nam} `,
-  }
+
   const process = {
     id: overlayid.textContent,
     quantity: quantity
@@ -137,9 +124,11 @@ const clickAddCart = () => {
     userLocal[0].cart.push(process);
     quantity = 0;
   }
-  userLocal[0].createCartAt.push(processAt);
+
+
+
   // alert("Ngày " + ngay + "/" + thang + "/" + nam + " lúc " + gio + ":" + phut + ":" + giay)
-  localStorage.setItem('User', JSON.stringify(userLocal));
+  localStorage.setItem('userData', JSON.stringify(userLocal));
   const itemCart = document.createElement('p');
   itemCart.classList.add("item-cart");
   itemCart.innerText = `${userLocal[0].cart.length}`;
@@ -162,10 +151,11 @@ toast.forEach(e => {
 
   })
 })
-let checkLike = true;
+
 
 
 let checkLikeOverlay = true;
+
 
 function clickSave(like) {
   const id = overlay.querySelector('#overlayid');
@@ -197,6 +187,8 @@ function clickSave(like) {
   const toastText = toastContainer.querySelector('h3');
 
 
+
+
   console.log(checkLikeOverlay);
   if (checkLikeOverlay) {
     like.style.color = 'red';
@@ -225,9 +217,7 @@ function clickSave(like) {
   navItemHeart.appendChild(itemHeart)
   const updateLike = [...new Set(userLocal[0].like)]
   userLocal[0].like = updateLike;
-  localStorage.setItem('User', JSON.stringify(userLocal));
-
-  localStorage.setItem('User', JSON.stringify(userLocal))
+  localStorage.setItem('userData', JSON.stringify(userLocal));
 }
 
 overlayLike.addEventListener('click', () => {
@@ -235,7 +225,18 @@ overlayLike.addEventListener('click', () => {
 })
 
 
+function displayQuantityCart() {
 
+  if (userLocal[0].processing.length) {
+
+    const itemProcess = document.createElement('p');
+    itemProcess.classList.add("item-process");
+    itemProcess.innerText = `${userLocal[0].processing.length}`;
+    navItemProcess.appendChild(itemProcess);
+  }
+
+}
+displayQuantityCart()
 
 function displayItem(startIndex, endIndex) {
   productList.innerHTML = '';
@@ -289,6 +290,7 @@ displayItem(0, productsPerPage);
 const itemCart = document.createElement('p');
 itemCart.classList.add("item-cart");
 itemCart.innerText = `${userLocal[0].cart.length}`;
+navItemCart.appendChild(itemCart)
 const overlay = document.getElementById('overlay')
 
 navItemCart.appendChild(itemCart);
@@ -296,6 +298,7 @@ const itemHeart = document.createElement('p');
 itemHeart.classList.add("item-heart");
 itemHeart.innerText = `${userLocal[0].like.length}`;
 navItemHeart.appendChild(itemHeart);
+
 
 
 
@@ -364,20 +367,9 @@ function updateEvent() {
       console.log(quantity);
       quantity = quantity + 1;
       alert('đã thêm vao giỏ hàng')
-      var currentTime = new Date();
-      var ngay = currentTime.getDate();
-      var thang = currentTime.getMonth() + 1;
-      var nam = currentTime.getFullYear();
-      var gio = currentTime.getHours();
-      var phut = currentTime.getMinutes();
-      var giay = currentTime.getSeconds();
 
 
-      const processAt = {
-        id: id.textContent,
-        time: `${gio}:${phut}:${giay}`,
-        date: `${ngay}/${thang}/${nam} `,
-      }
+
       const process = {
         id: id.textContent,
         quantity: quantity
@@ -402,10 +394,7 @@ function updateEvent() {
       }
 
 
-
-      userLocal[0].createCartAt.push(processAt);
-
-      localStorage.setItem('User', JSON.stringify(userLocal));
+      localStorage.setItem('userData', JSON.stringify(userLocal));
       const itemCart = document.createElement('p');
       itemCart.classList.add("item-cart");
       itemCart.innerText = `${userLocal[0].cart.length}`;
@@ -439,8 +428,7 @@ function updateEvent() {
       navItemHeart.appendChild(itemHeart)
       userLocal[0].like = updateLike;
       console.log(userLocal);
-      localStorage.setItem('User', JSON.stringify(userLocal));
-
+      localStorage.setItem('userData', JSON.stringify(userLocal));
 
     })
   }

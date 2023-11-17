@@ -23,7 +23,7 @@
                 <li><a href="../saveProduct/save.html">Like</a></li>
                 <li><a href="../cart/cart.html">Cart</a></li>
             </ul>
-          
+
         </nav>
         <nav class="header-bottom">
             <div class="header-item">
@@ -53,29 +53,34 @@
 
 
     <div class="cart-info_container">
+        <table class="menu" id="menu">
+            <thead>
+                <tr>
+                    <th>
+                        Hình ảnh
+                    </th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>
+                        Đơn giá
+                    </th>
+                    <th>
+                        Số Lượng
+                    </th>
+                    <th>
+                        chọn
+                    </th>
+                </tr>
 
-        <div class="cart-header">
+            </thead>
 
-            <ul class="menu">
-                <li>
-                    <h3>Đơn Gía</h3>
-                </li>
-                <li>
-                    <h3>Số lượng</h3>
+            <tbody class="cart-info" id="cart-info">
 
-                </li>
-                <li>
-                    <h3>Chọn</h3>
-                </li>
-                
-            </ul>
-        </div>
+            </tbody>
 
+        </table>
 
-        <div class="cart-info" id="cart-info">
-
-        </div>
     </div>
+
 
 
 
@@ -89,15 +94,15 @@
     </div>
 
 
- 
+
 
 
     <footer id="footer">
-       <h3>Đang chờ xác nhận từ người bán</h3>
-       <button id="delete">Hủy đơn</button>
+        <h3>Đang chờ xác nhận từ người bán</h3>
+        <button id="delete">Hủy đơn</button>
     </footer>
 
-    
+
     <script type="module" src="../../../database/products.js"></script>
     <script type="module" src="page.js"></script>
 </body>
