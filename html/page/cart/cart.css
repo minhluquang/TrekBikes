@@ -4,9 +4,11 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
 body {
   overflow-x: hidden;
 }
+
 header {
   width: 100%;
   display: flex;
@@ -108,165 +110,19 @@ header .navbar .navbar-menu li a {
   margin: 0 auto;
   width: 80%;
 
-  /* background-color: blue; */
 }
 
 .cart-info_container #id {
   opacity: 0;
 }
 
-.cart-header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin-top: 30px;
-}
 
-.menu {
-  width: 46%;
-  display: flex;
-  list-style: none;
-  justify-content: space-between;
-  align-items: center;
-  position: absolute;
-  right: 0;
-}
 
-.menu li h3 {
-  font-size: 15px;
-}
 
-.cart-info {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.info-item-container {
-  width: 100%;
-  display: flex;
-  position: relative;
-  border-top: 1px solid gainsboro;
-}
-
-.cart-info :nth-child(1) {
-  border: none;
-}
-
-.info-item-container .name-img {
-  width: 50%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-}
-
-.info-item-container .name-img p {
-  width: 20%;
-  font-size: 15px;
-}
-
-.info-item-container .name-img img {
-  width: 60%;
-  /* height: 70px; */
-  object-fit: cover;
-}
-
-.info-item-container .item-info {
-  width: 50%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* .info-item-container .item-info .quantity{
-   width: 100%;
-  
-  
-} */
-.info-item-container .item-info .quantity .quantity-item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.info-item-container .item-info .quantity button {
-  border: none;
-  font-size: xx-large;
-  font-weight: bold;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-.info-item-container .item-info .quantity .quantity-item .increment {
-  margin-right: 115%;
-}
-
-.info-item-container .item-info p {
-  font-size: 15px;
-}
-
-.info-item-container .item-info .total-price {
-  margin-right: 13%;
-}
 
 .id {
   display: none;
   opacity: 0;
-}
-
-.checkbox-container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 15px;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.checkbox-container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: white;
-  border: 1px solid #333;
-  border-radius: 5px;
-}
-
-.checkbox-container input:checked ~ .checkmark {
-  background-color: #2196f3;
-}
-
-.checkmark:after {
-  content: '';
-  position: absolute;
-  display: none;
-}
-
-.checkbox-container input:checked ~ .checkmark:after {
-  display: block;
-}
-
-.checkbox-container .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  transform: rotate(45deg);
 }
 
 .totalPrice {
@@ -287,12 +143,14 @@ footer {
   justify-content: flex-end;
   gap: 20px;
 }
+
 footer .footerButton {
   width: 100%;
   justify-content: flex-end;
   align-items: center;
   display: flex;
 }
+
 footer button {
   padding: 20px;
   background-color: #313131;
@@ -411,6 +269,114 @@ h1 {
   align-items: center;
   justify-content: center;
 }
+
 .toast h2 {
   color: #585858;
+}
+
+
+
+.cart-info_container {
+  margin-top: 20px;
+}
+
+.cart-info_container .info-item-container {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+img {
+  width: 200px;
+}
+
+.quantity-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.quantity-item button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.checkbox-container input:checked~.checkmark {
+  background-color: #4CAF50;
+  border: 1px solid #4CAF50;
+}
+
+.checkbox-container .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked~.checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 10px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
 }

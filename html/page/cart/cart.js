@@ -1,4 +1,4 @@
-const userLocal = JSON.parse(localStorage.getItem('User'));
+const userLocal = JSON.parse(localStorage.getItem('userData'));
 const cartInfo = document.getElementById('cart-info')
 import DUMMY_PRODUCTS from "../../../database/products.js";
 
@@ -25,62 +25,58 @@ if(userLocal[0].cart.length <= 0){
 }else{
 
     footer.style.display = 'flex';
-    menu.style.display ='flex';
+    menu.style.display ='table';
     toast.display = 'none';
 }
 
 function displayProductItems() {
-
     for (let i = 0; i < data.length; i++) {
         for (let j = 0; j < userLocal[0].cart.length; j++) {
             if (data[i].ID === userLocal[0].cart[j].id && check) {
-                const cartItem = document.createElement('div');
-
-
-
+                const cartItem = document.createElement('tr');
                 cartItem.classList.add('info-item-container');
+
+
                 cartItem.innerHTML = `
-                    <p id="id">${data[i].ID}</p>
-                    <div class="name-img">
-                        <p class="id">${data[i].ID}</p>
-                        <img src="../../../${data[i].imgSrc}">
-                        <p>${data[i].name}</p>
-
-                    </div>
-                    <div class="item-info">
-                        <p class="price">${data[i].price}</p>
-                        <div class="quantity">
-                            <div class="quantity-item" >
-                                <button class="decrement" id="decrement">-</button>
-                                <span id="quantity">${userLocal[0].cart[j].quantity}</span>
-                                <button class="increment" id="increment">+</button>
-                            </div>
+                    <td class="img"><img src="../../../${data[i].imgSrc}" alt="${data[i].name}"></td>
+                    <td class="name">
+                       
+                        ${data[i].name}
+                    </td>
+                    <td class="price">${data[i].price}</td>
+                    <td class="quantity">
+                        <div class="quantity-item">
+                            <button class="decrement" id="decrement">-</button>
+                            <span id="quantity">${userLocal[0].cart[j].quantity}</span>
+                            <button class="increment" id="increment">+</button>
                         </div>
-                        <label class="checkbox-container">
-                            <input type="checkbox" id="checkboxId">
-                            <span class="checkmark"></span>
-                        </label>
+                    </td>
+                    <td >
+                        <div class="checkbox">
+                            <p class="id">${data[i].ID}</p>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="checkboxId">
+                                <span class="checkmark"></span>
+                            </label>
 
-                    </div>
-                
-                `
-
+                        </div>
+                    </td>
+                `;
 
                 const priceString = data[i].price;
                 const priceNumber = parseFloat(priceString.replace(/\D/g, ''));
                 totalPrice = totalPrice + priceNumber * (parseInt(userLocal[0].cart[j].quantity));
-                console.log(priceNumber);
+
                 cartInfo.appendChild(cartItem);
-
-
             }
-
         }
     }
     const priceString = totalPrice.toLocaleString();
     totalPriceDisplay.innerText = priceString + ' ' + 'VND';
 }
+
 displayProductItems();
+
 
 const infoContainer = document.querySelectorAll('.info-item-container');
 let currentSelectProduct = [];
@@ -101,12 +97,13 @@ for (let i = 0; i < userLocal[0].cart.length; i++) {
 
 }
 let checked = false;
+var currentPrice = 0;
 infoContainer.forEach((element, index) => {
     const decrement = element.querySelector('#decrement');
     const increment = element.querySelector('#increment');
     const quantityDisplay = element.querySelector('#quantity');
     const checkbox = element.querySelector('#checkboxId');
-    const id = element.querySelector('#id');
+    const id = element.querySelector('.id');
     const buyId = document.getElementById('buy');
     const price = element.querySelector('.price')
 
@@ -122,7 +119,7 @@ infoContainer.forEach((element, index) => {
         if (parseInt(userLocal[0].cart[index].quantity) <= 0) {
             userLocal[0].cart.splice(index, 1);
             cartInfo.removeChild(element);
-            localStorage.setItem('User', JSON.stringify(userLocal));
+            localStorage.setItem('userData', JSON.stringify(userLocal));
         }
         const priceFloat = parseFloat(price.textContent.replace(/\D/g, ''));
         const totalPrice =  parseFloat(totalPriceDisplay.textContent.replace(/\D/g,''));
@@ -131,7 +128,7 @@ infoContainer.forEach((element, index) => {
         totalPriceDisplay.innerText = currentPrice.toLocaleString() + ' ' + 'VND';
 
 
-        localStorage.setItem('User', JSON.stringify(userLocal));
+        localStorage.setItem('userData', JSON.stringify(userLocal));
         // alert(id.textContent);
 
     });
@@ -140,7 +137,7 @@ infoContainer.forEach((element, index) => {
         userLocal[0].cart[index].quantity = parseInt(userLocal[0].cart[index].quantity) + 1;
         quantityDisplay.innerText = userLocal[0].cart[index].quantity;
         console.log(userLocal[0].cart[index].quantity);
-        localStorage.setItem('User', JSON.stringify(userLocal));
+        localStorage.setItem('userData', JSON.stringify(userLocal));
         const priceFloat = parseFloat(price.textContent.replace(/\D/g, ''));
         const totalPrice = parseFloat(totalPriceDisplay.textContent.replace(/\D/g, ''));
 
@@ -148,15 +145,22 @@ infoContainer.forEach((element, index) => {
         totalPriceDisplay.innerText = currentPrice.toLocaleString() + ' ' + 'VND';
 
 
-        localStorage.setItem('User', JSON.stringify(userLocal));
+        localStorage.setItem('userData', JSON.stringify(userLocal));
         // alert(id.textContent);
 
     })
+
     checkbox.addEventListener('click', () => {
         if (checkbox.checked) {
             currentSelectProduct.push(id.textContent);
             updateESelect.push(userLocal[0].cart[index]);
             checked = true;
+            const priceFloat = parseFloat(price.textContent.replace(/\D/g, ''));
+            currentPrice+=priceFloat*parseInt(quantityDisplay.textContent); 
+            console.log(currentPrice);
+            totalPriceDisplay.innerText = '0';
+
+            
             // localStorage.setItem('updateSelect', JSON.stringify(updateESelect));
         } else {
             for (let i = 0; i < currentSelectProduct.length; i++) {
@@ -165,9 +169,19 @@ infoContainer.forEach((element, index) => {
                 }
             }
             checked = false;
+            totalPriceDisplay.innerText = '0';
+            const priceFloat = parseFloat(price.textContent.replace(/\D/g, ''));
+            if(currentPrice > 0){
+                currentPrice -= priceFloat * parseInt(quantityDisplay.textContent); 
+
+            }
+            console.log(currentPrice);
         }
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
+        var totalPrice = 0;
+        totalPrice += currentPrice;
+        
+        totalPriceDisplay.innerText = totalPrice.toLocaleString() + ' ' + 'VND';
 
         const checkboxStates = Array.from(checkboxes).map((checkbox) => checkbox.checked);
 
@@ -233,7 +247,7 @@ infoContainer.forEach((element, index) => {
                 userLocal[0].cart.splice(index, 1);
             }
     
-            localStorage.setItem('User', JSON.stringify(userLocal));
+            localStorage.setItem('userData', JSON.stringify(userLocal));
     
     
             location.reload();
@@ -287,23 +301,9 @@ infoContainer.forEach((element, index) => {
         
         console.log(updateESelect);
         container.style.display = 'none';
-        var currentTime = new Date();
+     
 
 
-        var ngay = currentTime.getDate();
-        var thang = currentTime.getMonth() + 1;
-        var nam = currentTime.getFullYear();
-        var gio = currentTime.getHours();
-        var phut = currentTime.getMinutes();
-        var giay = currentTime.getSeconds();
-
-
-        const processAt = {
-            id: id.textContent,
-            time: `${gio}:${phut}:${giay}`,
-            date: `${ngay}/${thang}/${nam} `,
-        }
-        userLocal[0].processAt.push(processAt);
         
         const productsToDelete = userLocal[0].cart.filter(product => currentSelectProduct.includes(product.id));
 
@@ -314,7 +314,7 @@ infoContainer.forEach((element, index) => {
 
 
         
-        localStorage.setItem('User', JSON.stringify(userLocal));
+        localStorage.setItem('userData', JSON.stringify(userLocal));
         location.reload();
     });
 
@@ -322,7 +322,7 @@ infoContainer.forEach((element, index) => {
 });
 window.addEventListener("beforeunload", function (event) {
     userLocal[0].processing = [... new Set(userLocal[0].processing)];
-    localStorage.setItem('User', JSON.stringify(userLocal));
+    localStorage.setItem('userData', JSON.stringify(userLocal));
 });
 
 

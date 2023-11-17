@@ -109,8 +109,8 @@ ul{
     width: 15px;
     height: 15px;
     
-    
-    padding: 2px;
+   
+   
     top: 0;
     font-size: 12px;
     background-color: #1E90FF;
@@ -265,13 +265,25 @@ form input:focus{
 .searchValue .searchItem p{
    color: black;
 }
-
+.nav-item .item-process{
+    position: absolute;
+    text-align: center;
+    width: 15px;
+    height: 15px;
+    
+    top: 0;
+    font-size: 12px;
+    background-color: #1E90FF;
+    border-radius: 5px;
+    right: 0;
+    color: white;
+}
 .nav-item .item-heart {
     position: absolute;
     text-align: center;
     width: 15px;
     height: 15px;
-    padding: 2px;
+
     top: 0;
     font-size: 12px;
     background-color: #1E90FF;

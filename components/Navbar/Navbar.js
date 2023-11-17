@@ -2,7 +2,7 @@ import DUMMY_PRODUCTS from '../../../database/products.js'
 const data = DUMMY_PRODUCTS;
 const navbarToggle = document.getElementById('navbar-toggler')
 const navDropdown = document.getElementById('nav-dropdown')
-const userLocal = JSON.parse(localStorage.getItem('User'));
+const userLocal = JSON.parse(localStorage.getItem('userData'));
 const input = document.getElementById('input');
 const statusSearch = document.getElementById('statusSearch');
 if (!localStorage.getItem('inputSearchCheck')) {
@@ -209,7 +209,7 @@ input.addEventListener('input', (event) => {
                     navItemHeart.appendChild(itemHeart)
                     const updateLike = [...new Set(userLocal[0].like)];
                     userLocal[0].like = updateLike;
-                    localStorage.setItem('User', JSON.stringify(userLocal));
+                    localStorage.setItem('userData', JSON.stringify(userLocal));
 
 
                 })
@@ -244,20 +244,7 @@ const clickAddCart = () => {
     quantity = quantity + 1;
     toastContainer.style.display = 'flex'
     toastAddCart.style.display = 'flex';
-    var currentTime = new Date();
 
-    var ngay = currentTime.getDate();
-    var thang = currentTime.getMonth() + 1;
-    var nam = currentTime.getFullYear();
-    var gio = currentTime.getHours();
-    var phut = currentTime.getMinutes();
-    var giay = currentTime.getSeconds();
-
-    const processAt = {
-        id: overlayid.textContent,
-        time: `${gio}:${phut}:${giay}`,
-        date: `${ngay}/${thang}/${nam} `,
-    }
     const process = {
         id: overlayid.textContent,
         quantity: quantity
@@ -277,9 +264,9 @@ const clickAddCart = () => {
         userLocal[0].cart.push(process);
         quantity = 0;
     }
-    userLocal[0].createCartAt.push(processAt);
+
     // alert("Ngày " + ngay + "/" + thang + "/" + nam + " lúc " + gio + ":" + phut + ":" + giay)
-    localStorage.setItem('User', JSON.stringify(userLocal));
+    localStorage.setItem('userData', JSON.stringify(userLocal));
     const itemCart = document.createElement('p');
     itemCart.classList.add("item-cart");
     itemCart.innerText = `${userLocal[0].cart.length}`;
@@ -431,7 +418,7 @@ submitBtn.addEventListener('click', (e) => {
                         navItemHeart.appendChild(itemHeart)
                         const updateLike = [...new Set(userLocal[0].like)]
                         userLocal[0].like = updateLike;
-                        localStorage.setItem('User', JSON.stringify(userLocal));
+                        localStorage.setItem('userData', JSON.stringify(userLocal));
 
                         // localStorage.setItem('User', JSON.stringify(userLocal))
 
@@ -461,22 +448,10 @@ submitBtn.addEventListener('click', (e) => {
                     alert('đã thêm vao giỏ hàng')
 
 
-                    var currentTime = new Date();
 
 
-                    var ngay = currentTime.getDate();
-                    var thang = currentTime.getMonth() + 1;
-                    var nam = currentTime.getFullYear();
-                    var gio = currentTime.getHours();
-                    var phut = currentTime.getMinutes();
-                    var giay = currentTime.getSeconds();
 
 
-                    const processAt = {
-                        id: overlayid.textContent,
-                        time: `${gio}:${phut}:${giay}`,
-                        date: `${ngay}/${thang}/${nam} `,
-                    }
                     const process = {
                         id: e.ID,
                         quantity: quantity
@@ -501,9 +476,9 @@ submitBtn.addEventListener('click', (e) => {
 
 
 
-                    userLocal[0].createCartAt.push(processAt);
 
-                    localStorage.setItem('User', JSON.stringify(userLocal));
+
+                    localStorage.setItem('userData', JSON.stringify(userLocal));
                     const itemCart = document.createElement('p');
                     itemCart.classList.add("item-cart");
                     itemCart.innerText = `${userLocal[0].cart.length}`;
@@ -537,7 +512,7 @@ submitBtn.addEventListener('click', (e) => {
                     navItemHeart.appendChild(itemHeart)
                     userLocal[0].like = updateLike;
                     console.log(userLocal);
-                    localStorage.setItem('User', JSON.stringify(userLocal));
+                    localStorage.setItem('userData', JSON.stringify(userLocal));
 
 
                 })

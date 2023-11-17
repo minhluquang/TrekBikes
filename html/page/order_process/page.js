@@ -1,4 +1,4 @@
-const userLocal = JSON.parse(localStorage.getItem('User'));
+const userLocal = JSON.parse(localStorage.getItem('userData'));
 const cartInfo = document.getElementById('cart-info');
 import DUMMY_PRODUCTS from "../../../database/products.js";
 const data = DUMMY_PRODUCTS;
@@ -22,7 +22,7 @@ if (userLocal[0].processing.length <= 0) {
 } else {
     totalPriceContainer.style.display = 'flex';
     footer.style.display = 'flex';
-    menu.style.display = 'flex';
+    menu.style.display = 'table';
     toast.style.display = 'none';
 }
 
@@ -31,37 +31,38 @@ function displayProductItems() {
     for (let i = 0; i < data.length; i++) {
         for (let j = 0; j < userLocal[0].processing.length; j++) {
             if (data[i].ID === userLocal[0].processing[j].id && check) {
-                const cartItem = document.createElement('div');
+                const cartItem = document.createElement('tr');
+                cartItem.classList.add('info-item-container')
 
 
-
-                cartItem.classList.add('info-item-container');
                 cartItem.innerHTML = `
-                    <p id="id">${data[i].ID}</p>
-                    <div class="name-img">
-                        <p class ="id">${data[i].ID}</p>
-                        <img src="../../../${data[i].imgSrc}">
-                        <p>${data[i].name}</p>
-
-                    </div>
-                    <div class="item-info">
-                        <p>${data[i].price}</p>
-                        <div class="quantity">
-                            <div class="quantity-item" >
-                                
-                                <span id="quantity">${userLocal[0].processing[j].quantity}</span>
-                               
-                            </div>
-                        </div>
-                         <label class="checkbox-container">
-                            <input type="checkbox" id="checkboxId">
-                            <span class="checkmark"></span>
-                        </label>
+                    <td class="img">
+                        <img src="../../../${data[i].imgSrc}" alt="${data[i].name}">
+                        <p id="id">${data[i].ID}</p>    
+                    </td>
+                    <td class="name">
                        
-                    </div>
-                
-                `
+                        ${data[i].name}
+                    </td>
+                    <td class="price">${data[i].price}</td>
+                    <td class="quantity">
+                        <div class="quantity-item">
+                            
+                            <span id="quantity">${userLocal[0].processing[j].quantity}</span>
+                           
+                        </div>
+                    </td>
+                    <td >
+                        <div class="checkbox">
+                            <p class="id">${data[i].ID}</p>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="checkboxId">
+                                <span class="checkmark"></span>
+                            </label>
 
+                        </div>
+                    </td>
+                `;
 
                 const priceString = data[i].price;
                 const priceNumber = parseFloat(priceString.replace(/\D/g, ''));
@@ -86,9 +87,12 @@ let currentSelectProduct = [];
 let updateESelect = [];
 
 let checked = false;
+console.log(infoContainer[0])
 infoContainer.forEach((element, index) => {
     const checkbox = element.querySelector('#checkboxId');
     const id = element.querySelector('#id');
+    console.log(id)
+
 
 
 
@@ -99,7 +103,8 @@ infoContainer.forEach((element, index) => {
             currentSelectProduct.push(id.textContent);
             updateESelect.push(userLocal[0].processing[index]);
             checked = true;
-            // localStorage.setItem('updateSelect', JSON.stringify(updateESelect));
+            console.log('true')
+
         } else {
             for (let i = 0; i < currentSelectProduct.length; i++) {
                 if (currentSelectProduct[i] === id.textContent) {
@@ -137,7 +142,7 @@ infoContainer.forEach((element, index) => {
             }
             console.log(userLocal[0].processing)
 
-            localStorage.setItem('User', JSON.stringify(userLocal));
+            localStorage.setItem('userData', JSON.stringify(userLocal));
 
 
             location.reload();
@@ -149,7 +154,7 @@ infoContainer.forEach((element, index) => {
 });
 window.addEventListener("beforeunload", function (event) {
     userLocal[0].processing = [... new Set(userLocal[0].processing)];
-    localStorage.setItem('User', JSON.stringify(userLocal));
+    localStorage.setItem('userData', JSON.stringify(userLocal));
 });
 
 
