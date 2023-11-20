@@ -27,8 +27,8 @@ ul{
     margin-left: 100px;
     font-size: 40px;
     font-weight: bold;
-    text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3),
-            0px -4px 10px rgba(255, 255, 255, 0.3);
+    text-shadow: 2px 7px 5px rgba(255 0 0),
+            0px -4px 10px rgba(255 0 0 / 90%);
   
   
 }
@@ -81,7 +81,7 @@ ul{
     padding: 8px 12px;
     margin: 5px;
     border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: #fff;
     position: relative;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
