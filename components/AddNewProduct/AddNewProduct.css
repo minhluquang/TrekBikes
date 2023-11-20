@@ -1,0 +1,552 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Mulish', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
+}
+
+.container {
+  width: 100vw;
+}
+
+/* Start: Task */
+.admin__taskbar {
+  width: 280px;
+  height: 100vh;
+  background-color: #fff;
+  padding: 30px 20px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  transition: all 0.5s;
+}
+
+.hide .admin__taskbar {
+  width: 90px !important;
+}
+
+.hide .admin__taskbar .admin__taskbar--body__item a p,
+.hide .admin__taskbar .admin__taskbar--header__content h1,
+.hide .admin__taskbar .admin__taskbar--footer button p {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.hide .admin__taskbar .admin__taskbar--body__item.active {
+  padding: 0;
+  width: 50px;
+}
+
+.hide .admin__taskbar .admin__taskbar--body__item i {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
+
+.hide .admin__content--header {
+  left: 90px;
+}
+
+.hide .admin__content {
+  position: relative;
+  left: 90px;
+  width: calc(100vw - 120px);
+}
+
+.hide .admin__taskbar--footer button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin__taskbar--header {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  transition: all 0.5s;
+}
+
+.admin__taskbar--header__img {
+  height: 50px;
+  width: 50px;
+  background-color: #fff;
+  border-radius: 100%;
+  margin-right: 20px;
+  overflow: hidden;
+}
+
+.admin__taskbar--header__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin__taskbar--header__content {
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+.admin__taskbar--header__content div {
+  width: 100%;
+  height: 80px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.admin__taskbar--header__content div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin__taskbar--header__status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin__taskbar--header__content h1 {
+  font-size: 25px;
+  text-align: center;
+}
+
+.admin__taskbar--header__status span {
+  display: inline-block;
+  height: 15px;
+  width: 25px;
+  border-radius: 25px;
+  margin-right: 5px;
+  background-color: rgb(81, 249, 81);
+  position: relative;
+}
+
+.admin__taskbar--header__status span::after {
+  content: '';
+  position: absolute;
+  display: block;
+  height: 12px;
+  width: 12px;
+  border-radius: 100%;
+  background-color: #333;
+  right: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hr {
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+  margin: 25px 0;
+}
+
+.admin__taskbar--body__list {
+  list-style-type: none;
+  color: #fff;
+  font-size: 18px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.admin__taskbar--body__item {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 50px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  transition: all 0.5s;
+}
+
+.admin__taskbar--body__item.active {
+  background: #eee;
+  border-radius: 20px;
+  padding: 0 10px;
+}
+
+.active a {
+  cursor: default;
+}
+
+.active a::after {
+  width: 0 !important;
+}
+
+.active a {
+  transform: translate(0) !important;
+}
+
+.admin__taskbar--body__item a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: #333;
+  text-decoration: none;
+  position: relative;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.admin__taskbar--body__item a::after {
+  position: absolute;
+  content: '';
+  display: block;
+  height: 2px;
+  width: 0%;
+  transition: all 0.5s;
+  background-color: #333;
+  bottom: 0;
+  left: 0;
+}
+
+.admin__taskbar--body__item a:hover {
+  transform: translateX(6px);
+}
+
+.admin__taskbar--body__item a:hover::after {
+  width: 100%;
+}
+
+.admin__taskbar--body__item i {
+  margin-right: 10px;
+}
+
+.admin__task--footer {
+  font-size: 20px;
+  width: calc(100% - 60px);
+  margin: 0 30px;
+  background-color: #333;
+  border: none;
+  color: #fff;
+  height: 50px;
+  position: absolute;
+  bottom: 30px;
+  left: 0px;
+  cursor: pointer;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  box-shadow: rgb(154, 154, 154) 0px 3px 0px 0px;
+  border-radius: 5px;
+}
+
+.admin__taskbar--footer {
+  width: 100%;
+}
+
+.admin__taskbar--footer button {
+  height: 50px;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  color: #333;
+  font-size: 18px;
+  text-align: start;
+  color: #db504a;
+  cursor: pointer;
+  position: relative;
+  font-weight: 600;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.admin__taskbar--footer button::after {
+  position: absolute;
+  content: '';
+  display: block;
+  height: 2px;
+  width: 0%;
+  transition: all 0.5s;
+  background-color: #db504a;
+  bottom: 0;
+  left: 0;
+}
+
+.admin__taskbar--footer button:hover {
+  transform: translateX(5px);
+}
+
+.admin__taskbar--footer button:hover::after {
+  width: 100%;
+}
+
+.admin__taskbar--footer button i {
+  margin-right: 10px;
+}
+/* End: Task */
+
+/* Start: Content */
+.admin__content {
+  position: relative;
+  width: calc(100% - 280px);
+  height: 100vh;
+  left: 280px;
+  top: 0;
+  background-color: #eee;
+  transition: all 0.5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin__content--header {
+  position: fixed;
+  top: 0;
+  left: 280px;
+  right: 0;
+  background-color: #fff;
+  height: 64px;
+  color: #fff;
+  padding: 0 20px;
+  z-index: 10;
+  display: flex;
+  transition: all 0.5s;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin__content--header::before {
+  position: absolute;
+  content: '';
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  bottom: 0px;
+  right: 0px;
+  box-shadow: 10px 12px 0 #eee;
+}
+
+.admin__content--header::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  bottom: -40px;
+  left: 0;
+  border-radius: 50%;
+  box-shadow: -20px -20px 0 #fff;
+}
+
+.admin__content--header__cate {
+  color: #333;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+  cursor: pointer;
+}
+
+.admin__content--header__cate i {
+  margin-right: 15px;
+}
+
+.admin__content--header__user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin__content--header__user span {
+  color: #333;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.admin__content--header__user p {
+  background-color: #eee;
+  color: #333;
+  padding: 10px 10px 10px 10px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.admin__content--header__user p i {
+  margin-right: 10px;
+}
+
+.admin__content--header h1 {
+  text-align: center;
+  line-height: 64px;
+  position: relative;
+}
+
+.admin__content--header__search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  width: auto;
+  height: auto;
+  padding: 5px 0;
+  border-radius: 10px;
+  position: relative;
+  background-color: #eee;
+}
+
+.admin__content--header__search h1 {
+  font-size: 18px;
+  color: #fff;
+}
+
+.admin__content--header__search input {
+  width: 500px;
+  outline: none;
+  border: none;
+  height: 30px;
+  border-radius: 5px;
+  margin: 0 40px 0 10px;
+  font-size: 16px;
+  background-color: #eee;
+}
+
+.admin__content--header__search div {
+  border: none;
+  background-color: #eee;
+  color: #333;
+  line-height: 30px;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
+  position: absolute;
+  right: 0px;
+}
+/* End: Content */
+
+/* WRITE NEW CODE HERE!!! */
+.admin__content--body {
+  width: 600px;
+}
+
+.admin__content--tittle {
+  position: relative;
+  background-color: #333;
+  width: 100%;
+  height: 100px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.admin__content--tittle_text {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+.admin__content--container {
+  background-color: #fff;
+  width: 100%;
+  padding: 5px 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height: 500px;
+}
+.admin__content--container_card {
+  display: block;
+  margin-left: 2%;
+  padding-top: 1%;
+}
+.admin__content--container_card_tittle {
+  width: 100%;
+  text-align: start;
+  color: #333;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 4px 0 4px 0;
+  margin-bottom: 5px;
+}
+.admin__content--container_card_input {
+  border-radius: 10px;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  border: none;
+  border: 1px solid #333;
+  padding: 5px 10px;
+}
+
+.admin__content--container_card_select {
+  border-radius: 10px;
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border: 1px solid #333;
+  padding: 5px 10px;
+}
+.admin__content--container_card_input1 {
+  border-radius: 10px;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 10px;
+  border: none;
+  border: 1px solid #333;
+  padding: 5px 10px;
+  font-size: 18px;
+}
+
+/* .btn-primary {
+  width: 50px;
+  height: 50px;
+  background-color: #333;
+  color: #fff;
+  float: right;
+  margin-right: 150px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+.Btn-Primary {
+  width: 50px;
+  height: 50px;
+  background-color: #333;
+  color: #fff;
+  float: right;
+  margin-left: 150px;
+  border-radius: 10px;
+  font-weight: 700;
+} */
+.admin__content--button {
+  margin-top: 10px;
+  float: right;
+}
+
+.admin__content--button button {
+  width: 50px;
+  height: 50px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 10px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: rgb(154, 154, 154) 0px 3px 0px 0px;
+}
+
+.admin__content--button button:active {
+  transform: translateY(3px);
+  box-shadow: rgb(154, 154, 154) 0px 0px 0px 0px;
+}
