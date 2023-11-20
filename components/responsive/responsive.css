@@ -3,6 +3,10 @@
 }
 
 @media (min-width: 320px) {
+  .row {
+    margin: 0 2px !important;
+  }
+
   .header__top {
     display: none;
   }
@@ -23,7 +27,7 @@
 
   .header__bottom--hide-menu {
     display: block;
-    margin-right: 20px;
+    margin-right: 20px !important;
     font-size: 30px;
   }
 }
@@ -32,6 +36,26 @@
   .header__bottom--list,
   .header__bottom--extention {
     display: none;
+  }
+
+  .user__wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0;
+  }
+
+  .register,
+  .login {
+    width: 100%;
+  }
+
+  .user__wrapper.register__active .register__info,
+  .user__wrapper.login__active .login__info {
+    padding: 10px;
+  }
+
+  .policy {
+    margin: 8px 0;
   }
 }
 
@@ -50,6 +74,10 @@
 
   .header__bottom--extention {
     margin-right: 0;
+  }
+
+  .header__bottom {
+    width: 100%;
   }
 
   .header__bottom--list,
@@ -87,7 +115,8 @@
   }
 
   .section--1__item {
-    margin-bottom: 35px;
+    height: auto;
+    margin-bottom: 35px !important;
   }
 
   .section--1__item p {
@@ -137,7 +166,7 @@
 
   .signin,
   .register__again {
-    display: block !important;
+    display: flex !important;
     text-align: center;
   }
 
@@ -146,9 +175,19 @@
     display: none;
   }
   /* END: REG/LOG FORM ON LOW DEVICE */
+
+  .hide__menu {
+    width: 100vw;
+  }
+
+  .hide__menu.active {
+    transform: translate(0, 0);
+    right: 0;
+    left: 0;
+  }
 }
 
-@media (min-width: 475px) and (max-width: 640px) {
+@media (min-width: 475px) and (max-width: 740px) {
   .header__bottom--logo,
   .header__bottom--hide-menu {
     transition: all 0.5s linear;
@@ -195,8 +234,9 @@
 
   .signin,
   .register__again {
-    display: block !important;
+    display: flex !important;
     text-align: center;
+    bottom: 10px;
   }
 
   .register__background,
@@ -307,7 +347,7 @@
 
   .signin,
   .register__again {
-    display: block !important;
+    display: flex !important;
     text-align: center;
   }
 

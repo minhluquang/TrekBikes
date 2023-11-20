@@ -301,7 +301,7 @@
   .info_container .product.reverse {
     display: flex;
     flex-direction: column-reverse;
-    width: 100%;
+    width: calc(100% - 6px);
     height: auto;
     margin-bottom: 100px;
   }
@@ -309,7 +309,7 @@
   .info_container .product.reverse .left,
   .info_container .product .left {
     height: auto;
-    width: 100%;
+    width: calc(100% - 6px);
   }
   
   .info_container .product.reverse .right ul.custom-list,
@@ -362,13 +362,14 @@
     position: relative;
   }
 
+  .info_container .product.reverse .right .name,
   .info_container .product .right .name {
     font-weight: bold;
     font-size: 30px;
     position: relative;
     top: 30px;
-    margin-bottom: 44px;
     left: 32px;
+    margin-bottom:20px;
   }
 
   .info_container .product.reverse .right .content p,
