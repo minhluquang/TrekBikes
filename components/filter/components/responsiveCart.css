@@ -1,0 +1,24 @@
+@media (max-width: 1000px) {
+    .header{
+      
+    
+        /* display: flex;
+        justify-content: space-around;
+        align-items: center; */
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        align-items: center;
+       
+    }
+    .header .header-brand{
+      
+    
+       margin-left: 20%;
+       
+        
+       
+    }
+    .title{
+        display: none;
+    }
+}

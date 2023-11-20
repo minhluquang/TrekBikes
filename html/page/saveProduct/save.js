@@ -1,4 +1,4 @@
-const userLocal = JSON.parse(localStorage.getItem('userData'));
+const userLocal = JSON.parse(localStorage.getItem('User'));
 const cartInfo = document.getElementById('cart-info');
 import DUMMY_PRODUCTS from '../../../database/products.js';
 const productList = document.getElementById('productList');
@@ -61,7 +61,7 @@ function displayItem() {
                         userLocal[0].like.splice(index, 1);
                     }
                 });
-                localStorage.setItem('userData', JSON.stringify(userLocal));
+                localStorage.setItem('User', JSON.stringify(userLocal));
                 location.reload();
             })
             addCart.addEventListener('click', () => {
@@ -111,7 +111,7 @@ function displayItem() {
                     quantity = 0;
                 }
                 userLocal[0].createCartAt.push(processAt);
-                localStorage.setItem('userData', JSON.stringify(userLocal));
+                localStorage.setItem('User', JSON.stringify(userLocal));
             })
             butNow.addEventListener('click', () => {
                 localStorage.setItem('currentIdbuy', JSON.stringify(id.textContent));
