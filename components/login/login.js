@@ -1,5 +1,5 @@
 let isLoggedIn = false;
-const popUp = document.querySelector('.pop-up');
+// const popUp = document.querySelector('.pop-up');
 // ============================= Start: SHOW FORM REG/LOG
 const userBtn = document.querySelector('.header__bottom--extention-user');
 const overlay = document.querySelector('.overlay');
@@ -88,7 +88,16 @@ btnCloseGlobal.addEventListener('click', e => {
 // ============================= End: HIDE FORM
 
 // =========================== start: LOGIC FOR REGISTER ===========================
-import ACCOUNT_DATA from '../../database/accounts.js';
+const accounts = [
+  {
+    id: 'adm1',
+    name: 'Quản lý viên 1',
+    email: 'admin',
+    password: 'admin',
+    dateRegister: '2023-01-01T00:00:00.000Z',
+    isAdmin: true
+  }
+];
 
 const registerSubmitBtn = document.querySelector('.register__info--submit');
 const registerNameInput = document.querySelector('.register__info--input-name');
@@ -136,8 +145,8 @@ registerSubmitBtn.addEventListener('click', e => {
     showMessageEmailRes.innerText = '* Email không hợp lệ';
     isValidEmail = false;
   } else {
-    if (ACCOUNT_DATA.length > 0) {
-      const isExist = ACCOUNT_DATA.find(account => account.email === email);
+    if (accounts.length > 0) {
+      const isExist = accounts.find(account => account.email === email);
       if (isExist) {
         showMessageEmailRes.innerText = '* Email đã tồn tại';
         isValidEmail = false;
@@ -161,8 +170,9 @@ registerSubmitBtn.addEventListener('click', e => {
 
   if (isValidRegister) {
     const date = new Date().toISOString();
-    ACCOUNT_DATA.push({
-      id: generateRandomUserID(5),
+    const id = generateRandomUserID(5);
+    accounts.push({
+      id: id,
       name: name,
       email: email,
       password: password,
@@ -170,14 +180,17 @@ registerSubmitBtn.addEventListener('click', e => {
       like: [],
       cart: [],
       bought: [],
-      processing: []
+      processing: [],
+      isAdmin: false
     });
 
-    localStorage.setItem('ACCOUNT_DATA', JSON.stringify(ACCOUNT_DATA));
+    console.log(accounts);
+
+    localStorage.setItem('accounts', JSON.stringify(accounts));
     localStorage.setItem(
       'User',
       JSON.stringify({
-        id: generateRandomUserID(5),
+        id: id,
         name: name,
         email: email,
         password: password,
@@ -185,7 +198,8 @@ registerSubmitBtn.addEventListener('click', e => {
         like: [],
         cart: [],
         bought: [],
-        processing: []
+        processing: [],
+        isAdmin: false
       })
     );
 
@@ -200,11 +214,25 @@ registerSubmitBtn.addEventListener('click', e => {
 });
 
 const getData = () => {
-  const dataFromLocalStorage = JSON.parse(localStorage.getItem('ACCOUNT_DATA'));
+  const dataFromLocalStorage = JSON.parse(localStorage.getItem('accounts'));
+  
+  // Khởi tạo 2 mảng: uniqueID sẽ thêm id không trùng vào, 
+  // còn filterData sẽ thêm data theo những id trong mảng uniqueID
+  const uniqueId = [];
+  const filteredData = [];
+
   if (dataFromLocalStorage) {
-    const updateData = [...ACCOUNT_DATA, ...dataFromLocalStorage];
-    ACCOUNT_DATA.length = 0;
-    ACCOUNT_DATA.push(...updateData);
+    const updateData = [...accounts, ...dataFromLocalStorage];
+
+    updateData.forEach(user => {
+      if (!uniqueId.includes(user.id)) {
+        uniqueId.push(user.id);
+        filteredData.push(user);
+      }
+    });
+
+    accounts.length = 0;
+    accounts.push(...filteredData);
   }
 };
 
@@ -251,7 +279,7 @@ loginSubmitBtn.addEventListener('click', e => {
   const isValidLogin = isValidEmail && isValidPassword;
 
   if (isValidLogin) {
-    const findAccount = ACCOUNT_DATA.find(account => {
+    const findAccount = accounts.find(account => {
       return account.email === email;
     });
 
@@ -326,7 +354,7 @@ const checkLoggedIn = () => {
       userIconHideMenu.classList.toggle('active-up');
     });
 
-    if (userLogin.email === 'admin') {
+    if (userLogin.isAdmin) {
       document.querySelectorAll('.adminManager__item').forEach(item => (item.style.display = 'block'));
     }
   } else {

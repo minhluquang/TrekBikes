@@ -19,7 +19,7 @@ submitBtn.addEventListener('click', e => {
   }
 
   // If data isn't an array, then convert to array
-  const userList = JSON.parse(localStorage.getItem('ACCOUNT__DATA'));
+  const userList = JSON.parse(localStorage.getItem('accounts'));
 
   if (Array.isArray(userList)) {
     data = userList;
@@ -41,7 +41,7 @@ submitBtn.addEventListener('click', e => {
 
 const resetBtn = document.querySelector('.user--reset__btn');
 resetBtn.addEventListener('click', e => {
-  const data = JSON.parse(localStorage.getItem('ACCOUNT__DATA'));
+  const data = JSON.parse(localStorage.getItem('accounts'));
   init(data);
   paginationHandler();
 });
@@ -50,15 +50,19 @@ resetBtn.addEventListener('click', e => {
 
 // start: Apply layout user list
 const usersContainer = document.querySelector('.admin__content--body__users');
-import DUMMY_DATA from '../../database/userData.js';
-localStorage.setItem('ACCOUNT__DATA', JSON.stringify(DUMMY_DATA));
+// import DUMMY_DATA from '../../database/userData.js';
+// localStorage.setItem('ACCOUNT__DATA', JSON.stringify(DUMMY_DATA));
 
 const renderUsersInfo = userList => {
-  userList = userList || JSON.parse(localStorage.getItem('ACCOUNT__DATA'));
+  userList = userList || JSON.parse(localStorage.getItem('accounts'));
 
   usersContainer.innerHTML = '';
 
   userList?.forEach(user => {
+    if (user.isAdmin) {
+      return;
+    }
+
     const dateRegister = new Date(user.dateRegister);
 
     const day = dateRegister.getDate().toString().padStart(2, '0');
@@ -133,7 +137,7 @@ const deleteUserHandler = btn => {
   const currentParent = btn.closest('.admin__content--body__users--item');
   const currentUID = currentParent.getAttribute('uid');
 
-  const userList = JSON.parse(localStorage.getItem('ACCOUNT__DATA'));
+  const userList = JSON.parse(localStorage.getItem('accounts'));
 
   let data;
   if (Array.isArray(userList)) {
@@ -143,7 +147,7 @@ const deleteUserHandler = btn => {
   }
 
   data = data.filter(user => user.id !== currentUID);
-  localStorage.setItem('ACCOUNT__DATA', JSON.stringify(data));
+  localStorage.setItem('accounts', JSON.stringify(data));
   renderUsersInfo(data);
   clickedDeleteBtnHandler();
   paginationHandler();

@@ -1,4 +1,4 @@
-import DUMMY_DATA from '../../database/userData.js';
+// import DUMMY_DATA from '../../database/userData.js';
 import DUMMY_PRODUCTS from '../../database/products.js';
 const userData = JSON.parse(localStorage.getItem('userData'));
 
@@ -75,7 +75,7 @@ overlay.addEventListener('click', closeModal);
 // end: Open set status
 
 // start: apply html into layout
-localStorage.setItem('userData', JSON.stringify(DUMMY_DATA));
+// localStorage.setItem('accounts', JSON.stringify(DUMMY_DATA));
 const listProducts = document.querySelector('.admin__content--body__products');
 
 const renderItemsProcessed = user => {
