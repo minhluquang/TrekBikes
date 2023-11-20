@@ -718,5 +718,6 @@ const DUMMY_PRODUCTS = [
     type: 'mountain'
   }
 ];
+localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
 
 export default DUMMY_PRODUCTS;

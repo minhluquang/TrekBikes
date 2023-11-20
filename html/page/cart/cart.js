@@ -1,6 +1,6 @@
 const userLocal = JSON.parse(localStorage.getItem('User'));
 const cartInfo = document.getElementById('cart-info');
-import DUMMY_PRODUCTS from '../../../database/products.js';
+const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 
 const data = DUMMY_PRODUCTS;
 console.log(data);

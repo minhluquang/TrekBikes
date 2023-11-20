@@ -1,4 +1,4 @@
-import DUMMY_PRODUCTS from '../../../database/products.js';
+const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const data = DUMMY_PRODUCTS;
 const navbarToggle = document.getElementById('navbar-toggler');
 const navDropdown = document.getElementById('nav-dropdown');
