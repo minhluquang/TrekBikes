@@ -363,14 +363,11 @@
 
   .info_container .product.reverse .right .name,
   .info_container .product .right .name {
+    width: 90%;
     font-weight: bold;
     font-size: 30px;
-    /* position: relative; */
-    /* top: 30px; */
-    /* left: 32px; */
     margin-bottom: 20px;
-    margin-right: 25px;
-    padding-right: 20px;
+   
   }
 
   .info_container .product.reverse .right .content p,
