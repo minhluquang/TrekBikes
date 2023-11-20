@@ -1,9 +1,8 @@
-import DUMMY_PRODUCTS from '../../../database/products.js';
+const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const productList = document.getElementById('productList');
 const data = DUMMY_PRODUCTS;
 console.log(DUMMY_PRODUCTS);
 
-const toastAddCart = document.querySelector('.toast-add-cart');
 const toastSaveProduct = document.querySelector('.toast-save-product');
 const toast = document.querySelectorAll('.toast');
 const toastContainer = document.querySelector('.toast-container');
@@ -16,47 +15,6 @@ const overlayLike = document.getElementById('overlayLike');
 
 const overlayBuyNow = document.getElementById('overlay-buy-now');
 
-function generateRandomUserID(length) {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let userID = '';
-  const charactersLength = characters.length;
-
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * charactersLength);
-    userID += characters.charAt(randomIndex);
-  }
-
-  return userID;
-}
-
-const user = [
-  {
-    id: generateRandomUserID(5),
-    email: '',
-    name: '',
-    username: ' ',
-    password: ' ',
-    like: [],
-    createLikeAt: [],
-    cart: [],
-    createCartAt: [],
-    processing: [],
-    bought: [],
-    processAt: [],
-    createBoughtAt: []
-  }
-];
-
-if (!localStorage.getItem('codeHasRunBefore')) {
-  console.log('Mã đã chạy lần đầu tiên');
-  const liked = [];
-
-  localStorage.setItem('User', JSON.stringify(user));
-
-  localStorage.setItem('codeHasRunBefore', 'true');
-} else {
-  console.log('Mã không chạy nữa');
-}
 const userLocal = JSON.parse(localStorage.getItem('User'));
 
 if (userLocal && userLocal.length > 0) {
@@ -65,10 +23,6 @@ if (userLocal && userLocal.length > 0) {
 } else {
   console.log('Không có dữ liệu hoặc mảng userLocal rỗng.');
 }
-
-// localStorage.setItem('liked', JSON.stringify(liked))
-
-// localStorage.setItem('Carts', JSON.stringify(carts))
 const navItemCart = document.getElementById('nav-item-cart');
 const navItemHeart = document.getElementById('nav-item-heart');
 let productsPerPage = 10;
