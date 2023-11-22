@@ -1,0 +1,151 @@
+/* Start: Content */
+.admin__content {
+  position: relative;
+  width: calc(100% - 280px);
+  height: 100vh;
+  left: 280px;
+  top: 64px;
+  background-color: #eee;
+  transition: all 0.5s;
+}
+
+.admin__content--header {
+  position: fixed;
+  top: 0;
+  left: 280px;
+  right: 0;
+  background-color: #fff;
+  height: 64px;
+  color: #fff;
+  padding: 0 20px;
+  z-index: 10;
+  display: flex;
+  transition: all 0.5s;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin__content--header::before {
+  position: absolute;
+  content: '';
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  bottom: 0px;
+  right: 0px;
+  box-shadow: 10px 12px 0 #eee;
+}
+
+.admin__content--header::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  bottom: -40px;
+  left: 0;
+  border-radius: 50%;
+  box-shadow: -20px -20px 0 #fff;
+}
+
+.admin__content--header__cate {
+  color: #333;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+  cursor: pointer;
+}
+
+.admin__content--header__cate i {
+  margin-right: 15px;
+}
+
+.admin__content--header__user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.admin__content--header__user span {
+  color: #333;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.admin__content--header__user p {
+  background-color: #eee;
+  color: #333;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.admin__content--header__user p i {
+  margin-right: 10px;
+}
+
+.admin__content--header h1 {
+  text-align: center;
+  line-height: 64px;
+  position: relative;
+}
+/* CSS for larger screens */
+.dashboard-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+  gap: 20px;
+}
+
+.box {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  width: calc(33.33% - 20px);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.box:hover {
+  transform: scale(1.05);
+}
+
+.box h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.box p {
+  margin: 5px 0;
+}
+
+.box a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.box a:hover {
+  text-decoration: underline;
+}
+
+/* CSS for smaller screens (e.g., tablets and mobile devices) */
+@media (max-width: 768px) {
+  .dashboard-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .box {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+/* End: Content */

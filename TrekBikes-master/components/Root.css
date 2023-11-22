@@ -1,0 +1,14 @@
+:root{
+    --dark-mode-background: #333;
+    --dark-mode-color: #fff;
+    --dark-mode-button-background:#F14666;
+    --dark-mode-navbar-background: rgba(0,0,0,0.4);
+    
+
+
+
+    --white-mode-background: #fff;
+    --white-mode-color: #fff;
+    --white-mode-button-background: #F14666;
+    --white-mode-navbar-background: #333;
+}
