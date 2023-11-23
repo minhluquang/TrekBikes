@@ -1,13 +1,179 @@
 // start: Logic for filter products
 const submitBtn = document.querySelector('.user--filter__btn');
 
+// Thêm người dùng
+const addUserBtn = document.getElementById('addUserBtn');
+addUserBtn.addEventListener('click', e => {
+  // Hiển thị modal hoặc form nhập liệu
+  e.preventDefault();
+  renderAddUserModal();
+});
+
+// Hàm hiển thị modal thêm người dùng
+function renderAddUserModal() {
+  showModal();
+  modal.innerHTML = `
+    <div class="modal--add-user">
+      <label for="newUserName">Tên người dùng:</label>
+      <input type="text" id="newUserName" required>
+     <p class="newUserNameMessage"></p>
+     <br>
+      <label for="newUserEmail">Email:</label>
+      <input type="email" id="newUserEmail" required>
+      <p class="newUserEmailMessage"></p> <br>
+      <label for="newUserPassword">Mật khẩu:</label>
+      <input type="password" id="newUserPassword" required>
+      <p class="newUserPasswordMessage"></p> <br>
+      <label class= "lbUserRole" for="userRole">Quyền:</label>
+      <select class= "userRole" id="userRole" required>
+        <option value="user">Người dùng</option>
+        <option value="admin">Quản trị viên</option>
+      </select>
+
+
+      
+    </div>
+    
+    <button class="modal--add-user__footer--add">Xác nhận</button>`;
+  
+  const acpAddUserBtn = document.querySelector('.modal--add-user__footer--add');
+  acpAddUserBtn.addEventListener('click', () => {
+    // Xử lý thêm người dùng khi nhấn nút "Chắc chắn" trong modal
+    addUserHandler();
+  });
+}
+
+// Hàm xử lý thêm người dùng
+function addUserHandler() {
+  const newUserName = document.getElementById('newUserName').value.trim();
+  const newUserEmail = document.getElementById('newUserEmail').value.trim();
+  const newUserPassword = document.getElementById('newUserPassword').value.trim();
+  const userRole = document.getElementById('userRole').value;
+  
+  let isValidName = true;
+  let isValidEmail = true;
+  let isValidPassword = true;
+  
+  const showMessageNameRes = document.querySelector(".newUserNameMessage");
+  const showMessageEmailRes = document.querySelector(".newUserEmailMessage");
+  const showMessagePasswordRes = document.querySelector(".newUserPasswordMessage");
+  const accounts = JSON.parse(localStorage.getItem('accounts'))
+
+  if (newUserName.length === 0) {
+    showMessageNameRes.innerText = '* Bạn chưa nhập tên đầy đủ';
+    isValidName = false;
+  } else {
+    showMessageNameRes.innerText = '';
+  }
+  const patternEmail = /@.*[a-z]{2,3}$/gi;
+
+  if (newUserEmail.length === 0) {
+    showMessageEmailRes.innerText = '* Bạn chưa nhập email';
+    isValidEmail = false;
+  } else if (!patternEmail.test(newUserEmail)) {
+    showMessageEmailRes.innerText = '* Email không hợp lệ';
+    isValidEmail = false;
+  } else {
+    if (accounts.length > 0) {
+      const isExist = accounts.find(account => account.email === newUserEmail);
+      if (isExist) {
+        showMessageEmailRes.innerText = '* Email đã tồn tại';
+        isValidEmail = false;
+      } else {
+        showMessageEmailRes.innerText = '';
+      }
+    }
+  }
+
+  if (newUserPassword.length === 0) {
+    showMessagePasswordRes.innerText = '* Bạn chưa nhập mật khẩu';
+    isValidPassword = false;
+  } else if (newUserPassword.length <= 8) {
+    showMessagePasswordRes.innerText = '* Mật khẩu phải trên 8 ký tự';
+    isValidPassword = false;
+  } else {
+    showMessagePasswordRes.innerText = '';
+  }
+
+  const isValidForm = isValidName && isValidEmail && isValidPassword
+
+  // Kiểm tra tính hợp lệ của thông tin
+  if (isValidForm) {
+    // Lấy danh sách người dùng từ localStorage
+    let userList = JSON.parse(localStorage.getItem('accounts')) || [];
+
+    // Tạo đối tượng người dùng mới
+    const newUser = {
+      id: generateRandomUserID(5),
+      name: newUserName,
+      email: newUserEmail,
+      password: newUserPassword,
+      dateRegister: new Date(),
+      like: [],
+      cart: [],
+      bought: [],
+      processing: [],
+      isAdmin: userRole === 'admin' ? true : false};
+
+    // Thêm người dùng mới vào danh sách
+
+    // userList.forEach(user => {
+    //   if(user.email === newUserEmail ) {
+    //     alert('Email đã tồn tại trong hệ thống!');
+    //     return addUserHandler();
+    //   }
+    // })
+
+    userList.push(newUser);
+
+    // Cập nhật danh sách người dùng trong localStorage
+    localStorage.setItem('accounts', JSON.stringify(userList));
+
+    // Hiển thị danh sách người dùng mới
+    renderUsersInfo(userList);
+
+    // Đóng modal hoặc form nhập liệu
+    closeModal();
+  } 
+  // else {
+  //   // Hiển thị thông báo lỗi nếu có
+  //   alert('Vui lòng nhập đầy đủ và đúng định dạng thông tin người dùng.');
+  // }
+}
+
+// Hàm kiểm tra tính hợp lệ của email
+
+// Hàm tạo id người dùng mới
+function generateRandomUserID(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let userID = '';
+  const charactersLength = characters.length;
+
+  for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charactersLength);
+      userID += characters.charAt(randomIndex);
+  }
+
+  return userID;
+}
+
+// End.....................................
+
+
 let data;
 submitBtn.addEventListener('click', e => {
   e.preventDefault();
   const inputNameClientValue = document.querySelector('#userNameClient input').value.toLowerCase();
   const inputIdClientValue = document.querySelector('#userIdClient input').value;
+  const inputDateClientValue = document.querySelector('#userDate').value;
+  const time = new Date(inputDateClientValue);
+  const day = time.getDate();
+  const month = time.getMonth();
+  const year = time.getFullYear();
 
-  if (!inputNameClientValue && !inputIdClientValue) {
+  
+
+  if (!inputNameClientValue && !inputIdClientValue && !inputDateClientValue) {
     return;
   } else {
     const usersContainer = document.querySelector('#userList');
@@ -35,6 +201,19 @@ submitBtn.addEventListener('click', e => {
     data = data.filter(item => item.id.toString() === inputIdClientValue.trim());
   }
 
+
+  if (inputDateClientValue) {
+    data = data.filter(user => {
+      const timeUser = new Date(user.dateRegister);
+      const dayUser = timeUser.getDate();
+      const monthUser = timeUser.getMonth();
+      const yearUser = timeUser.getFullYear();
+      return dayUser === day && monthUser === month && yearUser === year;
+    });
+  }
+// -------------------------------
+
+// -------------------------------
   init(data);
   paginationHandler();
 });
