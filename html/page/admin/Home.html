@@ -16,6 +16,7 @@
     <script type="module" defer src="../../../components/OrderAdmin/OrderAdmin.js"></script>
     <script type="module" defer src="../../../components/ManageUserList/ManageUserList.js"></script>
     <script defer src="./index.js"></script>
+    <script type="module" src="./adminProduct.js"></script>
   </head>
   <body>
     <div class="container">
@@ -37,7 +38,7 @@
             </a>
           </li>
           <li class="admin__taskbar--body__item" id="product">
-            <a href="./AdminProduct.html">
+            <a >
               <i class="fa-solid fa-bicycle"></i>
               <p>Sản phẩm</p>
             </a>
@@ -125,6 +126,113 @@
           </div>
         </div>
       </div>
+
+      <div class="admin__content" id="manageProduct">
+        <div class="admin-product">
+          <div class="tools">
+              <div class="add-product">
+                  <button id="add-product-btn">Thêm Sản Phẩm</button>
+              </div>
+              <div class="filter">
+                <form class="admin__content--body__filter" id="product-filter-form">
+                  <h1>Lọc sản phẩm</h1>
+                  <div class="admin__content--body__filter--gr1">
+                    <div class="body__filter--nameClient" id="orderNameClient">
+                      <p>Tên Sản phẩm</p>
+                      <input id="productName" type="text" placeholder="Nhập tên sản phẩm" />
+                    </div>
+                    <div class="body__filter--idClient" id="orderIdClient">
+                      <p>Mã Sản Phẩm</p>
+                      <input id="productCode" type="text" placeholder="Nhập mã sản phẩm" />
+                    </div>
+                    <div class="body__filter--status" id="orderStatus">
+                      <p>Loại</p>
+                      <select name="category" id="categorySelect">
+                        <option value="all">Chọn Loại</option>
+                        <option value="mountain">Mountain</option>
+                        <option value="road">Road</option>
+                        <option value="kids">Kid</option>
+                        <option value="touring ">Touring</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="body__filter--actions">
+                    <button type="reset" class="order--reset__btn">Reset</button>
+                    <button type="submit" class="order--filter__btn" id="filter-submit-btn">Lọc</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+          <table >
+              <thead class="menu">
+                  <tr>
+                      <th>Ảnh</th>
+                      <th>Tên Sản Phẩm</th>
+                      <th>Ngày cập nhật</th>
+                      <th>Ngày tạo</th>
+                      <th>Copy</th>
+                      <th>Sửa</th>
+                      <th>Xóa</th>
+                  </tr>
+              </thead>
+              <tbody class="content" id="content">
+                  <tr>
+                      <th class="image"><img src="/" alt=""></th>
+                      <th class="name">Fuel EXe 9.9 XX AXS T-TYPE</th>
+                      <th class="date-update">14/11/2023  20:00</th>
+                      <th class="date-creat">14/11/2023  20:00</th>
+                      <th class="copy" id="copy">Copy</th>
+                      <th class="edit">Sửa</th>
+                      <th class="delete">Xóa</th>
+                  </tr>
+                 
+              </tbody>
+          </table>
+         </div>
+      
+         <div class="change-product-info-container" id="change-product-info-container">
+              <p class="close" id="close">x</p>
+             <div class="change-product-info">
+              <h2>Change product information</h2>
+              <form>
+                  <p id="id" style="opacity: 0;">2</p>
+                  <div class="form-group">
+                      <label for="">Image Url</label>
+                      <input type="text" id="imageUrl" name="imageUrl" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="">Name Product</label>
+                      <input type="text" id="name" name="name" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="">Update date</label>
+                      <input type="text" id="dateupdate" name="dateupdate" required>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="">creation date</label>
+                      <input type="text" id="datecreate" name="datecreate" required>
+                  </div>
+      
+                  <button type="submit" id="formSubmit">
+                      Change
+                  </button>
+          
+              </form>
+             </div>
+      
+      
+            
+          </div>
+          <div class="pagination" id="pagination">
+            <a href="javascript:void(0);" id="prevBtn">&laquo;</a>
+            
+            <!-- add page -->
+   
+            <a href="javascript:void(0);" id="nextBtn">&raquo;</a>
+       </div>      
+      </div>
+     
 
       <div class="admin__content" id="manageOrderList">
         <div class="admin__content--body">

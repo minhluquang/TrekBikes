@@ -3,7 +3,7 @@ const cartInfo = document.getElementById('cart-info');
 const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const productList = document.getElementById('productList');
 
-const data = DUMMY_PRODUCTS.filter(item => userLocal[0].like.includes(item.ID));
+const data = DUMMY_PRODUCTS.filter(item => userLocal.like.includes(item.ID));
 const currentUser = 0;
 console.log(data);
 
@@ -56,18 +56,18 @@ function displayItem() {
       const id = productItem.querySelector('.id');
       like.style.color = 'red';
       like.addEventListener('click', () => {
-        userLocal[0].like.forEach((element, index) => {
+        userLocal.like.forEach((element, index) => {
           if (element === id.textContent) {
-            userLocal[0].like.splice(index, 1);
+            userLocal.like.splice(index, 1);
           }
         });
         localStorage.setItem('User', JSON.stringify(userLocal));
         location.reload();
       });
       addCart.addEventListener('click', () => {
-        for (let i = 0; i < userLocal[0].cart.length; i++) {
-          if (userLocal[0].cart[i].id === id.textContent) {
-            quantity = parseInt(userLocal[0].cart[i].quantity);
+        for (let i = 0; i < userLocal.cart.length; i++) {
+          if (userLocal.cart[i].id === id.textContent) {
+            quantity = parseInt(userLocal.cart[i].quantity);
             break;
           }
         }
@@ -95,20 +95,20 @@ function displayItem() {
         // alert(quantity);
         let found = false;
 
-        if (userLocal[0].cart.length > 0) {
-          for (let i = 0; i < userLocal[0].cart.length; i++) {
-            if (process.id === userLocal[0].cart[i].id) {
-              userLocal[0].cart[i].quantity = quantity;
+        if (userLocal.cart.length > 0) {
+          for (let i = 0; i < userLocal.cart.length; i++) {
+            if (process.id === userLocal.cart[i].id) {
+              userLocal.cart[i].quantity = quantity;
               found = true;
               break;
             }
           }
         }
         if (!found) {
-          userLocal[0].cart.push(process);
+          userLocal.cart.push(process);
           quantity = 0;
         }
-        userLocal[0].createCartAt.push(processAt);
+        userLocal.createCartAt.push(processAt);
         localStorage.setItem('User', JSON.stringify(userLocal));
       });
       butNow.addEventListener('click', () => {

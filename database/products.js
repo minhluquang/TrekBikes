@@ -716,8 +716,21 @@ const DUMMY_PRODUCTS = [
     dataColors: ['#03c8ee', '#000000'],
     ID: '92b6ce9636',
     type: 'mountain'
+  },
+  {
+    name: 'newProduct',
+    imgSrc:'https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2FsbCUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D',
+    price:'9.500.000 VND',
+    dataColors: ['#03c8ee', '#000000'],
+    ID: '9459494994',
+    type: 'mountain'
   }
 ];
-localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
+
+if(!localStorage.getItem("productsPush")){
+  localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
+
+  localStorage.setItem("productsPush",true);
+}
 
 export default DUMMY_PRODUCTS;

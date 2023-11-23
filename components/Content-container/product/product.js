@@ -16,13 +16,12 @@ const overlayLike = document.getElementById('overlayLike');
 const overlayBuyNow = document.getElementById('overlay-buy-now');
 
 const userLocal = JSON.parse(localStorage.getItem('User'));
+console.log(userLocal);
 
-if (userLocal && userLocal.length > 0) {
-  const firstUserLike = userLocal[0];
-  console.log(firstUserLike);
-} else {
-  console.log('Không có dữ liệu hoặc mảng userLocal rỗng.');
+if(userLocal.length < 1){
+  console.log("khong co user dang nhap!")
 }
+
 const navItemCart = document.getElementById('nav-item-cart');
 const navItemHeart = document.getElementById('nav-item-heart');
 let productsPerPage = 10;
@@ -148,10 +147,10 @@ overlayLike.addEventListener('click', () => {
 });
 
 function displayQuantityCart() {
-  if (userLocal[0].processing.length) {
+  if (userLocal.processing.length) {
     const itemProcess = document.createElement('p');
     itemProcess.classList.add('item-process');
-    itemProcess.innerText = `${userLocal[0].processing.length}`;
+    itemProcess.innerText = `${userLocal.processing.length}`;
     navItemProcess.appendChild(itemProcess);
   }
 }
@@ -204,14 +203,14 @@ displayItem(0, productsPerPage);
 
 const itemCart = document.createElement('p');
 itemCart.classList.add('item-cart');
-itemCart.innerText = `${userLocal[0].cart.length}`;
+itemCart.innerText = `${userLocal.cart.length}`;
 navItemCart.appendChild(itemCart);
 const overlay = document.getElementById('overlay');
 
 navItemCart.appendChild(itemCart);
 const itemHeart = document.createElement('p');
 itemHeart.classList.add('item-heart');
-itemHeart.innerText = `${userLocal[0].like.length}`;
+itemHeart.innerText = `${userLocal.like.length}`;
 navItemHeart.appendChild(itemHeart);
 
 function updateEvent() {
@@ -248,22 +247,22 @@ function updateEvent() {
       overlayImg.src = `${ElementImg.src}`;
       overlayPrice.innerHTML = `${Element.querySelector('p').textContent}`;
 
-      for (let i = 0; i < userLocal[0].like.length; i++) {
-        if (userLocal[0].like[i] == id.textContent) {
+      for (let i = 0; i < userLocal.like.length; i++) {
+        if (userLocal.like[i] == id.textContent) {
           checkLikeOverlay = false;
           checkLike = false;
         }
       }
     });
-    for (let i = 0; i < userLocal[0].like.length; i++) {
-      if (userLocal[0].like[i] === id.textContent) {
+    for (let i = 0; i < userLocal.like.length; i++) {
+      if (userLocal.like[i] === id.textContent) {
         like.style.color = 'red';
       }
     }
     addCart.addEventListener('click', () => {
-      for (let i = 0; i < userLocal[0].cart.length; i++) {
-        if (userLocal[0].cart[i].id === id.textContent) {
-          quantity = parseInt(userLocal[0].cart[i].quantity);
+      for (let i = 0; i < userLocal.cart.length; i++) {
+        if (userLocal.cart[i].id === id.textContent) {
+          quantity = parseInt(userLocal.cart[i].quantity);
           break;
         }
       }
@@ -279,10 +278,10 @@ function updateEvent() {
       // alert(quantity);
       let found = false;
 
-      if (userLocal[0].cart.length > 0) {
-        for (let i = 0; i < userLocal[0].cart.length; i++) {
-          if (process.id === userLocal[0].cart[i].id) {
-            userLocal[0].cart[i].quantity = quantity;
+      if (userLocal.cart.length > 0) {
+        for (let i = 0; i < userLocal.cart.length; i++) {
+          if (process.id === userLocal.cart[i].id) {
+            userLocal.cart[i].quantity = quantity;
             found = true;
             break;
           }
@@ -290,41 +289,41 @@ function updateEvent() {
       }
 
       if (!found) {
-        userLocal[0].cart.push(process);
+        userLocal.cart.push(process);
         quantity = 0;
       }
 
       localStorage.setItem('User', JSON.stringify(userLocal));
       const itemCart = document.createElement('p');
       itemCart.classList.add('item-cart');
-      itemCart.innerText = `${userLocal[0].cart.length}`;
+      itemCart.innerText = `${userLocal.cart.length}`;
       navItemCart.appendChild(itemCart);
     });
     like.addEventListener('click', () => {
-      for (let i = 0; i < userLocal[0].like.length; i++) {
-        if (userLocal[0].like[i] === id.textContent) {
+      for (let i = 0; i < userLocal.like.length; i++) {
+        if (userLocal.like[i] === id.textContent) {
           checkLike = false;
           like.style.color = 'red';
-          userLocal[0].like.splice(i, 1);
+          userLocal.like.splice(i, 1);
         }
       }
       if (checkLike) {
         like.style.color = 'red';
 
         checkLike = !checkLike;
-        userLocal[0].like.push(id.textContent);
+        userLocal.like.push(id.textContent);
       } else {
         like.style.color = '#A0A0A0';
         overlayLike.style.color = '#A0A0A0';
         checkLike = !checkLike;
       }
-      const updateLike = [...new Set(userLocal[0].like)];
+      const updateLike = [...new Set(userLocal.like)];
 
       const itemHeart = document.createElement('p');
       itemHeart.classList.add('item-heart');
-      itemHeart.innerText = `${userLocal[0].like.length}`;
+      itemHeart.innerText = `${userLocal.like.length}`;
       navItemHeart.appendChild(itemHeart);
-      userLocal[0].like = updateLike;
+      userLocal.like = updateLike;
       console.log(userLocal);
       localStorage.setItem('User', JSON.stringify(userLocal));
     });
@@ -332,9 +331,10 @@ function updateEvent() {
 }
 updateEvent();
 
-var totalPages = 10;
-
+var totalPages = Math.ceil(data.length / 10);
+const ITEMS_PER_PAGE = 10;
 var maxPagesToShow = 5;
+
 
 function generatePagination() {
   var pagination = document.getElementById('pagination');
@@ -388,7 +388,9 @@ function generatePagination() {
 }
 
 function loadData() {
-  displayItem(currentPage, currentPage + 10);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  displayItem(startIndex, endIndex);
   updateEvent();
   console.log('Loading data for page ' + currentPage);
 }

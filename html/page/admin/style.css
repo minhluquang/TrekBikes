@@ -30,6 +30,7 @@ body {
 
 .admin__content {
   width: calc(100vw - 300px) !important;
+  
 }
 
 .hide .admin__content {
@@ -72,6 +73,7 @@ body {
 
 .hide .admin__content--header {
   left: 90px;
+  z-index: 999;
 }
 
 .hide .admin__content {
@@ -390,6 +392,7 @@ body {
 .admin-product table {
   border-collapse: collapse;
   width: 100%;
+  margin: 5px;
 }
 
 .admin-product td,
@@ -470,6 +473,7 @@ th {
   display: none;
   justify-content: center;
   align-items: center;
+  z-index: 999999999;
 }
 
 .close{
@@ -536,4 +540,98 @@ th {
 .change-product-info button:hover{
   box-shadow: none;
 }
+
+.admin-product{
+  margin-bottom: 20px;
+}
+
+
+.pagination {
+
+  width: 50%;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 0 auto;
+  
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  
+}
+
+.pagination a.active {
+  background-color: #333;
+  color: white;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.pagination  a:first-child{
+  background-color: #333;
+      color: white;
+      padding: 8px 16px;
+      text-decoration: none;
+      cursor: pointer;
+      margin: 0 10px;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  
+}
+.pagination a:last-child {
+  background-color: #333;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+
+
+
+.tools{
+  width: 100%;
+  padding: 20px;
+  gap: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tools .add-product button{
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  transition: all 0.3s ease-in-out;
+
+}
+
+.tools .add-product button:hover{
+  box-shadow: none;
+}
+.tools .filter{
+  width: 100%;
+}
+.tools .filter form{
+  width: 100%;
+  margin-right: 30px;
+}
+
+.admin-product-form{
+  background-color: #333;
+}
+
+
+
 
