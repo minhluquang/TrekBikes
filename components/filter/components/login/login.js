@@ -90,7 +90,7 @@ btnCloseGlobal.addEventListener('click', e => {
 // =========================== start: LOGIC FOR REGISTER ===========================
 const accounts = [
   {
-    id: 'adm1',
+    id: 'admin',
     name: 'Quản lý viên 1',
     email: 'admin',
     password: 'admin',
@@ -215,8 +215,8 @@ registerSubmitBtn.addEventListener('click', e => {
 
 const getData = () => {
   const dataFromLocalStorage = JSON.parse(localStorage.getItem('accounts'));
-  
-  // Khởi tạo 2 mảng: uniqueID sẽ thêm id không trùng vào, 
+
+  // Khởi tạo 2 mảng: uniqueID sẽ thêm id không trùng vào,
   // còn filterData sẽ thêm data theo những id trong mảng uniqueID
   const uniqueId = [];
   const filteredData = [];

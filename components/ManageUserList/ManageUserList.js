@@ -1,3 +1,22 @@
+// Kiểm tra xem khi vào manage user list đã có accounts trên local chưa?
+// Nếu chưa thì phải khởi tạo với giá trị trong đó là tài khoản admin mặc định
+// Mục đích để làm cho dữ liệu đổ ra layout
+const accounts = JSON.parse(localStorage.getItem('accounts'));
+if (!accounts) {
+  const accounts = [
+    {
+      id: 'admin',
+      name: 'Quản lý viên 1',
+      email: 'admin',
+      password: 'admin',
+      dateRegister: '2023-01-01T00:00:00.000Z',
+      isAdmin: true
+    }
+  ];
+
+  localStorage.setItem('accounts', JSON.stringify(accounts));
+}
+
 // start: Logic for filter products
 const submitBtn = document.querySelector('.user--filter__btn');
 
@@ -13,33 +32,36 @@ addUserBtn.addEventListener('click', e => {
 function renderAddUserModal() {
   showModal();
   modal.innerHTML = `
-    <div class="modal--add-user">
+    <form class="modal--add-user">
+      <i class="fa-solid fa-xmark"></i>    
       <label for="newUserName">Tên người dùng:</label>
-      <input type="text" id="newUserName" required>
-     <p class="newUserNameMessage"></p>
-     <br>
+      <input type="text" id="newUserName" placeholder="Nhập tên người dùng" required>
+      <p class="newUserNameMessage"></p>
+      <br>
       <label for="newUserEmail">Email:</label>
-      <input type="email" id="newUserEmail" required>
+      <input type="email" id="newUserEmail" name="newUserEmail" placeholder="Nhập email người dùng" required>
       <p class="newUserEmailMessage"></p> <br>
       <label for="newUserPassword">Mật khẩu:</label>
-      <input type="password" id="newUserPassword" required>
+      <input type="password" id="newUserPassword" name="newUserPassword" placeholder="Nhập mật khẩu người dùng" required>
       <p class="newUserPasswordMessage"></p> <br>
       <label class= "lbUserRole" for="userRole">Quyền:</label>
       <select class= "userRole" id="userRole" required>
         <option value="user">Người dùng</option>
         <option value="admin">Quản trị viên</option>
       </select>
-
-
-      
-    </div>
-    
+    </form>
     <button class="modal--add-user__footer--add">Xác nhận</button>`;
-  
+
   const acpAddUserBtn = document.querySelector('.modal--add-user__footer--add');
   acpAddUserBtn.addEventListener('click', () => {
     // Xử lý thêm người dùng khi nhấn nút "Chắc chắn" trong modal
     addUserHandler();
+  });
+
+  // Xử lý xóa modal
+  const closeBtn = document.querySelector('.modal--add-user i');
+  closeBtn.addEventListener('click', e => {
+    closeModal();
   });
 }
 
@@ -49,15 +71,30 @@ function addUserHandler() {
   const newUserEmail = document.getElementById('newUserEmail').value.trim();
   const newUserPassword = document.getElementById('newUserPassword').value.trim();
   const userRole = document.getElementById('userRole').value;
-  
+
   let isValidName = true;
   let isValidEmail = true;
   let isValidPassword = true;
-  
-  const showMessageNameRes = document.querySelector(".newUserNameMessage");
-  const showMessageEmailRes = document.querySelector(".newUserEmailMessage");
-  const showMessagePasswordRes = document.querySelector(".newUserPasswordMessage");
-  const accounts = JSON.parse(localStorage.getItem('accounts'))
+
+  const showMessageNameRes = document.querySelector('.newUserNameMessage');
+  const showMessageEmailRes = document.querySelector('.newUserEmailMessage');
+  const showMessagePasswordRes = document.querySelector('.newUserPasswordMessage');
+  const accounts = JSON.parse(localStorage.getItem('accounts'));
+
+  // if (!accounts) {
+  //   const accounts = [
+  //     {
+  //       id: 'admin',
+  //       name: 'Quản lý viên 1',
+  //       email: 'admin',
+  //       password: 'admin',
+  //       dateRegister: '2023-01-01T00:00:00.000Z',
+  //       isAdmin: true
+  //     }
+  //   ];
+
+  //   localStorage.setItem('accounts', JSON.stringify(accounts));
+  // }
 
   if (newUserName.length === 0) {
     showMessageNameRes.innerText = '* Bạn chưa nhập tên đầy đủ';
@@ -95,7 +132,7 @@ function addUserHandler() {
     showMessagePasswordRes.innerText = '';
   }
 
-  const isValidForm = isValidName && isValidEmail && isValidPassword
+  const isValidForm = isValidName && isValidEmail && isValidPassword;
 
   // Kiểm tra tính hợp lệ của thông tin
   if (isValidForm) {
@@ -103,8 +140,9 @@ function addUserHandler() {
     let userList = JSON.parse(localStorage.getItem('accounts')) || [];
 
     // Tạo đối tượng người dùng mới
+
     const newUser = {
-      id: generateRandomUserID(5),
+      id: userRole === 'admin' ? 'ad_' + generateRandomUserID(2) : generateRandomUserID(5),
       name: newUserName,
       email: newUserEmail,
       password: newUserPassword,
@@ -113,16 +151,8 @@ function addUserHandler() {
       cart: [],
       bought: [],
       processing: [],
-      isAdmin: userRole === 'admin' ? true : false};
-
-    // Thêm người dùng mới vào danh sách
-
-    // userList.forEach(user => {
-    //   if(user.email === newUserEmail ) {
-    //     alert('Email đã tồn tại trong hệ thống!');
-    //     return addUserHandler();
-    //   }
-    // })
+      isAdmin: userRole === 'admin' ? true : false
+    };
 
     userList.push(newUser);
 
@@ -132,16 +162,15 @@ function addUserHandler() {
     // Hiển thị danh sách người dùng mới
     renderUsersInfo(userList);
 
+    // Sau khi renderUsersInfo thì nó bị rơi ra khỏi layout
+    // Nếu quá 6 items thì việc này phải gọi lại function phân trang để nó render lại
+    // Đồng thời gọi function kiểm tra sự kiện click nút xóa item
+    paginationHandler();
+    clickedDeleteBtnHandler();
     // Đóng modal hoặc form nhập liệu
     closeModal();
-  } 
-  // else {
-  //   // Hiển thị thông báo lỗi nếu có
-  //   alert('Vui lòng nhập đầy đủ và đúng định dạng thông tin người dùng.');
-  // }
+  }
 }
-
-// Hàm kiểm tra tính hợp lệ của email
 
 // Hàm tạo id người dùng mới
 function generateRandomUserID(length) {
@@ -150,15 +179,14 @@ function generateRandomUserID(length) {
   const charactersLength = characters.length;
 
   for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * charactersLength);
-      userID += characters.charAt(randomIndex);
+    const randomIndex = Math.floor(Math.random() * charactersLength);
+    userID += characters.charAt(randomIndex);
   }
 
   return userID;
 }
 
 // End.....................................
-
 
 let data;
 submitBtn.addEventListener('click', e => {
@@ -170,8 +198,6 @@ submitBtn.addEventListener('click', e => {
   const day = time.getDate();
   const month = time.getMonth();
   const year = time.getFullYear();
-
-  
 
   if (!inputNameClientValue && !inputIdClientValue && !inputDateClientValue) {
     return;
@@ -201,7 +227,6 @@ submitBtn.addEventListener('click', e => {
     data = data.filter(item => item.id.toString() === inputIdClientValue.trim());
   }
 
-
   if (inputDateClientValue) {
     data = data.filter(user => {
       const timeUser = new Date(user.dateRegister);
@@ -211,9 +236,9 @@ submitBtn.addEventListener('click', e => {
       return dayUser === day && monthUser === month && yearUser === year;
     });
   }
-// -------------------------------
+  // -------------------------------
 
-// -------------------------------
+  // -------------------------------
   init(data);
   paginationHandler();
 });
@@ -238,10 +263,9 @@ const renderUsersInfo = userList => {
   usersContainer.innerHTML = '';
 
   userList?.forEach(user => {
-    if (user.isAdmin) {
-      return;
-    }
-
+    // if (user.isAdmin) {
+    //   return;
+    // }
     const dateRegister = new Date(user.dateRegister);
 
     const day = dateRegister.getDate().toString().padStart(2, '0');
@@ -252,9 +276,10 @@ const renderUsersInfo = userList => {
       <li class="admin__content--body__id users--item__id">${user.id}</li>
       <li class="admin__content--body__name users--item__name">${user.name}</li>
       <li class="admin__content--body__email users--item__email">${user.email}</li>
+      <li class="admin__content--body__role users--item__role">${user.isAdmin ? 'Quản trị viên' : 'Người dùng'}</li>
       <li class="admin__content--body__dateRegister users--item__dateRegister">${day}/${month}/${year}</li>
       <li class="admin__content--body__btn users--item__btn">
-        <button><i class="fa-solid fa-x"></i></button>
+        <button ${user.email === 'admin' ? 'style="display: none"' : ''}><i class="fa-solid fa-x"></i></button>
       </li>
     </ul>
     `;
@@ -406,6 +431,7 @@ function paginationHandler() {
       currentPage += 1;
       renderLayoutPagination();
       renderPaginationBtn();
+      clickedDeleteBtnHandler();
     });
   }
 
@@ -415,6 +441,7 @@ function paginationHandler() {
       currentPage -= 1;
       renderLayoutPagination();
       renderPaginationBtn();
+      clickedDeleteBtnHandler();
     });
   }
 
