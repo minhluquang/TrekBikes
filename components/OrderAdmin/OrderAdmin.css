@@ -292,12 +292,24 @@
   flex: 0.2 !important;
 }
 
+.admin__content--body__orderId {
+  flex: 0.2 !important;
+}
+
+.admin__content--body__productId {
+  flex: 0.2 !important;
+}
+
 .admin__content--body__img {
   flex: 0.2 !important;
 }
 
 .admin__content--body__qnt {
-  flex: 0.2 !important;
+  flex: 0.1 !important;
+}
+
+.admin__content--body__dateCreate {
+  flex: 0.3 !important;
 }
 
 .admin__content--body__status {
@@ -333,7 +345,7 @@
   content: '';
   display: block;
   position: absolute;
-  height: 60px;
+  height: 40px;
   width: 1px;
   top: 50%;
   right: 0;
@@ -422,23 +434,46 @@
   visibility: hidden;
   opacity: 0;
   transform: translate(-50%, -100%) scale(0);
-  /* transform: translate(-50%, -50%); */
   top: 50%;
   left: 50%;
 }
 
 .modal.active {
+  width: 500px !important;
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
   visibility: visible;
 }
 
-.modal__content--header h1 {
+.modal__content--header {
   text-align: center;
-  margin-bottom: 20px;
 }
 
-.modal__content--id__user {
+.modal__content--header h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.modal__content--header p {
+  text-align: start;
+  font-size: 18px;
+}
+
+.modal__content--header p + p {
+  margin-top: 2px;
+}
+
+.modal__content--header p:last-child {
+  margin-bottom: 15px;
+}
+
+.modal__content--header p span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+.modal__content--title {
   display: flex;
   justify-content: start;
   align-items: center;
@@ -453,21 +488,18 @@
   border-bottom-left-radius: 5px;
 }
 
-.modal__content--id__user h1,
-.modal__content--username h1 {
+.modal__content--title h1 {
   height: 30px;
-  font-size: 18px;
+  font-size: 16px;
   background-color: #333;
   color: #fff;
   padding: 5px 10px;
-  width: 180px;
+  min-width: 40%;
 }
 
-.modal__content--id__user p,
-.modal__content--username p {
+.modal__content--title p {
   font-size: 16px;
-  min-width: 200px;
-  max-width: 100%;
+  min-width: 60%;
   padding: 5px 10px;
   background-color: #eee;
   height: 30px;
@@ -604,7 +636,3 @@
   box-shadow: rgba(48, 191, 13, 0.983) 0px 3px 0px 0px;
 }
 /* end: Modal */
-
-
-
-

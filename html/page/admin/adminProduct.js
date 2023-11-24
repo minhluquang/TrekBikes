@@ -86,7 +86,7 @@ function updateEvent(item,index,id, element) {
      copyNameProduct(element.name);
    });
 
-   console.log(index);
+  //  console.log(index);
 
    // edit
 
@@ -128,7 +128,7 @@ function disPlayProductItem(pageStart, pageEnd) {
       content.appendChild(item);
     
       updateEvent(item,index, id, element);
-      console.log(element.name);
+      // console.log(element.name);
     }
      
 
@@ -219,7 +219,7 @@ function generatePagination(){
     })
 
     pagination.appendChild(pageLink);
-    console.log(pageLink);
+    // console.log(pageLink);
 
     
   }
