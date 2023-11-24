@@ -28,6 +28,7 @@ const contentElements = document.querySelectorAll('.admin__content');
 const homeContent = document.querySelector('#manageHome');
 const orderContent = document.querySelector('#manageOrderList');
 const userContent = document.querySelector('#manageUserList');
+const productContent = document.getElementById('manageProduct');
 
 // Xóa tất cả class active của các thẻ trên thanh taskbar
 const deleteActiveItems = () => {
@@ -62,7 +63,10 @@ taskbarItems.forEach(item => {
       orderContent.classList.remove('hideItem');
     } else if (pageToView === 'user') {
       userContent.classList.remove('hideItem');
+    } else if (pageToView === 'product'){
+      productContent.classList.remove('hideItem');
     }
+
   });
 });
 
@@ -73,7 +77,6 @@ const init = () => {
 
 init();
 
-// Admin Product
 
 // Set innerText name of admin was logged
 const nameAdmin = document.querySelector('.admin__content--header__user strong');

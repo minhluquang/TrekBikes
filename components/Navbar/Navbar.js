@@ -148,8 +148,8 @@ input.addEventListener('input', event => {
           overlay.style.display = 'none';
         });
         let checkLikeOverlay = true;
-        for (let i = 0; i < userLocal[0].like.length; i++) {
-          if (userLocal[0].like[i] == id.textContent) {
+        for (let i = 0; i < userLocal.like.length; i++) {
+          if (userLocal.like[i] == id.textContent) {
             checkLikeOverlay = false;
             checkLike = false;
           }
@@ -157,11 +157,11 @@ input.addEventListener('input', event => {
 
         overlayLike.addEventListener('click', () => {
           const toastText = toastContainer.querySelector('h3');
-          for (let i = 0; i < userLocal[0].like.length; i++) {
-            if (userLocal[0].like[i] == id.textContent) {
+          for (let i = 0; i < userLocal.like.length; i++) {
+            if (userLocal.like[i] == id.textContent) {
               checkLikeOverlay = false;
               checkLike = false;
-              userLocal[0].like.splice(i, 1);
+              userLocal.like.splice(i, 1);
             }
           }
           if (checkLikeOverlay) {
@@ -173,7 +173,7 @@ input.addEventListener('input', event => {
             toastText.innerText = 'Đã thêm vào danh mục yêu thích';
             toastSaveProduct.style.display = 'flex';
 
-            userLocal[0].like.push(id.textContent);
+            userLocal.like.push(id.textContent);
           } else {
             toastText.innerText = 'Đã xóa khỏi danh mục yêu thích';
 
@@ -188,10 +188,10 @@ input.addEventListener('input', event => {
           }
           const itemHeart = document.createElement('p');
           itemHeart.classList.add('item-heart');
-          itemHeart.innerText = `${userLocal[0].like.length}`;
+          itemHeart.innerText = `${userLocal.like.length}`;
           navItemHeart.appendChild(itemHeart);
-          const updateLike = [...new Set(userLocal[0].like)];
-          userLocal[0].like = updateLike;
+          const updateLike = [...new Set(userLocal.like)];
+          userLocal.like = updateLike;
           localStorage.setItem('User', JSON.stringify(userLocal));
         });
         toast.forEach(e => {
@@ -210,9 +210,9 @@ const navItemCart = document.getElementById('nav-item-cart');
 let quantity = 0;
 const clickAddCart = () => {
   console.log(overlayid);
-  for (let i = 0; i < userLocal[0].cart.length; i++) {
-    if (userLocal[0].cart[i].id === overlayid.textContent) {
-      quantity = parseInt(userLocal[0].cart[i].quantity);
+  for (let i = 0; i < userLocal.cart.length; i++) {
+    if (userLocal.cart[i].id === overlayid.textContent) {
+      quantity = parseInt(userLocal.cart[i].quantity);
       break;
     }
   }
@@ -226,17 +226,17 @@ const clickAddCart = () => {
   };
   // alert(quantity);
   let found = false;
-  if (userLocal[0].cart.length > 0) {
-    for (let i = 0; i < userLocal[0].cart.length; i++) {
-      if (process.id === userLocal[0].cart[i].id) {
-        userLocal[0].cart[i].quantity = quantity;
+  if (userLocal.cart.length > 0) {
+    for (let i = 0; i < userLocal.cart.length; i++) {
+      if (process.id === userLocal.cart[i].id) {
+        userLocal.cart[i].quantity = quantity;
         found = true;
         break;
       }
     }
   }
   if (!found) {
-    userLocal[0].cart.push(process);
+    userLocal.cart.push(process);
     quantity = 0;
   }
 
@@ -244,7 +244,7 @@ const clickAddCart = () => {
   localStorage.setItem('User', JSON.stringify(userLocal));
   const itemCart = document.createElement('p');
   itemCart.classList.add('item-cart');
-  itemCart.innerText = `${userLocal[0].cart.length}`;
+  itemCart.innerText = `${userLocal.cart.length}`;
   navItemCart.appendChild(itemCart);
 };
 
@@ -312,8 +312,8 @@ submitBtn.addEventListener('click', e => {
 
         const overlayClick = productItem.querySelector('.overlay-click');
 
-        for (let i = 0; i < userLocal[0].like.length; i++) {
-          if (userLocal[0].like[i] == e.ID) {
+        for (let i = 0; i < userLocal.like.length; i++) {
+          if (userLocal.like[i] == e.ID) {
             like.style.color = 'red';
           }
         }
@@ -337,20 +337,20 @@ submitBtn.addEventListener('click', e => {
           overlayImg.src = `/${e.imgSrc}`;
           overlayPrice.innerHTML = e.price;
           let checkLikeOverlay = true;
-          for (let i = 0; i < userLocal[0].like.length; i++) {
-            if (userLocal[0].like[i] == e.ID) {
+          for (let i = 0; i < userLocal.like.length; i++) {
+            if (userLocal.like[i] == e.ID) {
               checkLikeOverlay = false;
               checkLike = false;
             }
           }
           overlayLike.addEventListener('click', () => {
             const toastText = toastContainer.querySelector('h3');
-            for (let i = 0; i < userLocal[0].like.length; i++) {
-              if (userLocal[0].like[i] == e.ID) {
+            for (let i = 0; i < userLocal.like.length; i++) {
+              if (userLocal.like[i] == e.ID) {
                 checkLikeOverlay = false;
                 checkLike = false;
 
-                userLocal[0].like.splice(i, 1);
+                userLocal.like.splice(i, 1);
               }
             }
             if (checkLikeOverlay) {
@@ -362,7 +362,7 @@ submitBtn.addEventListener('click', e => {
               toastText.innerText = 'Đã thêm vào danh mục yêu thích';
               toastSaveProduct.style.display = 'flex';
 
-              userLocal[0].like.push(e.ID);
+              userLocal.like.push(e.ID);
             } else {
               toastText.innerText = 'Đã xóa khỏi danh mục yêu thích';
 
@@ -377,10 +377,10 @@ submitBtn.addEventListener('click', e => {
             }
             const itemHeart = document.createElement('p');
             itemHeart.classList.add('item-heart');
-            itemHeart.innerText = `${userLocal[0].like.length}`;
+            itemHeart.innerText = `${userLocal.like.length}`;
             navItemHeart.appendChild(itemHeart);
-            const updateLike = [...new Set(userLocal[0].like)];
-            userLocal[0].like = updateLike;
+            const updateLike = [...new Set(userLocal.like)];
+            userLocal.like = updateLike;
             localStorage.setItem('User', JSON.stringify(userLocal));
 
             // localStorage.setItem('User', JSON.stringify(userLocal))
@@ -395,9 +395,9 @@ submitBtn.addEventListener('click', e => {
         });
 
         addCart.addEventListener('click', () => {
-          for (let i = 0; i < userLocal[0].cart.length; i++) {
-            if (userLocal[0].cart[i].id === e.ID) {
-              quantity = parseInt(userLocal[0].cart[i].quantity);
+          for (let i = 0; i < userLocal.cart.length; i++) {
+            if (userLocal.cart[i].id === e.ID) {
+              quantity = parseInt(userLocal.cart[i].quantity);
               break;
             }
           }
@@ -411,10 +411,10 @@ submitBtn.addEventListener('click', e => {
           // alert(quantity);
           let found = false;
 
-          if (userLocal[0].cart.length > 0) {
-            for (let i = 0; i < userLocal[0].cart.length; i++) {
-              if (process.id === userLocal[0].cart[i].id) {
-                userLocal[0].cart[i].quantity = quantity;
+          if (userLocal.cart.length > 0) {
+            for (let i = 0; i < userLocal.cart.length; i++) {
+              if (process.id === userLocal.cart[i].id) {
+                userLocal.cart[i].quantity = quantity;
                 found = true;
                 break;
               }
@@ -422,41 +422,41 @@ submitBtn.addEventListener('click', e => {
           }
 
           if (!found) {
-            userLocal[0].cart.push(process);
+            userLocal.cart.push(process);
             quantity = 0;
           }
 
           localStorage.setItem('User', JSON.stringify(userLocal));
           const itemCart = document.createElement('p');
           itemCart.classList.add('item-cart');
-          itemCart.innerText = `${userLocal[0].cart.length}`;
+          itemCart.innerText = `${userLocal.cart.length}`;
           navItemCart.appendChild(itemCart);
         });
         like.addEventListener('click', () => {
-          for (let i = 0; i < userLocal[0].like.length; i++) {
-            if (userLocal[0].like[i] === e.ID) {
+          for (let i = 0; i < userLocal.like.length; i++) {
+            if (userLocal.like[i] === e.ID) {
               checkLike = false;
               like.style.color = 'red';
-              userLocal[0].like.splice(i, 1);
+              userLocal.like.splice(i, 1);
             }
           }
           if (checkLike) {
             like.style.color = 'red';
 
             checkLike = !checkLike;
-            userLocal[0].like.push(e.ID);
+            userLocal.like.push(e.ID);
           } else {
             like.style.color = '#A0A0A0';
             overlayLike.style.color = '#A0A0A0';
             checkLike = !checkLike;
           }
-          const updateLike = [...new Set(userLocal[0].like)];
+          const updateLike = [...new Set(userLocal.like)];
 
           const itemHeart = document.createElement('p');
           itemHeart.classList.add('item-heart');
-          itemHeart.innerText = `${userLocal[0].like.length}`;
+          itemHeart.innerText = `${userLocal.like.length}`;
           navItemHeart.appendChild(itemHeart);
-          userLocal[0].like = updateLike;
+          userLocal.like = updateLike;
           console.log(userLocal);
           localStorage.setItem('User', JSON.stringify(userLocal));
         });
