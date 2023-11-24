@@ -8,7 +8,11 @@
   align-items: center;
   font-family: 'Kaushan Script', cursive;
   transform: translateY(-30px);
+<<<<<<< HEAD
   text-shadow: 2px 7px 5px rgba(255 0 0 / 80%), 0px -4px 10px rgba(255 0 0 / 80%);
+=======
+  text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3), 0px -4px 10px rgba(255, 255, 255, 0.3);
+>>>>>>> dev6
 }
 
 .product-list {
@@ -89,7 +93,11 @@
   color: white;
 
   padding: 0px 12px 20px;
+<<<<<<< HEAD
   background-color: #000000;
+=======
+  background-color: #828282;
+>>>>>>> dev6
   /* font-weight: bold; */
 }
 
@@ -235,8 +243,12 @@
   text-decoration: none;
   cursor: pointer;
   margin: 0 10px;
+<<<<<<< HEAD
   font-size: 20px;
   text-align: center;
+=======
+
+>>>>>>> dev6
 }
 
 .pagination a:last-child {
@@ -246,8 +258,11 @@
   text-decoration: none;
   cursor: pointer;
   margin: 0 10px;
+<<<<<<< HEAD
   font-size: 20px;
   text-align: center;
+=======
+>>>>>>> dev6
 }
 
 #prevBtn:hover,
