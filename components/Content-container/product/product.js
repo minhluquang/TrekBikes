@@ -147,7 +147,8 @@ overlayLike.addEventListener('click', () => {
 });
 
 function displayQuantityCart() {
-  if (userLocal.processing.length) {
+
+  if (userLocal[0]?.processing.length) {
     const itemProcess = document.createElement('p');
     itemProcess.classList.add('item-process');
     itemProcess.innerText = `${userLocal.processing.length}`;

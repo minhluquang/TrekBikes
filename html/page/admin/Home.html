@@ -52,15 +52,15 @@
           <li class="admin__taskbar--body__item" id="user">
             <a>
               <i class="fa-solid fa-user"></i>
-              <p>Khách hàng</p>
+              <p>Thành viên</p>
             </a>
           </li>
-          <li class="admin__taskbar--body__item" id="tool">
+          <!-- <li class="admin__taskbar--body__item" id="tool">
             <a>
               <i class="fa-solid fa-screwdriver-wrench"></i>
               <p>Cấu hình</p>
             </a>
-          </li>
+          </li> -->
         </ul>
 
         <div class="hr"></div>
@@ -79,7 +79,7 @@
         </div>
 
         <div class="admin__content--header__user">
-          <p><i class="fa-solid fa-user-shield"></i>Nguyễn Văn A</p>
+          <p><i class="fa-solid fa-user-shield"></i><strong>Nguyễn Văn A</strong></p>
         </div>
       </div>
       <div class="admin__content" id="manageHome">
@@ -307,10 +307,16 @@
                   <p>Mã khách hàng</p>
                   <input type="text" placeholder="Nhập mã khách hàng" />
                 </div>
+
+                <div class="body__filter--dateClient" id="userDateClient">
+                  <label for="userDate">Ngày đăng ký:</label>
+                  <input type="date" id="userDate" />
+                </div>
               </div>
               <div class="body__filter--actions">
                 <button type="reset" class="user--reset__btn">Reset</button>
                 <button class="user--filter__btn">Lọc</button>
+                <button class="addUserBtn" id="addUserBtn">Thêm tài khoản</button>
               </div>
             </form>
           </div>
@@ -320,6 +326,7 @@
               <li class="admin__content--body__id">Mã khách hàng</li>
               <li class="admin__content--body__name">Tên khách hàng</li>
               <li class="admin__content--body__email">Email</li>
+              <li class="admin__content--body__role">Loại tài khoản</li>
               <li class="admin__content--body__dateRegister">Ngày đăng ký</li>
               <li class="admin__content--body__btn">Xóa</li>
             </ul>

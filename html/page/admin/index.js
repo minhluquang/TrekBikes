@@ -77,4 +77,8 @@ const init = () => {
 
 init();
 
-// Admin Product
+
+// Set innerText name of admin was logged
+const nameAdmin = document.querySelector('.admin__content--header__user strong');
+const currentAdminLogged = JSON.parse(localStorage.getItem('User'));
+nameAdmin.textContent = currentAdminLogged.name;
