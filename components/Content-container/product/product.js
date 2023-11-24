@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-import DUMMY_PRODUCTS from '../../../database/products.js';
-=======
 const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
->>>>>>> dev6
 const productList = document.getElementById('productList');
 const data = DUMMY_PRODUCTS;
 console.log(DUMMY_PRODUCTS);
 
-<<<<<<< HEAD
-const toastAddCart = document.querySelector('.toast-add-cart');
-=======
->>>>>>> dev6
 const toastSaveProduct = document.querySelector('.toast-save-product');
 const toast = document.querySelectorAll('.toast');
 const toastContainer = document.querySelector('.toast-container');
@@ -23,61 +15,6 @@ const overlayLike = document.getElementById('overlayLike');
 
 const overlayBuyNow = document.getElementById('overlay-buy-now');
 
-<<<<<<< HEAD
-function generateRandomUserID(length) {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let userID = '';
-  const charactersLength = characters.length;
-
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * charactersLength);
-    userID += characters.charAt(randomIndex);
-  }
-
-  return userID;
-}
-
-const user = [
-  {
-    id: generateRandomUserID(5),
-    email: '',
-    name: '',
-    username: ' ',
-    password: ' ',
-    like: [],
-    createLikeAt: [],
-    cart: [],
-    createCartAt: [],
-    processing: [],
-    bought: [],
-    processAt: [],
-    createBoughtAt: []
-  }
-];
-
-if (!localStorage.getItem('codeHasRunBefore')) {
-  console.log('Mã đã chạy lần đầu tiên');
-  const liked = [];
-
-  localStorage.setItem('User', JSON.stringify(user));
-
-  localStorage.setItem('codeHasRunBefore', 'true');
-} else {
-  console.log('Mã không chạy nữa');
-}
-const userLocal = JSON.parse(localStorage.getItem('User'));
-
-if (userLocal && userLocal.length > 0) {
-  const firstUserLike = userLocal[0];
-  console.log(firstUserLike);
-} else {
-  console.log('Không có dữ liệu hoặc mảng userLocal rỗng.');
-}
-
-// localStorage.setItem('liked', JSON.stringify(liked))
-
-// localStorage.setItem('Carts', JSON.stringify(carts))
-=======
 const userLocal = JSON.parse(localStorage.getItem('User'));
 console.log(userLocal);
 
@@ -85,7 +22,6 @@ if(userLocal.length < 1){
   console.log("khong co user dang nhap!")
 }
 
->>>>>>> dev6
 const navItemCart = document.getElementById('nav-item-cart');
 const navItemHeart = document.getElementById('nav-item-heart');
 let productsPerPage = 10;
@@ -98,9 +34,9 @@ const clickBuy = () => {
 let quantity = 0;
 
 const clickAddCart = () => {
-  for (let i = 0; i < userLocal[0].cart.length; i++) {
-    if (userLocal[0].cart[i].id === overlayid.textContent) {
-      quantity = parseInt(userLocal[0].cart[i].quantity);
+  for (let i = 0; i < userLocal.cart.length; i++) {
+    if (userLocal.cart[i].id === overlayid.textContent) {
+      quantity = parseInt(userLocal.cart[i].quantity);
       break;
     }
   }
@@ -111,10 +47,10 @@ const clickAddCart = () => {
   };
   // alert(quantity);
   let found = false;
-  if (userLocal[0].cart.length > 0) {
-    for (let i = 0; i < userLocal[0].cart.length; i++) {
-      if (process.id === userLocal[0].cart[i].id) {
-        userLocal[0].cart[i].quantity = quantity;
+  if (userLocal.cart.length > 0) {
+    for (let i = 0; i < userLocal.cart.length; i++) {
+      if (process.id === userLocal.cart[i].id) {
+        userLocal.cart[i].quantity = quantity;
         found = true;
         break;
       }
@@ -129,7 +65,7 @@ const clickAddCart = () => {
   localStorage.setItem('User', JSON.stringify(userLocal));
   const itemCart = document.createElement('p');
   itemCart.classList.add('item-cart');
-  itemCart.innerText = `${userLocal[0].cart.length}`;
+  itemCart.innerText = `${userLocal.cart.length}`;
   navItemCart.appendChild(itemCart);
 };
 
@@ -153,14 +89,14 @@ let checkLikeOverlay = true;
 function clickSave(like) {
   const id = overlay.querySelector('#overlayid');
   var index = 0;
-  for (let i = 0; i < userLocal[0].like.length; i++) {
-    if (userLocal[0].like[i] === id.textContent) {
+  for (let i = 0; i < userLocal.like.length; i++) {
+    if (userLocal.like[i] === id.textContent) {
       checkLikeOverlay = false;
       checkLike = false;
       index = i;
       break;
     }
-    if (userLocal[0].like[i] !== id.textContent) {
+    if (userLocal.like[i] !== id.textContent) {
       checkLike = true;
       checkLikeOverlay = true;
     }
@@ -185,7 +121,7 @@ function clickSave(like) {
     toastContainer.style.display = 'flex';
     toastText.innerText = 'Đã thêm vào danh mục yêu thích';
     toastSaveProduct.style.display = 'flex';
-    userLocal[0].like.push(id.textContent);
+    userLocal.like.push(id.textContent);
     checkLikeOverlay = !checkLikeOverlay;
   } else {
     toastText.innerText = 'Đã xóa khỏi danh mục yêu thích';
@@ -195,14 +131,14 @@ function clickSave(like) {
     like.style.color = 'gray';
     checkLike = true;
     checkLikeOverlay = !checkLikeOverlay;
-    userLocal[0].like.splice(index, 1);
+    userLocal.like.splice(index, 1);
   }
   const itemHeart = document.createElement('p');
   itemHeart.classList.add('item-heart');
-  itemHeart.innerText = `${userLocal[0].like.length}`;
+  itemHeart.innerText = `${userLocal.like.length}`;
   navItemHeart.appendChild(itemHeart);
-  const updateLike = [...new Set(userLocal[0].like)];
-  userLocal[0].like = updateLike;
+  const updateLike = [...new Set(userLocal.like)];
+  userLocal.like = updateLike;
   localStorage.setItem('User', JSON.stringify(userLocal));
 }
 
@@ -211,17 +147,10 @@ overlayLike.addEventListener('click', () => {
 });
 
 function displayQuantityCart() {
-<<<<<<< HEAD
-  if (userLocal[0].processing.length) {
-    const itemProcess = document.createElement('p');
-    itemProcess.classList.add('item-process');
-    itemProcess.innerText = `${userLocal[0].processing.length}`;
-=======
   if (userLocal.processing.length) {
     const itemProcess = document.createElement('p');
     itemProcess.classList.add('item-process');
     itemProcess.innerText = `${userLocal.processing.length}`;
->>>>>>> dev6
     navItemProcess.appendChild(itemProcess);
   }
 }
@@ -274,22 +203,14 @@ displayItem(0, productsPerPage);
 
 const itemCart = document.createElement('p');
 itemCart.classList.add('item-cart');
-<<<<<<< HEAD
-itemCart.innerText = `${userLocal[0].cart.length}`;
-=======
 itemCart.innerText = `${userLocal.cart.length}`;
->>>>>>> dev6
 navItemCart.appendChild(itemCart);
 const overlay = document.getElementById('overlay');
 
 navItemCart.appendChild(itemCart);
 const itemHeart = document.createElement('p');
 itemHeart.classList.add('item-heart');
-<<<<<<< HEAD
-itemHeart.innerText = `${userLocal[0].like.length}`;
-=======
 itemHeart.innerText = `${userLocal.like.length}`;
->>>>>>> dev6
 navItemHeart.appendChild(itemHeart);
 
 function updateEvent() {
@@ -326,38 +247,22 @@ function updateEvent() {
       overlayImg.src = `${ElementImg.src}`;
       overlayPrice.innerHTML = `${Element.querySelector('p').textContent}`;
 
-<<<<<<< HEAD
-      for (let i = 0; i < userLocal[0].like.length; i++) {
-        if (userLocal[0].like[i] == id.textContent) {
-=======
       for (let i = 0; i < userLocal.like.length; i++) {
         if (userLocal.like[i] == id.textContent) {
->>>>>>> dev6
           checkLikeOverlay = false;
           checkLike = false;
         }
       }
     });
-<<<<<<< HEAD
-    for (let i = 0; i < userLocal[0].like.length; i++) {
-      if (userLocal[0].like[i] === id.textContent) {
-=======
     for (let i = 0; i < userLocal.like.length; i++) {
       if (userLocal.like[i] === id.textContent) {
->>>>>>> dev6
         like.style.color = 'red';
       }
     }
     addCart.addEventListener('click', () => {
-<<<<<<< HEAD
-      for (let i = 0; i < userLocal[0].cart.length; i++) {
-        if (userLocal[0].cart[i].id === id.textContent) {
-          quantity = parseInt(userLocal[0].cart[i].quantity);
-=======
       for (let i = 0; i < userLocal.cart.length; i++) {
         if (userLocal.cart[i].id === id.textContent) {
           quantity = parseInt(userLocal.cart[i].quantity);
->>>>>>> dev6
           break;
         }
       }
@@ -373,17 +278,10 @@ function updateEvent() {
       // alert(quantity);
       let found = false;
 
-<<<<<<< HEAD
-      if (userLocal[0].cart.length > 0) {
-        for (let i = 0; i < userLocal[0].cart.length; i++) {
-          if (process.id === userLocal[0].cart[i].id) {
-            userLocal[0].cart[i].quantity = quantity;
-=======
       if (userLocal.cart.length > 0) {
         for (let i = 0; i < userLocal.cart.length; i++) {
           if (process.id === userLocal.cart[i].id) {
             userLocal.cart[i].quantity = quantity;
->>>>>>> dev6
             found = true;
             break;
           }
@@ -391,28 +289,13 @@ function updateEvent() {
       }
 
       if (!found) {
-<<<<<<< HEAD
-        userLocal[0].cart.push(process);
-=======
         userLocal.cart.push(process);
->>>>>>> dev6
         quantity = 0;
       }
 
       localStorage.setItem('User', JSON.stringify(userLocal));
       const itemCart = document.createElement('p');
       itemCart.classList.add('item-cart');
-<<<<<<< HEAD
-      itemCart.innerText = `${userLocal[0].cart.length}`;
-      navItemCart.appendChild(itemCart);
-    });
-    like.addEventListener('click', () => {
-      for (let i = 0; i < userLocal[0].like.length; i++) {
-        if (userLocal[0].like[i] === id.textContent) {
-          checkLike = false;
-          like.style.color = 'red';
-          userLocal[0].like.splice(i, 1);
-=======
       itemCart.innerText = `${userLocal.cart.length}`;
       navItemCart.appendChild(itemCart);
     });
@@ -422,32 +305,18 @@ function updateEvent() {
           checkLike = false;
           like.style.color = 'red';
           userLocal.like.splice(i, 1);
->>>>>>> dev6
         }
       }
       if (checkLike) {
         like.style.color = 'red';
 
         checkLike = !checkLike;
-<<<<<<< HEAD
-        userLocal[0].like.push(id.textContent);
-=======
         userLocal.like.push(id.textContent);
->>>>>>> dev6
       } else {
         like.style.color = '#A0A0A0';
         overlayLike.style.color = '#A0A0A0';
         checkLike = !checkLike;
       }
-<<<<<<< HEAD
-      const updateLike = [...new Set(userLocal[0].like)];
-
-      const itemHeart = document.createElement('p');
-      itemHeart.classList.add('item-heart');
-      itemHeart.innerText = `${userLocal[0].like.length}`;
-      navItemHeart.appendChild(itemHeart);
-      userLocal[0].like = updateLike;
-=======
       const updateLike = [...new Set(userLocal.like)];
 
       const itemHeart = document.createElement('p');
@@ -455,7 +324,6 @@ function updateEvent() {
       itemHeart.innerText = `${userLocal.like.length}`;
       navItemHeart.appendChild(itemHeart);
       userLocal.like = updateLike;
->>>>>>> dev6
       console.log(userLocal);
       localStorage.setItem('User', JSON.stringify(userLocal));
     });
@@ -463,18 +331,11 @@ function updateEvent() {
 }
 updateEvent();
 
-<<<<<<< HEAD
-var totalPages = 10;
-
-var maxPagesToShow = 5;
-
-=======
 var totalPages = Math.ceil(data.length / 10);
 const ITEMS_PER_PAGE = 10;
 var maxPagesToShow = 5;
 
 
->>>>>>> dev6
 function generatePagination() {
   var pagination = document.getElementById('pagination');
   pagination.innerHTML = '';
@@ -527,13 +388,9 @@ function generatePagination() {
 }
 
 function loadData() {
-<<<<<<< HEAD
-  displayItem(currentPage, currentPage + 10);
-=======
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   displayItem(startIndex, endIndex);
->>>>>>> dev6
   updateEvent();
   console.log('Loading data for page ' + currentPage);
 }

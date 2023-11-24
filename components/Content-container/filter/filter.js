@@ -4,7 +4,7 @@ const product_container = document.getElementById('product');
 const dashBoardClose = document.getElementById('dash-board-icon-close');
 const dashBoard = document.getElementById('dash-board');
 const productList = document.getElementById('productList');
-import DUMMY_PRODUCTS from "../../../database/products.js";
+const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const data = DUMMY_PRODUCTS;
 
 
@@ -57,10 +57,10 @@ displayFilter();
 
 let quantity = 0;
 const clickAddCart = (id) => {
-    for (let i = 0; i < userLocal[0].cart.length; i++) {
+    for (let i = 0; i < userLocal.cart.length; i++) {
 
-        if (userLocal[0].cart[i].id === id.textContent) {
-            quantity = parseInt(userLocal[0].cart[i].quantity);
+        if (userLocal.cart[i].id === id.textContent) {
+            quantity = parseInt(userLocal.cart[i].quantity);
             break;
         }
     }
@@ -85,25 +85,25 @@ const clickAddCart = (id) => {
     }
     // alert(quantity);
     let found = false;
-    if (userLocal[0].cart.length > 0) {
-        for (let i = 0; i < userLocal[0].cart.length; i++) {
-            if (process.id === userLocal[0].cart[i].id) {
-                userLocal[0].cart[i].quantity = quantity;
+    if (userLocal.cart.length > 0) {
+        for (let i = 0; i < userLocal.cart.length; i++) {
+            if (process.id === userLocal.cart[i].id) {
+                userLocal.cart[i].quantity = quantity;
                 found = true;
                 break;
             }
         }
     }
     if (!found) {
-        userLocal[0].cart.push(process);
+        userLocal.cart.push(process);
         quantity = 0;
     }
-    userLocal[0].createCartAt.push(processAt);
+    userLocal.createCartAt.push(processAt);
     // alert("Ngày " + ngay + "/" + thang + "/" + nam + " lúc " + gio + ":" + phut + ":" + giay)
     localStorage.setItem('User', JSON.stringify(userLocal));
     const itemCart = document.createElement('p');
     itemCart.classList.add("item-cart");
-    itemCart.innerText = `${userLocal[0].cart.length}`;
+    itemCart.innerText = `${userLocal.cart.length}`;
     navItemCart.appendChild(itemCart);
 }
 
@@ -201,8 +201,8 @@ function displayItem(data) {
             const id = productItem.querySelector('.id');
             const like = productItem.querySelector('#like');
 
-            for (let i = 0; i < userLocal[0].like.length; i++) {
-                if (userLocal[0].like[i] === id.textContent) {
+            for (let i = 0; i < userLocal.like.length; i++) {
+                if (userLocal.like[i] === id.textContent) {
                     checkLike = false;
                     like.style.color = 'red';
 
@@ -211,29 +211,29 @@ function displayItem(data) {
             handleBtnClick(productItem);
 
             like.addEventListener('click', () => {
-                for (let i = 0; i < userLocal[0].like.length; i++) {
-                    if (userLocal[0].like[i] === id.textContent) {
+                for (let i = 0; i < userLocal.like.length; i++) {
+                    if (userLocal.like[i] === id.textContent) {
                         checkLike = false;
                         like.style.color = 'red';
-                        userLocal[0].like.splice(i, 1);
+                        userLocal.like.splice(i, 1);
                     }
                 }
                 if (checkLike) {
                     like.style.color = 'red';
 
                     checkLike = !checkLike;
-                    userLocal[0].like.push(id.textContent);
+                    userLocal.like.push(id.textContent);
                 } else {
                     like.style.color = '#A0A0A0';
                     overlayLike.style.color = '#A0A0A0';
                     checkLike = !checkLike;
                 }
-                const updateLike = [...new Set(userLocal[0].like)];
+                const updateLike = [...new Set(userLocal.like)];
                 const itemHeart = document.createElement('p');
                 itemHeart.classList.add("item-heart");
-                itemHeart.innerText = `${userLocal[0].like.length}`;
+                itemHeart.innerText = `${userLocal.like.length}`;
                 navItemHeart.appendChild(itemHeart)
-                userLocal[0].like = updateLike;
+                userLocal.like = updateLike;
                 console.log(userLocal);
                 localStorage.setItem('User', JSON.stringify(userLocal));
             })
