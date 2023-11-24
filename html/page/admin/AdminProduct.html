@@ -7,7 +7,20 @@
     <title>Document</title>
 </head>
 <body>
+   
+  
+    
+
+
    <div class="admin-product">
+    <div class="tools">
+        <div class="add-product">
+            <button id="add-product-btn">Thêm Sản Phẩm</button>
+        </div>
+        <div class="filter">
+
+        </div>
+    </div>
     <table >
         <thead class="menu">
             <tr>
@@ -20,13 +33,13 @@
                 <th>Xóa</th>
             </tr>
         </thead>
-        <tbody class="content">
+        <tbody class="content" id="content">
             <tr>
-                <th class="image"><img src="/TrekBikes/database/images/productImgs/mountain.webp" alt=""></th>
+                <th class="image"><img src="/" alt=""></th>
                 <th class="name">Fuel EXe 9.9 XX AXS T-TYPE</th>
                 <th class="date-update">14/11/2023  20:00</th>
                 <th class="date-creat">14/11/2023  20:00</th>
-                <th class="copy">Copy</th>
+                <th class="copy" id="copy">Copy</th>
                 <th class="edit">Sửa</th>
                 <th class="delete">Xóa</th>
             </tr>
@@ -34,5 +47,51 @@
         </tbody>
     </table>
    </div>
+
+   <div class="change-product-info-container" id="change-product-info-container">
+        <p class="close" id="close">x</p>
+       <div class="change-product-info">
+        <h2>Change product information</h2>
+        <form>
+            <p id="id" style="opacity: 0;">2</p>
+            <div class="form-group">
+                <label for="">Image Url</label>
+                <input type="file" accept="image/*" id="imageUrl" name="imageUrl" required>
+            </div>
+            <div class="form-group">
+                <label for="">Name Product</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="">Update date</label>
+                <input type="text" id="dateupdate" name="dateupdate" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="">creation date</label>
+                <input type="text" id="datecreate" name="datecreate" required>
+            </div>
+
+            <button type="submit" id="formSubmit">
+                Change
+            </button>
+    
+        </form>
+       </div>
+
+
+       <div class="pagination" id="pagination">
+            <a href="javascript:void(0);" id="prevBtn">&laquo;</a>
+            
+            <!-- add page -->
+   
+            <a href="javascript:void(0);" id="nextBtn">&raquo;</a>
+       </div>       
+    </div>
+
+   
+  
+
+   <script type="module" src="./adminProduct.js"></script>
 </body>
 </html>

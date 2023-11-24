@@ -1,0 +1,274 @@
+.overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay-container {
+  display: block;
+  width: 80%;
+  height: 85%;
+  background-color: white;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 5%;
+}
+.toast-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  z-index: 9999999999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.toast-container .toast {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: large;
+  font-weight: bold;
+  width: 30%;
+  height: 20%;
+  top: 40%;
+  left: 38%;
+
+  background-color: #333;
+  border-radius: 5px;
+  gap: 10px;
+}
+.toast-container .toast:nth-child(3) {
+  font-size: 18px;
+}
+.toast-container .toast button {
+  padding: 10px 20px;
+  border: none;
+  background-color: white;
+  color: black;
+  border-radius: 2px;
+  font-size: large;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.overlay-container .overlay-container-top {
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+  padding: 0%;
+  background-color: #e8e8e8;
+}
+
+.overlay-container .overlay-container-top .overlay-container-title {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0% 8%;
+  align-items: center;
+  gap: 10%;
+}
+
+.overlay-container .overlay-container-top .overlay-container-title .overlay-prev {
+  cursor: pointer;
+}
+
+.overlay-container .overlay-container-top .overlay-container-title h4 {
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.overlay-container .overlay-container-top .overlay-container-title .overlay-logo {
+  font-size: x-large;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.overlay-container .overlay-container-top .overlay-container-btn {
+  padding-right: 8%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: end;
+  gap: 10%;
+}
+
+.overlay-container .overlay-container-top .overlay-container-btn i {
+  font-size: 20px;
+  color: black;
+  cursor: pointer;
+}
+
+.overlay-container .overlay-body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay-container .overlay-body .overlay-body-left {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.overlay-container .overlay-body .overlay-body-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  position: relative;
+  gap: 4%;
+  width: 40%;
+  height: 100%;
+}
+
+.overlay-container .overlay-body .overlay-body-left img {
+  width: 60%;
+}
+
+.overlay-container .overlay-body .overlay-body-left .overlay-page {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 2%;
+  margin-bottom: 10%;
+}
+
+.overlay-container .overlay-body .overlay-body-left .overlay-page p {
+  padding: 10px 15px;
+  background-color: #cfcfcf;
+  color: white;
+  border-radius: 2px;
+}
+
+.overlay-container .overlay-body .overlay-body-left .overlay-page p:nth-child(1) {
+  background-color: #333;
+}
+
+.overlay-container .overlay-body .overlay-body-left button {
+  padding: 30px;
+  background-color: #333;
+  position: absolute;
+  bottom: 7%;
+  left: 0;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.overlay-container .overlay-body .overlay-body-left button:hover {
+  background-color: #a9a9a9;
+}
+
+.overlay-body-right h1 {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.overlay-body-right .overlay-product-color {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.overlay-body-right .overlay-product-color h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.overlay-body-right p {
+  color: #696969;
+}
+
+.overlay-body-right span {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 20%;
+}
+
+.overlay-body-right .overlay-product-color .overlay-color-dots {
+  display: flex;
+  gap: 10px;
+}
+
+.overlay-body-right .overlay-product-color .overlay-dot {
+  width: 20px;
+  height: 20px;
+  background-color: darkmagenta;
+  border-radius: 50%;
+  border: 1px solid #696969;
+}
+
+.overlay-body-right .overlay-right-btn {
+  position: absolute;
+  display: flex;
+  bottom: 7%;
+  right: 0;
+}
+
+.overlay-body-right .overlay-right-btn button {
+  display: flex;
+  gap: 10px;
+  padding: 30px;
+  border: none;
+  background-color: #696969;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-weight: bold;
+}
+.overlay-body-right .overlay-right-btn a {
+  display: flex;
+  gap: 10px;
+  padding: 30px;
+  border: none;
+  background-color: #696969;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-weight: bold;
+}
+.overlay-body-right .overlay-right-btn button p {
+  font-weight: bold;
+  color: white;
+}
+.overlay-body-right .overlay-right-btn a p {
+  font-weight: bold;
+  color: white;
+}
+
+.overlay-body-right .overlay-right-btn button:nth-child(2) {
+  background-color: #333;
+}
+
+.overlay-body-right .overlay-right-btn button:hover {
+  background-color: #a9a9a9;
+}
