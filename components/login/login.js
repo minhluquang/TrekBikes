@@ -1,5 +1,5 @@
 let isLoggedIn = false;
-const popUp = document.querySelector('.pop-up');
+// const popUp = document.querySelector('.pop-up');
 // ============================= Start: SHOW FORM REG/LOG
 const userBtn = document.querySelector('.header__bottom--extention-user');
 const overlay = document.querySelector('.overlay');
@@ -88,7 +88,16 @@ btnCloseGlobal.addEventListener('click', e => {
 // ============================= End: HIDE FORM
 
 // =========================== start: LOGIC FOR REGISTER ===========================
-import ACCOUNT_DATA from '../../database/accounts.js';
+const accounts = [
+  {
+    id: 'admin',
+    name: 'Quản lý viên 1',
+    email: 'admin',
+    password: 'admin',
+    dateRegister: '2023-01-01T00:00:00.000Z',
+    isAdmin: true
+  }
+];
 
 const registerSubmitBtn = document.querySelector('.register__info--submit');
 const registerNameInput = document.querySelector('.register__info--input-name');
@@ -98,6 +107,19 @@ const registerPasswordInput = document.querySelector('.register__info--input-pas
 const showMessageNameRes = document.querySelector('.register__info--input__full-name p');
 const showMessageEmailRes = document.querySelector('.register__info--input__full-email p');
 const showMessagePasswordRes = document.querySelector('.register__info--input__full-password p');
+
+function generateRandomUserID(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let userID = '';
+  const charactersLength = characters.length;
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charactersLength);
+    userID += characters.charAt(randomIndex);
+  }
+
+  return userID;
+}
 
 registerSubmitBtn.addEventListener('click', e => {
   e.preventDefault();
@@ -116,15 +138,17 @@ registerSubmitBtn.addEventListener('click', e => {
     showMessageNameRes.innerText = '';
   }
 
+  const patternEmail = /@.*[a-z]{2,3}$/gi;
+
   if (email.length === 0) {
     showMessageEmailRes.innerText = '* Bạn chưa nhập email';
     isValidEmail = false;
-  } else if (!email.includes('@')) {
+  } else if (!patternEmail.test(email)) {
     showMessageEmailRes.innerText = '* Email không hợp lệ';
     isValidEmail = false;
   } else {
-    if (ACCOUNT_DATA.length > 0) {
-      const isExist = ACCOUNT_DATA.find(account => account.email === email);
+    if (accounts.length > 0) {
+      const isExist = accounts.find(account => account.email === email);
       if (isExist) {
         showMessageEmailRes.innerText = '* Email đã tồn tại';
         isValidEmail = false;
@@ -147,9 +171,9 @@ registerSubmitBtn.addEventListener('click', e => {
   const isValidRegister = isValidName && isValidEmail && isValidPassword;
 
   if (isValidRegister) {
-    const id = Date.now().toString();
     const date = new Date().toISOString();
-    ACCOUNT_DATA.push({
+    const id = generateRandomUserID(5);
+    accounts.push({
       id: id,
       name: name,
       email: email,
@@ -158,12 +182,15 @@ registerSubmitBtn.addEventListener('click', e => {
       like: [],
       cart: [],
       bought: [],
-      isProcessing: []
+      processing: [],
+      isAdmin: false
     });
 
-    localStorage.setItem('ACCOUNT_DATA', JSON.stringify(ACCOUNT_DATA));
+    console.log(accounts);
+
+    localStorage.setItem('accounts', JSON.stringify(accounts));
     localStorage.setItem(
-      'userLogin',
+      'User',
       JSON.stringify({
         id: id,
         name: name,
@@ -173,7 +200,8 @@ registerSubmitBtn.addEventListener('click', e => {
         like: [],
         cart: [],
         bought: [],
-        isProcessing: []
+        processing: [],
+        isAdmin: false
       })
     );
 
@@ -188,11 +216,25 @@ registerSubmitBtn.addEventListener('click', e => {
 });
 
 const getData = () => {
-  const dataFromLocalStorage = JSON.parse(localStorage.getItem('ACCOUNT_DATA'));
+  const dataFromLocalStorage = JSON.parse(localStorage.getItem('accounts'));
+
+  // Khởi tạo 2 mảng: uniqueID sẽ thêm id không trùng vào,
+  // còn filterData sẽ thêm data theo những id trong mảng uniqueID
+  const uniqueId = [];
+  const filteredData = [];
+
   if (dataFromLocalStorage) {
-    const updateData = [...ACCOUNT_DATA, ...dataFromLocalStorage];
-    ACCOUNT_DATA.length = 0;
-    ACCOUNT_DATA.push(...updateData);
+    const updateData = [...accounts, ...dataFromLocalStorage];
+
+    updateData.forEach(user => {
+      if (!uniqueId.includes(user.id)) {
+        uniqueId.push(user.id);
+        filteredData.push(user);
+      }
+    });
+
+    accounts.length = 0;
+    accounts.push(...filteredData);
   }
 };
 
@@ -239,13 +281,13 @@ loginSubmitBtn.addEventListener('click', e => {
   const isValidLogin = isValidEmail && isValidPassword;
 
   if (isValidLogin) {
-    const findAccount = ACCOUNT_DATA.find(account => {
+    const findAccount = accounts.find(account => {
       return account.email === email;
     });
 
     if (findAccount) {
       if (findAccount.password === password) {
-        localStorage.setItem('userLogin', JSON.stringify(findAccount));
+        localStorage.setItem('User', JSON.stringify(findAccount));
         // showPopup();
         location.reload();
 
@@ -285,7 +327,7 @@ const userList = document.querySelector('.header__bottom--user__list');
 const section4 = document.querySelector('.section--4-container');
 
 const checkLoggedIn = () => {
-  const userLogin = JSON.parse(localStorage.getItem('userLogin'));
+  const userLogin = JSON.parse(localStorage.getItem('User'));
   const userListOnLowDevice = document.querySelector('.hide__menu--user__list');
   const userNameOnLowDevice = document.querySelector(
     '.hide__menu--list__extention .header__bottom--extention-user span'
@@ -314,7 +356,7 @@ const checkLoggedIn = () => {
       userIconHideMenu.classList.toggle('active-up');
     });
 
-    if (userLogin.email === 'admin') {
+    if (userLogin.isAdmin) {
       document.querySelectorAll('.adminManager__item').forEach(item => (item.style.display = 'block'));
     }
   } else {
@@ -333,7 +375,7 @@ const logoutBtn = document.querySelector('.logout');
 const logoutLowDeviceBtn = document.querySelector('.hide__menu--list__type.logout__item');
 
 const logoutHandler = () => {
-  localStorage.removeItem('userLogin');
+  localStorage.removeItem('User');
   location.reload();
 };
 
@@ -347,11 +389,11 @@ const manageBtn = document.querySelector('.adminManager');
 const manageLowDeviceBtn = document.querySelector('.hide__menu--list__type.adminManager__item');
 
 manageLowDeviceBtn.addEventListener('click', e => {
-  window.location.href = '/html/admin/Home.html';
+  window.location.href = '/html/page/admin/Home.html';
 });
 
 manageBtn.addEventListener('click', e => {
-  window.location.href = '/html/admin/Home.html';
+  window.location.href = '/html/page/admin/Home.html';
 });
 
 // =========================== end: GO TO ADMIN PAGE ===========================
@@ -388,3 +430,44 @@ hideEyeLogin.addEventListener('click', e => {
   showEyeLogin.classList.toggle('hide');
   hideEyeLogin.classList.toggle('hide');
 });
+
+// start: Checking login when click loveIcon/cartIcon
+const loveIcon = document.querySelector('.header__bottom--extention-love');
+const loveBtn = loveIcon.parentElement;
+const loveBtnLowDevice = document.querySelector('.hide__menu--list__extention .header__bottom--extention-love');
+
+const cartIcon = document.querySelector('.header__bottom--extention-cart');
+const cartBtn = cartIcon.parentElement;
+const cartBtnLowDevice = document.querySelector('.hide__menu--list__extention .header__bottom--extention-cart');
+
+const userLogin = JSON.parse(localStorage.getItem('User'));
+
+const closeMenu = () => {
+  hideMenu.classList.remove('active');
+  overlay.classList.add('active__overlay');
+};
+
+if (!userLogin) {
+  loveBtn.addEventListener('click', e => {
+    e.preventDefault();
+    openFormRegister();
+  });
+
+  loveBtnLowDevice.addEventListener('click', e => {
+    e.preventDefault();
+    openFormRegister();
+    closeMenu();
+  });
+
+  cartBtn.addEventListener('click', e => {
+    e.preventDefault();
+    openFormRegister();
+  });
+
+  cartBtnLowDevice.addEventListener('click', e => {
+    e.preventDefault();
+    openFormRegister();
+    closeMenu();
+  });
+}
+// end: Checking login when click loveIcon/cartIcon

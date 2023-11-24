@@ -1,7 +1,7 @@
 const DUMMY_PRODUCTS = [
   {
     name: 'Procaliber 9.7 [2024]',
-    imgSrc: '\\database\\images\\productImgs\\Procaliber97_24_WHT_Primary-571x379.jpg',
+    imgSrc: 'database\\images\\productImgs\\Procaliber97_24_WHT_Primary-571x379.jpg',
     price: '105.000.000 VND',
     dataColors: ['#ffffff', '#000000'],
     ID: 'a07c4d6ca1',
@@ -9,7 +9,7 @@ const DUMMY_PRODUCTS = [
   },
   {
     name: 'Fuel EX 5 Gen 6 [2023]',
-    imgSrc: '\\database\\images\\productImgs\\FueL_EX5-2023_gen6_Hero-571x379.jpg',
+    imgSrc: 'database\\images\\productImgs\\FueL_EX5-2023_gen6_Hero-571x379.jpg',
     price: '65.000.000 VND',
     dataColors: ['#303030', '#000000'],
     ID: '36b9b496cb',
@@ -17,15 +17,15 @@ const DUMMY_PRODUCTS = [
   },
   {
     name: 'Domane AL 4 Gen 3  Copy',
-    imgSrc: '\\database\\images\\productImgs\\Domane_AL4_Disc_23_BLK-571x379.jpg',
-    price: 'Giá liên hệ VND',
+    imgSrc: 'database\\images\\productImgs\\Domane_AL4_Disc_23_BLK-571x379.jpg',
+    price: '70.000.000 VND',
     dataColors: ['#000000', '#4c4c4c'],
     ID: 'e9e7f2281e',
     type: 'road'
   },
   {
     name: 'Domane AL 4 Gen 3',
-    imgSrc: '\\database\\images\\productImgs\\Domane_AL4_Disc_23_BLK-571x379.jpg',
+    imgSrc: 'database\\images\\productImgs\\Domane_AL4_Disc_23_BLK-571x379.jpg',
     price: '39.900.000 VND',
     dataColors: ['#383838', '#000000'],
     ID: '1daa4c0e22',
@@ -41,7 +41,7 @@ const DUMMY_PRODUCTS = [
   },
   {
     name: 'Domane SL 6 [2023] Gen 4',
-    imgSrc: '\\database\\images\\productImgs\\Domane-SL-6-23-BLK_Hero-571x379.jpg',
+    imgSrc: 'database\\images\\productImgs\\Domane-SL-6-23-BLK_Hero-571x379.jpg',
     price: '110.000.000 VND',
     dataColors: ['#000000', '#474747'],
     ID: '8872825731',
@@ -105,7 +105,7 @@ const DUMMY_PRODUCTS = [
   {
     name: 'Roscoe 24 [2023]',
     imgSrc: 'database\\images\\productImgs\\Roscoe24-571x379.jpg',
-    price: 'Giá liên hệ VND',
+    price: '18.000.000 VND',
     dataColors: ['#000000', '#00d69d'],
     ID: '9d39c6d88d',
     type: 'kids'
@@ -113,18 +113,10 @@ const DUMMY_PRODUCTS = [
   {
     name: 'Roscoe 20 [2023]',
     imgSrc: 'database\\images\\productImgs\\Roscoe20_Hero-571x379.jpg',
-    price: 'Giá liên hệ VND',
+    price: '19.000.000 VND',
     dataColors: ['#000000', '#00d69d'],
     ID: '26ce917edc',
     type: 'kids'
-  },
-  {
-    name: 'Madone SLR 7 AXS [Gen 7]',
-    imgSrc: 'database\\images\\productImgs\\P1-icon.png',
-    price: '219.000.000 VND',
-    dataColors: ['#ededed', '#000000'],
-    ID: 'eabac70042',
-    type: 'road'
   },
   {
     name: 'Precaliber 24 8SP Boy’s [2023]',
@@ -171,14 +163,7 @@ const DUMMY_PRODUCTS = [
     dataColors: ['#dd3333', '#353535'],
     ID: '57a59cf160'
   },
-  {
-    name: 'Madone SLR 7 [Gen 7]',
-    imgSrc: 'database\\images\\productImgs\\P1-icon.png',
-    price: '209.000.000 VND',
-    dataColors: ['#dd3333', '#000000'],
-    ID: 'f54062de67',
-    type: 'road'
-  },
+
   {
     name: 'Precaliber 16 [2023]',
     imgSrc: 'database\\images\\productImgs\\PreCaliber16_2023_GRN-571x379.jpg',
@@ -294,7 +279,7 @@ const DUMMY_PRODUCTS = [
   {
     name: 'Supercaliber 9.9 AXS',
     imgSrc: 'database\\images\\productImgs\\Supercaliber99AXS_20_28896_A_Primary-571x379.jpg',
-    price: 'Giá liên hệ VND',
+    price: '270.000.000 VND',
     dataColors: ['#2d2d2d', '#bcb5ad'],
     ID: '81c705846c',
     type: 'mountain'
@@ -547,14 +532,7 @@ const DUMMY_PRODUCTS = [
     ID: 'bb681a1b5c',
     type: 'mountain'
   },
-  {
-    name: 'Madone SLR 6 Disc',
-    imgSrc: 'database\\images\\productImgs\\P1-icon.png',
-    price: 'Giá liên hệ VND',
-    dataColors: ['#2d2d2d', '#c6c6c6'],
-    ID: 'a38cbe6f0a',
-    type: 'road'
-  },
+
   {
     name: 'Émonda ALR 4 Disc',
     imgSrc: 'database\\images\\productImgs\\EmondaALR4Disc_21_33078_B_Primary-571x379.jpeg',
@@ -587,14 +565,6 @@ const DUMMY_PRODUCTS = [
     ID: 'e2c9d249b5'
   },
   {
-    name: 'Madone SLR 9 eTap AXS',
-    imgSrc: 'database\\images\\productImgs\\P1-icon.png',
-    price: 'Giá liên hệ VND',
-    dataColors: ['#001782', '#dd0000'],
-    ID: '3a1375080d',
-    type: 'road'
-  },
-  {
     name: 'Émonda SL 7 eTap',
     imgSrc: 'database\\images\\productImgs\\EmondaSL7eTap_23_36978_A_Primary-571x379.jpg',
     price: '159.000.000 VND',
@@ -610,22 +580,7 @@ const DUMMY_PRODUCTS = [
     ID: '7bd6ff17f3',
     type: 'road'
   },
-  {
-    name: 'Émonda SLR 7',
-    imgSrc: 'database\\images\\productImgs\\P1-icon.png',
-    price: '199.000.000 VND',
-    dataColors: ['#b2002f', '#000000'],
-    ID: '7163ae6d67',
-    type: 'road'
-  },
-  {
-    name: 'Émonda SLR 9 eTap',
-    imgSrc: 'database\\images\\productImgs\\P1-icon.png',
-    price: '295.000.000 VND',
-    dataColors: ['#09004f', '#dd3333'],
-    ID: '24689ae20e',
-    type: 'road'
-  },
+
   {
     name: 'Émonda SL 6 Pro',
     imgSrc: 'database\\images\\productImgs\\EmondaSL6DiscPro_22601812_Primary-571x379.jpg',
@@ -669,7 +624,7 @@ const DUMMY_PRODUCTS = [
   {
     name: 'Supercaliber 9.9 XX1',
     imgSrc: 'database\\images\\productImgs\\Supercaliber-99-XX1-CNBLK-2021-571x379.jpg',
-    price: 'Giá liên hệ VND',
+    price: '270.000.000 VND',
     dataColors: ['#2d2d2d', '#bcb5ad'],
     ID: 'd2007de4a0',
     type: 'mountain'
@@ -761,15 +716,8 @@ const DUMMY_PRODUCTS = [
     dataColors: ['#03c8ee', '#000000'],
     ID: '92b6ce9636',
     type: 'mountain'
-  },
-  {
-    name: '820',
-    imgSrc: 'database\\images\\productImgs\\Trek_820_Men_CHRBLU-571x379.jpg',
-    price: '9.900.000 VND',
-    dataColors: ['#000000', '#0093dd'],
-    ID: '6c76274d49',
-    type: 'mountain'
   }
 ];
+localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
 
 export default DUMMY_PRODUCTS;
