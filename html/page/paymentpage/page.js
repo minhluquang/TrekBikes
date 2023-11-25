@@ -1,13 +1,26 @@
-import DUMMY_PRODUCTS from '../../../database/products.js'
+const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'))
 
 const data = DUMMY_PRODUCTS;
 const confirmButton = document.getElementById('confirmButton');
-const userLocal = JSON.parse(localStorage.getItem('User'));
+// const userLocal = JSON.parse(localStorage.getItem('User'))
 const id = JSON.parse(localStorage.getItem('currentIdbuy'));
+const DUMMY_API = JSON.parse(localStorage.getItem('DUMMY_API'));
+function generateRandomId() {
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var id = '';
+
+    for (var i = 0; i < 10; i++) {
+        var randomIndex = Math.floor(Math.random() * characters.length);
+        id += characters.charAt(randomIndex);
+    }
+
+    return id;
+}
 
 const totalpayment = document.getElementById('totalPayment');
 
 
+console.log(DUMMY_API[0])
 const disPlayTotalPayment = async () => {
     for (let i = 0; i < data.length; i++) {
         if (data[i].ID === id) {
@@ -25,27 +38,24 @@ disPlayTotalPayment();
 
 confirmButton.addEventListener('click', function () {
     alert('đã thêm đơn hàng vào đang chờ xử lý!');
-    const process = {
-        id: id,
-        quantity: 1
-    }
+
     var currentTime = new Date();
-    var ngay = currentTime.getDate();
-    var thang = currentTime.getMonth() + 1;
-    var nam = currentTime.getFullYear();
-    var gio = currentTime.getHours();
-    var phut = currentTime.getMinutes();
-    var giay = currentTime.getSeconds();
 
-
-    const processAt = {
-        id: id,
-        time: `${gio}:${phut}:${giay}`,
-        date: `${ngay}/${thang}/${nam} `,
+    const processing = {
+        idOrder: generateRandomId(),
+        dateCreate: currentTime,
+        dateCancel: '',
+        product: [
+            {
+                id: id,
+                quantity: 1,
+                processed: true
+            }
+        ]
     }
 
-    userLocal[0].processAt.push(processAt);
-    userLocal[0].processing.push(process);
-    localStorage.setItem('User', JSON.stringify(userLocal));
-    console.log(process);
+    DUMMY_API[0].cart.push(processing);
+    console.log(DUMMY_API);
+    localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+
 });

@@ -389,6 +389,7 @@ body {
 }
 
 /* Admin Product */
+
 .admin-product table {
   border-collapse: collapse;
   width: 100%;
@@ -631,3 +632,124 @@ th {
 .admin-product-form{
   background-color: #333;
 }
+
+
+/*  ADD PRODUCT FORM */
+
+.cancel-block{
+  padding: 20px;
+}
+
+.cancel-block button{
+  cursor: pointer;
+  display: none;
+  padding: 20px 30px;
+  background-color: #333;
+  color: white;
+  border-radius: 5px;
+}
+.cancel-block button:hover{
+ background-color: #3333;
+ color: black;
+}
+
+
+.add-product-container{
+  width: 100%;
+  /* background-color: #333; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.add-product-form-container {
+    
+ 
+  width: 600px;
+  
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.add-product-form-container .title{
+    display: flex;
+    background-color: #333;
+   
+    justify-content: center;
+    align-items: center;
+}
+.add-product-form-container .title h2{
+    padding: 20px;
+    color: white;
+    font-size: x-large;
+}
+
+.add-product-form-container form{
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+}
+
+.add-product-form-container form .form-item{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+.add-product-form-container form .form-item select{
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid;
+    font-size: medium;
+    font-weight: bold;
+
+
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 10L3 5h10l-5 5z"/></svg>') no-repeat right center;
+    
+}
+.add-product-form-container form .form-item label{
+    font-size: medium;
+    font-weight: bold;
+}
+.add-product-form-container form .form-item input{
+    padding: 8px;
+    border: 1px solid ;
+    border-radius: 10px;
+    
+}
+.add-product-form-container form button{
+    padding: 12px;
+    border: 1px solid ;
+    border-radius: 10px;
+    margin-top: 20px;
+
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+    font-size: medium;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    
+}
+.add-product-form-container form button{
+    padding: 12px;
+    border: 1px solid ;
+    border-radius: 10px;
+    margin-top: 20px;
+
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+    font-size: medium;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    
+}
+.add-product-form-container form button:hover{
+    background-color: #3333;
+    color: black;
+}
+
+

@@ -4,6 +4,9 @@ const currentYear = new Date().getFullYear();
 experienceYear.querySelector('span').innerText = `${currentYear - 1976}`;
 experienceYear.querySelector('span').setAttribute('data-value', `${currentYear - 1976}`);
 
+
+
+
 //Calculate Slider Height
 const headerTopHeight = 30;
 const headerBottomHeight = 80;

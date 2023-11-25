@@ -720,10 +720,5 @@ const DUMMY_PRODUCTS = [
 ];
 
 
-if(!localStorage.getItem("productsPush")){
-  localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
-
-  localStorage.setItem("productsPush",true);
-}
 
 export default DUMMY_PRODUCTS;

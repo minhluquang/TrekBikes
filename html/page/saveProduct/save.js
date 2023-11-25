@@ -21,7 +21,7 @@ function displayItem() {
       productItem.innerHTML = `
                        <div class = "id">${data[i].ID}</div>
                          <div class="imgSrc">
-                         <img src="/${data[i].imgSrc}">
+                         <img src="${data[i].imgSrc}">
                          <div class="overlay-hover">
                          
                         <div class="top-button">                  

@@ -1,7 +1,6 @@
 const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const productList = document.getElementById('productList');
 const data = DUMMY_PRODUCTS;
-console.log(DUMMY_PRODUCTS);
 
 const toastSaveProduct = document.querySelector('.toast-save-product');
 const toast = document.querySelectorAll('.toast');
@@ -16,14 +15,48 @@ const overlayLike = document.getElementById('overlayLike');
 const overlayBuyNow = document.getElementById('overlay-buy-now');
 
 const userLocal = JSON.parse(localStorage.getItem('User'));
-console.log(userLocal);
+function generateRandomId() {
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var id = '';
 
-if(userLocal.length < 1){
+  for (var i = 0; i < 10; i++) {
+    var randomIndex = Math.floor(Math.random() * characters.length);
+    id += characters.charAt(randomIndex);
+  }
+
+  return id;
+}
+
+if (!localStorage.getItem("productsPush")) {
+  var DateTimeP = [];
+  const DUMMY_API = [
+    {
+      idUser: userLocal.id,
+      cart: []
+    }
+  ]
+  for (let i = 0; i < data.length; i++) {
+    DateTimeP.push({
+      createAT: '14/11/2023  20:00',
+      updateAt: '14/11/2023  20:00'
+    });
+  }
+  localStorage.setItem('DateTimeP', JSON.stringify(DateTimeP));
+
+  localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
+
+  localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+  localStorage.setItem("productsPush", true);
+}
+
+
+if (userLocal.length < 1) {
   console.log("khong co user dang nhap!")
 }
 
 const navItemCart = document.getElementById('nav-item-cart');
 const navItemHeart = document.getElementById('nav-item-heart');
+const DUMMY_API = JSON.parse(localStorage.getItem('DUMMY_API'));
 let productsPerPage = 10;
 let currentPage = 1;
 
@@ -85,6 +118,7 @@ toast.forEach(e => {
 });
 
 let checkLikeOverlay = true;
+let checkLike = true;
 
 function clickSave(like) {
   const id = overlay.querySelector('#overlayid');
@@ -109,11 +143,10 @@ function clickSave(like) {
       like = productItem[i].querySelector('#like');
     }
   }
-  console.log(like);
+
 
   const toastText = toastContainer.querySelector('h3');
 
-  console.log(checkLikeOverlay);
   if (checkLikeOverlay) {
     like.style.color = 'red';
     checkLike = false;
@@ -156,10 +189,12 @@ function displayQuantityCart() {
   }
 }
 displayQuantityCart();
+console.log(data[data.length - 1]);
 
 function displayItem(startIndex, endIndex) {
   productList.innerHTML = '';
   for (let i = startIndex; i < endIndex; i++) {
+    
     if (data[i].imgSrc !== undefined && data[i].name !== undefined && data[i].price !== undefined) {
       let colors = data[i].dataColors;
 
@@ -168,7 +203,7 @@ function displayItem(startIndex, endIndex) {
       productItem.innerHTML = `
                        <div class = "id">${data[i].ID}</div>
                          <div class="imgSrc">
-                         <img src="/${data[i].imgSrc}">
+                         <img src="${data[i].imgSrc}">
                          <div class="overlay-hover">
                          
                         <div class="top-button">                  
@@ -188,8 +223,8 @@ function displayItem(startIndex, endIndex) {
                          </div>
                         <div class="product-information">
                             <div class="color-dots">${colors.map(
-                              color => `<div class="dot-items" style="background-color: ${color};"></div>`
-                            )}</div>
+        color => `<div class="dot-items" style="background-color: ${color};"></div>`
+      )}</div>
                             <h3>${data[i].name}</h3>
                             <p>Price: ${data[i].price}</p>
                         </div>
@@ -232,7 +267,6 @@ function updateEvent() {
     ElementInfo.addEventListener('click', () => {
       overlay.style.display = 'flex';
       const overlayImg = overlay.querySelector('img');
-      console.log(overlayImg);
       const closeToggle = overlay.querySelector('#close-toggler');
       const overlayName = overlay.querySelector('.name');
       const overlayPrice = overlay.querySelector('#overlay-price');
@@ -267,7 +301,6 @@ function updateEvent() {
           break;
         }
       }
-      console.log(quantity);
       quantity = quantity + 1;
       alert('đã thêm vao giỏ hàng');
 
@@ -325,7 +358,6 @@ function updateEvent() {
       itemHeart.innerText = `${userLocal.like.length}`;
       navItemHeart.appendChild(itemHeart);
       userLocal.like = updateLike;
-      console.log(userLocal);
       localStorage.setItem('User', JSON.stringify(userLocal));
     });
   }
@@ -389,11 +421,16 @@ function generatePagination() {
 }
 
 function loadData() {
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
+  var startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  var endIndex = startIndex + ITEMS_PER_PAGE;
+
+  console.log(startIndex);
+  console.log(endIndex);
+  if(endIndex > data.length){
+    endIndex = data.length;
+  }
   displayItem(startIndex, endIndex);
   updateEvent();
-  console.log('Loading data for page ' + currentPage);
 }
 
 generatePagination();

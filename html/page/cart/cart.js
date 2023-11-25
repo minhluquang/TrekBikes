@@ -1,9 +1,20 @@
 const userLocal = JSON.parse(localStorage.getItem('User'));
 const cartInfo = document.getElementById('cart-info');
 const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
-
+const DUMMY_API = JSON.parse(localStorage.getItem('DUMMY_API'));
+const cartUser = DUMMY_API[0].cart;
 const data = DUMMY_PRODUCTS;
-console.log(data);
+function generateRandomId() {
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var id = '';
+
+  for (var i = 0; i < 10; i++) {
+    var randomIndex = Math.floor(Math.random() * characters.length);
+    id += characters.charAt(randomIndex);
+  }
+
+  return id;
+}
 
 let check = true;
 const totalPriceDisplay = document.getElementById('totalPriceId');
@@ -30,7 +41,7 @@ function displayProductItems() {
         cartItem.classList.add('info-item-container');
 
         cartItem.innerHTML = `
-                    <td class="img"><img src="../../../${data[i].imgSrc}" alt="${data[i].name}"></td>
+                    <td class="img"><img src="${data[i].imgSrc}" alt="${data[i].name}"></td>
                     <td class="name">
                        
                         ${data[i].name}
@@ -85,6 +96,8 @@ for (let i = 0; i < userLocal.cart.length; i++) {
     }
   }
 }
+let chekcbuy = true;
+console.log(userLocal.cart);
 let checked = false;
 var currentPrice = 0;
 infoContainer.forEach((element, index) => {
@@ -177,6 +190,7 @@ infoContainer.forEach((element, index) => {
   });
 
   let checkSelect = true;
+  let checkBuyAll = false;
 
   selectAllButton.addEventListener('click', function () {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -207,6 +221,7 @@ infoContainer.forEach((element, index) => {
       currentSelectProduct = [];
     }
     console.log(currentSelectProduct);
+    checkBuyAll = true;
   });
 
   deleteId.addEventListener('click', () => {
@@ -251,28 +266,74 @@ infoContainer.forEach((element, index) => {
     }
   });
   confirmButton.addEventListener('click', function () {
-    const elementsToAdd = [];
+    // const elementsToAdd = [];
 
-    updateESelect.forEach(e => {
-      if (!userLocal.processing.includes(e)) {
-        elementsToAdd.push(e);
+    // updateESelect.forEach(e => {
+    //   if (!userLocal.processing.includes(e)) {
+    //     elementsToAdd.push(e);
+    //   }
+    // });
+
+    // userLocal.processing.push(...elementsToAdd);
+
+    // console.log(updateESelect);
+    // container.style.display = 'none';
+
+    // const productsToDelete = userLocal.cart.filter(product => currentSelectProduct.includes(product.id));
+
+    // for (const productToDelete of productsToDelete) {
+    //   const index = userLocal.cart.indexOf(productToDelete);
+    //   userLocal.cart.splice(index, 1);
+    // }
+
+    // localStorage.setItem('User', JSON.stringify(userLocal));
+    // location.reload();
+    if (chekcbuy) {
+      var currentTime = new Date();
+
+      for (let index = 0; index < updateESelect.length; index++) {
+        const element = updateESelect[index];
+        const processing = {
+          idOrder: generateRandomId(),
+          dateCreate: currentTime,
+          dateCancel: '',
+          product: [
+            {
+              id: element.id,
+              quantity: element.quantity,
+              processed: true
+            }
+          ]
+        }
+        
+
+        DUMMY_API[0].cart.push(processing);
+
       }
-    });
+      console.log(userLocal.cart)
+      console.log(updateESelect)
+      if(checkBuyAll){
+        userLocal.cart = []
+        checkBuyAll = false;
+      }
+      for (let k = 0; k < updateESelect.length; k++) {
+        for (let j = 0; j < userLocal.cart.length; j++) {
+          if(userLocal.cart[j].id === updateESelect[k].id){
+           userLocal.cart.splice(j,1);
+          }
+        }
+      }
+     
+      localStorage.setItem('User', JSON.stringify(userLocal));
+      console.log(DUMMY_API);
+      localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
 
-    userLocal.processing.push(...elementsToAdd);
-
-    console.log(updateESelect);
-    container.style.display = 'none';
-
-    const productsToDelete = userLocal.cart.filter(product => currentSelectProduct.includes(product.id));
-
-    for (const productToDelete of productsToDelete) {
-      const index = userLocal.cart.indexOf(productToDelete);
-      userLocal.cart.splice(index, 1);
+      chekcbuy = false;
+      return;
     }
-
-    localStorage.setItem('User', JSON.stringify(userLocal));
     location.reload();
+
+
   });
 });
 window.addEventListener('beforeunload', function (event) {

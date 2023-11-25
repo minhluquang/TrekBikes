@@ -1,7 +1,7 @@
 .footer-container {
   width: 100%;
   border-top: 1px solid #777;
-  background: #333;
+  background: black;
   z-index: 10;
 }
 
@@ -48,17 +48,13 @@
   font-weight: 900;
 }
 
-.footer-item--produce {
-}
+.footer-item--produce {}
 
-.footer-item--company {
-}
+.footer-item--company {}
 
-.footer-item--help {
-}
+.footer-item--help {}
 
-.footer-contact {
-}
+.footer-contact {}
 
 .footer-socials {
   margin-top: 40px;
