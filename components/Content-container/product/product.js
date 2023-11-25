@@ -1,6 +1,50 @@
-const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
+import DUMMY_PRODUCTS from "../../../database/products.js";
+const datalocal = DUMMY_PRODUCTS;
+const userLocal = JSON.parse(localStorage.getItem('User'));
+
+if (!localStorage.getItem('codeHasRunBefore')) {
+  try {
+    if (!userLocal || !datalocal) {
+      throw new Error('Required variables are undefined.');
+    }
+
+    var DateTimeP = [];
+    const DUMMY_API = [
+      {
+        idUser: userLocal.id,
+        cart: []
+      }
+    ];
+
+    for (let i = 0; i < datalocal.length; i++) {
+      DateTimeP.push({
+        createAT: '14/11/2023  20:00',
+        updateAt: '14/11/2023  20:00'
+      });
+    }
+
+    localStorage.setItem('DateTimeP', JSON.stringify(DateTimeP));
+    localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(datalocal));
+    localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+
+    localStorage.setItem('codeHasRunBefore', 'true');
+  } catch (error) {
+    console.error('Error in code:', error.message);
+  }
+} else {
+  console.log('Code will not run again.');
+}
+
+
+
+const DUMMY_PRODUCTS_LOCAL = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const productList = document.getElementById('productList');
-const data = DUMMY_PRODUCTS;
+const data = DUMMY_PRODUCTS_LOCAL;
+
+for (let index = 0; index < data.length; index++) {
+  data[index].imgSrc = `\\${data[index].imgSrc}`
+  console.log(data[index].imgSrc)
+}
 
 const toastSaveProduct = document.querySelector('.toast-save-product');
 const toast = document.querySelectorAll('.toast');
@@ -14,7 +58,8 @@ const overlayLike = document.getElementById('overlayLike');
 
 const overlayBuyNow = document.getElementById('overlay-buy-now');
 
-const userLocal = JSON.parse(localStorage.getItem('User'));
+
+
 function generateRandomId() {
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var id = '';
@@ -27,27 +72,9 @@ function generateRandomId() {
   return id;
 }
 
-if (!localStorage.getItem("productsPush")) {
-  var DateTimeP = [];
-  const DUMMY_API = [
-    {
-      idUser: userLocal.id,
-      cart: []
-    }
-  ]
-  for (let i = 0; i < data.length; i++) {
-    DateTimeP.push({
-      createAT: '14/11/2023  20:00',
-      updateAt: '14/11/2023  20:00'
-    });
-  }
-  localStorage.setItem('DateTimeP', JSON.stringify(DateTimeP));
 
-  localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
 
-  localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
-  localStorage.setItem("productsPush", true);
-}
+
 
 
 if (userLocal.length < 1) {
@@ -194,12 +221,16 @@ console.log(data[data.length - 1]);
 function displayItem(startIndex, endIndex) {
   productList.innerHTML = '';
   for (let i = startIndex; i < endIndex; i++) {
-    
+
     if (data[i].imgSrc !== undefined && data[i].name !== undefined && data[i].price !== undefined) {
       let colors = data[i].dataColors;
 
       let productItem = document.createElement('div');
       productItem.classList.add('product-item');
+
+
+      console.log(data[i].imgSrc);
+
       productItem.innerHTML = `
                        <div class = "id">${data[i].ID}</div>
                          <div class="imgSrc">
@@ -426,7 +457,7 @@ function loadData() {
 
   console.log(startIndex);
   console.log(endIndex);
-  if(endIndex > data.length){
+  if (endIndex > data.length) {
     endIndex = data.length;
   }
   displayItem(startIndex, endIndex);

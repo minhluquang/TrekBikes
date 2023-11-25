@@ -3,6 +3,7 @@ const cartInfo = document.getElementById('cart-info');
 const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const data = DUMMY_PRODUCTS;
 
+
 let check = true;
 const totalPriceDisplay = document.getElementById('totalPriceId');
 let totalPrice = 0;

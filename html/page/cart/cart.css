@@ -20,7 +20,7 @@ header .navbar {
   display: flex;
   align-items: center;
   gap: 40px;
-  background-color: #4f4f4f;
+  background-color: #333;
   position: relative;
 }
 
@@ -29,6 +29,7 @@ header .navbar .navbar-brand {
   font-weight: bold;
   color: white;
   margin-left: 10%;
+  text-shadow: 0px 4px 4px #ce1111;
 }
 
 header .navbar .navbar-menu {
@@ -50,7 +51,7 @@ header .navbar .navbar-menu li:hover::after {
 }
 
 header .navbar .navbar-menu li a {
-  font-size: large;
+  font-size: x-large;
   font-weight: bold;
   color: white;
   text-decoration: none;
@@ -155,10 +156,6 @@ footer button {
   cursor: pointer;
 }
 
-footer button:nth-child(1) {
-  border: none;
-}
-
 footer button:nth-child(3) {
   background-color: #b5b5b5;
 }
@@ -183,7 +180,6 @@ footer button:hover {
   gap: 5px;
   background-color: #fff;
   overflow: auto;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   /* border: 1px solid gray;*/
   border-radius: 5px;
   z-index: 999999999;
@@ -285,13 +281,14 @@ table {
 
 th,
 td {
-  border: 1px solid #ddd;
+  border: 1px solid #fff;
   padding: 12px;
   text-align: center;
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: #333;
+  color: white;
 }
 
 img {

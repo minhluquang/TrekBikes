@@ -5,6 +5,20 @@ experienceYear.querySelector('span').innerText = `${currentYear - 1976}`;
 experienceYear.querySelector('span').setAttribute('data-value', `${currentYear - 1976}`);
 
 
+const userLocal = JSON.parse(localStorage.getItem('User'));
+function generateRandomId() {
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var id = '';
+
+  for (var i = 0; i < 10; i++) {
+    var randomIndex = Math.floor(Math.random() * characters.length);
+    id += characters.charAt(randomIndex);
+  }
+
+  return id;
+}
+
+
 
 
 //Calculate Slider Height

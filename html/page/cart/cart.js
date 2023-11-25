@@ -4,6 +4,7 @@ const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const DUMMY_API = JSON.parse(localStorage.getItem('DUMMY_API'));
 const cartUser = DUMMY_API[0].cart;
 const data = DUMMY_PRODUCTS;
+
 function generateRandomId() {
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var id = '';
@@ -41,7 +42,7 @@ function displayProductItems() {
         cartItem.classList.add('info-item-container');
 
         cartItem.innerHTML = `
-                    <td class="img"><img src="${data[i].imgSrc}" alt="${data[i].name}"></td>
+                    <td class="img"><img src="../../../${data[i].imgSrc}" alt="${data[i].name}"></td>
                     <td class="name">
                        
                         ${data[i].name}
@@ -304,26 +305,24 @@ infoContainer.forEach((element, index) => {
               processed: true
             }
           ]
-        }
-        
+        };
 
         DUMMY_API[0].cart.push(processing);
-
       }
-      console.log(userLocal.cart)
-      console.log(updateESelect)
-      if(checkBuyAll){
-        userLocal.cart = []
+      console.log(userLocal.cart);
+      console.log(updateESelect);
+      if (checkBuyAll) {
+        userLocal.cart = [];
         checkBuyAll = false;
       }
       for (let k = 0; k < updateESelect.length; k++) {
         for (let j = 0; j < userLocal.cart.length; j++) {
-          if(userLocal.cart[j].id === updateESelect[k].id){
-           userLocal.cart.splice(j,1);
+          if (userLocal.cart[j].id === updateESelect[k].id) {
+            userLocal.cart.splice(j, 1);
           }
         }
       }
-     
+
       localStorage.setItem('User', JSON.stringify(userLocal));
       console.log(DUMMY_API);
       localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
@@ -332,8 +331,6 @@ infoContainer.forEach((element, index) => {
       return;
     }
     location.reload();
-
-
   });
 });
 window.addEventListener('beforeunload', function (event) {

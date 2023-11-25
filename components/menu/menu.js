@@ -3,6 +3,7 @@ const closeMenuBtn = document.querySelector('.hide__menu--close');
 const hideMenu = document.querySelector('.hide__menu');
 const iconUp = document.querySelector('.header__bottom--extention__icon--up');
 const iconDown = document.querySelector('.header__bottom--extention__icon--down');
+const overlay = document.querySelector('.overlay');
 
 //Open hide menu
 hideMenuBtn.addEventListener('click', e => {

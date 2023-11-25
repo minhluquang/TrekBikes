@@ -5,8 +5,6 @@ const productList = document.getElementById('productList');
 
 const data = DUMMY_PRODUCTS.filter(item => userLocal.like.includes(item.ID));
 
-console.log(data);
-
 let quantity = 0;
 function displayItem() {
   let checkLike = true;
@@ -21,7 +19,7 @@ function displayItem() {
       productItem.innerHTML = `
                        <div class = "id">${data[i].ID}</div>
                          <div class="imgSrc">
-                         <img src="${data[i].imgSrc}">
+                         <img src="../../../${data[i].imgSrc}">
                          <div class="overlay-hover">
                          
                         <div class="top-button">                  

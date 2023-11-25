@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Kaushan Script', cursive;
+  font-family: 'Roboto', sans-serif;
   transform: translateY(-30px);
   text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3), 0px -4px 10px rgba(255, 255, 255, 0.3);
 }
@@ -24,7 +24,7 @@
   overflow: hidden;
   /* position: relative; */
   border-radius: 12px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .imgSrc {
@@ -86,10 +86,10 @@
   gap: 10px;
   font-family: var(--fontFamily);
   cursor: pointer;
-  color: white;
+  color: #333;
 
   padding: 0px 12px 20px;
-  background-color: #828282;
+  background-color: #ffffff;
   /* font-weight: bold; */
 }
 
@@ -201,9 +201,6 @@
   font-weight: bold;
 }
 
-
-
-
 .pagination {
   display: flex;
   justify-content: center;
@@ -216,7 +213,7 @@
   float: left;
   padding: 8px 16px;
   text-decoration: none;
-  transition: background-color .3s;
+  transition: background-color 0.3s;
 }
 
 .pagination a.active {
@@ -235,7 +232,6 @@
   text-decoration: none;
   cursor: pointer;
   margin: 0 10px;
-
 }
 
 .pagination a:last-child {

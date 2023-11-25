@@ -73,7 +73,7 @@ function updateEvent(item, index, id, element) {
   // copy
   const copy = item.querySelector('#copy');
   copy.addEventListener('click', () => {
-    copyNameProduct(element.name);
+    copyNameProduct(element.imgSrc);
   });
 
   //  console.log(index);
@@ -111,7 +111,7 @@ function disPlayProductItem(pageStart, pageEnd) {
     const element = data[index];
     const item = document.createElement('tr');
     item.innerHTML = `
-              <th class="image"><img src="${element.imgSrc}"></th>
+              <th class="image"><img src="\\${element.imgSrc}"></th>
               <th class="name">${element.name}</th>
               <th class="date-update">${currentDateTime[index].updateAt}</th>
               <th class="date-creat">${currentDateTime[index].createAT}</th>
@@ -284,7 +284,7 @@ addProductBtn.addEventListener('click', () => {
 
     var newProduct = {
       name: name.value,
-      imgSrc: imgUrl.src,
+      imgSrc: `${imgUrl.src}`,
       price: parseInt(price.value).toLocaleString(),
       dataColors: [codeColor.value],
       ID: id.value,
@@ -308,7 +308,7 @@ addProductBtn.addEventListener('click', () => {
     data.push(newProduct);
     localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
     localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
-    // location.reload();
+    location.reload();
 
   })
 
@@ -422,7 +422,7 @@ function generatePagination() {
 function loadData() {
   var startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   var endIndex = startIndex + ITEMS_PER_PAGE;
-  if(endIndex > data.length){
+  if (endIndex > data.length) {
     endIndex = data.length;
   }
   disPlayProductItem(startIndex, endIndex);

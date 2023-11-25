@@ -1,43 +1,306 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
 }
 
-.container {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
+header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-h1 {
-    font-size: 24px;
-    margin: 0;
+header .navbar {
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  background-color: #333;
 }
 
-.payment-details {
-    text-align: left;
-    margin-top: 20px;
+header .navbar .navbar-brand {
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  margin-left: 10%;
+  color: white;
+  text-shadow: 0px 4px 4px #ce1111;
 }
 
-button {
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
+header .navbar .navbar-menu {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin: 0 auto;
 }
 
-button:hover {
-    background-color: #45a049;
+header .navbar .navbar-menu li {
+  position: relative;
+}
+
+header .navbar .navbar-menu li::after {
+  position: absolute;
+  content: '';
+  width: 0%;
+  height: 5px;
+  background-color: red;
+  bottom: -2px;
+  left: 0;
+  transition: width 0.3s ease-in-out;
+}
+
+header .navbar .navbar-menu li:hover::after {
+  width: 100%;
+}
+
+header .navbar .navbar-menu li a {
+  font-size: x-large;
+  font-weight: bold;
+  color: white;
+
+  text-decoration: none;
+
+  text-shadow: 0px 4px 4px #282828;
+}
+
+.search-container {
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+}
+
+.search-container input {
+  padding: 1px 20px;
+  border-radius: 5px;
+  border: none;
+  outline-color: #cfcfcf;
+}
+
+.search-container button {
+  padding: 1px 20px;
+  border-radius: 5px;
+  border: none;
+  font-size: large;
+}
+
+.search-container button:hover {
+  background-color: #b5b5b5;
+}
+
+.header-bottom {
+  width: 80%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #e8e8e8;
+}
+
+.header-bottom .header-item {
+  width: 100%;
+
+  border-left: 1px solid gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  margin: 20px 0px;
+}
+
+.header-bottom .header-item h4 {
+  text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3), 0px -4px 10px rgba(255, 255, 255, 0.3);
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.header-bottom .header-item:nth-child(1) {
+  border: none;
+}
+
+.header-bottom .header-item:nth-child(1):after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 5px;
+  background-color: red;
+  bottom: -15px;
+  left: 0;
+}
+
+.cart-info_container {
+  margin: 0 auto;
+  width: 80%;
+
+  /* background-color: blue; */
+}
+
+.cart-info_container #id {
+  opacity: 0;
+}
+
+.id {
+  display: none;
+  opacity: 0;
+}
+
+.totalPrice {
+  width: 100%;
+  padding-right: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: flex-end;
+}
+
+.totalPrice h3 {
+  text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3), 0px -4px 10px rgba(255, 255, 255, 0.3);
+}
+
+.toast {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  font-size: large;
+  align-items: center;
+  justify-content: center;
+  color: black;
+
+  text-shadow: 0px 11px 10px rgba(0, 0, 0, 0.8);
+}
+
+footer {
+  width: 100%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+footer h3 {
+  text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3), 0px -4px 10px rgba(255, 255, 255, 0.3);
+}
+
+footer button {
+  padding: 15px 25px;
+  background-color: #313131;
+  color: white;
+  border: none;
+  border-left: 1px solid #4f4f4f;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.cart-info_container {
+  margin-top: 20px;
+}
+
+.cart-info_container .info-item-container {
+  width: 100%;
+}
+
+table {
+  border: 1px solid black;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  border: 1px solid #fff;
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #333;
+  color: white;
+}
+
+img {
+  width: 200px;
+}
+
+.quantity-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.quantity-item button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: #4caf50;
+  border: 1px solid #4caf50;
+}
+
+.checkbox-container .checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 10px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
 }
