@@ -47,21 +47,14 @@
   width: 50%;
 }
 
-.body__filter--idOrder,
-.body__filter--idClient,
-.body__filter--status {
-  width: 25%;
+.body__filter--field {
+  width: 25%!important;
 }
 
 .admin__content--body__filter--gr2 {
   display: flex;
   justify-content: start;
   align-items: center;
-}
-
-.body__filter--idProduct,
-.body__filter--type {
-  width: 33.333%;
 }
 
 .body__filter--actions {
