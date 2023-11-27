@@ -171,7 +171,6 @@ function addUserHandler() {
     closeModal();
   }
 }
-
 // Hàm tạo id người dùng mới
 function generateRandomUserID(length) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -198,8 +197,15 @@ submitBtn.addEventListener('click', e => {
   const day = time.getDate();
   const month = time.getMonth();
   const year = time.getFullYear();
+  const inputRoleClinetValue = document.querySelector("#userRoleClient select").value;
+  let isAdmiValid;
+  if (inputRoleClinetValue === "admin") {
+    isAdmiValid = true;
+  } else {
+    isAdmiValid = false;
+  }
 
-  if (!inputNameClientValue && !inputIdClientValue && !inputDateClientValue) {
+  if (!inputNameClientValue && !inputIdClientValue && !inputDateClientValue && !inputRoleClinetValue) {
     return;
   } else {
     const usersContainer = document.querySelector('#userList');
@@ -212,7 +218,6 @@ submitBtn.addEventListener('click', e => {
 
   // If data isn't an array, then convert to array
   const userList = JSON.parse(localStorage.getItem('accounts'));
-
   if (Array.isArray(userList)) {
     data = userList;
   } else {
@@ -235,6 +240,11 @@ submitBtn.addEventListener('click', e => {
       const yearUser = timeUser.getFullYear();
       return dayUser === day && monthUser === month && yearUser === year;
     });
+  }
+
+
+  if (inputRoleClinetValue) {
+    data = data.filter(item => item.isAdmin === isAdmiValid);
   }
   // -------------------------------
 
@@ -401,21 +411,17 @@ function paginationHandler() {
     const pagination = document.querySelector('.pagination__user');
     pagination.innerHTML = '';
     const html = `
-      <button data-goto="${
-        currentPage - 1
-      }" data-of="${totalPages}" class="btn--inline pagination__user--pagination__btn--prev ${
-      currentPage === 0 ? 'hide' : ''
-    }">
+      <button data-goto="${currentPage - 1
+      }" data-of="${totalPages}" class="btn--inline pagination__user--pagination__btn--prev ${currentPage === 0 ? 'hide' : ''
+      }">
         <i class="fa-solid fa-arrow-left"></i>
         <span>${currentPage}</span>
         <span> of ${totalPages}</span>
       </button>
       <span class="currentPage">${currentPage + 1}</span>
-      <button data-goto="${
-        currentPage + 1
-      }" data-of="${totalPages}" class="btn--inline pagination__user--pagination__btn--next ${
-      currentPage === totalPages - 1 || totalPages === 0 ? 'hide' : ''
-    } "  >
+      <button data-goto="${currentPage + 1
+      }" data-of="${totalPages}" class="btn--inline pagination__user--pagination__btn--next ${currentPage === totalPages - 1 || totalPages === 0 ? 'hide' : ''
+      } "  >
         <span>${currentPage + 2}</span>
         <span> of ${totalPages}</span>
         <i class="fa-solid fa-arrow-right"></i>

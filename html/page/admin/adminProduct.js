@@ -349,7 +349,7 @@ cancel.addEventListener('click', () => {
 
 
 
-var totalPages = Math.ceil(data.length / 10);
+// var totalPages = Math.ceil(data.length / 10);
 
 var currentPage = 1;
 const ITEMS_PER_PAGE = 10;

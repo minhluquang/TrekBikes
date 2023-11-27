@@ -81,4 +81,13 @@ init();
 // Set innerText name of admin was logged
 const nameAdmin = document.querySelector('.admin__content--header__user strong');
 const currentAdminLogged = JSON.parse(localStorage.getItem('User'));
+// console.log(nameAdmin);
 nameAdmin.textContent = currentAdminLogged.name;
+
+
+// if (currentAdminLogged && currentAdminLogged.name) {
+//   nameAdmin.textContent = currentAdminLogged.name;
+// } else {
+//   console.error("currentAdminLogged or currentAdminLogged.name is null or undefined.");
+// }
+
