@@ -316,6 +316,8 @@ resetBtn.addEventListener('click', e => {
 });
 // end: Logic for filter products
 
+
+
 // start: Logic for click edit status handler
 const updateProcessingHandler = (user, currentPID, currentOID) => {
   // Lọc qua giỏ hàng của người dùng để tìm idOrder chính xác
