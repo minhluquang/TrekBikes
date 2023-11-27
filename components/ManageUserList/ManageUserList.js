@@ -183,8 +183,15 @@ submitBtn.addEventListener('click', e => {
   const day = time.getDate();
   const month = time.getMonth();
   const year = time.getFullYear();
+  const inputRoleClinetValue = document.querySelector("#userRoleClient select").value;
+  let isAdmiValid;
+  if (inputRoleClinetValue === "admin") {
+    isAdmiValid = true;
+  } else if (inputRoleClinetValue === "user") {
+    isAdmiValid = false;
+  } 
 
-  if (!inputNameClientValue && !inputIdClientValue && !inputDateClientValue) {
+  if (!inputNameClientValue && !inputIdClientValue && !inputDateClientValue  && !inputRoleClinetValue) {
     return;
   } else {
     const usersContainer = document.querySelector('#userList');
@@ -197,6 +204,8 @@ submitBtn.addEventListener('click', e => {
 
   // If data isn't an array, then convert to array
   const userList = JSON.parse(localStorage.getItem('accounts'));
+
+  
 
   if (Array.isArray(userList)) {
     data = userList;
@@ -221,6 +230,14 @@ submitBtn.addEventListener('click', e => {
       return dayUser === day && monthUser === month && yearUser === year;
     });
   }
+
+  if(inputRoleClinetValue === "all") {
+    renderUsersInfo(data);
+  } else {
+    data = data.filter(item => item.isAdmin === isAdmiValid);
+  }
+
+
   // -------------------------------
 
   // -------------------------------

@@ -68,6 +68,21 @@
   float: right;
 }
 
+.body__filter--orderDate label {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.body__filter--orderDate input {
+  margin-top: 5px;
+    width: 100%;
+    height: 35px;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px
+    border: 1px solid #333;
+}
+
 .body__filter--actions button {
   border: none;
   height: 40px;
