@@ -27,23 +27,14 @@
   width: 50%;
 }
 
-.body__filter--nameClient p,
-.body__filter--idClient p,
-.body__filter--status p,
-.body__filter--nameProduct p,
-.body__filter--idProduct p,
-.body__filter--type p {
+.body__filter--field p {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 5px;
 }
 
-.body__filter--nameClient input,
-.body__filter--idClient input,
-.body__filter--status select,
-.body__filter--nameProduct input,
-.body__filter--idProduct input,
-.body__filter--type select {
+.body__filter--field input, 
+.body__filter--field select {
   width: 100%;
   height: 35px;
   padding: 5px 10px;
@@ -56,6 +47,7 @@
   width: 50%;
 }
 
+.body__filter--idOrder,
 .body__filter--idClient,
 .body__filter--status {
   width: 25%;
