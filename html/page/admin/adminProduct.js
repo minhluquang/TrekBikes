@@ -1,331 +1,332 @@
-const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
+// const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 
-const data = DUMMY_PRODUCTS;
+// const data = DUMMY_PRODUCTS;
 
-const hasCodeRunBefore = localStorage.getItem('hasCodeRunBefore');
-
-
-
-const currentDateTime = JSON.parse(localStorage.getItem('DateTimeP'));
-const closeFormClick = document.getElementById('close');
-
-function setValuesInput(ImageUrl, Name, UpdateDate, CreationDate) {
-  const imageUrl = document.getElementById('imageUrl');
-  const name = document.getElementById('name');
-  const updateDate = document.getElementById('dateupdate');
-  const creationDate = document.getElementById('datecreate');
-
-  imageUrl.value = ImageUrl;
-  name.value = Name;
-  updateDate.value = UpdateDate;
-  creationDate.value = CreationDate;
-}
-
-function getValuesInput() {
-  const imageUrl = document.getElementById('imageUrl');
-  const name = document.getElementById('name');
-  const updateDate = document.getElementById('dateupdate');
-  const creationDate = document.getElementById('datecreate');
-
-  const imageUrlvalues = imageUrl.value;
-  const namValue = name.value;
-  const updateDateValue = updateDate.value;
-  const createValue = creationDate.value;
-
-  return {
-    imageUrlvalues,
-    namValue,
-    updateDateValue,
-    createValue
-  };
-}
-
-function copyNameProduct(name) {
-  navigator.clipboard
-    .writeText(name)
-    .then(() => {
-      alert('Text has been copied! ');
-    })
-    .catch(err => {
-      console.log('Unable to copy text: ', err);
-    });
-}
-
-function displayFormChange() {
-  const form = document.getElementById('change-product-info-container');
-  const close = form.querySelector('p');
-  close.style.display = 'block';
-  form.style.display = 'flex';
-}
-
-function closeForm() {
-  const form = document.getElementById('change-product-info-container');
-  const close = form.querySelector('p');
-  close.style.display = 'none';
-  form.style.display = 'none';
-}
-
-closeFormClick.addEventListener('click', () => {
-  closeForm();
-});
-
-function updateEvent(item, index, id, element) {
-  // copy
-  const copy = item.querySelector('#copy');
-  copy.addEventListener('click', () => {
-    copyNameProduct(element.imgSrc);
-  });
-
-  //  console.log(index);
-
-  // edit
-
-  const edit = item.querySelector('#edit');
-  edit.addEventListener('click', () => {
-    displayFormChange();
-    setValuesInput(element.imgSrc, element.name, currentDateTime[index].updateAt, currentDateTime[index].updateAt);
-    id.innerText = element.ID;
-  });
-
-  // delete
-  const deleteProduct = item.querySelector('#delete');
-  deleteProduct.addEventListener('click', () => {
-    data.splice(index, 1);
-    currentDateTime.splice(index, 1);
-    localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
-
-    localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
-
-    location.reload();
-  });
-}
-
-function disPlayProductItem(pageStart, pageEnd) {
-  const content = document.getElementById('content');
-
-  const id = document.getElementById('id');
-  content.innerHTML = '';
-
-
-  for (let index = pageStart; index < pageEnd; index++) {
-    const element = data[index];
-    const item = document.createElement('tr');
-    item.innerHTML = `
-              <th class="image"><img src="\\${element.imgSrc}"></th>
-              <th class="name">${element.name}</th>
-              <th class="date-update">${currentDateTime[index].updateAt}</th>
-              <th class="date-creat">${currentDateTime[index].createAT}</th>
-              <th class="copy" id="copy">Copy</th>
-              <th class="edit" id="edit">Sửa</th>
-              <th class="delete" id="delete">Xóa</th>
-      `;
-    content.appendChild(item);
-
-    updateEvent(item, index, id, element);
-    // console.log(element.name);
-  }
+// const hasCodeRunBefore = localStorage.getItem('hasCodeRunBefore');
 
 
 
-}
+// const currentDateTime = JSON.parse(localStorage.getItem('DateTimeP'));
+// const closeFormClick = document.getElementById('close');
 
-const submitBtn = document.getElementById('formSubmit');
-submitBtn.addEventListener('click', e => {
-  const id = document.getElementById('id');
-  console.log(id.textContent);
-  e.preventDefault();
-  const { imageUrlvalues, namValue, updateDateValue, createValue } = getValuesInput();
+// function setValuesInput(ImageUrl, Name, UpdateDate, CreationDate) {
+//   const imageUrl = document.getElementById('imageUrl');
+//   const name = document.getElementById('name');
+//   const updateDate = document.getElementById('dateupdate');
+//   const creationDate = document.getElementById('datecreate');
 
-  data.map((element, index) => {
-    if (element.ID === id.textContent) {
-      element.imgSrc = imageUrlvalues;
-      element.name = namValue;
+//   imageUrl.value = ImageUrl;
+//   name.value = Name;
+//   updateDate.value = UpdateDate;
+//   creationDate.value = CreationDate;
+// }
 
-      currentDateTime[index].updateAt = updateDateValue;
-      currentDateTime[index].createAT = createValue;
+// function getValuesInput() {
+//   const imageUrl = document.getElementById('imageUrl');
+//   const name = document.getElementById('name');
+//   const updateDate = document.getElementById('dateupdate');
+//   const creationDate = document.getElementById('datecreate');
 
-      console.log(currentDateTime[index]);
-      localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
-      console.log('bang');
-    }
-  });
+//   const imageUrlvalues = imageUrl.value;
+//   const namValue = name.value;
+//   const updateDateValue = updateDate.value;
+//   const createValue = creationDate.value;
 
-  localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
+//   return {
+//     imageUrlvalues,
+//     namValue,
+//     updateDateValue,
+//     createValue
+//   };
+// }
 
-  location.reload();
-});
+// function copyNameProduct(name) {
+//   navigator.clipboard
+//     .writeText(name)
+//     .then(() => {
+//       alert('Text has been copied! ');
+//     })
+//     .catch(err => {
+//       console.log('Unable to copy text: ', err);
+//     });
+// }
+
+// function displayFormChange() {
+//   const form = document.getElementById('change-product-info-container');
+//   const close = form.querySelector('p');
+//   close.style.display = 'block';
+//   form.style.display = 'flex';
+// }
+
+// function closeForm() {
+//   const form = document.getElementById('change-product-info-container');
+//   const close = form.querySelector('p');
+//   close.style.display = 'none';
+//   form.style.display = 'none';
+// }
+
+// closeFormClick.addEventListener('click', () => {
+//   closeForm();
+// });
+
+// function updateEvent(item, index, id, element) {
+//   // copy
+//   const copy = item.querySelector('#copy');
+//   copy.addEventListener('click', () => {
+//     copyNameProduct(element.imgSrc);
+//   });
+
+//   //  console.log(index);
+
+//   // edit
+
+//   const edit = item.querySelector('#edit');
+//   edit.addEventListener('click', () => {
+//     displayFormChange();
+//     setValuesInput(element.imgSrc, element.name, currentDateTime[index].updateAt, currentDateTime[index].updateAt);
+//     id.innerText = element.ID;
+//   });
+
+//   // delete
+//   const deleteProduct = item.querySelector('#delete');
+//   deleteProduct.addEventListener('click', () => {
+//     data.splice(index, 1);
+//     currentDateTime.splice(index, 1);
+//     localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
+
+//     localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
+
+//     location.reload();
+//   });
+// }
+
+// function disPlayProductItem(pageStart, pageEnd) {
+//   const content = document.getElementById('content');
+
+//   const id = document.getElementById('id');
+//   content.innerHTML = '';
+
+
+//   for (let index = pageStart; index < pageEnd; index++) {
+//     const element = data[index];
+//     const item = document.createElement('tr');
+//     item.innerHTML = `
+//               <th class="image"><img src="\\${element.imgSrc}"></th>
+//               <th class="name">${element.name}</th>
+//               <th class="date-update">${currentDateTime[index].updateAt}</th>
+//               <th class="date-creat">${currentDateTime[index].createAT}</th>
+//               <th class="copy" id="copy">Copy</th>
+//               <th class="edit" id="edit">Sửa</th>
+//               <th class="delete" id="delete">Xóa</th>
+//       `;
+//     content.appendChild(item);
+
+//     updateEvent(item, index, id, element);
+//     // console.log(element.name);
+//   }
 
 
 
-// add product
-function previewImage(input) {
-  var imagePreview = document.getElementById('imagePreview');
-  var file = input.files[0];
-  if (file) {
-    var render = new FileReader();
+// }
 
-    render.onload = function (e) {
-      imagePreview.src = e.target.result;
-    };
-    render.readAsDataURL(file);
-  }
-}
+// const submitBtn = document.getElementById('formSubmit');
+// submitBtn.addEventListener('click', e => {
+//   const id = document.getElementById('id');
+//   console.log(id.textContent);
+//   e.preventDefault();
+//   const { imageUrlvalues, namValue, updateDateValue, createValue } = getValuesInput();
 
-const addProductBtn = document.getElementById('add-product-btn');
+//   data.map((element, index) => {
+//     if (element.ID === id.textContent) {
+//       element.imgSrc = imageUrlvalues;
+//       element.name = namValue;
 
-addProductBtn.addEventListener('click', () => {
-  const content = document.getElementById('content-product');
-  const manageProduct = document.getElementById('add-product-container');
-  const pagination = document.getElementById('pagination');
-  const cancel = document.getElementById('cancel');
-  content.style.display = 'none';
-  pagination.style.display = 'none';
-  cancel.style.display = 'block';
+//       currentDateTime[index].updateAt = updateDateValue;
+//       currentDateTime[index].createAT = createValue;
 
-  const addProductForm = document.createElement('div');
-  addProductForm.innerHTML = `
+//       console.log(currentDateTime[index]);
+//       localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
+//       console.log('bang');
+//     }
+//   });
+
+//   localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
+
+//   location.reload();
+// });
+
+
+
+// // add product
+// function previewImage(input) {
+//   var imagePreview = document.getElementById('imagePreview');
+//   var file = input.files[0];
+//   if (file) {
+//     var render = new FileReader();
+
+//     render.onload = function (e) {
+//       imagePreview.src = e.target.result;
+//     };
+//     render.readAsDataURL(file);
+//   }
+// }
+
+// const addProductBtn = document.getElementById('add-product-btn');
+
+// addProductBtn.addEventListener('click', () => {
+//   const content = document.getElementById('content-product');
+//   const manageProduct = document.getElementById('add-product-container');
+//   const pagination = document.getElementById('pagination');
+//   const cancel = document.getElementById('cancel');
+//   content.style.display = 'none';
+//   pagination.style.display = 'none';
+//   cancel.style.display = 'block';
+
+//   const addProductForm = document.createElement('div');
+//   addProductForm.innerHTML = `
   
-  <div class="add-product-form-container">
-    <div class="title">
-        <h2>
-            Thêm sản phẩm mới
-        </h2>
-    </div>
-    <form id="add-product-form">
-        <div class="form-item">
-            <label for="fileInput">Hình ảnh sản phẩm</label>
-            <input type="file" id="fileInput">
-            <img src="" alt="" id="imagePreview">
-        </div>
-        <div class="form-item">
-            <label for="">Tên sản phẩm</label>
-            <input type="text" id="name">
-        </div>
+//   <div class="add-product-form-container">
+//     <div class="title">
+//         <h2>
+//             Thêm sản phẩm mới
+//         </h2>
+//     </div>
+//     <form id="add-product-form">
+//         <div class="form-item">
+//             <label for="fileInput">Hình ảnh sản phẩm</label>
+//             <input type="file" id="fileInput">
+//             <img src="" alt="" id="imagePreview">
+//         </div>
+//         <div class="form-item">
+//             <label for="">Tên sản phẩm</label>
+//             <input type="text" id="name">
+//         </div>
         
-        <div class="form-item">
-            <label for="">Mã sản phẩm</label>
-            <input type="text" id="productCode">
-        </div>
+//         <div class="form-item">
+//             <label for="">Mã sản phẩm</label>
+//             <input type="text" id="productCode">
+//         </div>
         
-        <div class="form-item">
-            <label for="">Thể loại</label>
-            <select name="categoty" id="category">
-                <option value="mountain">mountain</option>
-                <option value="road">Road</option>
-                <option value="touring">Touring</option>
-                <option value="kids">Kids</option>
-            </select>
-        </div>
-        
-
-        <div class="form-item">
-            <label for="">Giá sản phẩm</label>
-            <input type="text" id="price">
-        </div>
-        <div class="form-item">
-            <label for="">Mã màu sản phẩm</label>
-            <input type="text" id="codeColor">
-        </div>
+//         <div class="form-item">
+//             <label for="">Thể loại</label>
+//             <select name="categoty" id="category">
+//                 <option value="mountain">mountain</option>
+//                 <option value="road">Road</option>
+//                 <option value="touring">Touring</option>
+//                 <option value="kids">Kids</option>
+//             </select>
+//         </div>
         
 
-        <button id="add-form-btn">Thêm</button>
-
-    </form>
-  </div>
-  `
-
-
-  manageProduct.appendChild(addProductForm);
+//         <div class="form-item">
+//             <label for="">Giá sản phẩm</label>
+//             <input type="text" id="price">
+//         </div>
+//         <div class="form-item">
+//             <label for="">Mã màu sản phẩm</label>
+//             <input type="text" id="codeColor">
+//         </div>
+        
+
+//         <button id="add-form-btn">Thêm</button>
+
+//     </form>
+//   </div>
+//   `
+
+
+//   manageProduct.appendChild(addProductForm);
+
+//   var fileInput = document.getElementById('fileInput');
+//   console.log(fileInput)
 
-  var fileInput = document.getElementById('fileInput');
-  console.log(fileInput)
+//   fileInput.addEventListener('change', function () {
+//     previewImage(fileInput);
+//   })
 
-  fileInput.addEventListener('change', function () {
-    previewImage(fileInput);
-  })
 
+//   const formBtn = document.getElementById('add-form-btn');
 
-  const formBtn = document.getElementById('add-form-btn');
 
+//   formBtn.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     var form = document.getElementById('add-product-form');
+//     var imgUrl = form.querySelector('#imagePreview');
+//     var name = form.querySelector('#name');
+//     var id = form.querySelector('#productCode');
+//     var category = form.querySelector('#category');
+//     var price = form.querySelector('#price');
+//     var codeColor = form.querySelector('#codeColor');
 
-  formBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    var form = document.getElementById('add-product-form');
-    var imgUrl = form.querySelector('#imagePreview');
-    var name = form.querySelector('#name');
-    var id = form.querySelector('#productCode');
-    var category = form.querySelector('#category');
-    var price = form.querySelector('#price');
-    var codeColor = form.querySelector('#codeColor');
+//     if (imgUrl.value === '' &&
+//       name.value === '' &&
+//       id.value === '' &&
+//       price.value === '' &&
+//       codeColor.value === ''
+//     ) {
+//       return null;
+//     }
+//     if (imgUrl.value === '') {
+//       imgUrl.style.border = '1px solid red';
+//     }
+//     if (name.value === '') {
+//       name.style.border = '1px solid red';
+//     }
+//     if (id.value === '') {
+//       id.style.border = '1px solid red';
+//     }
+//     if (price.value === '') {
+//       price.style.border = '1px solid red';
+//     }
+//     if (codeColor.value === '') {
+//       codeColor.style.border = '1px solid red';
+//     }
 
-    if (imgUrl.value === '' &&
-      name.value === '' &&
-      id.value === '' &&
-      price.value === '' &&
-      codeColor.value === ''
-    ) {
-      return null;
-    }
-    if (imgUrl.value === '') {
-      imgUrl.style.border = '1px solid red';
-    }
-    if (name.value === '') {
-      name.style.border = '1px solid red';
-    }
-    if (id.value === '') {
-      id.style.border = '1px solid red';
-    }
-    if (price.value === '') {
-      price.style.border = '1px solid red';
-    }
-    if (codeColor.value === '') {
-      codeColor.style.border = '1px solid red';
-    }
+//     var newProduct = {
+//       name: name.value,
+//       imgSrc: `${imgUrl.src}`,
+//       price: parseInt(price.value).toLocaleString(),
+//       dataColors: [codeColor.value],
+//       ID: id.value,
+//       type: category.value
+//     }
 
-    var newProduct = {
-      name: name.value,
-      imgSrc: `${imgUrl.src}`,
-      price: parseInt(price.value).toLocaleString(),
-      dataColors: [codeColor.value],
-      ID: id.value,
-      type: category.value
-    }
+//     var currentTime = new Date();
+//     var year = currentTime.getFullYear();
+//     var month = currentTime.getMonth() + 1;
+//     var day = currentTime.getDate();
+//     var hours = currentTime.getHours();
+//     var minutes = currentTime.getMinutes();
+//     var DateTimeP = {
+//       createAT: `${day}/${month}/${year}  ${hours}:${minutes}`,
+//       updateAt: `${day}/${month}/${year}  ${hours}:${minutes}`
+//     }
+//     console.log(currentTime);
 
-    var currentTime = new Date();
-    var year = currentTime.getFullYear();
-    var month = currentTime.getMonth() + 1;
-    var day = currentTime.getDate();
-    var hours = currentTime.getHours();
-    var minutes = currentTime.getMinutes();
-    var DateTimeP = {
-      createAT: `${day}/${month}/${year}  ${hours}:${minutes}`,
-      updateAt: `${day}/${month}/${year}  ${hours}:${minutes}`
-    }
-    console.log(currentTime);
+//     console.log(newProduct);
+//     currentDateTime.push(DateTimeP);
+//     data.push(newProduct);
+//     localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
+//     localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
+//     location.reload();
 
-    console.log(newProduct);
-    currentDateTime.push(DateTimeP);
-    data.push(newProduct);
-    localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
-    localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
-    location.reload();
+//   })
 
-  })
+// })
 
-})
+// const cancel = document.getElementById('cancel');
+// cancel.addEventListener('click', () => {
 
-const cancel = document.getElementById('cancel');
-cancel.addEventListener('click', () => {
+//   const manageProduct = document.getElementById('add-product-container');
+//   const pagination = document.getElementById('pagination');
+//   const content = document.getElementById('content-product');
+//   manageProduct.innerHTML = '';
+//   content.style.display = 'table';
+//   pagination.style.display = 'flex';
+//   cancel.style.display = 'none'
+//   loadData();
+// })
 
-  const manageProduct = document.getElementById('add-product-container');
-  const pagination = document.getElementById('pagination');
-  const content = document.getElementById('content-product');
-  manageProduct.innerHTML = '';
-  content.style.display = 'table';
-  pagination.style.display = 'flex';
-  cancel.style.display = 'none'
-  loadData();
-})
 
 
 
@@ -340,205 +341,204 @@ cancel.addEventListener('click', () => {
 
 
 
+// // page
 
-// page
 
 
 
 
 
 
+// var totalPages = Math.ceil(data.length / 10);
 
-var totalPages = Math.ceil(data.length / 10);
+// var currentPage = 1;
+// const ITEMS_PER_PAGE = 10;
+// var maxPagesToShow = 5;
 
-var currentPage = 1;
-const ITEMS_PER_PAGE = 10;
-var maxPagesToShow = 5;
 
+// function generatePagination() {
+//   const pagination = document.getElementById('pagination');
 
-function generatePagination() {
-  const pagination = document.getElementById('pagination');
+//   pagination.innerHTML = '';
 
-  pagination.innerHTML = '';
+//   const prevBtn = document.createElement('a');
+//   prevBtn.href = "javascript:void(0);";
+//   prevBtn.innerHTML = "&laquo;";
 
-  const prevBtn = document.createElement('a');
-  prevBtn.href = "javascript:void(0);";
-  prevBtn.innerHTML = "&laquo;";
+//   prevBtn.addEventListener('click', () => {
+//     if (currentPage > 1) {
+//       currentPage--;
+//       generatePagination();
+//       loadData();
+//     }
+//   })
+//   pagination.appendChild(prevBtn);
 
-  prevBtn.addEventListener('click', () => {
-    if (currentPage > 1) {
-      currentPage--;
-      generatePagination();
-      loadData();
-    }
-  })
-  pagination.appendChild(prevBtn);
 
 
 
+//   var startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+//   var endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
 
-  var startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
-  var endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+//   for (let i = startPage; i <= endPage; i++) {
+//     var pageLink = document.createElement('a');
+//     pageLink.href = "javascript:void(0);";
+//     pageLink.innerHTML = i;
 
-  for (let i = startPage; i <= endPage; i++) {
-    var pageLink = document.createElement('a');
-    pageLink.href = "javascript:void(0);";
-    pageLink.innerHTML = i;
 
+//     if (i === currentPage) {
+//       pageLink.classList.add("active");
+//     }
 
-    if (i === currentPage) {
-      pageLink.classList.add("active");
-    }
+//     pageLink.addEventListener('click', function () {
+//       currentPage = parseInt(this.innerHTML);
+//       generatePagination();
+//       loadData();
+//     })
 
-    pageLink.addEventListener('click', function () {
-      currentPage = parseInt(this.innerHTML);
-      generatePagination();
-      loadData();
-    })
+//     pagination.appendChild(pageLink);
+//     // console.log(pageLink);
 
-    pagination.appendChild(pageLink);
-    // console.log(pageLink);
 
+//   }
 
-  }
 
 
+//   const nextBtn = document.createElement('a');
+//   nextBtn.href = "javascript:void(0);";
+//   nextBtn.innerHTML = "&raquo;";
 
-  const nextBtn = document.createElement('a');
-  nextBtn.href = "javascript:void(0);";
-  nextBtn.innerHTML = "&raquo;";
+//   nextBtn.addEventListener('click', () => {
+//     if (currentPage < totalPages) {
+//       currentPage++;
+//       generatePagination();
+//       loadData();
+//     }
+//   })
+//   pagination.appendChild(nextBtn)
 
-  nextBtn.addEventListener('click', () => {
-    if (currentPage < totalPages) {
-      currentPage++;
-      generatePagination();
-      loadData();
-    }
-  })
-  pagination.appendChild(nextBtn)
+// }
 
-}
+// function loadData() {
+//   var startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+//   var endIndex = startIndex + ITEMS_PER_PAGE;
+//   if (endIndex > data.length) {
+//     endIndex = data.length;
+//   }
+//   disPlayProductItem(startIndex, endIndex);
 
-function loadData() {
-  var startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  var endIndex = startIndex + ITEMS_PER_PAGE;
-  if (endIndex > data.length) {
-    endIndex = data.length;
-  }
-  disPlayProductItem(startIndex, endIndex);
+// }
 
-}
+// generatePagination();
 
-generatePagination();
+// loadData();
 
-loadData();
 
 
 
+// // filter
 
-// filter
+// const manageProduct = document.getElementById('manageProduct');
+// const formFilter = manageProduct.querySelector('#product-filter-form');
+// const filterSubmitBtn = formFilter.querySelector("#filter-submit-btn");
+// console.log(filterSubmitBtn);
 
-const manageProduct = document.getElementById('manageProduct');
-const formFilter = manageProduct.querySelector('#product-filter-form');
-const filterSubmitBtn = formFilter.querySelector("#filter-submit-btn");
-console.log(filterSubmitBtn);
+// filterSubmitBtn.addEventListener('click', () => {
+//   const productName = manageProduct.querySelector("#productName");
+//   const productCode = manageProduct.querySelector("#productCode");
+//   const categorySelect = manageProduct.querySelector("#categorySelect");
 
-filterSubmitBtn.addEventListener('click', () => {
-  const productName = manageProduct.querySelector("#productName");
-  const productCode = manageProduct.querySelector("#productCode");
-  const categorySelect = manageProduct.querySelector("#categorySelect");
 
+//   if (productName.value != "" && productCode.value == "") {
+//     const matchingProduct = data.filter(e => e.name.toLowerCase().includes(productName.value.trim().toLowerCase()));
+//     if (matchingProduct.length < 1) {
+//       alert("khoong tim thay san pham")
+//     }
+//     const content = document.getElementById('content');
+//     content.innerHTML = '';
+//     const id = document.getElementById('id');
+//     for (let index = 0; index < matchingProduct.length; index++) {
+//       const element = matchingProduct[index];
+//       const item = document.createElement('tr');
+//       item.innerHTML = `
+//                 <th class="image"><img src="/${element.imgSrc}"></th>
+//                 <th class="name">${element.name}</th>
+//                 <th class="date-update">${currentDateTime[index].updateAt}</th>
+//                 <th class="date-creat">${currentDateTime[index].createAT}</th>
+//                 <th class="copy" id="copy">Copy</th>
+//                 <th class="edit" id="edit">Sửa</th>
+//                 <th class="delete" id="delete">Xóa</th>
+//         `;
+//       console.log(element);
 
-  if (productName.value != "" && productCode.value == "") {
-    const matchingProduct = data.filter(e => e.name.toLowerCase().includes(productName.value.trim().toLowerCase()));
-    if (matchingProduct.length < 1) {
-      alert("khoong tim thay san pham")
-    }
-    const content = document.getElementById('content');
-    content.innerHTML = '';
-    const id = document.getElementById('id');
-    for (let index = 0; index < matchingProduct.length; index++) {
-      const element = matchingProduct[index];
-      const item = document.createElement('tr');
-      item.innerHTML = `
-                <th class="image"><img src="/${element.imgSrc}"></th>
-                <th class="name">${element.name}</th>
-                <th class="date-update">${currentDateTime[index].updateAt}</th>
-                <th class="date-creat">${currentDateTime[index].createAT}</th>
-                <th class="copy" id="copy">Copy</th>
-                <th class="edit" id="edit">Sửa</th>
-                <th class="delete" id="delete">Xóa</th>
-        `;
-      console.log(element);
+//       content.appendChild(item);
+//       updateEvent(item, index, id, element);
+//     }
+//     console.log(matchingProduct)
+//   }
 
-      content.appendChild(item);
-      updateEvent(item, index, id, element);
-    }
-    console.log(matchingProduct)
-  }
+//   if (productCode.value != "") {
+//     productName.value = "";
+//     categorySelect.value = "all"
+//     const matchingProduct = data.filter(e => e.ID.includes(productCode.value));
+//     if (matchingProduct.length < 1) {
+//       alert("khoong tim thay san pham")
+//     }
+//     const content = document.getElementById('content');
+//     content.innerHTML = '';
+//     const id = document.getElementById('id');
+//     for (let index = 0; index < matchingProduct.length; index++) {
+//       const element = matchingProduct[index];
+//       const item = document.createElement('tr');
+//       item.innerHTML = `
+//                 <th class="image"><img src="${element.imgSrc}"></th>
+//                 <th class="name">${element.name}</th>
+//                 <th class="date-update">${currentDateTime[index].updateAt}</th>
+//                 <th class="date-creat">${currentDateTime[index].createAT}</th>
+//                 <th class="copy" id="copy">Copy</th>
+//                 <th class="edit" id="edit">Sửa</th>
+//                 <th class="delete" id="delete">Xóa</th>
+//         `;
+//       console.log(element);
 
-  if (productCode.value != "") {
-    productName.value = "";
-    categorySelect.value = "all"
-    const matchingProduct = data.filter(e => e.ID.includes(productCode.value));
-    if (matchingProduct.length < 1) {
-      alert("khoong tim thay san pham")
-    }
-    const content = document.getElementById('content');
-    content.innerHTML = '';
-    const id = document.getElementById('id');
-    for (let index = 0; index < matchingProduct.length; index++) {
-      const element = matchingProduct[index];
-      const item = document.createElement('tr');
-      item.innerHTML = `
-                <th class="image"><img src="${element.imgSrc}"></th>
-                <th class="name">${element.name}</th>
-                <th class="date-update">${currentDateTime[index].updateAt}</th>
-                <th class="date-creat">${currentDateTime[index].createAT}</th>
-                <th class="copy" id="copy">Copy</th>
-                <th class="edit" id="edit">Sửa</th>
-                <th class="delete" id="delete">Xóa</th>
-        `;
-      console.log(element);
+//       content.appendChild(item);
+//       updateEvent(item, index, id, element);
+//     }
+//     console.log(matchingProduct)
+//   }
 
-      content.appendChild(item);
-      updateEvent(item, index, id, element);
-    }
-    console.log(matchingProduct)
-  }
+//   if (categorySelect.value !== "all" && productName.value === "" && productCode.value === "") {
+//     const matchingProduct = data.filter(e => e.type === categorySelect.value);
+//     console.log(matchingProduct);
 
-  if (categorySelect.value !== "all" && productName.value === "" && productCode.value === "") {
-    const matchingProduct = data.filter(e => e.type === categorySelect.value);
-    console.log(matchingProduct);
+//     if (matchingProduct.length < 1) {
+//       alert("khoong tim thay san pham")
+//     }
+//     const content = document.getElementById('content');
+//     content.innerHTML = '';
+//     const id = document.getElementById('id');
+//     for (let index = 0; index < matchingProduct.length; index++) {
+//       const element = matchingProduct[index];
+//       const item = document.createElement('tr');
+//       item.innerHTML = `
+//                 <th class="image"><img src="${element.imgSrc}"></th>
+//                 <th class="name">${element.name}</th>
+//                 <th class="date-update">${currentDateTime[index].updateAt}</th>
+//                 <th class="date-creat">${currentDateTime[index].createAT}</th>
+//                 <th class="copy" id="copy">Copy</th>
+//                 <th class="edit" id="edit">Sửa</th>
+//                 <th class="delete" id="delete">Xóa</th>
+//         `;
+//       console.log(element);
 
-    if (matchingProduct.length < 1) {
-      alert("khoong tim thay san pham")
-    }
-    const content = document.getElementById('content');
-    content.innerHTML = '';
-    const id = document.getElementById('id');
-    for (let index = 0; index < matchingProduct.length; index++) {
-      const element = matchingProduct[index];
-      const item = document.createElement('tr');
-      item.innerHTML = `
-                <th class="image"><img src="${element.imgSrc}"></th>
-                <th class="name">${element.name}</th>
-                <th class="date-update">${currentDateTime[index].updateAt}</th>
-                <th class="date-creat">${currentDateTime[index].createAT}</th>
-                <th class="copy" id="copy">Copy</th>
-                <th class="edit" id="edit">Sửa</th>
-                <th class="delete" id="delete">Xóa</th>
-        `;
-      console.log(element);
+//       content.appendChild(item);
+//       updateEvent(item, index, id, element);
+//     }
+//     console.log(matchingProduct)
 
-      content.appendChild(item);
-      updateEvent(item, index, id, element);
-    }
-    console.log(matchingProduct)
+//   }
 
-  }
-
-})
+// })
 
 
 

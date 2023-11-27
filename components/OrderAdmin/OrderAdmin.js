@@ -1,54 +1,60 @@
 // import DUMMY_DATA from '../../database/userData.js';
-// import DUMMY_PRODUCTS from '../../database/products.js';
+import DUMMY_PRODUCTS from '../../database/products.js';
+// const productsList = DUMMY_PRODUCTS;
+// console.log(productsList);
+
+localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
 const productsList = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 // console.log(userData)
 
-// const DUMMY_API = [
-//   {
-//     idUser: 'admin',
-//     cart: [
-//       {
-//         idOrder: 'd2jdm',
-//         dateCreate: '2023-11-23T12:30:00Z',
-//         dateCancel: '',
-//         product: [
-//           {
-//             id: 'a07c4d6ca1',
-//             quantity: 3,
-//             processed: true
-//           },
-//           {
-//             id: 'a07c4d6ca1',
-//             quantity: 3,
-//             processed: false
-//           }
-//         ]
-//       }
-//     ]
-//   },
-//   {
-//     idUser: 'Asddv',
-//     cart: [
-//       {
-//         idOrder: 'd3jdm',
-//         dateCreate: '2023-11-23T12:30:00Z',
-//         dateCancel: '',
-//         product: [
-//           {
-//             id: '36b9b496cb',
-//             quantity: 3,
-//             processed: true
-//           }
-//         ]
-//       }
-//     ]
-//   }
-// ];
+const DUMMY_API = [
+  {
+    idUser: 'admin',
+    cart: [
+      {
+        idOrder: 'd2jdm',
+        dateCreate: '2023-11-23T12:30:00Z',
+        dateCancel: '',
+        product: [
+          {
+            id: 'a07c4d6ca1',
+            quantity: 3,
+            processed: true
+          },
+          {
+            id: 'a07c4d6ca1',
+            quantity: 3,
+            processed: false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    idUser: 'Asddv',
+    cart: [
+      {
+        idOrder: 'd3jdm',
+        dateCreate: '2023-11-23T12:30:00Z',
+        dateCancel: '',
+        product: [
+          {
+            id: '36b9b496cb',
+            quantity: 3,
+            processed: true
+          }
+        ]
+      }
+    ]
+  }
+];
 
 // // Fake dữ liệu để test, thay đổi nó để gắn vào dữ liệu thật ở đây
 // // Note: Nhớ tìm hết các giá trị 'DUMMY_API' và đổi lại
-// localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
 let userData = JSON.parse(localStorage.getItem('DUMMY_API'));
+
+// let userData = DUMMY_API;
 
 // start: Open set status
 const modal = document.querySelector('.modal');
@@ -146,10 +152,49 @@ overlay.addEventListener('click', closeModal);
 // start: apply html into layout
 // localStorage.setItem('accounts', JSON.stringify(DUMMY_DATA));
 const listProducts = document.querySelector('.admin__content--body__products');
-const renderItems = () => {
+
+const uiElement = (idUser, idOrder, day, month, year, quantity, productInfo, idProduct, isProcessed) => {
+  const html = `
+  <ul class="admin__content--body__products--item ${
+    isProcessed ? 'isActiveStatus' : 'isNonActiveStatus'
+  }" pid="${idProduct}">
+    <li class="admin__content--body__id products--item__id" id="${idUser}">${idUser}</li>
+    <li class="admin__content--body__orderId products--item__orderId" id="${idOrder}">${idOrder}</li>
+    <li class="admin__content--body__productId products--item__productId">${idProduct}</li>
+    <li class="admin__content--body__img products--item__img">
+      <div>
+        <img src="/${productInfo.imgSrc}" alt="Hình ảnh xe đạp" />
+      </div>
+    </li>
+    <li class="admin__content--body__name products--item__name">${productInfo.name}</li>
+    <li class="admin__content--body__qnt products--item__qnt" data-qnt=${quantity}>
+      <p>${quantity}</p>
+    </li>
+    <li class="admin__content--body__dateCreate products--item__dateCreate">${day}/${month}/${year}</li>
+    ${
+      // Hiện thị trạng thái đơn xử lý/ chưa xử lý
+      isProcessed
+        ? `<li class="admin__content--body__status products--item__status">
+        Đã xử lý
+        <i class="fa-solid fa-pen-to-square"></i>
+      </li>`
+        : `<li class="admin__content--body__status products--item__status">
+        Chưa xử lý
+        <i class="fa-solid fa-pen-to-square"></i>
+      </li>`
+    }
+
+    <li class="admin__content--body__btn products--item__btn">
+      <button><i class="fa-solid fa-x"></i></button>
+    </li>
+  </ul>`;
+  return html;
+};
+
+const renderItems = (processed = false, processing = false, data = userData) => {
   listProducts.innerHTML = '';
 
-  userData?.forEach(user => {
+  data?.forEach(user => {
     const idUser = user.idUser;
 
     // Nếu trong cart của user không có phần tử tức là user đó chưa mua gì
@@ -175,58 +220,38 @@ const renderItems = () => {
 
         const productInfo = productsList.find(product => product.ID === idProduct);
 
-        // Sau khi tất cả thông tin thì render ra
-        const html = `
-          <ul class="admin__content--body__products--item ${
-            isProcessed ? 'isActiveStatus' : 'isNonActiveStatus'
-          }" pid="${idProduct}">
-            <li class="admin__content--body__id products--item__id" id="${idUser}">${idUser}</li>
-            <li class="admin__content--body__orderId products--item__orderId" id="${idOrder}">${idOrder}</li>
-            <li class="admin__content--body__productId products--item__productId">${idProduct}</li>
-            <li class="admin__content--body__img products--item__img">
-              <div>
-                <img src="/${productInfo.imgSrc}" alt="Hình ảnh xe đạp" />
-              </div>
-            </li>
-            <li class="admin__content--body__name products--item__name">${productInfo.name}</li>
-            <li class="admin__content--body__qnt products--item__qnt" data-qnt=${quantity}>
-              <p>${quantity}</p>
-            </li>
-            <li class="admin__content--body__dateCreate products--item__dateCreate">${day}/${month}/${year}</li>
-            ${
-              // Hiện thị trạng thái đơn xử lý/ chưa xử lý
-              isProcessed
-                ? `<li class="admin__content--body__status products--item__status">
-                Đã xử lý
-                <i class="fa-solid fa-pen-to-square"></i>
-              </li>`
-                : `<li class="admin__content--body__status products--item__status">
-                Chưa xử lý
-                <i class="fa-solid fa-pen-to-square"></i>
-              </li>`
-            }
+        // Nếu đối số truyền vào là cần lọc sản phẩm đã xử lý
+        let html;
 
-            <li class="admin__content--body__btn products--item__btn">
-              <button><i class="fa-solid fa-x"></i></button>
-            </li>
-          </ul>`;
+        if (processed && isProcessed === true) {
+          html = uiElement(idUser, idOrder, day, month, year, quantity, productInfo, idProduct, isProcessed);
+        } else if (processing && isProcessed === false) {
+          html = uiElement(idUser, idOrder, day, month, year, quantity, productInfo, idProduct, isProcessed);
+        } else if (!processed && !processing) {
+          html = uiElement(idUser, idOrder, day, month, year, quantity, productInfo, idProduct, isProcessed);
+        }
+
         listProducts.insertAdjacentHTML('beforeend', html);
       });
     });
   });
 };
-
 // start: Logic for filter products
 const submitBtn = document.querySelector('.order--filter__btn');
-let data;
+
+let data = userData;
+
 let isProcessed;
+
 submitBtn.addEventListener('click', e => {
   e.preventDefault();
-  const inputNameClientValue = document.querySelector('#orderNameClient input').value.toLowerCase();
+
   const inputIdClientValue = document.querySelector('#orderIdClient input').value;
+  const inputIdOrderValue = document.querySelector('#orderIdOrder input').value;
   const selectStatusValue = document.querySelector('#orderStatus select').value;
 
-  if (!inputNameClientValue && !inputIdClientValue && !selectStatusValue) {
+  // Nếu có dữ liệu nhập vào ít nhất ở 1 ô thì mới cuộn xuống, không có thì k làm gì
+  if (!inputIdClientValue && !inputIdOrderValue && !selectStatusValue) {
     return;
   } else {
     const contentListProduct = document.querySelector('#orderList');
@@ -236,48 +261,43 @@ submitBtn.addEventListener('click', e => {
       behavior: 'smooth'
     });
   }
-  // If data isn't an array, then convert to array
-  const data = Array.isArray(userData) ? userData : [userData];
 
-  if (inputNameClientValue) {
-    data = data.filter(item => item.name.toLowerCase().includes(inputNameClientValue));
+  // Lọc theo id client
+  if (inputIdClientValue) {
+    data = data.filter(user => user.idUser === inputIdClientValue.trim());
   }
 
-  if (inputIdClientValue) {
-    data = data.filter(item => item.id.toString() === inputIdClientValue.trim());
+  // Lọc theo id order
+  if (inputIdOrderValue) {
+    data = data.filter(user => user.cart.some(cart => cart.idOrder === inputIdOrderValue.trim()));
   }
 
   if (selectStatusValue) {
-    switch (selectStatusValue) {
-      case 'valid':
-        isProcessed = 'processed';
-        break;
-      case 'invalid':
-        isProcessed = 'processing';
-        break;
-      case 'all':
-        isProcessed = 'all';
-        break;
+    if (selectStatusValue === 'valid') {
+      isProcessed = 'processed';
+    } else if (selectStatusValue === 'invalid') {
+      isProcessed = 'processing';
+    } else if (selectStatusValue === 'all') {
+      isProcessed = 'all';
     }
   }
 
   listProducts.innerHTML = '';
   if (isProcessed === 'processed') {
-    data.forEach(user => {
-      renderItemsProcessed(user);
+    renderItems(true, false, data);
+    data?.forEach(() => {
       clickIconHandler();
       clickDeleteBtnHandler();
     });
   } else if (isProcessed === 'processing') {
-    data.forEach(user => {
-      renderItemsIsProcessing(user);
+    renderItems(false, true, data);
+    data?.forEach(() => {
       clickIconHandler();
       clickDeleteBtnHandler();
     });
   } else if (isProcessed === 'all') {
-    data.forEach(user => {
-      renderItemsIsProcessing(user);
-      renderItemsProcessed(user);
+    renderItems(false, false, data);
+    data?.forEach(() => {
       clickIconHandler();
       clickDeleteBtnHandler();
       sortProductsNonActiveFirst();
@@ -292,7 +312,6 @@ resetBtn.addEventListener('click', e => {
   init();
   paginationHandler();
 });
-
 // end: Logic for filter products
 
 // start: Logic for click edit status handler
@@ -344,7 +363,7 @@ const updateLocalStorageForProcessHandler = (currentUID, currentPID, currentOID,
       });
     }
   });
-  localStorage.setItem('User', JSON.stringify(userData));
+  localStorage.setItem('DUMMY_API', JSON.stringify(userData));
 };
 
 const clickIconHandler = () => {
