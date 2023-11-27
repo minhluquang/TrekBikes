@@ -81,21 +81,6 @@ function addUserHandler() {
   const showMessagePasswordRes = document.querySelector('.newUserPasswordMessage');
   const accounts = JSON.parse(localStorage.getItem('accounts'));
 
-  // if (!accounts) {
-  //   const accounts = [
-  //     {
-  //       id: 'admin',
-  //       name: 'Quản lý viên 1',
-  //       email: 'admin',
-  //       password: 'admin',
-  //       dateRegister: '2023-01-01T00:00:00.000Z',
-  //       isAdmin: true
-  //     }
-  //   ];
-
-  //   localStorage.setItem('accounts', JSON.stringify(accounts));
-  // }
-
   if (newUserName.length === 0) {
     showMessageNameRes.innerText = '* Bạn chưa nhập tên đầy đủ';
     isValidName = false;

@@ -239,19 +239,19 @@ const renderItems = (processed = false, processing = false, data = userData) => 
 // start: Logic for filter products
 const submitBtn = document.querySelector('.order--filter__btn');
 
-let data = userData;
+let data;
 
 let isProcessed;
 
 submitBtn.addEventListener('click', e => {
   e.preventDefault();
 
-  const inputIdClientValue = document.querySelector('#orderIdClient input').value;
-  const inputIdOrderValue = document.querySelector('#orderIdOrder input').value;
+  const inputIdClientValue = document.querySelector('#orderIdClient input').value.trim();
+  const inputIdOrderValue = document.querySelector('#orderIdOrder input').value.trim();
   const selectStatusValue = document.querySelector('#orderStatus select').value;
 
   // Nếu có dữ liệu nhập vào ít nhất ở 1 ô thì mới cuộn xuống, không có thì k làm gì
-  if (!inputIdClientValue && !inputIdOrderValue && !selectStatusValue) {
+  if (inputIdClientValue === '' && inputIdOrderValue === '' && !selectStatusValue) {
     return;
   } else {
     const contentListProduct = document.querySelector('#orderList');
@@ -261,6 +261,8 @@ submitBtn.addEventListener('click', e => {
       behavior: 'smooth'
     });
   }
+
+  data = userData;
 
   // Lọc theo id client
   if (inputIdClientValue) {
