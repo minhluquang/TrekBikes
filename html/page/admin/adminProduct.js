@@ -289,7 +289,6 @@ addProductBtn.addEventListener('click', e => {
       showMessageIdRes.innerHTML = '* Mã sản phẩm đã tồn tại';
       isValidId = false;
     } else {
-      showMessageIdRes.innerText = '';
       id.style.border = '1px solid #333';
       isValidId = true;
     }
@@ -348,6 +347,9 @@ addProductBtn.addEventListener('click', e => {
     }
     if (codeColor.value === '') {
       codeColor.style.border = '1px solid red';
+    }
+    if (category.value === '') {
+      category.style.border = '1px solid red';
     }
 
     // Kiểm tra nếu tất cả đã nhập hợp lệ
