@@ -373,3 +373,15 @@ img {
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
 }
+
+.order_status{
+  transform: translateY(-10px);
+  
+}
+.order_status th{
+  background-color: #828282;
+  cursor: pointer;
+}
+.order_status th:first-child{
+  background-color: #45a049;
+}

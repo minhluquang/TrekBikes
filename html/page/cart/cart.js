@@ -406,14 +406,9 @@ const allTh = table.querySelectorAll('th');
 allTh.forEach((e,index)=>{
   e.addEventListener('click',()=>{
     if(index == 0){
-      console.log("cart");
-      cartInfo.innerHTML = ''
-      if(userLocal.cart.length < 1){
-        footer.style.display = 'none';
-        menu.style.display = 'none';
-        toast.style.display = 'flex';
-      }
-      displayProductItems();
+      location.reload();
+      
+      
     }
     if(index == 1){
       console.log("panding")
@@ -433,7 +428,19 @@ allTh.forEach((e,index)=>{
 
 
 function handleOnDelivery(){
-  if(DUMMY_API[0].cart.length > 0){
+  const cartInfo = document.getElementById('cart-info');
+  let check = false;
+  for (let i = 0; i < data.length; i++) {
+    for (let j = 0; j < DUMMY_API[0].cart.length; j++) {
+      for (let k = 0; k < DUMMY_API[0].cart[j].product.length; k++) {
+        if(DUMMY_API[0].cart[j].product[k].processed === true){
+          check = true;
+        }
+
+      }
+    }
+  }
+  if(check){
     footer.style.display = 'none';
     menu.style.display = 'table';
     toast.style.display = 'none';
