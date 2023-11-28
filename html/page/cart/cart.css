@@ -29,7 +29,6 @@ header .navbar .navbar-brand {
   font-weight: bold;
   color: white;
   margin-left: 10%;
-  text-shadow: 0px 4px 4px #ce1111;
 }
 
 header .navbar .navbar-menu {
@@ -60,21 +59,24 @@ header .navbar .navbar-menu li a {
 .search-container {
   display: flex;
   padding: 20px;
-  gap: 20px;
+
+  width: 35%;
 }
 
 .search-container input {
-  padding: 1px 20px;
-  border-radius: 5px;
-  border: none;
-  outline-color: #cfcfcf;
+  padding: 3px 50px;
+  border-radius: 10px;
+  border: 3px solid #000000;
+  background-color: white;
+  transition: all 0.3s ease;
+  opacity: 0.7;
 }
 
 .search-container button {
-  padding: 1px 20px;
-  border-radius: 5px;
-  border: none;
-  font-size: large;
+  padding: 3px 20px;
+  border-radius: 10px;
+  border: 3px solid #000000;
+  font-size: 15px;
 }
 
 .search-container button:hover {
