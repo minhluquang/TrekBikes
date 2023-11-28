@@ -45,12 +45,29 @@
                 </div> -->
       </div>
     </nav>
-    <nav class="header-bottom">
+    <!-- <nav class="header-bottom">
       <div class="header-item">
         <h4>Shopping Cart <i class="fa-solid fa-cart-shopping"></i></h4>
       </div>
-    </nav>
+    </nav> -->
   </header>
+  <div class="order_status">
+    <table id="order_status_table">
+      <thead>
+        <tr>
+          <th>
+            Giỏ hàng
+          </th>
+          <th>
+            Đang chờ xử lý
+          </th>
+          <th>
+            Đang giao
+          </th>
+        </tr>
+      </thead>
+    </table>
+  </div>
 
   <div class="cart-info_container">
     <table class="menu" id="menu">
@@ -77,7 +94,7 @@
 
       </tbody>
 
-    </table>
+    </table> 
 
   </div>
 
@@ -96,6 +113,7 @@
   <div class="toast" id="toast">
     <h2>Chưa có sản phẩm nào trong giỏ hàng</h2>
   </div>
+
 
   <script type="module" src="../../../database/products.js"></script>
 

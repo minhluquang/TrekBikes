@@ -2,7 +2,7 @@ const userLocal = JSON.parse(localStorage.getItem('User'));
 const cartInfo = document.getElementById('cart-info');
 const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const DUMMY_API = JSON.parse(localStorage.getItem('DUMMY_API'));
-const cartUser = DUMMY_API[0].cart;
+
 const data = DUMMY_PRODUCTS;
 
 function generateRandomId() {
@@ -302,7 +302,7 @@ infoContainer.forEach((element, index) => {
             {
               id: element.id,
               quantity: element.quantity,
-              processed: true
+              processed: false
             }
           ]
         };
@@ -398,3 +398,157 @@ input.addEventListener('input', event => {
     });
   }
 });
+
+
+
+const table = document.getElementById("order_status_table");
+const allTh = table.querySelectorAll('th');
+allTh.forEach((e,index)=>{
+  e.addEventListener('click',()=>{
+    if(index == 0){
+      console.log("cart");
+      cartInfo.innerHTML = ''
+      if(userLocal.cart.length < 1){
+        footer.style.display = 'none';
+        menu.style.display = 'none';
+        toast.style.display = 'flex';
+      }
+      displayProductItems();
+    }
+    if(index == 1){
+      console.log("panding")
+      cartInfo.innerHTML = ''
+      handlePanding();
+    }
+    if(index == 2){
+      console.log('onDeliverery');
+      cartInfo.innerHTML = ''
+      handleOnDelivery();
+    }
+    allTh.forEach(e=>e.style.backgroundColor = '#585858')
+    e.style.backgroundColor = '#45a049';
+    
+  })
+})
+
+
+function handleOnDelivery(){
+  if(DUMMY_API[0].cart.length > 0){
+    footer.style.display = 'none';
+    menu.style.display = 'table';
+    toast.style.display = 'none';
+  }else{
+    footer.style.display = 'none';
+    menu.style.display = 'none';
+    toast.style.display = 'flex';
+  }
+  for (let i = 0; i < data.length; i++) {
+    for (let j = 0; j < DUMMY_API[0].cart.length; j++) {
+      for (let k = 0; k < DUMMY_API[0].cart[j].product.length; k++) {
+        if (data[i].ID === DUMMY_API[0].cart[j].product[k].id && check) {
+          const cartItem = document.createElement('tr');
+        
+          if(DUMMY_API[0].cart[j].product[k].processed === true){
+            cartItem.classList.add('info-item-container');
+  
+            cartItem.innerHTML = `
+                        <td class="img"><img src="../../../${data[i].imgSrc}" alt="${data[i].name}"></td>
+                        <td class="name">
+                           
+                            ${data[i].name}
+                        </td>
+                        <td class="price">${data[i].price}</td>
+                        <td class="quantity">
+                            <div class="quantity-item">
+                                
+                                <span id="quantity">${DUMMY_API[0].cart[j].product[k].quantity}</span>
+                               
+                            </div>
+                        </td>
+                        <td >
+                            <div class="checkbox">
+                                <p class="id">${data[i].ID}</p>
+                                <label class="checkbox-container">
+                                    ${status}
+                                </label>
+    
+                            </div>
+                        </td>
+                    `;
+    
+            cartInfo.appendChild(cartItem);
+            console.log(cartInfo);
+          }
+         
+        }
+        
+      }
+    }
+  }
+
+}
+
+
+
+function handlePanding(){
+  const cartInfo = document.getElementById('cart-info');
+  if(DUMMY_API[0].cart.length > 0){
+    footer.style.display = 'none';
+    menu.style.display = 'table';
+    toast.style.display = 'none';
+  }else{
+    footer.style.display = 'none';
+    menu.style.display = 'none';
+    toast.style.display = 'flex';
+  }
+  for (let i = 0; i < data.length; i++) {
+    for (let j = 0; j < DUMMY_API[0].cart.length; j++) {
+      for (let k = 0; k < DUMMY_API[0].cart[j].product.length; k++) {
+        if (data[i].ID === DUMMY_API[0].cart[j].product[k].id && check) {
+          const cartItem = document.createElement('tr');
+        
+          if(DUMMY_API[0].cart[j].product[k].processed === false){
+            cartItem.classList.add('info-item-container');
+  
+            cartItem.innerHTML = `
+                        <td class="img"><img src="../../../${data[i].imgSrc}" alt="${data[i].name}"></td>
+                        <td class="name">
+                           
+                            ${data[i].name}
+                        </td>
+                        <td class="price">${data[i].price}</td>
+                        <td class="quantity">
+                            <div class="quantity-item">
+                                
+                                <span id="quantity">${DUMMY_API[0].cart[j].product[k].quantity}</span>
+                               
+                            </div>
+                        </td>
+                        <td >
+                            <div class="checkbox">
+                                <p class="id">${data[i].ID}</p>
+                                <label class="checkbox-container">
+                                    <button id="cancelPanding"> Hủy đơn </button>
+                                </label>
+    
+                            </div>
+                        </td>
+                    `;
+    
+            cartInfo.appendChild(cartItem);
+            console.log(cartInfo);
+            const cancelOrder = cartItem.querySelector('#cancelPanding');
+            console.log(cancelOrder);
+            cancelOrder.addEventListener('click',()=>{
+              DUMMY_API[0].cart.splice(j,1);
+              localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+              location.reload();
+            })
+          }
+         
+        }
+        
+      }
+    }
+  }
+}
