@@ -17,7 +17,7 @@ header {
 
 header .navbar {
   width: 100%;
-  display: flex; 
+  display: flex;
   align-items: center;
   gap: 40px;
   background-color: #333;
@@ -29,6 +29,7 @@ header .navbar .navbar-brand {
   font-weight: bold;
   color: white;
   margin-left: 10%;
+  
 }
 
 header .navbar .navbar-menu {
@@ -59,14 +60,14 @@ header .navbar .navbar-menu li a {
 .search-container {
   display: flex;
   padding: 20px;
-
   width: 35%;
 }
 
 .search-container input {
-  padding: 3px 50px;
-  border-radius: 10px;
-  border: 3px solid #000000;
+  padding: 5px 20px;
+  font-size: 16px;
+  border-radius:10px 0px 0px 10px;
+  border: 3px solid #333;
   background-color: white;
   transition: all 0.3s ease;
   opacity: 0.7;
@@ -74,8 +75,8 @@ header .navbar .navbar-menu li a {
 
 .search-container button {
   padding: 3px 20px;
-  border-radius: 10px;
-  border: 3px solid #000000;
+  border-radius: 0px 10px 10px 0px;
+  border: 3px solid #333;
   font-size: 15px;
 }
 
@@ -371,39 +372,4 @@ img {
   border: solid white;
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
-}
-
-
-.order_status{
- transform: translateY(-20px);
-}
-.order_status th{
-    background-color: #585858;
-    cursor: pointer;
-}
-
-.order_status th:first-child{
-  background-color: #45a049;
- 
-}
-
-.cancel-order{
-  width: 100%;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  padding: 20px;
-}
-
-#cancelPanding{
-  background-color: #313131;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  cursor: pointer;
-}
-#cancelPanding:hover{
-  box-shadow: none;
-  background-color: #828282;
 }

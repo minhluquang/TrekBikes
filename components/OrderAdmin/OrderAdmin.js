@@ -45,51 +45,51 @@ if (!localStorage.getItem('codeHasRunBefore')) {
 
 
 
-const DUMMY_API = [
-  {
-    idUser: 'admin',
-    cart: [
-      {
-        idOrder: 'd2jdm',
-        dateCreate: '2023-11-23T12:30:00Z',
-        dateCancel: '',
-        product: [
-          {
-            id: 'a07c4d6ca1',
-            quantity: 3,
-            processed: true
-          },
-          {
-            id: 'a07c4d6ca1',
-            quantity: 3,
-            processed: false
-          }
-        ]
-      }
-    ]
-  },
-  {
-    idUser: 'Asddv',
-    cart: [
-      {
-        idOrder: 'd3jdm',
-        dateCreate: '2023-11-23T12:30:00Z',
-        dateCancel: '',
-        product: [
-          {
-            id: '36b9b496cb',
-            quantity: 3,
-            processed: true
-          }
-        ]
-      }
-    ]
-  }
-];
+// const DUMMY_API = [
+//   {
+//     idUser: 'admin',
+//     cart: [
+//       {
+//         idOrder: 'd2jdm',
+//         dateCreate: '2023-11-23T12:30:00Z',
+//         dateCancel: '',
+//         product: [
+//           {
+//             id: 'a07c4d6ca1',
+//             quantity: 3,
+//             processed: true
+//           },
+//           {
+//             id: 'a07c4d6ca1',
+//             quantity: 3,
+//             processed: false
+//           }
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     idUser: 'Asddv',
+//     cart: [
+//       {
+//         idOrder: 'd3jdm',
+//         dateCreate: '2023-11-23T12:30:00Z',
+//         dateCancel: '',
+//         product: [
+//           {
+//             id: '36b9b496cb',
+//             quantity: 3,
+//             processed: true
+//           }
+//         ]
+//       }
+//     ]
+//   }
+// ];
 
 // // Fake dữ liệu để test, thay đổi nó để gắn vào dữ liệu thật ở đây
 // // Note: Nhớ tìm hết các giá trị 'DUMMY_API' và đổi lại
-localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+// localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
 let userData = JSON.parse(localStorage.getItem('DUMMY_API'));
 
 // let userData = DUMMY_API;

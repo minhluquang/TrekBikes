@@ -96,10 +96,10 @@
 /* CSS for larger screens */
 .dashboard-section {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 20px;
-  gap: 20px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 20px;
+    gap: 20px;
 }
 
 .box {

@@ -18,9 +18,6 @@ function generateRandomId() {
   return id;
 }
 
-
-
-
 //Calculate Slider Height
 const headerTopHeight = 30;
 const headerBottomHeight = 80;
@@ -125,3 +122,4 @@ scrollEvents.forEach(event => {
     }
   });
 });
+

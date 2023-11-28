@@ -30,7 +30,7 @@ header .navbar .navbar-brand {
   font-weight: bold;
   color: white;
   margin-left: 10%;
-  text-shadow: 0px 4px 4px #ce1111;
+  
 }
 
 header .navbar .navbar-menu {
@@ -55,7 +55,6 @@ header .navbar .navbar-menu li a {
   font-weight: bold;
   color: white;
   text-decoration: none;
-  text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3), 0px -4px 10px rgba(255, 255, 255, 0.3);
 }
 
 .search-container {
@@ -102,7 +101,6 @@ header .navbar .navbar-menu li a {
   position: relative;
   cursor: pointer;
   margin: 20px 0px;
-  text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3), 0px -4px 10px rgba(255, 255, 255, 0.3);
 }
 
 .header-bottom .header-item:nth-child(1) {
@@ -121,7 +119,6 @@ header .navbar .navbar-menu li a {
   align-items: center;
   font-family: 'Roboto', sans-serif;
   transform: translateY(-30px);
-  text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3), 0px -4px 10px rgba(255, 255, 255, 0.3);
   margin-top: 30px;
   font-size: 40px;
 }
@@ -272,7 +269,7 @@ header .navbar .navbar-menu li a {
 }
 
 .top-button #add-cart {
-  font-size: 20px;
+  font-size: 25px;
   color: black;
   border: none;
   background-color: rgba(255, 255, 255, 0.01);

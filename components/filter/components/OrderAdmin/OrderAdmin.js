@@ -1,6 +1,6 @@
 // import DUMMY_DATA from '../../database/userData.js';
-import DUMMY_PRODUCTS from '../../database/products.js';
-const userData = JSON.parse(localStorage.getItem('User'));
+// import DUMMY_PRODUCTS from '../../database/products.js';
+const userData = JSON.parse(localStorage.getItem('DUMMY_API'));
 
 // start: Open set status
 const modal = document.querySelector('.modal');

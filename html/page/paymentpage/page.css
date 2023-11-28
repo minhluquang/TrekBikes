@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Outline&family=Dancing+Script:wght@400;500;600;700&family=Kaushan+Script&family=Manrope:wght@300;400;500;600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&family=Poppins:ital,wght@0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800&family=Press+Start+2P&family=Roboto:wght@100&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -17,16 +19,16 @@ header .navbar {
   display: flex;
   align-items: center;
   gap: 40px;
-  background-color: #333;
+  background-color: #000000;
 }
 
 header .navbar .navbar-brand {
-  font-size: 40px;
+  font-size: 35px;
   font-weight: bold;
   color: white;
   margin-left: 10%;
   color: white;
-  text-shadow: 0px 4px 4px #ce1111;
+  -webkit-text-stroke: 1px #ffffff;
 }
 
 header .navbar .navbar-menu {
@@ -64,8 +66,7 @@ header .navbar .navbar-menu li a {
   color: white;
 
   text-decoration: none;
-
-  text-shadow: 0px 4px 4px #282828;
+  -webkit-text-stroke: 1px #ffffff;
 }
 
 .search-container {
@@ -116,8 +117,6 @@ header .navbar .navbar-menu li a {
 
 .header-bottom .header-item h4 {
   text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3), 0px -4px 10px rgba(255, 255, 255, 0.3);
-  font-weight: bolder;
-  font-size: 20px;
 }
 
 .header-bottom .header-item:nth-child(1) {
@@ -171,8 +170,7 @@ header .navbar .navbar-menu li a {
   align-items: center;
   justify-content: center;
   color: black;
-
-  text-shadow: 0px 11px 10px rgba(0, 0, 0, 0.8);
+  font-weight: bolder;
 }
 
 footer {
@@ -189,13 +187,15 @@ footer h3 {
 }
 
 footer button {
-  padding: 15px 25px;
+  padding: 20px 30px;
   background-color: #313131;
   color: white;
   border: none;
   border-left: 1px solid #4f4f4f;
   cursor: pointer;
   border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .cart-info_container {
@@ -215,7 +215,7 @@ table {
 
 th,
 td {
-  border: 1px solid #fff;
+  border: 1px solid #ddd;
   padding: 12px;
   text-align: center;
 }
