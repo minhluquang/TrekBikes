@@ -198,11 +198,13 @@ addProductBtn.addEventListener('click', e => {
         <div class="form-item">
             <label for="">Tên sản phẩm</label>
             <input type="text" id="name">
+            <p class="newProductNameMessage"></p>
         </div>
         
         <div class="form-item">
             <label for="">Mã sản phẩm</label>
             <input type="text" id="productCode">
+            <p class="newProcductIdMessage"></p>
         </div>
         
         <div class="form-item">
@@ -219,10 +221,12 @@ addProductBtn.addEventListener('click', e => {
         <div class="form-item">
             <label for="">Giá sản phẩm</label>
             <input type="text" id="price">
+            <p class="newProcductPriceMessage"></p>
         </div>
         <div class="form-item">
             <label for="">Mã màu sản phẩm</label>
             <input type="text" id="codeColor">
+            <p class="newProductColorMessage"></p>
         </div>
         
 
@@ -252,6 +256,44 @@ addProductBtn.addEventListener('click', e => {
     var category = form.querySelector('#category');
     var price = form.querySelector('#price');
     var codeColor = form.querySelector('#codeColor');
+    const showMessageNameRes = document.querySelector('.newProductNameMessage');
+    const showMessageIdRes = document.querySelector('.newProcductIdMessage');
+    const showMessagePrice = document.querySelector('.newProcductPriceMessage');
+    const showMessageColor = document.querySelector('.newProductColorMessage');
+
+    if(name.value.trim().length === 0) {
+      showMessageNameRes.innerHTML = '* Vui lòng nhập tên sản phẩm';
+    } else {
+      showMessageNameRes.innerText = '';
+    }
+
+    
+
+    if(id.value.trim().length === 0) {
+      showMessageIdRes.innerHTML = '* Vui lòng nhập mã sản phẩm';
+    } 
+    else {
+      showMessageIdRes.innerText = '';
+    }
+
+    const patternNumber = /^[-+]?[0-9]*\.?[0-9]+$/ ;
+
+    if(price.value.trim().length === 0) {
+      showMessagePrice.innerHTML = '* Vui lòng nhập giá sản phẩm';
+    } else if (!patternNumber.test(price.value.trim())) {
+      showMessagePrice.innerHTML = '* Giá sản phẩm phải là 1 số ';
+    }
+    else {
+      showMessagePrice.innerText = '';
+    }
+
+    if(codeColor.value.trim().length === 0) {
+      showMessageColor.innerHTML = '* Vui lòng nhập mã màu sản phẩm';
+    } 
+    else {
+      showMessageColor.innerText = '';
+    }
+
 
     console.log(imgUrl);
 

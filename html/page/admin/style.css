@@ -761,3 +761,11 @@ th {
   background-color: #3333;
   color: black;
 }
+
+.newProductNameMessage ,
+.newProcductIdMessage,
+.newProcductPriceMessage,
+.newProductColorMessage {
+  color: red;
+}
+
