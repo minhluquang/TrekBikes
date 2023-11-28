@@ -3,9 +3,47 @@ import DUMMY_PRODUCTS from '../../database/products.js';
 // const productsList = DUMMY_PRODUCTS;
 // console.log(productsList);
 
-localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
+
+// localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
 const productsList = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 // console.log(userData)
+const datalocal = DUMMY_PRODUCTS;
+const userLocal = JSON.parse(localStorage.getItem('User'));
+
+if (!localStorage.getItem('codeHasRunBefore')) {
+  try {
+    if (!userLocal || !datalocal) {
+      throw new Error('Required variables are undefined.');
+    }
+
+    var DateTimeP = [];
+    const DUMMY_API = [
+      {
+        idUser: userLocal.id,
+        cart: []
+      }
+    ];
+
+    for (let i = 0; i < datalocal.length; i++) {
+      DateTimeP.push({
+        createAT: '14/11/2023  20:00',
+        updateAt: '14/11/2023  20:00'
+      });
+    }
+
+    localStorage.setItem('DateTimeP', JSON.stringify(DateTimeP));
+    localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(datalocal));
+    localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+
+    localStorage.setItem('codeHasRunBefore', 'true');
+  } catch (error) {
+    console.error('Error in code:', error.message);
+  }
+} else {
+  console.log('Code will not run again.');
+}
+
+
 
 const DUMMY_API = [
   {
