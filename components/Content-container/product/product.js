@@ -18,6 +18,7 @@ if (!localStorage.getItem('codeHasRunBefore')) {
 
     for (let i = 0; i < datalocal.length; i++) {
       DateTimeP.push({
+        productId : datalocal[i].ID,
         createAT: '14/11/2023  20:00',
         updateAt: '14/11/2023  20:00'
       });

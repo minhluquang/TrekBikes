@@ -261,24 +261,24 @@ addProductBtn.addEventListener('click', e => {
     const showMessagePrice = document.querySelector('.newProcductPriceMessage');
     const showMessageColor = document.querySelector('.newProductColorMessage');
 
-    if(name.value.trim().length === 0) {
+    if (name.value.trim().length === 0) {
       showMessageNameRes.innerHTML = '* Vui lòng nhập tên sản phẩm';
     } else {
       showMessageNameRes.innerText = '';
     }
 
-    
 
-    if(id.value.trim().length === 0) {
+
+    if (id.value.trim().length === 0) {
       showMessageIdRes.innerHTML = '* Vui lòng nhập mã sản phẩm';
-    } 
+    }
     else {
       showMessageIdRes.innerText = '';
     }
 
-    const patternNumber = /^[-+]?[0-9]*\.?[0-9]+$/ ;
+    const patternNumber = /^[-+]?[0-9]*\.?[0-9]+$/;
 
-    if(price.value.trim().length === 0) {
+    if (price.value.trim().length === 0) {
       showMessagePrice.innerHTML = '* Vui lòng nhập giá sản phẩm';
     } else if (!patternNumber.test(price.value.trim())) {
       showMessagePrice.innerHTML = '* Giá sản phẩm phải là 1 số ';
@@ -287,9 +287,9 @@ addProductBtn.addEventListener('click', e => {
       showMessagePrice.innerText = '';
     }
 
-    if(codeColor.value.trim().length === 0) {
+    if (codeColor.value.trim().length === 0) {
       showMessageColor.innerHTML = '* Vui lòng nhập mã màu sản phẩm';
-    } 
+    }
     else {
       showMessageColor.innerText = '';
     }
@@ -332,6 +332,7 @@ addProductBtn.addEventListener('click', e => {
     var hours = currentTime.getHours();
     var minutes = currentTime.getMinutes();
     var DateTimeP = {
+      productId: id.value,
       createAT: `${day}/${month}/${year}  ${hours}:${minutes}`,
       updateAt: `${day}/${month}/${year}  ${hours}:${minutes}`
     };
@@ -342,6 +343,7 @@ addProductBtn.addEventListener('click', e => {
     data.push(newProduct);
     localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
     localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
+    location.reload();
   });
 });
 
