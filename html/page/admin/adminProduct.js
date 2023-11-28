@@ -1,7 +1,7 @@
 const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const data = DUMMY_PRODUCTS;
 
-const currentDateTime = JSON.parse(localStorage.getItem('DateTimeP'));
+// const currentDateTime = JSON.parse(localStorage.getItem('DateTimeP'));
 const closeFormClick = document.getElementById('close');
 
 function setValuesInput(ImageUrl, Name, UpdateDate, CreationDate) {
@@ -112,13 +112,23 @@ function disPlayProductItem(pageStart, pageEnd) {
   for (let index = pageStart; index < pageEnd; index++) {
     const element = data[index];
 
+    const dateCreate = new Date(element.dateCreate);
+    const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
+    const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
+    const dateCreateYear = dateCreate.getFullYear();
+
+    const dateUpdate = new Date(element.dateUpdate);
+    const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
+    const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
+    const dateUpdateYear = dateUpdate.getFullYear();
+
     const item = document.createElement('tr');
     item.innerHTML = `
               <th class="id">${element.ID}</th>
               <th class="image"><img src="${returnPathImg(element)}"></th>
               <th class="name">${element.name}</th>
-              <th class="date-update">${currentDateTime[index].updateAt}</th>
-              <th class="date-creat">${currentDateTime[index].createAT}</th>
+              <th class="date-update">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
+              <th class="date-creat">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
               <th class="copy" id="copy">Copy</th>
               <th class="edit" id="edit">Sửa</th>
               <th class="delete" id="delete">Xóa</th>
@@ -364,29 +374,35 @@ addProductBtn.addEventListener('click', e => {
         imgLink = imgUrl.src;
       }
 
+      // Khởi tạo ngày hiện tại để set ngày tạo cho sản phẩm mới
+      const currentDate = new Date();
+      const currentISOString = currentDate.toISOString();
+
       var newProduct = {
         name: name.value,
         imgSrc: imgLink,
         price: parseInt(price.value).toLocaleString(),
         dataColors: [codeColor.value],
         ID: id.value,
-        type: category.value
+        type: category.value,
+        dateCreate: currentISOString,
+        dateUpdate: currentISOString
       };
 
-      var currentTime = new Date();
-      var year = currentTime.getFullYear();
-      var month = currentTime.getMonth() + 1;
-      var day = currentTime.getDate();
-      var hours = currentTime.getHours();
-      var minutes = currentTime.getMinutes();
-      var DateTimeP = {
-        createAT: `${day}/${month}/${year}  ${hours}:${minutes}`,
-        updateAt: `${day}/${month}/${year}  ${hours}:${minutes}`
-      };
-      currentDateTime.push(DateTimeP);
+      // var currentTime = new Date();
+      // var year = currentTime.getFullYear();
+      // var month = currentTime.getMonth() + 1;
+      // var day = currentTime.getDate();
+      // var hours = currentTime.getHours();
+      // var minutes = currentTime.getMinutes();
+      // var DateTimeP = {
+      //   createAT: `${day}/${month}/${year}  ${hours}:${minutes}`,
+      //   updateAt: `${day}/${month}/${year}  ${hours}:${minutes}`
+      // };
+      // currentDateTime.push(DateTimeP);
       data.push(newProduct);
       localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
-      localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
+      // localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
 
       const manageProduct = document.getElementById('add-product-container');
       const pagination = document.getElementById('pagination');
@@ -536,17 +552,27 @@ filterSubmitBtn.addEventListener('click', e => {
     for (let index = 0; index < matchingProduct.length; index++) {
       const element = matchingProduct[index];
       const item = document.createElement('tr');
+
+      const dateCreate = new Date(element.dateCreate);
+      const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
+      const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
+      const dateCreateYear = dateCreate.getFullYear();
+
+      const dateUpdate = new Date(element.dateUpdate);
+      const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
+      const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
+      const dateUpdateYear = dateUpdate.getFullYear();
+
       item.innerHTML = `
-                <th class="id">${element.ID}</th>
-                <th class="image"><img src="${returnPathImg(element)}"></th>
-                <th class="name">${element.name}</th>
-                <th class="date-update">${currentDateTime[index].updateAt}</th>
-                <th class="date-creat">${currentDateTime[index].createAT}</th>
-                <th class="copy" id="copy">Copy</th>
-                <th class="edit" id="edit">Sửa</th>
-                <th class="delete" id="delete">Xóa</th>
-        `;
-      console.log(element);
+              <th class="id">${element.ID}</th>
+              <th class="image"><img src="${returnPathImg(element)}"></th>
+              <th class="name">${element.name}</th>
+              <th class="date-update">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
+              <th class="date-creat">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
+              <th class="copy" id="copy">Copy</th>
+              <th class="edit" id="edit">Sửa</th>
+              <th class="delete" id="delete">Xóa</th>
+      `;
 
       content.appendChild(item);
       updateEvent(item, index, id, element);
@@ -567,17 +593,27 @@ filterSubmitBtn.addEventListener('click', e => {
     for (let index = 0; index < matchingProduct.length; index++) {
       const element = matchingProduct[index];
       const item = document.createElement('tr');
+
+      const dateCreate = new Date(element.dateCreate);
+      const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
+      const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
+      const dateCreateYear = dateCreate.getFullYear();
+
+      const dateUpdate = new Date(element.dateUpdate);
+      const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
+      const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
+      const dateUpdateYear = dateUpdate.getFullYear();
+
       item.innerHTML = `
-                <th class="id">${element.ID}</th>
-                <th class="image"><img src="${returnPathImg(element)}"></th>
-                <th class="name">${element.name}</th>
-                <th class="date-update">${currentDateTime[index].updateAt}</th>
-                <th class="date-creat">${currentDateTime[index].createAT}</th>
-                <th class="copy" id="copy">Copy</th>
-                <th class="edit" id="edit">Sửa</th>
-                <th class="delete" id="delete">Xóa</th>
-        `;
-      console.log(element);
+              <th class="id">${element.ID}</th>
+              <th class="image"><img src="${returnPathImg(element)}"></th>
+              <th class="name">${element.name}</th>
+              <th class="date-update">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
+              <th class="date-creat">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
+              <th class="copy" id="copy">Copy</th>
+              <th class="edit" id="edit">Sửa</th>
+              <th class="delete" id="delete">Xóa</th>
+      `;
 
       content.appendChild(item);
       updateEvent(item, index, id, element);
@@ -598,17 +634,27 @@ filterSubmitBtn.addEventListener('click', e => {
     for (let index = 0; index < matchingProduct.length; index++) {
       const element = matchingProduct[index];
       const item = document.createElement('tr');
+
+      const dateCreate = new Date(element.dateCreate);
+      const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
+      const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
+      const dateCreateYear = dateCreate.getFullYear();
+
+      const dateUpdate = new Date(element.dateUpdate);
+      const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
+      const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
+      const dateUpdateYear = dateUpdate.getFullYear();
+
       item.innerHTML = `
-                <th class="id">${element.ID}</th>
-                <th class="image"><img src="${returnPathImg(element)}"></th>
-                <th class="name">${element.name}</th>
-                <th class="date-update">${currentDateTime[index].updateAt}</th>
-                <th class="date-creat">${currentDateTime[index].createAT}</th>
-                <th class="copy" id="copy">Copy</th>
-                <th class="edit" id="edit">Sửa</th>
-                <th class="delete" id="delete">Xóa</th>
-        `;
-      console.log(element);
+              <th class="id">${element.ID}</th>
+              <th class="image"><img src="${returnPathImg(element)}"></th>
+              <th class="name">${element.name}</th>
+              <th class="date-update">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
+              <th class="date-creat">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
+              <th class="copy" id="copy">Copy</th>
+              <th class="edit" id="edit">Sửa</th>
+              <th class="delete" id="delete">Xóa</th>
+      `;
 
       content.appendChild(item);
       updateEvent(item, index, id, element);
