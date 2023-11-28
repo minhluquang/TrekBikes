@@ -111,8 +111,10 @@ function disPlayProductItem(pageStart, pageEnd) {
 
   for (let index = pageStart; index < pageEnd; index++) {
     const element = data[index];
+
     const item = document.createElement('tr');
     item.innerHTML = `
+              <th class="id">${element.ID}</th>
               <th class="image"><img src="${returnPathImg(element)}"></th>
               <th class="name">${element.name}</th>
               <th class="date-update">${currentDateTime[index].updateAt}</th>
@@ -172,6 +174,7 @@ const addProductBtn = document.getElementById('add-product-btn');
 
 addProductBtn.addEventListener('click', e => {
   e.preventDefault();
+  addProductBtn.style.display = 'none';
   const content = document.getElementById('content-product');
   const manageProduct = document.getElementById('add-product-container');
   const pagination = document.getElementById('pagination');
@@ -196,36 +199,38 @@ addProductBtn.addEventListener('click', e => {
             <img src="" alt="" id="imagePreview">
         </div>
         <div class="form-item">
-            <label for="">Tên sản phẩm</label>
-            <input type="text" id="name">
+            <label for="name">Tên sản phẩm</label>
+            <input type="text" id="name" placeholder="Nhập tên sản phẩm">
             <p class="newProductNameMessage"></p>
         </div>
         
         <div class="form-item">
-            <label for="">Mã sản phẩm</label>
-            <input type="text" id="productCode">
+            <label for="productCodeForm">Mã sản phẩm</label>
+            <input type="text" id="productCodeForm" placeholder="Nhập mã sản phẩm">
             <p class="newProcductIdMessage"></p>
         </div>
         
         <div class="form-item">
-            <label for="">Thể loại</label>
+            <label for="category">Thể loại</label>
             <select name="categoty" id="category">
+                <option value="">Chọn thể loại</option>
                 <option value="mountain">Mountain</option>
                 <option value="road">Road</option>
                 <option value="touring">Touring</option>
                 <option value="kids">Kids</option>
             </select>
+            <p class="newMessageCategory"></p>
         </div>
         
 
         <div class="form-item">
-            <label for="">Giá sản phẩm</label>
-            <input type="text" id="price">
+            <label for="price">Giá sản phẩm</label>
+            <input type="text" id="price" placeholder="Nhập giá sản phẩm">
             <p class="newProcductPriceMessage"></p>
         </div>
         <div class="form-item">
-            <label for="">Mã màu sản phẩm</label>
-            <input type="text" id="codeColor">
+            <label for="codeColor">Mã màu sản phẩm</label>
+            <input type="text" id="codeColor" placeholder="Nhập mã màu sản phẩm">
             <p class="newProductColorMessage"></p>
         </div>
         
@@ -239,7 +244,6 @@ addProductBtn.addEventListener('click', e => {
   manageProduct.appendChild(addProductForm);
 
   var fileInput = document.getElementById('fileInput');
-  console.log(fileInput);
 
   fileInput.addEventListener('change', function () {
     previewImage(fileInput);
@@ -252,52 +256,80 @@ addProductBtn.addEventListener('click', e => {
     var form = document.getElementById('add-product-form');
     var imgUrl = form.querySelector('#imagePreview');
     var name = form.querySelector('#name');
-    var id = form.querySelector('#productCode');
+    var id = form.querySelector('#productCodeForm');
     var category = form.querySelector('#category');
     var price = form.querySelector('#price');
     var codeColor = form.querySelector('#codeColor');
+
     const showMessageNameRes = document.querySelector('.newProductNameMessage');
     const showMessageIdRes = document.querySelector('.newProcductIdMessage');
     const showMessagePrice = document.querySelector('.newProcductPriceMessage');
     const showMessageColor = document.querySelector('.newProductColorMessage');
+    const showMessageCategory = document.querySelector('.newMessageCategory');
 
-    if(name.value.trim().length === 0) {
+    let isValidName = true;
+    let isValidId = true;
+    let isValidCategory = true;
+    let isValidPrice = true;
+    let isValidColor = true;
+
+    if (name.value.trim().length === 0) {
       showMessageNameRes.innerHTML = '* Vui lòng nhập tên sản phẩm';
+      isValidName = false;
     } else {
       showMessageNameRes.innerText = '';
+      name.style.border = '1px solid #333';
+      isValidName = true;
     }
 
-    
-
-    if(id.value.trim().length === 0) {
+    if (id.value.trim().length === 0) {
       showMessageIdRes.innerHTML = '* Vui lòng nhập mã sản phẩm';
-    }  else if (data.some(product => product.ID === id.value.trim())) {
+      isValidId = false;
+    } else if (data.some(product => product.ID === id.value.trim())) {
       showMessageIdRes.innerHTML = '* Mã sản phẩm đã tồn tại';
-    }
-    else {
+      isValidId = false;
+    } else {
       showMessageIdRes.innerText = '';
+      id.style.border = '1px solid #333';
+      isValidId = true;
     }
 
-    const patternNumber = /^[-+]?[0-9]*\.?[0-9]+$/ ;
+    const patternNumber = /^[-+]?[0-9]*\.?[0-9]+$/;
 
-    if(price.value.trim().length === 0) {
+    if (price.value.trim().length === 0) {
       showMessagePrice.innerHTML = '* Vui lòng nhập giá sản phẩm';
+      isValidPrice = false;
     } else if (!patternNumber.test(price.value.trim())) {
-      showMessagePrice.innerHTML = '* Giá sản phẩm phải là 1 số ';
-    }
-    else {
+      showMessagePrice.innerHTML = '* Giá sản phẩm phải là số';
+      isValidPrice = false;
+    } else {
       showMessagePrice.innerText = '';
+      price.style.border = '1px solid #333';
+      isValidPrice = true;
     }
 
-    if(codeColor.value.trim().length === 0) {
+    const patternCodeColor = /^#[a-zA-Z0-9]{6}/gi;
+
+    if (codeColor.value.trim().length === 0) {
       showMessageColor.innerHTML = '* Vui lòng nhập mã màu sản phẩm';
-    } 
-    else {
+      isValidColor = false;
+    } else if (!patternCodeColor.test(codeColor.value.trim())) {
+      showMessageColor.innerHTML = '* Mã màu phải bắt đầu bằng kí tự # và kết thúc bằng 6 kí tự (vd: #333aaa)';
+      isValidColor = false;
+    } else {
       showMessageColor.innerText = '';
+      codeColor.style.border = '1px solid #333';
+      isValidColor = true;
     }
 
-
-    console.log(imgUrl);
+    if (category.value.trim().length === 0) {
+      showMessageCategory.innerHTML = '* Vui lòng chọn thể loại xe';
+      isValidCategory = false;
+    } else {
+      showMessageCategory.innerHTML = '';
+      category.style.border = '1px solid #333';
+      isValidCategory = true;
+    }
 
     if (imgUrl.value === '' && name.value === '' && id.value === '' && price.value === '' && codeColor.value === '') {
       return null;
@@ -318,37 +350,60 @@ addProductBtn.addEventListener('click', e => {
       codeColor.style.border = '1px solid red';
     }
 
-    var newProduct = {
-      name: name.value,
-      imgSrc: `${imgUrl.src}`,
-      price: parseInt(price.value).toLocaleString(),
-      dataColors: [codeColor.value],
-      ID: id.value,
-      type: category.value
-    };
+    // Kiểm tra nếu tất cả đã nhập hợp lệ
+    const isValidForm = isValidName && isValidId && isValidCategory && isValidColor && isValidPrice;
 
-    var currentTime = new Date();
-    var year = currentTime.getFullYear();
-    var month = currentTime.getMonth() + 1;
-    var day = currentTime.getDate();
-    var hours = currentTime.getHours();
-    var minutes = currentTime.getMinutes();
-    var DateTimeP = {
-      createAT: `${day}/${month}/${year}  ${hours}:${minutes}`,
-      updateAt: `${day}/${month}/${year}  ${hours}:${minutes}`
-    };
-    console.log(currentTime);
+    if (isValidForm) {
+      let imgLink;
 
-    console.log(newProduct);
-    currentDateTime.push(DateTimeP);
-    data.push(newProduct);
-    localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
-    localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
+      if (fileInput.value.trim().length === 0) {
+        imgLink = '../../../database/images/comming.jpg';
+      } else {
+        imgLink = imgUrl.src;
+      }
+
+      var newProduct = {
+        name: name.value,
+        imgSrc: imgLink,
+        price: parseInt(price.value).toLocaleString(),
+        dataColors: [codeColor.value],
+        ID: id.value,
+        type: category.value
+      };
+
+      var currentTime = new Date();
+      var year = currentTime.getFullYear();
+      var month = currentTime.getMonth() + 1;
+      var day = currentTime.getDate();
+      var hours = currentTime.getHours();
+      var minutes = currentTime.getMinutes();
+      var DateTimeP = {
+        createAT: `${day}/${month}/${year}  ${hours}:${minutes}`,
+        updateAt: `${day}/${month}/${year}  ${hours}:${minutes}`
+      };
+      currentDateTime.push(DateTimeP);
+      data.push(newProduct);
+      localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
+      localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
+
+      const manageProduct = document.getElementById('add-product-container');
+      const pagination = document.getElementById('pagination');
+      const content = document.getElementById('content-product');
+
+      manageProduct.innerHTML = '';
+      content.style.display = 'table';
+      pagination.style.display = 'flex';
+      cancel.style.display = 'none';
+      addProductBtn.style.display = 'block';
+      loadData();
+      alert('Đã thêm sản phẩm thành công!');
+    }
   });
 });
 
 const cancel = document.getElementById('cancel');
-cancel.addEventListener('click', () => {
+cancel.addEventListener('click', e => {
+  e.preventDefault();
   const manageProduct = document.getElementById('add-product-container');
   const pagination = document.getElementById('pagination');
   const content = document.getElementById('content-product');
@@ -356,6 +411,7 @@ cancel.addEventListener('click', () => {
   content.style.display = 'table';
   pagination.style.display = 'flex';
   cancel.style.display = 'none';
+  addProductBtn.style.display = 'block';
   loadData();
 });
 
@@ -434,9 +490,6 @@ generatePagination();
 
 loadData();
 
-
-
-
 // filter
 
 const manageProduct = document.getElementById('manageProduct');
@@ -467,8 +520,7 @@ filterSubmitBtn.addEventListener('click', e => {
   //     return dayProuct === selectedDay && monthProduct === selectedMonth && yearProduct === selectedYear;
   //   });
   // }
-  
- 
+
   //end lọc theo ngày tháng năm
 
   if (productName.value != '' && productCode.value == '') {
@@ -483,6 +535,7 @@ filterSubmitBtn.addEventListener('click', e => {
       const element = matchingProduct[index];
       const item = document.createElement('tr');
       item.innerHTML = `
+                <th class="id">${element.ID}</th>
                 <th class="image"><img src="${returnPathImg(element)}"></th>
                 <th class="name">${element.name}</th>
                 <th class="date-update">${currentDateTime[index].updateAt}</th>
@@ -513,6 +566,7 @@ filterSubmitBtn.addEventListener('click', e => {
       const element = matchingProduct[index];
       const item = document.createElement('tr');
       item.innerHTML = `
+                <th class="id">${element.ID}</th>
                 <th class="image"><img src="${returnPathImg(element)}"></th>
                 <th class="name">${element.name}</th>
                 <th class="date-update">${currentDateTime[index].updateAt}</th>
@@ -543,6 +597,7 @@ filterSubmitBtn.addEventListener('click', e => {
       const element = matchingProduct[index];
       const item = document.createElement('tr');
       item.innerHTML = `
+                <th class="id">${element.ID}</th>
                 <th class="image"><img src="${returnPathImg(element)}"></th>
                 <th class="name">${element.name}</th>
                 <th class="date-update">${currentDateTime[index].updateAt}</th>
