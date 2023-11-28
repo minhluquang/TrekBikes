@@ -1,4 +1,6 @@
 import DUMMY_PRODUCTS from '../../database/products.js';
+localStorage.setItem("DUMMY_PRODUCTS", JSON.stringify(DUMMY_PRODUCTS))
+
 
 const resultSearch = document.querySelector('.search__result');
 const inputSearch = document.querySelector('.header__bottom--extention-search input');
@@ -25,7 +27,6 @@ inputSearch.addEventListener('input', e => {
               <h2>${item.name}</h2>
               <p>${item.price}</p>
             </div>
-            <button>Chi tiết</button>
           </div>
         </div>
       `;

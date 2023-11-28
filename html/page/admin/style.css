@@ -30,7 +30,6 @@ body {
 
 .admin__content {
   width: calc(100vw - 300px) !important;
-  
 }
 
 .hide .admin__content {
@@ -389,16 +388,19 @@ body {
 }
 
 /* Admin Product */
+#content-product {
+  width: calc(100% - 40px);
+}
 
 .admin-product table {
   border-collapse: collapse;
   width: 100%;
-  margin: 5px;
+  margin: 5px 20px;
 }
 
 .admin-product td,
 th {
-  border: 1px solid black;
+  border: 1px solid #3333;
   padding: 8px;
   text-align: left;
   cursor: pointer;
@@ -406,11 +408,17 @@ th {
 
 .admin-product .menu tr {
   background-color: #333;
+  height: 60px;
+  border-radius: 10px;
 }
 
 .admin-product .menu th {
   color: white;
   text-align: center;
+}
+
+.admin-product .content {
+  background-color: #fff;
 }
 
 .admin-product .content th {
@@ -459,12 +467,7 @@ th {
   margin-left: 20px;
 }
 
-
-
-
-
-
-.change-product-info-container{
+.change-product-info-container {
   position: fixed;
   left: 0;
   top: 0;
@@ -477,7 +480,7 @@ th {
   z-index: 999999999;
 }
 
-.close{
+.close {
   position: absolute;
   display: none;
   top: 20px;
@@ -485,9 +488,8 @@ th {
   font-size: xx-large;
   color: white;
   cursor: pointer;
-
 }
-.change-product-info{
+.change-product-info {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -498,14 +500,14 @@ th {
   border: none;
   border-radius: 12px;
 }
-.change-product-info h2{
+.change-product-info h2 {
   color: aliceblue;
   font-weight: bold;
   font-size: x-large;
   text-shadow: 3px 0px 7px rgba(2, 2, 2, 0.8), -3px 0px 7px rgba(27, 26, 25, 0.8), 0px 4px 7px rgba(45, 45, 45, 0.8);
 }
 
-.change-product-info form{
+.change-product-info form {
   width: 100%;
   height: 100%;
   display: flex;
@@ -513,9 +515,8 @@ th {
   justify-content: center;
   align-items: center;
   gap: 20px;
- 
 }
-.change-product-info form .form-group{
+.change-product-info form .form-group {
   width: 100%;
   color: aliceblue;
   display: flex;
@@ -524,37 +525,35 @@ th {
   justify-content: center;
   gap: 10px;
 }
-.change-product-info form input{
+.change-product-info form input {
   width: 100%;
   height: 35px;
   padding: 10px;
 }
-.change-product-info button{
+.change-product-info button {
   width: 100px;
   height: 30px;
   font-size: medium;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
-.change-product-info button:hover{
+.change-product-info button:hover {
   box-shadow: none;
 }
 
-.admin-product{
+.admin-product {
   margin-bottom: 20px;
 }
 
-
 .pagination {
-
   width: 50%;
   display: flex;
   gap: 10px;
   justify-content: center;
   margin: 0 auto;
-  
 }
 
 .pagination a {
@@ -562,8 +561,7 @@ th {
   float: left;
   padding: 8px 16px;
   text-decoration: none;
-  transition: background-color .3s;
-  
+  transition: background-color 0.3s;
 }
 
 .pagination a.active {
@@ -575,15 +573,15 @@ th {
   background-color: #ddd;
 }
 
-.pagination  a:first-child{
+.pagination a:first-child {
   background-color: #333;
-      color: white;
-      padding: 8px 16px;
-      text-decoration: none;
-      cursor: pointer;
-      margin: 0 10px;
-      box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-  
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 .pagination a:last-child {
   background-color: #333;
@@ -592,13 +590,11 @@ th {
   text-decoration: none;
   cursor: pointer;
   margin: 0 10px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
-
-
-
-.tools{
+.tools {
   width: 100%;
   padding: 20px;
   gap: 20px;
@@ -606,41 +602,63 @@ th {
   align-items: center;
   justify-content: space-between;
 }
-.tools .add-product button{
-  cursor: pointer;
-  background-color: #333;
-  color: white;
-  padding: 10px;
+
+.tools .add-product {
+  display: inline-block;
+}
+
+.tools .add-product button {
   border: none;
+  height: 40px;
+  min-width: 80px;
+  font-size: 16px;
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-  transition: all 0.3s ease-in-out;
-
+  cursor: pointer;
+  padding: 5px 10px;
+  font-weight: 600;
+  width: 150px !important;
+  color: #fff;
+  background-color: #333;
+  box-shadow: rgb(154, 154, 154) 0px 3px 0px 0px;
 }
 
-.tools .add-product button:hover{
-  box-shadow: none;
+.tools .add-product button:active {
+  transform: translateY(3px);
+  box-shadow: rgb(154, 154, 154) 0px 0px 0px 0px;
 }
-.tools .filter{
+
+.tools .filter {
   width: 100%;
 }
-.tools .filter form{
-  width: 100%;
-  margin-right: 30px;
+
+.tools .filter form {
+  width: 60%;
+  margin: 0 auto;
 }
 
-.admin-product-form{
+.admin-product-form {
   background-color: #333;
 }
 
+.product--reset__btn {
+  color: #333;
+  background-color: #eee;
+  box-shadow: rgb(154, 154, 154) 0px 3px 0px 0px;
+}
+
+.product--filter__btn {
+  color: #333;
+  background-color: rgb(69, 220, 69);
+  box-shadow: rgba(48, 191, 13, 0.983) 0px 3px 0px 0px;
+}
 
 /*  ADD PRODUCT FORM */
 
-.cancel-block{
+.cancel-block {
   padding: 20px;
 }
 
-.cancel-block button{
+.cancel-block button {
   cursor: pointer;
   display: none;
   padding: 20px 30px;
@@ -648,13 +666,12 @@ th {
   color: white;
   border-radius: 5px;
 }
-.cancel-block button:hover{
- background-color: #3333;
- color: black;
+.cancel-block button:hover {
+  background-color: #3333;
+  color: black;
 }
 
-
-.add-product-container{
+.add-product-container {
   width: 100%;
   /* background-color: #333; */
   display: flex;
@@ -662,94 +679,85 @@ th {
   justify-content: center;
 }
 .add-product-form-container {
-    
- 
   width: 600px;
-  
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
-.add-product-form-container .title{
-    display: flex;
-    background-color: #333;
-   
-    justify-content: center;
-    align-items: center;
+.add-product-form-container .title {
+  display: flex;
+  background-color: #333;
+
+  justify-content: center;
+  align-items: center;
 }
-.add-product-form-container .title h2{
-    padding: 20px;
-    color: white;
-    font-size: x-large;
+.add-product-form-container .title h2 {
+  padding: 20px;
+  color: white;
+  font-size: x-large;
 }
 
-.add-product-form-container form{
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-
+.add-product-form-container form {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.add-product-form-container form .form-item{
-    display: flex;
-    gap: 5px;
-    flex-direction: column;
+.add-product-form-container form .form-item {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
 }
-.add-product-form-container form .form-item select{
-    padding: 8px;
-    border-radius: 10px;
-    border: 1px solid;
-    font-size: medium;
-    font-weight: bold;
+.add-product-form-container form .form-item select {
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid;
+  font-size: medium;
+  font-weight: bold;
 
-
-
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 10L3 5h10l-5 5z"/></svg>') no-repeat right center;
-    
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 10L3 5h10l-5 5z"/></svg>')
+    no-repeat right center;
 }
-.add-product-form-container form .form-item label{
-    font-size: medium;
-    font-weight: bold;
+.add-product-form-container form .form-item label {
+  font-size: medium;
+  font-weight: bold;
 }
-.add-product-form-container form .form-item input{
-    padding: 8px;
-    border: 1px solid ;
-    border-radius: 10px;
-    
+.add-product-form-container form .form-item input {
+  padding: 8px;
+  border: 1px solid;
+  border-radius: 10px;
 }
-.add-product-form-container form button{
-    padding: 12px;
-    border: 1px solid ;
-    border-radius: 10px;
-    margin-top: 20px;
+.add-product-form-container form button {
+  padding: 12px;
+  border: 1px solid;
+  border-radius: 10px;
+  margin-top: 20px;
 
-    background-color: #333;
-    color: white;
-    font-weight: bold;
-    font-size: medium;
-    cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    
+  background-color: #333;
+  color: white;
+  font-weight: bold;
+  font-size: medium;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
-.add-product-form-container form button{
-    padding: 12px;
-    border: 1px solid ;
-    border-radius: 10px;
-    margin-top: 20px;
+.add-product-form-container form button {
+  padding: 12px;
+  border: 1px solid;
+  border-radius: 10px;
+  margin-top: 20px;
 
-    background-color: #333;
-    color: white;
-    font-weight: bold;
-    font-size: medium;
-    cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    
+  background-color: #333;
+  color: white;
+  font-weight: bold;
+  font-size: medium;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
-.add-product-form-container form button:hover{
-    background-color: #3333;
-    color: black;
+.add-product-form-container form button:hover {
+  background-color: #3333;
+  color: black;
 }
-
-
