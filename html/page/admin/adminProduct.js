@@ -520,32 +520,71 @@ filterSubmitBtn.addEventListener('click', e => {
   const productName = manageProduct.querySelector('#productName');
   const productCode = manageProduct.querySelector('#productCode');
   const categorySelect = manageProduct.querySelector('#categorySelect');
-  // const creationDateInput = document.querySelector("#creatDate input");
+  const creationDateInput = document.querySelector("#creatDate input");
 
   // lọc theo ngày tháng năm
-  // if(creationDateInput) {
-  //   const selectedCreationDate = new Date(creationDateInput.value);
-  //   const selectedDay = selectedCreationDate.getDate();
-  //   const selectedMonth = selectedCreationDate.getMonth() + 1;
-  //   const selectedYear = selectedCreationDate.getFullYear();
-  //   // console.log(selectedDay +" " + selectedMonth + " " + selectedYear);
-  //   data = data.filter(product => {
-  //     const timeCreatProduct = new Date(currentDateTime.find(dateTime => dateTime.createAT === product.createAT).createAT);
-  //     const dayProuct = timeCreatProduct.getDate();
-  //     const monthProduct = timeCreatProduct.getMonth() + 1;
-  //     const yearProduct = timeCreatProduct.getFullYear();
+  if(creationDateInput) {
+    const selectedCreationDate = new Date(creationDateInput.value);
+    const selectedDay = selectedCreationDate.getDate();
+    const selectedMonth = selectedCreationDate.getMonth() + 1;
+    const selectedYear = selectedCreationDate.getFullYear();
+    // console.log(selectedDay +" " + selectedMonth + " " + selectedYear);
+     const matchingProduct = data.filter(product => {
+      const timeCreatProduct = new Date(product.dateCreate);
+      const dayProuct = timeCreatProduct.getDate();
+      const monthProduct = timeCreatProduct.getMonth() + 1;
+      const yearProduct = timeCreatProduct.getFullYear();
 
-  //     return dayProuct === selectedDay && monthProduct === selectedMonth && yearProduct === selectedYear;
-  //   });
-  // }
+      console.log(dayProuct);
+
+      return dayProuct === selectedDay && monthProduct === selectedMonth && yearProduct === selectedYear;
+    });
+
+    // if (matchingProduct.length < 1) {
+    //   alert('Không tìm thấy sản phẩm');
+    // }
+    const content = document.getElementById('content');
+    content.innerHTML = '';
+    const id = document.getElementById('id');
+    for (let index = 0; index < matchingProduct.length; index++) {
+      const element = matchingProduct[index];
+      const item = document.createElement('tr');
+
+      const dateCreate = new Date(element.dateCreate);
+      const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
+      const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
+      const dateCreateYear = dateCreate.getFullYear();
+
+      const dateUpdate = new Date(element.dateUpdate);
+      const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
+      const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
+      const dateUpdateYear = dateUpdate.getFullYear();
+
+      item.innerHTML = `
+              <th class="id">${element.ID}</th>
+              <th class="image"><img src="${returnPathImg(element)}"></th>
+              <th class="name">${element.name}</th>
+              <th class="date-update">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
+              <th class="date-creat">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
+              <th class="copy" id="copy">Copy</th>
+              <th class="edit" id="edit">Sửa</th>
+              <th class="delete" id="delete">Xóa</th>
+      `;
+
+      content.appendChild(item);
+      updateEvent(item, index, id, element);
+    }
+    console.log(matchingProduct);
+
+  }
 
   //end lọc theo ngày tháng năm
 
   if (productName.value != '' && productCode.value == '') {
     const matchingProduct = data.filter(e => e.name.toLowerCase().includes(productName.value.trim().toLowerCase()));
-    if (matchingProduct.length < 1) {
-      alert('khoong tim thay san pham');
-    }
+    // if (matchingProduct.length < 1) {
+    //   alert('Không tìm thấy sản phẩm');
+    // }
     const content = document.getElementById('content');
     content.innerHTML = '';
     const id = document.getElementById('id');
@@ -585,7 +624,7 @@ filterSubmitBtn.addEventListener('click', e => {
     categorySelect.value = 'all';
     const matchingProduct = data.filter(e => e.ID.includes(productCode.value));
     // if (matchingProduct.length < 1) {
-    //   alert('không tim thấy sản phâm');
+    //   alert('Không tìm thấy sản phẩm');
     // }
     const content = document.getElementById('content');
     content.innerHTML = '';
@@ -625,9 +664,9 @@ filterSubmitBtn.addEventListener('click', e => {
     const matchingProduct = data.filter(e => e.type === categorySelect.value);
     console.log(matchingProduct);
 
-    if (matchingProduct.length < 1) {
-      alert('khoong tim thay san pham');
-    }
+    // if (matchingProduct.length < 1) {
+    //   alert('Không tìm thấy sản phẩm');
+    // }
     const content = document.getElementById('content');
     content.innerHTML = '';
     const id = document.getElementById('id');
