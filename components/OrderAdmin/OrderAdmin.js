@@ -312,34 +312,7 @@ submitBtn.addEventListener('click', e => {
 // Lọc theo ngày tháng năm
 
 
-  // if (inputOrderDayValue) {
-  //   data = data.filter(user => {
-  //     const timeOrder = new Date(user.cart.dateCreate);
-  //     const dayOrder = timeOrder.getDate();
-  //     const monthOrder = timeOrder.getMonth();
-  //     const yearOrder = timeOrder.getFullYear();
 
-  //     console.log('user.dateCreate:', user.dateCreate);
-  //     console.log('timeOrder:', timeOrder);
-  //     console.log('dayOrder:', dayOrder);
-  //     console.log('monthOrder:', monthOrder);
-  //     console.log('yearOrder:', yearOrder);
-
-  //     return dayOrder === day && monthOrder === month && yearOrder === year;
-  //   });
-  // }
-
-//   if (inputOrderDayValue) {
-//     return data = data.filter(user => {
-//            user.cart(cart => {
-//             const timeOrder = new Date(cart.dateCreate);
-//             const dayOrder = timeOrder.getDate();
-//             const monthOrder = timeOrder.getMonth();
-//             const yearOrder = timeOrder.getFullYear();
-//             return dayOrder === dayValue && monthOrder === monthValue && yearOrder === yearValue;
-//         });
-//     });
-// }
 
 if (inputOrderDayValue) {
   const time = new Date(inputOrderDayValue);

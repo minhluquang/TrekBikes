@@ -271,7 +271,9 @@ addProductBtn.addEventListener('click', e => {
 
     if(id.value.trim().length === 0) {
       showMessageIdRes.innerHTML = '* Vui lòng nhập mã sản phẩm';
-    } 
+    }  else if (data.some(product => product.ID === id.value.trim())) {
+      showMessageIdRes.innerHTML = '* Mã sản phẩm đã tồn tại';
+    }
     else {
       showMessageIdRes.innerText = '';
     }
@@ -432,6 +434,9 @@ generatePagination();
 
 loadData();
 
+
+
+
 // filter
 
 const manageProduct = document.getElementById('manageProduct');
@@ -444,6 +449,27 @@ filterSubmitBtn.addEventListener('click', e => {
   const productName = manageProduct.querySelector('#productName');
   const productCode = manageProduct.querySelector('#productCode');
   const categorySelect = manageProduct.querySelector('#categorySelect');
+  // const creationDateInput = document.querySelector("#creatDate input");
+
+  // lọc theo ngày tháng năm
+  // if(creationDateInput) {
+  //   const selectedCreationDate = new Date(creationDateInput.value);
+  //   const selectedDay = selectedCreationDate.getDate();
+  //   const selectedMonth = selectedCreationDate.getMonth() + 1;
+  //   const selectedYear = selectedCreationDate.getFullYear();
+  //   // console.log(selectedDay +" " + selectedMonth + " " + selectedYear);
+  //   data = data.filter(product => {
+  //     const timeCreatProduct = new Date(currentDateTime.find(dateTime => dateTime.createAT === product.createAT).createAT);
+  //     const dayProuct = timeCreatProduct.getDate();
+  //     const monthProduct = timeCreatProduct.getMonth() + 1;
+  //     const yearProduct = timeCreatProduct.getFullYear();
+
+  //     return dayProuct === selectedDay && monthProduct === selectedMonth && yearProduct === selectedYear;
+  //   });
+  // }
+  
+ 
+  //end lọc theo ngày tháng năm
 
   if (productName.value != '' && productCode.value == '') {
     const matchingProduct = data.filter(e => e.name.toLowerCase().includes(productName.value.trim().toLowerCase()));
@@ -477,9 +503,9 @@ filterSubmitBtn.addEventListener('click', e => {
     productName.value = '';
     categorySelect.value = 'all';
     const matchingProduct = data.filter(e => e.ID.includes(productCode.value));
-    if (matchingProduct.length < 1) {
-      alert('khoong tim thay san pham');
-    }
+    // if (matchingProduct.length < 1) {
+    //   alert('không tim thấy sản phâm');
+    // }
     const content = document.getElementById('content');
     content.innerHTML = '';
     const id = document.getElementById('id');
@@ -532,4 +558,14 @@ filterSubmitBtn.addEventListener('click', e => {
     }
     console.log(matchingProduct);
   }
+
+  //reset
+  const resetBtn = document.querySelector('.product--reset__btn');
+  resetBtn.addEventListener('click', () => {
+    // Đặt giá trị trở về rỗng hoặc giá trị mặc định
+    productName.value = '';
+    productCode.value = '';
+    categorySelect.value = 'all';
+    loadData();
+  });
 });

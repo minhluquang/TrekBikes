@@ -53,13 +53,16 @@
   border: 1px solid #333;
 }
 
-.body__filter--nameClient {
+/* .body__filter--nameClient {
   width: 50%;
-}
+} */
 
 .body__filter--idClient,
-.body__filter--status {
-  width: 33%;
+.body__filter--status,
+.body__filter--createDtae,
+.body__filter--nameClient
+ {
+  width: 25%;
 }
 
 .admin__content--body__filter--gr2 {
