@@ -625,3 +625,13 @@
     border-radius: 5px;
     border: 1px solid #333;
 }
+
+.modal--add-user .showPassword i {
+  position: absolute;
+  right: 60px;
+  top: 63%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 22px;
+  color: #000;
+}

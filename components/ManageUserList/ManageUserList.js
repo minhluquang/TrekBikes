@@ -33,7 +33,7 @@ function renderAddUserModal() {
   showModal();
   modal.innerHTML = `
     <form class="modal--add-user">
-      <i class="fa-solid fa-xmark"></i>    
+    <i class="fa-solid fa-xmark"></i>  
       <label for="newUserName">Tên người dùng:</label>
       <input type="text" id="newUserName" placeholder="Nhập tên người dùng" required>
       <p class="newUserNameMessage"></p>
@@ -42,7 +42,10 @@ function renderAddUserModal() {
       <input type="email" id="newUserEmail" name="newUserEmail" placeholder="Nhập email người dùng" required>
       <p class="newUserEmailMessage"></p> <br>
       <label for="newUserPassword">Mật khẩu:</label>
-      <input type="password" id="newUserPassword" name="newUserPassword" placeholder="Nhập mật khẩu người dùng" required>
+      <div class="showPassword">
+        <input type="password" id="newUserPassword" name="newUserPassword" placeholder="Nhập mật khẩu người dùng" required>
+        <i id="eyeIcon" class="fa-regular fa-eye"></i>
+   </div>
       <p class="newUserPasswordMessage"></p> <br>
       <label class= "lbUserRole" for="userRole">Quyền:</label>
       <select class= "userRole" id="userRole" required>
@@ -63,7 +66,26 @@ function renderAddUserModal() {
   closeBtn.addEventListener('click', e => {
     closeModal();
   });
+
+  // Xử lý ẩn hiện mật khẩu
+  const showBtn = document.querySelector("#eyeIcon");
+showBtn.addEventListener("click", e  => {
+  var passwordField = document.getElementById("newUserPassword");
+  if (passwordField.type === "password") {
+    passwordField.type = "text";
+    eyeIcon.classList.remove("fa-eye-slash");
+    eyeIcon.classList.add("fa-eye");
+} else {
+    passwordField.type = "password";
+    eyeIcon.classList.remove("fa-eye");
+    eyeIcon.classList.add("fa-eye-slash");
 }
+})
+}
+
+
+
+
 
 // Hàm xử lý thêm người dùng
 function addUserHandler() {

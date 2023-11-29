@@ -1,19 +1,22 @@
 const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const data = DUMMY_PRODUCTS;
+let filteredData = [...data];
 
 // const currentDateTime = JSON.parse(localStorage.getItem('DateTimeP'));
 const closeFormClick = document.getElementById('close');
 
-function setValuesInput(ImageUrl, Name, UpdateDate, CreationDate) {
+function setValuesInput(ImageUrl, Name, UpdateDate, CreationDate,Type) {
   const imageUrl = document.getElementById('imageUrl');
   const name = document.getElementById('name');
   const updateDate = document.getElementById('dateupdate');
   const creationDate = document.getElementById('datecreate');
+  const type = document.getElementById('type');
 
   imageUrl.value = ImageUrl;
   name.value = Name;
   updateDate.value = UpdateDate;
   creationDate.value = CreationDate;
+  type.value = Type;
 }
 
 function getValuesInput() {
@@ -103,6 +106,7 @@ function updateEvent(item, index, id, element) {
         const formNameInputValue = document.querySelector('.form-group #name').value.trim();
         const formDateUpdateValue = document.querySelector('.form-group #dateupdate').value;
         const formDateCreateValue = document.querySelector('.form-group #datecreate').value;
+        const formTypeValue = document.querySelector('.form-group #type').value;
         
         let isValidName = true;
         let isValidDateUpdate = true;
@@ -140,6 +144,7 @@ function updateEvent(item, index, id, element) {
               product.name = formNameInputValue;
               product.dateCreate = new Date(formDateCreateValue).toISOString();
               product.dateUpdate = new Date(formDateUpdateValue).toISOString();
+              product.type = formTypeValue;
             }
           });
           localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
@@ -195,6 +200,7 @@ function disPlayProductItem(pageStart, pageEnd) {
               <th class="id">${element.ID}</th>
               <th class="image"><img src="${returnPathImg(element)}"></th>
               <th class="name">${element.name}</th>
+              <th class="type">${element.type}</th>
               <th class="date-update">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
               <th class="date-creat">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
               <th class="copy" id="copy">Copy</th>
@@ -500,15 +506,13 @@ cancel.addEventListener('click', e => {
 
 // page
 
-var totalPages = Math.ceil(data.length / 10);
-
+var totalPages = Math.ceil(filteredData.length / 10);
 var currentPage = 1;
 const ITEMS_PER_PAGE = 10;
 var maxPagesToShow = 5;
 
 function generatePagination() {
   const pagination = document.getElementById('pagination');
-
   pagination.innerHTML = '';
 
   const prevBtn = document.createElement('a');
@@ -563,14 +567,13 @@ function generatePagination() {
 function loadData() {
   var startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   var endIndex = startIndex + ITEMS_PER_PAGE;
-  if (endIndex > data.length) {
-    endIndex = data.length;
+  if (endIndex > filteredData.length) {
+    endIndex = filteredData.length;
   }
   disPlayProductItem(startIndex, endIndex);
 }
 
 generatePagination();
-
 loadData();
 
 // filter
@@ -600,7 +603,7 @@ filterSubmitBtn.addEventListener('click', e => {
     const selectedDay = selectedCreationDate.getDate();
     const selectedMonth = selectedCreationDate.getMonth() + 1;
     const selectedYear = selectedCreationDate.getFullYear();
-    // console.log(selectedDay +" " + selectedMonth + " " + selectedYear);
+
      dataFilter = dataFilter.filter(product => {
       const timeCreatProduct = new Date(product.dateCreate);
       const dayProuct = timeCreatProduct.getDate();
@@ -632,14 +635,17 @@ filterSubmitBtn.addEventListener('click', e => {
 
   if (categorySelect.value != 'all') {
   dataFilter = dataFilter.filter(e => e.type === categorySelect.value);
- 
   }
-
+  
+  filteredData = [...dataFilter];
+  generatePagination();
+  loadData();
+ 
    const content = document.getElementById('content');
    content.innerHTML = '';
     const id = document.getElementById('id');
-    for (let index = 0; index < dataFilter.length; index++) {
-      const element = dataFilter[index];
+    for (let index = 0; index < filteredData.length; index++) {
+      const element = filteredData[index];
       const item = document.createElement('tr');
 
       const dateCreate = new Date(element.dateCreate);
@@ -656,6 +662,7 @@ filterSubmitBtn.addEventListener('click', e => {
               <th class="id">${element.ID}</th>
               <th class="image"><img src="${returnPathImg(element)}"></th>
               <th class="name">${element.name}</th>
+              <th class="type">${element.type}</th>
               <th class="date-update">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
               <th class="date-creat">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
               <th class="copy" id="copy">Copy</th>
@@ -666,16 +673,16 @@ filterSubmitBtn.addEventListener('click', e => {
       content.appendChild(item);
       updateEvent(item, index, id, element);
     }
-    console.log(dataFilter);
-  //reset
-  const resetBtn = document.querySelector('.product--reset__btn');
+    
+});
+
+// Reset
+const resetBtn = document.querySelector('.product--reset__btn');
   resetBtn.addEventListener('click', () => {
-    // Đặt giá trị trở về rỗng hoặc giá trị mặc định
     productName.value = '';
     productCode.value = '';
     categorySelect.value = 'all';
+    filteredData = [...data];
+    generatePagination();
     loadData();
   });
-
-
-});

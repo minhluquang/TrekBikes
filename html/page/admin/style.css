@@ -441,6 +441,9 @@ th {
 .admin-product .name {
   width: 350px;
 }
+.admin-product .type {
+  width: 100px;
+}
 .admin-product .date-update {
   width: 150px;
 }
