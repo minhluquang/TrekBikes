@@ -574,49 +574,72 @@ generatePagination();
 loadData();
 
 // filter
-
+let dataFilter 
 const manageProduct = document.getElementById('manageProduct');
 const formFilter = manageProduct.querySelector('#product-filter-form');
 const filterSubmitBtn = formFilter.querySelector('#filter-submit-btn');
-console.log(filterSubmitBtn);
+// console.log(filterSubmitBtn);
 
+//  let dataFilter = data;
 filterSubmitBtn.addEventListener('click', e => {
   e.preventDefault();
+  
   const productName = manageProduct.querySelector('#productName');
   const productCode = manageProduct.querySelector('#productCode');
   const categorySelect = manageProduct.querySelector('#categorySelect');
-  const creationDateInput = document.querySelector('#creatDate input');
+  const creationDateInput = document.querySelector('#creatDate input').value;
 
-  if (!productName.value && !productCode.value && !creationDateInput.value) {
+  if (!productName.value && !productCode.value && !creationDateInput.value && !categorySelect.value) {
     return;
   }
 
+  let dataFilter = [...data];
   // lọc theo ngày tháng năm
   if (creationDateInput) {
-    const selectedCreationDate = new Date(creationDateInput.value);
+    const selectedCreationDate = new Date(creationDateInput);
     const selectedDay = selectedCreationDate.getDate();
     const selectedMonth = selectedCreationDate.getMonth() + 1;
     const selectedYear = selectedCreationDate.getFullYear();
     // console.log(selectedDay +" " + selectedMonth + " " + selectedYear);
-    const matchingProduct = data.filter(product => {
+     dataFilter = dataFilter.filter(product => {
       const timeCreatProduct = new Date(product.dateCreate);
       const dayProuct = timeCreatProduct.getDate();
       const monthProduct = timeCreatProduct.getMonth() + 1;
       const yearProduct = timeCreatProduct.getFullYear();
-
-      console.log(dayProuct);
-
       return dayProuct === selectedDay && monthProduct === selectedMonth && yearProduct === selectedYear;
+      
     });
+  }
+//end lọc theo ngày tháng năm
 
-    // if (matchingProduct.length < 1) {
-    //   alert('Không tìm thấy sản phẩm');
-    // }
-    const content = document.getElementById('content');
-    content.innerHTML = '';
+// Lọc theo tên sản phẩm
+  if (productName.value.trim()) {
+    dataFilter  = dataFilter.filter(e => e.name.toLowerCase().includes(productName.value.trim().toLowerCase()));
+   
+  }
+
+  // Lọc theo id sản phẩm
+  
+  if (productCode.value.trim()) {
+    dataFilter = dataFilter.filter(e => e.ID.includes(productCode.value));
+
+   
+  }
+
+
+// Lọc theo phân loại
+
+
+  if (categorySelect.value != 'all') {
+  dataFilter = dataFilter.filter(e => e.type === categorySelect.value);
+ 
+  }
+
+   const content = document.getElementById('content');
+   content.innerHTML = '';
     const id = document.getElementById('id');
-    for (let index = 0; index < matchingProduct.length; index++) {
-      const element = matchingProduct[index];
+    for (let index = 0; index < dataFilter.length; index++) {
+      const element = dataFilter[index];
       const item = document.createElement('tr');
 
       const dateCreate = new Date(element.dateCreate);
@@ -643,132 +666,7 @@ filterSubmitBtn.addEventListener('click', e => {
       content.appendChild(item);
       updateEvent(item, index, id, element);
     }
-    console.log(matchingProduct);
-  }
-
-  //end lọc theo ngày tháng năm
-
-  if (productName.value != '' && productCode.value == '') {
-    const matchingProduct = data.filter(e => e.name.toLowerCase().includes(productName.value.trim().toLowerCase()));
-    // if (matchingProduct.length < 1) {
-    //   alert('Không tìm thấy sản phẩm');
-    // }
-    const content = document.getElementById('content');
-    content.innerHTML = '';
-    const id = document.getElementById('id');
-    for (let index = 0; index < matchingProduct.length; index++) {
-      const element = matchingProduct[index];
-      const item = document.createElement('tr');
-
-      const dateCreate = new Date(element.dateCreate);
-      const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
-      const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
-      const dateCreateYear = dateCreate.getFullYear();
-
-      const dateUpdate = new Date(element.dateUpdate);
-      const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
-      const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
-      const dateUpdateYear = dateUpdate.getFullYear();
-
-      item.innerHTML = `
-              <th class="id">${element.ID}</th>
-              <th class="image"><img src="${returnPathImg(element)}"></th>
-              <th class="name">${element.name}</th>
-              <th class="date-update">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
-              <th class="date-creat">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
-              <th class="copy" id="copy">Copy</th>
-              <th class="edit" id="edit">Sửa</th>
-              <th class="delete" id="delete">Xóa</th>
-      `;
-
-      content.appendChild(item);
-      updateEvent(item, index, id, element);
-    }
-    console.log(matchingProduct);
-  }
-
-  if (productCode.value != '') {
-    productName.value = '';
-    categorySelect.value = 'all';
-    const matchingProduct = data.filter(e => e.ID.includes(productCode.value));
-    // if (matchingProduct.length < 1) {
-    //   alert('Không tìm thấy sản phẩm');
-    // }
-    const content = document.getElementById('content');
-    content.innerHTML = '';
-    const id = document.getElementById('id');
-    for (let index = 0; index < matchingProduct.length; index++) {
-      const element = matchingProduct[index];
-      const item = document.createElement('tr');
-
-      const dateCreate = new Date(element.dateCreate);
-      const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
-      const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
-      const dateCreateYear = dateCreate.getFullYear();
-
-      const dateUpdate = new Date(element.dateUpdate);
-      const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
-      const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
-      const dateUpdateYear = dateUpdate.getFullYear();
-
-      item.innerHTML = `
-              <th class="id">${element.ID}</th>
-              <th class="image"><img src="${returnPathImg(element)}"></th>
-              <th class="name">${element.name}</th>
-              <th class="date-update">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
-              <th class="date-creat">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
-              <th class="copy" id="copy">Copy</th>
-              <th class="edit" id="edit">Sửa</th>
-              <th class="delete" id="delete">Xóa</th>
-      `;
-
-      content.appendChild(item);
-      updateEvent(item, index, id, element);
-    }
-    console.log(matchingProduct);
-  }
-
-  if (categorySelect.value !== 'all' && productName.value === '' && productCode.value === '') {
-    const matchingProduct = data.filter(e => e.type === categorySelect.value);
-    console.log(matchingProduct);
-
-    // if (matchingProduct.length < 1) {
-    //   alert('Không tìm thấy sản phẩm');
-    // }
-    const content = document.getElementById('content');
-    content.innerHTML = '';
-    const id = document.getElementById('id');
-    for (let index = 0; index < matchingProduct.length; index++) {
-      const element = matchingProduct[index];
-      const item = document.createElement('tr');
-
-      const dateCreate = new Date(element.dateCreate);
-      const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
-      const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
-      const dateCreateYear = dateCreate.getFullYear();
-
-      const dateUpdate = new Date(element.dateUpdate);
-      const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
-      const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
-      const dateUpdateYear = dateUpdate.getFullYear();
-
-      item.innerHTML = `
-              <th class="id">${element.ID}</th>
-              <th class="image"><img src="${returnPathImg(element)}"></th>
-              <th class="name">${element.name}</th>
-              <th class="date-update">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
-              <th class="date-creat">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
-              <th class="copy" id="copy">Copy</th>
-              <th class="edit" id="edit">Sửa</th>
-              <th class="delete" id="delete">Xóa</th>
-      `;
-
-      content.appendChild(item);
-      updateEvent(item, index, id, element);
-    }
-    console.log(matchingProduct);
-  }
-
+    console.log(dataFilter);
   //reset
   const resetBtn = document.querySelector('.product--reset__btn');
   resetBtn.addEventListener('click', () => {
@@ -778,4 +676,6 @@ filterSubmitBtn.addEventListener('click', e => {
     categorySelect.value = 'all';
     loadData();
   });
+
+
 });
