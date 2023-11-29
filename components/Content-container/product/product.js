@@ -18,7 +18,7 @@ if (!localStorage.getItem('codeHasRunBefore')) {
 
     for (let i = 0; i < datalocal.length; i++) {
       DateTimeP.push({
-        productId : datalocal[i].ID,
+        productId: datalocal[i].ID,
         createAT: '14/11/2023  20:00',
         updateAt: '14/11/2023  20:00'
       });
@@ -41,10 +41,11 @@ if (!localStorage.getItem('codeHasRunBefore')) {
 const DUMMY_PRODUCTS_LOCAL = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const productList = document.getElementById('productList');
 const data = DUMMY_PRODUCTS_LOCAL;
+const accountData = JSON.parse(localStorage.getItem('accounts'));
 
 for (let index = 0; index < data.length; index++) {
   data[index].imgSrc = `\\${data[index].imgSrc}`
-  console.log(data[index].imgSrc)
+
 }
 
 const toastSaveProduct = document.querySelector('.toast-save-product');
@@ -124,6 +125,12 @@ const clickAddCart = () => {
 
   // alert("Ngày " + ngay + "/" + thang + "/" + nam + " lúc " + gio + ":" + phut + ":" + giay)
   localStorage.setItem('User', JSON.stringify(userLocal));
+  for (let i = 0; i < accountData.length; i++) {
+    if (accountData[i].id === userLocal.id) {
+      accountData[i].cart = userLocal.cart;
+    }
+  }
+  localStorage.setItem('accounts', JSON.stringify(accountData));
   const itemCart = document.createElement('p');
   itemCart.classList.add('item-cart');
   itemCart.innerText = `${userLocal.cart.length}`;
@@ -201,6 +208,12 @@ function clickSave(like) {
   const updateLike = [...new Set(userLocal.like)];
   userLocal.like = updateLike;
   localStorage.setItem('User', JSON.stringify(userLocal));
+  for (let i = 0; i < accountData.length; i++) {
+    if (accountData[i].id === userLocal.id) {
+      accountData[i].like = userLocal.like;
+    }
+  }
+  localStorage.setItem('accounts', JSON.stringify(accountData));
 }
 
 overlayLike.addEventListener('click', () => {
@@ -360,6 +373,12 @@ function updateEvent() {
       }
 
       localStorage.setItem('User', JSON.stringify(userLocal));
+      for (let i = 0; i < accountData.length; i++) {
+        if (accountData[i].id === userLocal.id) {
+          accountData[i].like = userLocal.like;
+        }
+      }
+      localStorage.setItem('accounts', JSON.stringify(accountData));
       const itemCart = document.createElement('p');
       itemCart.classList.add('item-cart');
       itemCart.innerText = `${userLocal.cart.length}`;
@@ -391,6 +410,12 @@ function updateEvent() {
       navItemHeart.appendChild(itemHeart);
       userLocal.like = updateLike;
       localStorage.setItem('User', JSON.stringify(userLocal));
+      for (let i = 0; i < accountData.length; i++) {
+        if (accountData[i].id === userLocal.id) {
+          accountData[i].cart = userLocal.cart;
+        }
+      }
+      localStorage.setItem('accounts', JSON.stringify(accountData));
     });
   }
 }
