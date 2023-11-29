@@ -100,6 +100,8 @@ const accounts = [
   }
 ];
 
+const DUMMY_API = [];
+
 const registerSubmitBtn = document.querySelector('.register__info--submit');
 const registerNameInput = document.querySelector('.register__info--input-name');
 const registerEmailInput = document.querySelector('.register__info--input-email');
@@ -187,9 +189,17 @@ registerSubmitBtn.addEventListener('click', e => {
       isAdmin: false
     });
 
-    console.log(accounts);
-
     localStorage.setItem('accounts', JSON.stringify(accounts));
+
+    accounts.forEach(account => {
+      DUMMY_API.push({
+        idUser: account.id,
+        cart: []
+      });
+    });
+
+    localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+
     localStorage.setItem(
       'User',
       JSON.stringify({
@@ -215,7 +225,6 @@ registerSubmitBtn.addEventListener('click', e => {
     checkLoggedIn();
   }
 });
-
 const getData = () => {
   const dataFromLocalStorage = JSON.parse(localStorage.getItem('accounts'));
 
@@ -485,4 +494,3 @@ typeProductsNav.forEach(item =>
     }
   })
 );
-  
