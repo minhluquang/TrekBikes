@@ -1,42 +1,40 @@
-import DUMMY_PRODUCTS from "../../../database/products.js";
-const datalocal = DUMMY_PRODUCTS;
+// import DUMMY_PRODUCTS from '../../../database/products.js';
+const datalocal = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const userLocal = JSON.parse(localStorage.getItem('User'));
 
-if (!localStorage.getItem('codeHasRunBefore')) {
-  try {
-    if (!userLocal || !datalocal) {
-      throw new Error('Required variables are undefined.');
-    }
+// if (!localStorage.getItem('codeHasRunBefore')) {
+//   try {
+//     if (!userLocal || !datalocal) {
+//       throw new Error('Required variables are undefined.');
+//     }
 
-    var DateTimeP = [];
-    const DUMMY_API = [
-      {
-        idUser: userLocal.id,
-        cart: []
-      }
-    ];
+    // var DateTimeP = [];
+    // const DUMMY_API = [
+    //   {
+    //     idUser: userLocal.id,
+    //     cart: []
+    //   }
+    // ];
 
-    for (let i = 0; i < datalocal.length; i++) {
-      DateTimeP.push({
-        productId: datalocal[i].ID,
-        createAT: '14/11/2023  20:00',
-        updateAt: '14/11/2023  20:00'
-      });
-    }
+    // for (let i = 0; i < datalocal.length; i++) {
+    //   DateTimeP.push({
+    //     productId: datalocal[i].ID,
+    //     createAT: '14/11/2023  20:00',
+    //     updateAt: '14/11/2023  20:00'
+    //   });
+    // }
 
-    localStorage.setItem('DateTimeP', JSON.stringify(DateTimeP));
-    localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(datalocal));
-    localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+    // localStorage.setItem('DateTimeP', JSON.stringify(DateTimeP));
+    // localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(datalocal));
+    // localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
 
-    localStorage.setItem('codeHasRunBefore', 'true');
-  } catch (error) {
-    console.error('Error in code:', error.message);
-  }
-} else {
-  console.log('Code will not run again.');
-}
-
-
+//     localStorage.setItem('codeHasRunBefore', 'true');
+//   } catch (error) {
+//     console.error('Error in code:', error.message);
+//   }
+// } else {
+//   console.log('Code will not run again.');
+// }
 
 const DUMMY_PRODUCTS_LOCAL = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const productList = document.getElementById('productList');
@@ -44,8 +42,7 @@ const data = DUMMY_PRODUCTS_LOCAL;
 const accountData = JSON.parse(localStorage.getItem('accounts'));
 
 for (let index = 0; index < data.length; index++) {
-  data[index].imgSrc = `\\${data[index].imgSrc}`
-
+  data[index].imgSrc = `\\${data[index].imgSrc}`;
 }
 
 const toastSaveProduct = document.querySelector('.toast-save-product');
@@ -60,8 +57,6 @@ const overlayLike = document.getElementById('overlayLike');
 
 const overlayBuyNow = document.getElementById('overlay-buy-now');
 
-
-
 function generateRandomId() {
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var id = '';
@@ -74,13 +69,8 @@ function generateRandomId() {
   return id;
 }
 
-
-
-
-
-
 if (userLocal.length < 1) {
-  console.log("khong co user dang nhap!")
+  console.log('khong co user dang nhap!');
 }
 
 const navItemCart = document.getElementById('nav-item-cart');
@@ -179,7 +169,6 @@ function clickSave(like) {
     }
   }
 
-
   const toastText = toastContainer.querySelector('h3');
 
   if (checkLikeOverlay) {
@@ -221,7 +210,6 @@ overlayLike.addEventListener('click', () => {
 });
 
 function displayQuantityCart() {
-
   if (userLocal[0]?.processing.length) {
     const itemProcess = document.createElement('p');
     itemProcess.classList.add('item-process');
@@ -235,13 +223,11 @@ console.log(data[data.length - 1]);
 function displayItem(startIndex, endIndex) {
   productList.innerHTML = '';
   for (let i = startIndex; i < endIndex; i++) {
-
     if (data[i].imgSrc !== undefined && data[i].name !== undefined && data[i].price !== undefined) {
       let colors = data[i].dataColors;
 
       let productItem = document.createElement('div');
       productItem.classList.add('product-item');
-
 
       console.log(data[i].imgSrc);
 
@@ -268,8 +254,8 @@ function displayItem(startIndex, endIndex) {
                          </div>
                         <div class="product-information">
                             <div class="color-dots">${colors.map(
-        color => `<div class="dot-items" style="background-color: ${color};"></div>`
-      )}</div>
+                              color => `<div class="dot-items" style="background-color: ${color};"></div>`
+                            )}</div>
                             <h3>${data[i].name}</h3>
                             <p>Price: ${data[i].price}</p>
                         </div>
@@ -374,7 +360,7 @@ function updateEvent() {
 
       for (let i = 0; i < accountData.length; i++) {
         if (accountData[i].id === userLocal.id) {
-          accountData[i].like = userLocal.like;
+          accountData[i].cart = userLocal.cart;
         }
       }
       localStorage.setItem('User', JSON.stringify(userLocal));
@@ -424,7 +410,6 @@ updateEvent();
 var totalPages = Math.ceil(data.length / 10);
 const ITEMS_PER_PAGE = 10;
 var maxPagesToShow = 5;
-
 
 function generatePagination() {
   var pagination = document.getElementById('pagination');

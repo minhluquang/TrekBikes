@@ -123,6 +123,9 @@
 }
 
 .box p {
+  font-size: 22px;
+  font-weight: bold;
+  color: #fab000;
   margin: 5px 0;
 }
 
@@ -149,3 +152,4 @@
   }
 }
 /* End: Content */
+

@@ -267,7 +267,6 @@ infoContainer.forEach((element, index) => {
     }
   });
   confirmButton.addEventListener('click', function () {
-    
     if (chekcbuy) {
       var currentTime = new Date();
 
@@ -302,14 +301,13 @@ infoContainer.forEach((element, index) => {
         }
       }
       for (let i = 0; i < accountData.length; i++) {
-        if(accountData[i].id === userLocal.id){
+        if (accountData[i].id === userLocal.id) {
           accountData[i].cart = userLocal.cart;
         }
-        
       }
 
       localStorage.setItem('User', JSON.stringify(userLocal));
-      localStorage.setItem('accounts',JSON.stringify(accountData));
+      localStorage.setItem('accounts', JSON.stringify(accountData));
       console.log(DUMMY_API);
       localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
 
@@ -323,8 +321,6 @@ window.addEventListener('beforeunload', function (event) {
   userLocal.processing = [...new Set(userLocal.processing)];
   localStorage.setItem('User', JSON.stringify(userLocal));
 });
-
-
 
 const input = document.getElementById('input');
 
@@ -364,52 +360,45 @@ input.addEventListener('input', event => {
   }
 });
 
-
-
-const table = document.getElementById("order_status_table");
+const table = document.getElementById('order_status_table');
 const allTh = table.querySelectorAll('th');
-allTh.forEach((e,index)=>{
-  e.addEventListener('click',()=>{
-    if(index == 0){
+allTh.forEach((e, index) => {
+  e.addEventListener('click', () => {
+    if (index == 0) {
       location.reload();
-      
-      
     }
-    if(index == 1){
-      console.log("panding")
-      cartInfo.innerHTML = ''
+    if (index == 1) {
+      console.log('panding');
+      cartInfo.innerHTML = '';
       handlePanding();
     }
-    if(index == 2){
+    if (index == 2) {
       console.log('onDeliverery');
-      cartInfo.innerHTML = ''
+      cartInfo.innerHTML = '';
       handleOnDelivery();
     }
-    allTh.forEach(e=>e.style.backgroundColor = '#585858')
+    allTh.forEach(e => (e.style.backgroundColor = '#585858'));
     e.style.backgroundColor = '#45a049';
-    
-  })
-})
+  });
+});
 
-
-function handleOnDelivery(){
+function handleOnDelivery() {
   const cartInfo = document.getElementById('cart-info');
   let check = false;
   for (let i = 0; i < data.length; i++) {
     for (let j = 0; j < DUMMY_API[0].cart.length; j++) {
       for (let k = 0; k < DUMMY_API[0].cart[j].product.length; k++) {
-        if(DUMMY_API[0].cart[j].product[k].processed === true){
+        if (DUMMY_API[0].cart[j].product[k].processed === true) {
           check = true;
         }
-
       }
     }
   }
-  if(check){
+  if (check) {
     footer.style.display = 'none';
     menu.style.display = 'table';
     toast.style.display = 'none';
-  }else{
+  } else {
     footer.style.display = 'none';
     menu.style.display = 'none';
     toast.style.display = 'flex';
@@ -419,10 +408,10 @@ function handleOnDelivery(){
       for (let k = 0; k < DUMMY_API[0].cart[j].product.length; k++) {
         if (data[i].ID === DUMMY_API[0].cart[j].product[k].id && check) {
           const cartItem = document.createElement('tr');
-        
-          if(DUMMY_API[0].cart[j].product[k].processed === true){
+
+          if (DUMMY_API[0].cart[j].product[k].processed === true) {
             cartItem.classList.add('info-item-container');
-  
+
             cartItem.innerHTML = `
                         <td class="img"><img src="../../../${data[i].imgSrc}" alt="${data[i].name}"></td>
                         <td class="name">
@@ -447,28 +436,23 @@ function handleOnDelivery(){
                             </div>
                         </td>
                     `;
-    
+
             cartInfo.appendChild(cartItem);
             console.log(cartInfo);
           }
-         
         }
-        
       }
     }
   }
-
 }
 
-
-
-function handlePanding(){
+function handlePanding() {
   const cartInfo = document.getElementById('cart-info');
-  if(DUMMY_API[0].cart.length > 0){
+  if (DUMMY_API[0].cart.length > 0) {
     footer.style.display = 'none';
     menu.style.display = 'table';
     toast.style.display = 'none';
-  }else{
+  } else {
     footer.style.display = 'none';
     menu.style.display = 'none';
     toast.style.display = 'flex';
@@ -478,10 +462,10 @@ function handlePanding(){
       for (let k = 0; k < DUMMY_API[0].cart[j].product.length; k++) {
         if (data[i].ID === DUMMY_API[0].cart[j].product[k].id && check) {
           const cartItem = document.createElement('tr');
-        
-          if(DUMMY_API[0].cart[j].product[k].processed === false){
+
+          if (DUMMY_API[0].cart[j].product[k].processed === false) {
             cartItem.classList.add('info-item-container');
-  
+
             cartItem.innerHTML = `
                         <td class="img"><img src="../../../${data[i].imgSrc}" alt="${data[i].name}"></td>
                         <td class="name">
@@ -506,20 +490,18 @@ function handlePanding(){
                             </div>
                         </td>
                     `;
-    
+
             cartInfo.appendChild(cartItem);
             console.log(cartInfo);
             const cancelOrder = cartItem.querySelector('#cancelPanding');
             console.log(cancelOrder);
-            cancelOrder.addEventListener('click',()=>{
-              DUMMY_API[0].cart.splice(j,1);
+            cancelOrder.addEventListener('click', () => {
+              DUMMY_API[0].cart.splice(j, 1);
               localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
               location.reload();
-            })
+            });
           }
-         
         }
-        
       }
     }
   }

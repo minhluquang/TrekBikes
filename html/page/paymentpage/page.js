@@ -54,14 +54,14 @@ confirmButton.addEventListener('click', function () {
 
   DUMMY_API[0].cart.push(processing);
   for (let i = 0; i < accountData.length; i++) {
-    if(accountData[i].id === DUMMY_API[0].id){
+    if (accountData[i].id === DUMMY_API[0].id) {
       accountData[i].cart = DUMMY_API[0].cart;
     }
-    
+
   }
   //   console.log(DUMMY_API);
-  
+
   localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
-  localStorage.setItem('accounts',JSON.stringify(accountData));
+  localStorage.setItem('accounts', JSON.stringify(accountData));
 
 });
