@@ -181,6 +181,7 @@ function updateEvent() {
         like.style.color = 'red';
       }
     }
+
     addCart.addEventListener('click', () => {
       carts.push(id.textContent);
       cartLocal.push(id.textContent);
@@ -192,6 +193,7 @@ function updateEvent() {
       navItemCart.appendChild(itemHeart);
       localStorage.setItem('Carts', JSON.stringify(cartLocal));
     });
+
     like.addEventListener('click', () => {
       for (let i = 0; i < likeLocal.length; i++) {
         if (likeLocal[i] === id.textContent) {

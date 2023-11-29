@@ -2,7 +2,7 @@ const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 
 const data = DUMMY_PRODUCTS;
 const confirmButton = document.getElementById('confirmButton');
-const userLocal = JSON.parse(localStorage.getItem('User'))
+const userLocal = JSON.parse(localStorage.getItem('User'));
 const id = JSON.parse(localStorage.getItem('currentIdbuy'));
 const DUMMY_API = JSON.parse(localStorage.getItem('DUMMY_API'));
 const accountData = JSON.parse(localStorage.getItem('accounts'));
@@ -54,14 +54,12 @@ confirmButton.addEventListener('click', function () {
 
   DUMMY_API[0].cart.push(processing);
   for (let i = 0; i < accountData.length; i++) {
-    if(accountData[i].id === DUMMY_API[0].id){
+    if (accountData[i].id === DUMMY_API[0].id) {
       accountData[i].cart = DUMMY_API[0].cart;
     }
-    
   }
   //   console.log(DUMMY_API);
-  
-  localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
-  localStorage.setItem('accounts',JSON.stringify(accountData));
 
+  localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+  localStorage.setItem('accounts', JSON.stringify(accountData));
 });
