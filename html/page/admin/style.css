@@ -426,18 +426,26 @@ th {
 }
 
 .admin-product .content .image {
-  width: 150px;
   height: 100px;
+  width: 150px;
 }
 
+.admin-product th {
+  text-align: center;
+  font-size: 16px;
+}
+
+.admin-product .id {
+  width: 100px;
+}
 .admin-product .name {
-  width: 250px;
+  width: 350px;
 }
 .admin-product .date-update {
-  width: 250px;
+  width: 150px;
 }
 .admin-product .date-creat {
-  width: 250px;
+  width: 150px;
 }
 .admin-product .copy {
   width: 100px;
@@ -463,8 +471,12 @@ th {
 }
 .admin-product .image img {
   width: auto;
+  object-fit: cover;
   height: 80px;
-  margin-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
 }
 
 .change-product-info-container {
@@ -655,20 +667,22 @@ th {
 /*  ADD PRODUCT FORM */
 
 .cancel-block {
-  padding: 20px;
+  display: inline-block;
 }
 
 .cancel-block button {
-  cursor: pointer;
-  display: none;
-  padding: 20px 30px;
-  background-color: #333;
-  color: white;
+  border: none;
+  height: 40px;
+  min-width: 80px;
+  font-size: 16px;
   border-radius: 5px;
-}
-.cancel-block button:hover {
-  background-color: #3333;
-  color: black;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-weight: 600;
+  color: #fff;
+  background-color: red;
+  box-shadow: rgb(248, 119, 119) 0px 3px 0px 0px;
+  display: none;
 }
 
 .add-product-container {
@@ -677,16 +691,18 @@ th {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 50px;
 }
 .add-product-form-container {
   width: 600px;
-
+  border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 .add-product-form-container .title {
   display: flex;
   background-color: #333;
+  border-radius: 10px;
 
   justify-content: center;
   align-items: center;
@@ -713,14 +729,7 @@ th {
   padding: 8px;
   border-radius: 10px;
   border: 1px solid;
-  font-size: medium;
-  font-weight: bold;
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 10L3 5h10l-5 5z"/></svg>')
-    no-repeat right center;
+  font-size: 16px;
 }
 .add-product-form-container form .form-item label {
   font-size: medium;
@@ -728,6 +737,7 @@ th {
 }
 .add-product-form-container form .form-item input {
   padding: 8px;
+  font-size: 16px;
   border: 1px solid;
   border-radius: 10px;
 }
@@ -762,25 +772,24 @@ th {
   color: black;
 }
 
-.newProductNameMessage ,
+.newProductNameMessage,
 .newProcductIdMessage,
 .newProcductPriceMessage,
-.newProductColorMessage {
+.newProductColorMessage,
+.newMessageCategory {
   color: red;
-} 
+}
 .body__filter--createDtae label {
   font-size: 16px;
   font-weight: 600;
-
 }
 
 .body__filter--createDtae input {
   margin-top: 5px;
   width: 100%;
-    height: 35px;
-    padding: 5px 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #333;
+  height: 35px;
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #333;
 }
-
