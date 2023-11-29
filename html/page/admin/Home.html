@@ -15,7 +15,7 @@
     <script defer src="../../../components/HomeAdmin/HomeAdmin.js"></script>
     <script type="module" defer src="../../../components/OrderAdmin/OrderAdmin.js"></script>
     <script type="module" defer src="../../../components/ManageUserList/ManageUserList.js"></script>
-    
+
     <script type="module" src="./adminProduct.js"></script>
     <script defer src="./index.js"></script>
   </head>
@@ -139,12 +139,11 @@
                       <option value="kids">Kid</option>
                     </select>
                   </div>
-                  
+
                   <div class="body__filter--createDtae" id="creatDate">
                     <label>Ngày tạo:</label>
                     <input type="date" />
                   </div>
-
                 </div>
                 <div class="add-product">
                   <button id="add-product-btn">Thêm Sản Phẩm</button>
@@ -159,7 +158,7 @@
               </form>
             </div>
           </div>
-          
+
           <div class="add-product-container" id="add-product-container"></div>
           <table id="content-product">
             <thead class="menu">
@@ -189,27 +188,31 @@
         </div>
 
         <div class="change-product-info-container" id="change-product-info-container">
-          <p class="close" id="close">x</p>
           <div class="change-product-info">
-            <h2>Change product information</h2>
+            <i class="close fa-solid fa-xmark" id="close"></i>
+            <h2>Thay đổi thông tin sản phẩm</h2>
             <form>
               <p id="id" style="opacity: 0">2</p>
               <div class="form-group">
-                <label for="">Image Url</label>
+                <label for="">Hình ảnh</label>
                 <input type="file" id="imageUrl" name="imageUrl" required />
+                <img id="form-group--previewImg"></img>
               </div>
               <div class="form-group">
-                <label for="">Name Product</label>
+                <label for="">Tên sản phẩm</label>
                 <input type="text" id="name" name="name" required />
+                <p class="nameMessage"></p>
               </div>
               <div class="form-group">
-                <label for="">Update date</label>
+                <label for="">Ngày cập nhật</label>
                 <input type="date" id="dateupdate" name="dateupdate" required />
+                <p class="updateMessage"></p>
               </div>
 
               <div class="form-group">
-                <label for="">creation date</label>
+                <label for="">Ngày tạo</label>
                 <input type="date" id="datecreate" name="datecreate" required />
+                <p class="createMessage"></p>
               </div>
 
               <button type="submit" id="formSubmit">Change</button>

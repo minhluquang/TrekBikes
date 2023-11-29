@@ -48,14 +48,16 @@ function copyNameProduct(name) {
 
 function displayFormChange() {
   const form = document.getElementById('change-product-info-container');
-  const close = form.querySelector('p');
+  const close = form.querySelector('.close');
   close.style.display = 'block';
   form.style.display = 'flex';
 }
 
+
+
 function closeForm() {
   const form = document.getElementById('change-product-info-container');
-  const close = form.querySelector('p');
+  const close = form.querySelector('.close');
   close.style.display = 'none';
   form.style.display = 'none';
 }
@@ -75,11 +77,77 @@ function updateEvent(item, index, id, element) {
 
   // edit
 
-  const edit = item.querySelector('#edit');
-  edit.addEventListener('click', () => {
-    displayFormChange();
-    setValuesInput(element.imgSrc, element.name, currentDateTime[index].updateAt, currentDateTime[index].updateAt);
-    id.innerText = element.ID;
+  // const edit = item.querySelector('#edit');
+  // edit.addEventListener('click', () => {
+  //   displayFormChange();
+  //   setValuesInput(element.imgSrc, element.name, currentDateTime[index].updateAt, currentDateTime[index].updateAt);
+  //   id.innerText = element.ID;
+  // });
+  const edits = item.querySelectorAll('.edit');
+  edits.forEach(edit => {
+    edit.addEventListener('click', e => {
+      displayFormChange();
+      const id = edit.parentElement.querySelector('.id').innerText.trim();
+
+      // Nếu có sự input hình ảnh thì hiển thị
+      const formImgInput = document.querySelector('.form-group #imageUrl');
+      formImgInput.addEventListener('change', e => {
+        previewImage(formImgInput, '#form-group--previewImg');
+      });
+
+      const submitBtn = document.getElementById('formSubmit');
+      submitBtn.addEventListener('click', e => {
+        e.preventDefault();
+
+        const formImgPathLink = document.querySelector('#form-group--previewImg');
+        const formNameInputValue = document.querySelector('.form-group #name').value.trim();
+        const formDateUpdateValue = document.querySelector('.form-group #dateupdate').value;
+        const formDateCreateValue = document.querySelector('.form-group #datecreate').value;
+        
+        let isValidName = true;
+        let isValidDateUpdate = true;
+        let isValidDateCreate = true;
+        const nameMessgae = document.querySelector('.nameMessage');
+        const updateMessage = document.querySelector('.updateMessage');
+        const createMessage = document.querySelector('.createMessage');
+        // Check đúng sai dữ liệu
+        if(formNameInputValue === "") {
+          isValidName = false;
+          nameMessgae.innerHTML = "*Vui lòng nhập tên sản phẩm" ;
+        } else {
+          nameMessgae.innerHTML = "";
+        }
+
+        if(formDateUpdateValue === "") {
+          isValidName = false;
+          updateMessage.innerHTML = "*Vui lòng nhập dữ liệu" ;
+        } else {
+          updateMessage.innerHTML = "";
+        }
+
+        if(formDateCreateValue === "") {
+          isValidName = false;
+          createMessage.innerHTML = "*Vui lòng nhập dữ liệu" ;
+        } else {
+          createMessage.innerHTML = "";
+        }
+        let isValidForm = isValidName && isValidDateUpdate && isValidDateCreate;
+
+        if (isValidForm) {
+          data.forEach(product => {
+            if (product.ID === id) {
+              product.imgSrc = formImgPathLink.src ? formImgPathLink.src : product.imgSrc;
+              product.name = formNameInputValue;
+              product.dateCreate = new Date(formDateCreateValue).toISOString();
+              product.dateUpdate = new Date(formDateUpdateValue).toISOString();
+            }
+          });
+          localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
+          location.reload();
+        }
+        
+      });
+    });
   });
 
   // delete
@@ -140,35 +208,9 @@ function disPlayProductItem(pageStart, pageEnd) {
   }
 }
 
-const submitBtn = document.getElementById('formSubmit');
-submitBtn.addEventListener('click', e => {
-  const id = document.getElementById('id');
-  console.log(id.textContent);
-  e.preventDefault();
-  const { imageUrlvalues, namValue, updateDateValue, createValue } = getValuesInput();
-
-  data.map((element, index) => {
-    if (element.ID === id.textContent) {
-      element.imgSrc = imageUrlvalues;
-      element.name = namValue;
-
-      currentDateTime[index].updateAt = updateDateValue;
-      currentDateTime[index].createAT = createValue;
-
-      console.log(currentDateTime[index]);
-      localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
-      console.log('bang');
-    }
-  });
-
-  localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
-
-  location.reload();
-});
-
 // add product
-function previewImage(input) {
-  var imagePreview = document.getElementById('imagePreview');
+function previewImage(input, element) {
+  var imagePreview = document.querySelector(`${element}`);
   var file = input.files[0];
   if (file) {
     var render = new FileReader();
@@ -180,11 +222,28 @@ function previewImage(input) {
   }
 }
 
-const addProductBtn = document.getElementById('add-product-btn');
+function hideFilterContent() {
+  const productPageFilterContainer = document.querySelector('#manageProduct .filter');
+  productPageFilterContainer.querySelector('h1').style.display = 'none';
+  productPageFilterContainer.querySelector('.admin__content--body__filter--gr1').style.display = 'none';
+  productPageFilterContainer.querySelector('.body__filter--actions').style.display = 'none';
+}
 
+function unhideFilterContent() {
+  const productPageFilterContainer = document.querySelector('#manageProduct .filter');
+  productPageFilterContainer.querySelector('h1').style.display = 'block';
+  productPageFilterContainer.querySelector('.admin__content--body__filter--gr1').style.display = 'flex';
+  productPageFilterContainer.querySelector('.body__filter--actions').style.display = 'block';
+}
+
+const addProductBtn = document.getElementById('add-product-btn');
 addProductBtn.addEventListener('click', e => {
   e.preventDefault();
+
+  //Ẩn nút thêm sản phẩm, ẩn ô filter
   addProductBtn.style.display = 'none';
+  hideFilterContent();
+
   const content = document.getElementById('content-product');
   const manageProduct = document.getElementById('add-product-container');
   const pagination = document.getElementById('pagination');
@@ -208,40 +267,44 @@ addProductBtn.addEventListener('click', e => {
             <input type="file" id="fileInput">
             <img src="" alt="" id="imagePreview">
         </div>
+        
         <div class="form-item">
             <label for="name">Tên sản phẩm</label>
             <input type="text" id="name" placeholder="Nhập tên sản phẩm">
             <p class="newProductNameMessage"></p>
         </div>
-        
-        <div class="form-item">
-            <label for="productCodeForm">Mã sản phẩm</label>
-            <input type="text" id="productCodeForm" placeholder="Nhập mã sản phẩm">
-            <p class="newProcductIdMessage"></p>
-        </div>
-        
-        <div class="form-item">
-            <label for="category">Thể loại</label>
-            <select name="categoty" id="category">
-                <option value="">Chọn thể loại</option>
-                <option value="mountain">Mountain</option>
-                <option value="road">Road</option>
-                <option value="touring">Touring</option>
-                <option value="kids">Kids</option>
-            </select>
-            <p class="newMessageCategory"></p>
-        </div>
-        
 
-        <div class="form-item">
-            <label for="price">Giá sản phẩm</label>
-            <input type="text" id="price" placeholder="Nhập giá sản phẩm">
-            <p class="newProcductPriceMessage"></p>
-        </div>
-        <div class="form-item">
-            <label for="codeColor">Mã màu sản phẩm</label>
-            <input type="text" id="codeColor" placeholder="Nhập mã màu sản phẩm">
-            <p class="newProductColorMessage"></p>
+        <div class="form-item__container">  
+          <div class="form-item form-item__productCode">
+              <label for="productCodeForm">Mã sản phẩm</label>
+              <input type="text" id="productCodeForm" placeholder="Nhập mã sản phẩm">
+              <p class="newProcductIdMessage"></p>
+          </div>
+          <div class="form-item form-item__productCategory">
+              <label for="category">Thể loại</label>
+              <select name="categoty" id="category">
+                  <option value="">Chọn thể loại</option>
+                  <option value="mountain">Mountain</option>
+                  <option value="road">Road</option>
+                  <option value="touring">Touring</option>
+                  <option value="kids">Kids</option>
+              </select>
+              <p class="newMessageCategory"></p>
+          </div>
+        </div class="form-item__container">  
+
+
+        <div class="form-item__container">
+          <div class="form-item form-item__productPrice">
+              <label for="price">Giá sản phẩm</label>
+              <input type="text" id="price" placeholder="Nhập giá sản phẩm">
+              <p class="newProcductPriceMessage"></p>
+          </div>
+          <div class="form-item form-item__productCodeColor">
+              <label for="codeColor">Mã màu sản phẩm</label>
+              <input type="text" id="codeColor" placeholder="Nhập mã màu sản phẩm">
+              <p class="newProductColorMessage"></p>
+          </div>
         </div>
         
 
@@ -256,7 +319,7 @@ addProductBtn.addEventListener('click', e => {
   var fileInput = document.getElementById('fileInput');
 
   fileInput.addEventListener('change', function () {
-    previewImage(fileInput);
+    previewImage(fileInput, '#imagePreview');
   });
 
   const formBtn = document.getElementById('add-form-btn');
@@ -265,6 +328,7 @@ addProductBtn.addEventListener('click', e => {
     e.preventDefault();
     var form = document.getElementById('add-product-form');
     var imgUrl = form.querySelector('#imagePreview');
+
     var name = form.querySelector('#name');
     var id = form.querySelector('#productCodeForm');
     var category = form.querySelector('#category');
@@ -422,6 +486,7 @@ addProductBtn.addEventListener('click', e => {
 const cancel = document.getElementById('cancel');
 cancel.addEventListener('click', e => {
   e.preventDefault();
+  unhideFilterContent();
   const manageProduct = document.getElementById('add-product-container');
   const pagination = document.getElementById('pagination');
   const content = document.getElementById('content-product');
@@ -520,16 +585,20 @@ filterSubmitBtn.addEventListener('click', e => {
   const productName = manageProduct.querySelector('#productName');
   const productCode = manageProduct.querySelector('#productCode');
   const categorySelect = manageProduct.querySelector('#categorySelect');
-  const creationDateInput = document.querySelector("#creatDate input");
+  const creationDateInput = document.querySelector('#creatDate input');
+
+  if (!productName.value && !productCode.value && !creationDateInput.value) {
+    return;
+  }
 
   // lọc theo ngày tháng năm
-  if(creationDateInput) {
+  if (creationDateInput) {
     const selectedCreationDate = new Date(creationDateInput.value);
     const selectedDay = selectedCreationDate.getDate();
     const selectedMonth = selectedCreationDate.getMonth() + 1;
     const selectedYear = selectedCreationDate.getFullYear();
     // console.log(selectedDay +" " + selectedMonth + " " + selectedYear);
-     const matchingProduct = data.filter(product => {
+    const matchingProduct = data.filter(product => {
       const timeCreatProduct = new Date(product.dateCreate);
       const dayProuct = timeCreatProduct.getDate();
       const monthProduct = timeCreatProduct.getMonth() + 1;
@@ -575,7 +644,6 @@ filterSubmitBtn.addEventListener('click', e => {
       updateEvent(item, index, id, element);
     }
     console.log(matchingProduct);
-
   }
 
   //end lọc theo ngày tháng năm
