@@ -689,7 +689,6 @@ generatePagination();
 loadData();
 
 // filter
-let dataFilter 
 const manageProduct = document.getElementById('manageProduct');
 const formFilter = manageProduct.querySelector('#product-filter-form');
 const filterSubmitBtn = formFilter.querySelector('#filter-submit-btn');
@@ -726,30 +725,27 @@ filterSubmitBtn.addEventListener('click', e => {
       return dayProuct === selectedDay && monthProduct === selectedMonth && yearProduct === selectedYear;
       
     });
-  }
+  });
+
+}
 //end lọc theo ngày tháng năm
 
 // Lọc theo tên sản phẩm
   if (productName.value.trim()) {
     dataFilter  = dataFilter.filter(e => e.name.toLowerCase().includes(productName.value.trim().toLowerCase()));
-   
   }
 
   // Lọc theo id sản phẩm
   
   if (productCode.value.trim()) {
     dataFilter = dataFilter.filter(e => e.ID.includes(productCode.value));
-
-   
   }
 
 
 // Lọc theo phân loại
 
-
   if (categorySelect.value != 'all') {
   dataFilter = dataFilter.filter(e => e.type === categorySelect.value);
-  
   }
   filteredData = [...dataFilter];
   generatePagination();
@@ -802,3 +798,4 @@ const resetBtn = document.querySelector('.product--reset__btn');
     generatePagination();
     loadData();
   });
+
