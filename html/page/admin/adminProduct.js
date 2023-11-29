@@ -1,6 +1,5 @@
 const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 let data = DUMMY_PRODUCTS;
-let isReload = false;
 
 // const currentDateTime = JSON.parse(localStorage.getItem('DateTimeP'));
 const closeFormClick = document.getElementById('close');
@@ -48,22 +47,64 @@ function copyNameProduct(name) {
 }
 
 function displayFormChange() {
-  const form = document.getElementById('change-product-info-container');
-  const close = form.querySelector('.close');
-  close.style.display = 'block';
-  form.style.display = 'flex';
+  // Hiển thị modal
+  showModal();
+
+  // Truyền giao diện vào modal
+  const modal = document.querySelector('.modal');
+  modal.innerHTML = '';
+
+  const html = `
+    <div class="change-product-info">
+      <i class="close fa-solid fa-xmark" id="close"></i>
+      <h2>Thay đổi thông tin sản phẩm</h2>
+      <form>
+        <p id="id" style="opacity: 0">2</p>
+        <div class="form-group">
+          <label for="">Hình ảnh</label>
+          <input type="file" id="imageUrl" name="imageUrl" required />
+          <img id="form-group--previewImg"></img>
+        </div>
+        <div class="form-group">
+          <label for="">Tên sản phẩm</label>
+          <input type="text" id="name" name="name" required />
+          <p class="nameMessage"></p>
+        </div>
+        <div class="form-group">
+          <label for="">Ngày cập nhật</label>
+          <input type="date" id="dateupdate" name="dateupdate" required />
+          <p class="updateMessage"></p>
+        </div>
+
+        <div class="form-group">
+          <label for="">Ngày tạo</label>
+          <input type="date" id="datecreate" name="datecreate" required />
+          <p class="createMessage"></p>
+        </div>
+
+        <button type="submit" id="formSubmit">Change</button>
+      </form>
+    </div>
+  `;
+
+  modal.insertAdjacentHTML('afterbegin', html);
+
+  const close = document.querySelector('.close');
+  close.addEventListener('click', e => {
+    hideModal();
+  });
 }
 
-function closeForm() {
-  const form = document.getElementById('change-product-info-container');
-  const close = form.querySelector('.close');
-  close.style.display = 'none';
-  form.style.display = 'none';
-}
+// function closeForm() {
+//   const form = document.getElementById('change-product-info-container');
+//   const close = form.querySelector('.close');
+//   close.style.display = 'none';
+//   form.style.display = 'none';
+// }
 
-closeFormClick.addEventListener('click', () => {
-  closeForm();
-});
+// closeFormClick.addEventListener('click', () => {
+//   closeForm();
+// });
 
 function updateEvent(item, index, id, element) {
   // copy
@@ -86,7 +127,13 @@ function updateEvent(item, index, id, element) {
   edits.forEach(edit => {
     edit.addEventListener('click', e => {
       displayFormChange();
+
+      // Truy vấn ngược ra element cha đẻ lấy id, name,...
       const id = edit.parentElement.querySelector('.id').innerText.trim();
+
+      // Set name mặc định là name hiện tại
+      const currentProductName = edit.parentElement.querySelector('.name').innerText.trim();
+      document.querySelector('.form-group #name').setAttribute('value', currentProductName);
 
       // Nếu có sự input hình ảnh thì hiển thị
       const formImgInput = document.querySelector('.form-group #imageUrl');
@@ -112,21 +159,21 @@ function updateEvent(item, index, id, element) {
         // Check đúng sai dữ liệu
         if (formNameInputValue === '') {
           isValidName = false;
-          nameMessgae.innerHTML = '*Vui lòng nhập tên sản phẩm';
+          nameMessgae.innerHTML = '* Vui lòng nhập tên sản phẩm';
         } else {
           nameMessgae.innerHTML = '';
         }
 
         if (formDateUpdateValue === '') {
           isValidName = false;
-          updateMessage.innerHTML = '*Vui lòng nhập dữ liệu';
+          updateMessage.innerHTML = '* Vui lòng nhập dữ liệu';
         } else {
           updateMessage.innerHTML = '';
         }
 
         if (formDateCreateValue === '') {
           isValidName = false;
-          createMessage.innerHTML = '*Vui lòng nhập dữ liệu';
+          createMessage.innerHTML = '* Vui lòng nhập dữ liệu';
         } else {
           createMessage.innerHTML = '';
         }
@@ -135,12 +182,15 @@ function updateEvent(item, index, id, element) {
         if (isValidForm) {
           data.forEach(product => {
             if (product.ID === id) {
-              product.imgSrc = formImgPathLink.src ? formImgPathLink.src : product.imgSrc;
+              product.imgSrc = formImgPathLink.src ? formImgPathLink.src : '../../../database/images/comming.jpg';
               product.name = formNameInputValue;
               product.dateCreate = new Date(formDateCreateValue).toISOString();
               product.dateUpdate = new Date(formDateUpdateValue).toISOString();
             }
           });
+          // Đặt item = 'needReturnProductPage' trên local để khi reload lại trang
+          // kiểm tra xem có cần quay lại trang product admin không
+          localStorage.setItem('needReturnProductPage', JSON.stringify(true));
           localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
           location.reload();
         }
@@ -162,12 +212,64 @@ function updateEvent(item, index, id, element) {
   const deletes = document.querySelectorAll('.delete');
   deletes.forEach(d => {
     d.addEventListener('click', e => {
-      const id = d.parentElement.querySelector('.id').innerText.trim();
-      data = data.filter(product => product.ID !== id);
-      localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
-      location.reload();
+      // Lấy modal để truyền nội dung html vào
+      // Lây overlay để hiển thị
+      const modal = document.querySelector('.modal');
+
+      modal.innerHTML = '';
+      showModal();
+
+      const html = `<div class="modal--delete">
+          <header class="modal--delete__header">
+            <h1>Xóa sản phẩm</h1>
+          </header>
+          <div class="modal--delete__content">
+            <p>Bạn có muốn xóa sản phẩm này không?</p>
+          </div>
+          <div class="modal--delete__footer">
+            <button class="modal--delete__footer--delete">Chắc chắn</button>
+            <button class="modal--delete__footer--exit">Không</button>
+          </div>
+        </div>`;
+
+      modal.insertAdjacentHTML('afterbegin', html);
+
+      const confirmBtn = document.querySelector('.modal--delete__footer--delete');
+      const exitBtn = document.querySelector('.modal--delete__footer--exit');
+
+      // Xử lý khi bấm vào thoát thì tắt modal và không xóa sản phẩm
+      exitBtn.addEventListener('click', e => {
+        hideModal();
+      });
+
+      // Xử lý xóa sản phẩm khi bấm chắc chắn
+      confirmBtn.addEventListener('click', e => {
+        const id = d.parentElement.querySelector('.id').innerText.trim();
+        data = data.filter(product => product.ID !== id);
+
+        // Đặt item = 'needReturnProductPage' trên local để khi reload lại trang
+        // kiểm tra xem có cần quay lại trang product admin không
+        localStorage.setItem('needReturnProductPage', JSON.stringify(true));
+        localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
+        location.reload();
+        hideModal();
+      });
     });
   });
+}
+
+function showModal() {
+  const modal = document.querySelector('.modal');
+  const overlay = document.querySelector('.overlay');
+  modal.classList.add('active');
+  overlay.classList.add('active');
+}
+
+function hideModal() {
+  const modal = document.querySelector('.modal');
+  const overlay = document.querySelector('.overlay');
+  modal.classList.remove('active');
+  overlay.classList.remove('active');
 }
 
 function returnPathImg(element) {
@@ -705,8 +807,13 @@ const autoReturnProductPageWhenReload = () => {
 };
 
 window.addEventListener('load', e => {
-  isReload = true;
-  if (isReload) {
+  // Kiểm tra xem trên local được thông báo là có nên
+  // return lại trang product admin hay không (true/false)
+  const isValidToReturn = JSON.parse(localStorage.getItem('needReturnProductPage'));
+  if (isValidToReturn) {
     autoReturnProductPageWhenReload();
+
+    // Set lại thành false để không bị load vào product page một cách thiếu ý thức
+    localStorage.setItem('needReturnProductPage', JSON.stringify(false));
   }
 });

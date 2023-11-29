@@ -91,25 +91,34 @@
 
           <div class="admin__content--body__content">
             <div class="dashboard-section">
-              <div class="box" onclick="viewDetails('Sản phẩm')">
+              <div class="box">
+                <h3>Tổng thu nhập</h3>
+                <p id="producttotalprice">0 VND</p>
+              </div>
+              <div class="box">
                 <h3>Sản phẩm</h3>
-                <p>Số lượng: <span id="productCount">0</span></p>
+                <p id="productCount">0</p>
               </div>
-              <div class="box" onclick="viewDetails('Danh mục sản phẩm')">
+              <div class="box">
                 <h3>Danh mục sản phẩm</h3>
-                <p>Số lượng: <span id="numberOfTypes">0</span></p>
+                <p id="numberOfTypes">0</p>
               </div>
-              <div class="box" onclick="viewDetails('Thành viên')">
+              <div class="box">
                 <h3>Thành viên</h3>
-                <p>Số lượng: <span id="memberCount">0</span></p>
+                <p id="memberCount">0</p>
               </div>
-              <div class="box" onclick="viewDetails('Đơn hàng đã và đang xử lý')">
+              <div class="box">
                 <h3>Đơn hàng chưa xử lý</h3>
-                <p>Số lượng: <span id="unprocessedOrderCount">0</span></p>
-                <h3>Đơn hàng chưa xử lý</h3>
-                <p>Số lượng: <span id="processedOrderCount">0</span></p>
+                <p id="unprocessedOrderCount">0</p>
               </div>
+              <div class="box">
+                <h3>Đơn hàng đã xử lý</h3>
+                <p id="processedOrderCount">0</p>
+              </div>
+              
             </div>
+            </div>
+            <canvas id="canvas" height="450" width="610"></canvas>
           </div>
         </div>
       </div>
@@ -188,7 +197,7 @@
         </div>
 
         <div class="change-product-info-container" id="change-product-info-container">
-          <div class="change-product-info">
+          <!-- <div class="change-product-info">
             <i class="close fa-solid fa-xmark" id="close"></i>
             <h2>Thay đổi thông tin sản phẩm</h2>
             <form>
@@ -217,7 +226,7 @@
 
               <button type="submit" id="formSubmit">Change</button>
             </form>
-          </div>
+          </div> -->
         </div>
         <div class="pagination" id="pagination">
           <a href="javascript:void(0);" id="prevBtn">&laquo;</a>

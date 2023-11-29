@@ -493,7 +493,7 @@ th {
 }
 
 #form-group--previewImg {
-  width: 100%;
+  width: 0%;
   object-fit: cover;
   border-radius: 5px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -505,9 +505,9 @@ th {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
-  padding: 30px;
-  width: 385px;
+  /* padding: 30px; */
+  /* width: 385px; */
+  width: 100%;
   border: none;
   border-radius: 12px;
   color: #333;
@@ -515,10 +515,9 @@ th {
 
 .close {
   position: absolute;
-  display: none;
-  top: 10px;
-  right: 10px;
-  font-size: 22px;
+  top: -5px;
+  right: 0px;
+  font-size: 26px;
   color: red;
   cursor: pointer;
 }
