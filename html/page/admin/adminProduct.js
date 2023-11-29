@@ -1,5 +1,6 @@
 const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
-const data = DUMMY_PRODUCTS;
+let data = DUMMY_PRODUCTS;
+let isReload = false;
 
 // const currentDateTime = JSON.parse(localStorage.getItem('DateTimeP'));
 const closeFormClick = document.getElementById('close');
@@ -53,8 +54,6 @@ function displayFormChange() {
   form.style.display = 'flex';
 }
 
-
-
 function closeForm() {
   const form = document.getElementById('change-product-info-container');
   const close = form.querySelector('.close');
@@ -103,7 +102,7 @@ function updateEvent(item, index, id, element) {
         const formNameInputValue = document.querySelector('.form-group #name').value.trim();
         const formDateUpdateValue = document.querySelector('.form-group #dateupdate').value;
         const formDateCreateValue = document.querySelector('.form-group #datecreate').value;
-        
+
         let isValidName = true;
         let isValidDateUpdate = true;
         let isValidDateCreate = true;
@@ -111,25 +110,25 @@ function updateEvent(item, index, id, element) {
         const updateMessage = document.querySelector('.updateMessage');
         const createMessage = document.querySelector('.createMessage');
         // Check đúng sai dữ liệu
-        if(formNameInputValue === "") {
+        if (formNameInputValue === '') {
           isValidName = false;
-          nameMessgae.innerHTML = "*Vui lòng nhập tên sản phẩm" ;
+          nameMessgae.innerHTML = '*Vui lòng nhập tên sản phẩm';
         } else {
-          nameMessgae.innerHTML = "";
+          nameMessgae.innerHTML = '';
         }
 
-        if(formDateUpdateValue === "") {
+        if (formDateUpdateValue === '') {
           isValidName = false;
-          updateMessage.innerHTML = "*Vui lòng nhập dữ liệu" ;
+          updateMessage.innerHTML = '*Vui lòng nhập dữ liệu';
         } else {
-          updateMessage.innerHTML = "";
+          updateMessage.innerHTML = '';
         }
 
-        if(formDateCreateValue === "") {
+        if (formDateCreateValue === '') {
           isValidName = false;
-          createMessage.innerHTML = "*Vui lòng nhập dữ liệu" ;
+          createMessage.innerHTML = '*Vui lòng nhập dữ liệu';
         } else {
-          createMessage.innerHTML = "";
+          createMessage.innerHTML = '';
         }
         let isValidForm = isValidName && isValidDateUpdate && isValidDateCreate;
 
@@ -145,21 +144,29 @@ function updateEvent(item, index, id, element) {
           localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
           location.reload();
         }
-        
       });
     });
   });
 
   // delete
-  const deleteProduct = item.querySelector('#delete');
-  deleteProduct.addEventListener('click', () => {
-    data.splice(index, 1);
-    currentDateTime.splice(index, 1);
-    localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
+  // const deleteProduct = item.querySelector('#delete');
+  // deleteProduct.addEventListener('click', () => {
+  //   data.splice(index, 1);
+  //   currentDateTime.splice(index, 1);
+  //   localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
 
-    localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
+  //   localStorage.setItem('DateTimeP', JSON.stringify(currentDateTime));
 
-    location.reload();
+  //   location.reload();
+  // });
+  const deletes = document.querySelectorAll('.delete');
+  deletes.forEach(d => {
+    d.addEventListener('click', e => {
+      const id = d.parentElement.querySelector('.id').innerText.trim();
+      data = data.filter(product => product.ID !== id);
+      localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
+      location.reload();
+    });
   });
 }
 
@@ -195,8 +202,8 @@ function disPlayProductItem(pageStart, pageEnd) {
               <th class="id">${element.ID}</th>
               <th class="image"><img src="${returnPathImg(element)}"></th>
               <th class="name">${element.name}</th>
-              <th class="date-update">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
-              <th class="date-creat">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
+              <th class="date-update">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
+              <th class="date-creat">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
               <th class="copy" id="copy">Copy</th>
               <th class="edit" id="edit">Sửa</th>
               <th class="delete" id="delete">Xóa</th>
@@ -445,7 +452,7 @@ addProductBtn.addEventListener('click', e => {
       var newProduct = {
         name: name.value,
         imgSrc: imgLink,
-        price: parseInt(price.value).toLocaleString(),
+        price: price.value.toLocaleString('vi-VN') + ' VND',
         dataColors: [codeColor.value],
         ID: id.value,
         type: category.value,
@@ -477,7 +484,10 @@ addProductBtn.addEventListener('click', e => {
       pagination.style.display = 'flex';
       cancel.style.display = 'none';
       addProductBtn.style.display = 'block';
+
       loadData();
+
+      unhideFilterContent();
       alert('Đã thêm sản phẩm thành công!');
     }
   });
@@ -487,14 +497,17 @@ const cancel = document.getElementById('cancel');
 cancel.addEventListener('click', e => {
   e.preventDefault();
   unhideFilterContent();
+
   const manageProduct = document.getElementById('add-product-container');
   const pagination = document.getElementById('pagination');
   const content = document.getElementById('content-product');
+
   manageProduct.innerHTML = '';
   content.style.display = 'table';
   pagination.style.display = 'flex';
   cancel.style.display = 'none';
   addProductBtn.style.display = 'block';
+
   loadData();
 });
 
@@ -574,7 +587,7 @@ generatePagination();
 loadData();
 
 // filter
-let dataFilter 
+let dataFilter;
 const manageProduct = document.getElementById('manageProduct');
 const formFilter = manageProduct.querySelector('#product-filter-form');
 const filterSubmitBtn = formFilter.querySelector('#filter-submit-btn');
@@ -583,7 +596,7 @@ const filterSubmitBtn = formFilter.querySelector('#filter-submit-btn');
 //  let dataFilter = data;
 filterSubmitBtn.addEventListener('click', e => {
   e.preventDefault();
-  
+
   const productName = manageProduct.querySelector('#productName');
   const productCode = manageProduct.querySelector('#productCode');
   const categorySelect = manageProduct.querySelector('#categorySelect');
@@ -601,72 +614,65 @@ filterSubmitBtn.addEventListener('click', e => {
     const selectedMonth = selectedCreationDate.getMonth() + 1;
     const selectedYear = selectedCreationDate.getFullYear();
     // console.log(selectedDay +" " + selectedMonth + " " + selectedYear);
-     dataFilter = dataFilter.filter(product => {
+    dataFilter = dataFilter.filter(product => {
       const timeCreatProduct = new Date(product.dateCreate);
       const dayProuct = timeCreatProduct.getDate();
       const monthProduct = timeCreatProduct.getMonth() + 1;
       const yearProduct = timeCreatProduct.getFullYear();
       return dayProuct === selectedDay && monthProduct === selectedMonth && yearProduct === selectedYear;
-      
     });
   }
-//end lọc theo ngày tháng năm
+  //end lọc theo ngày tháng năm
 
-// Lọc theo tên sản phẩm
+  // Lọc theo tên sản phẩm
   if (productName.value.trim()) {
-    dataFilter  = dataFilter.filter(e => e.name.toLowerCase().includes(productName.value.trim().toLowerCase()));
-   
+    dataFilter = dataFilter.filter(e => e.name.toLowerCase().includes(productName.value.trim().toLowerCase()));
   }
 
   // Lọc theo id sản phẩm
-  
+
   if (productCode.value.trim()) {
     dataFilter = dataFilter.filter(e => e.ID.includes(productCode.value));
-
-   
   }
 
-
-// Lọc theo phân loại
-
+  // Lọc theo phân loại
 
   if (categorySelect.value != 'all') {
-  dataFilter = dataFilter.filter(e => e.type === categorySelect.value);
- 
+    dataFilter = dataFilter.filter(e => e.type === categorySelect.value);
   }
 
-   const content = document.getElementById('content');
-   content.innerHTML = '';
-    const id = document.getElementById('id');
-    for (let index = 0; index < dataFilter.length; index++) {
-      const element = dataFilter[index];
-      const item = document.createElement('tr');
+  const content = document.getElementById('content');
+  content.innerHTML = '';
+  const id = document.getElementById('id');
+  for (let index = 0; index < dataFilter.length; index++) {
+    const element = dataFilter[index];
+    const item = document.createElement('tr');
 
-      const dateCreate = new Date(element.dateCreate);
-      const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
-      const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
-      const dateCreateYear = dateCreate.getFullYear();
+    const dateCreate = new Date(element.dateCreate);
+    const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
+    const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
+    const dateCreateYear = dateCreate.getFullYear();
 
-      const dateUpdate = new Date(element.dateUpdate);
-      const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
-      const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
-      const dateUpdateYear = dateUpdate.getFullYear();
+    const dateUpdate = new Date(element.dateUpdate);
+    const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
+    const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
+    const dateUpdateYear = dateUpdate.getFullYear();
 
-      item.innerHTML = `
+    item.innerHTML = `
               <th class="id">${element.ID}</th>
               <th class="image"><img src="${returnPathImg(element)}"></th>
               <th class="name">${element.name}</th>
-              <th class="date-update">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
-              <th class="date-creat">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
+              <th class="date-update">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
+              <th class="date-creat">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
               <th class="copy" id="copy">Copy</th>
               <th class="edit" id="edit">Sửa</th>
               <th class="delete" id="delete">Xóa</th>
       `;
 
-      content.appendChild(item);
-      updateEvent(item, index, id, element);
-    }
-    console.log(dataFilter);
+    content.appendChild(item);
+    updateEvent(item, index, id, element);
+  }
+  console.log(dataFilter);
   //reset
   const resetBtn = document.querySelector('.product--reset__btn');
   resetBtn.addEventListener('click', () => {
@@ -676,6 +682,31 @@ filterSubmitBtn.addEventListener('click', e => {
     categorySelect.value = 'all';
     loadData();
   });
+});
 
+const autoReturnProductPageWhenReload = () => {
+  const taskbarItems = document.querySelectorAll('.admin__taskbar--body__list li');
+  const contentElements = document.querySelectorAll('.admin__content');
 
+  // Ẩn đi hết trạng thái active bên thanh sidebar
+  taskbarItems.forEach(item => {
+    item.classList.remove('active');
+  });
+
+  // Ẩn đi hết nội dụng phần content
+  contentElements.forEach(content => {
+    content.classList.add('hideItem');
+  });
+
+  // Hiện nội dung trang product
+  // Bật trạng thái active cho product bên sidebar
+  document.querySelector('.admin__taskbar--body__list #product').classList.add('active');
+  productContent.classList.remove('hideItem');
+};
+
+window.addEventListener('load', e => {
+  isReload = true;
+  if (isReload) {
+    autoReturnProductPageWhenReload();
+  }
 });
