@@ -492,31 +492,40 @@ th {
   z-index: 999999999;
 }
 
-.close {
-  position: absolute;
-  display: none;
-  top: 20px;
-  left: 20px;
-  font-size: xx-large;
-  color: white;
-  cursor: pointer;
+#form-group--previewImg {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+
 .change-product-info {
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 30px;
-  background-color: #333;
+  background-color: #fff;
   padding: 30px;
+  width: 385px;
   border: none;
   border-radius: 12px;
+  color: #333;
 }
+
+.close {
+  position: absolute;
+  display: none;
+  top: 10px;
+  right: 10px;
+  font-size: 22px;
+  color: red;
+  cursor: pointer;
+}
+
 .change-product-info h2 {
-  color: aliceblue;
   font-weight: bold;
   font-size: x-large;
-  text-shadow: 3px 0px 7px rgba(2, 2, 2, 0.8), -3px 0px 7px rgba(27, 26, 25, 0.8), 0px 4px 7px rgba(45, 45, 45, 0.8);
 }
 
 .change-product-info form {
@@ -530,17 +539,26 @@ th {
 }
 .change-product-info form .form-group {
   width: 100%;
-  color: aliceblue;
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: center;
   gap: 10px;
 }
+
+.change-product-info form label {
+  font-weight: bold;
+  font-size: 16px;
+}
+
 .change-product-info form input {
   width: 100%;
   height: 35px;
   padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  border: 1px solid #333;
+  height: 100%;
 }
 .change-product-info button {
   width: 100px;
@@ -548,12 +566,17 @@ th {
   font-size: medium;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  color: #333;
+  background-color: rgb(69, 220, 69);
+  box-shadow: rgba(48, 191, 13, 0.983) 0px 3px 0px 0px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
 }
 
-.change-product-info button:hover {
-  box-shadow: none;
+.change-product-info button:active {
+  transform: translateY(3px);
+  box-shadow: rgba(48, 191, 13, 0.983) 0px 0px 0px 0px;
 }
 
 .admin-product {
@@ -577,7 +600,7 @@ th {
 }
 
 .pagination a.active {
-  background-color: #333;
+  background-color: hsl(0, 0%, 20%);
   color: white;
 }
 
@@ -691,13 +714,11 @@ th {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 50px;
 }
 .add-product-form-container {
-  width: 600px;
+  width: 500px;
   border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  background-color: #fff;
 }
 .add-product-form-container .title {
   display: flex;
@@ -718,6 +739,24 @@ th {
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+
+.add-product-form-container form .form-item__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.add-product-form-container form .form-item__container .form-item__productPrice,
+.add-product-form-container form .form-item__container .form-item__productCode {
+  width: 60%;
+}
+
+.add-product-form-container form .form-item__container .form-item__productCodeColor,
+.add-product-form-container form .form-item__container .form-item__productCategory {
+  width: 40%;
 }
 
 .add-product-form-container form .form-item {
@@ -792,4 +831,8 @@ th {
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #333;
+}
+
+.imagePreview {
+  border-radius: 5px;
 }
