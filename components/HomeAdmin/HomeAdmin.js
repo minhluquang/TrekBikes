@@ -105,7 +105,7 @@ function countOrdersStatus(data) {
   data.forEach(user => {
     user.cart.forEach(order => {
       order.product.forEach(item => {
-        if (item.proccessed) {
+        if (item.processed) {
           processedCount++;
         } else {
           unprocessedCount++;
@@ -150,8 +150,8 @@ if (Array.isArray(users)) {
   });
 
   // Hiển thị kết quả
-  // console.log('Số lượng đơn hàng chưa xử lí:', pendingOrdersCount);
-  // console.log('Số lượng đơn hàng đã xử lí:', processedOrdersCount);
+  console.log('Số lượng đơn hàng chưa xử lí:', pendingOrdersCount);
+  console.log('Số lượng đơn hàng đã xử lí:', processedOrdersCount);
 } else {
   console.log('Dữ liệu người dùng không phải là mảng hợp lệ.');
 }

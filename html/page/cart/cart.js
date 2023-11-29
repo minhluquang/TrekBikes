@@ -16,6 +16,9 @@ function generateRandomId() {
 
   return id;
 }
+function getIdUser() {
+  return userLocal.id;
+}
 
 let check = true;
 const totalPriceDisplay = document.getElementById('totalPriceId');
@@ -267,6 +270,7 @@ infoContainer.forEach((element, index) => {
     }
   });
   confirmButton.addEventListener('click', function () {
+
     if (chekcbuy) {
       var currentTime = new Date();
 
@@ -284,8 +288,15 @@ infoContainer.forEach((element, index) => {
             }
           ]
         };
+        for (let i = 0; i < DUMMY_API.length; i++) {
+          if (DUMMY_API[i].idUser === getIdUser()) {
+            DUMMY_API[i].cart.push(processing);
 
-        DUMMY_API[0].cart.push(processing);
+          }
+
+        }
+
+        // DUMMY_API[0].cart.push(processing);
       }
       console.log(userLocal.cart);
       console.log(updateESelect);
@@ -304,6 +315,7 @@ infoContainer.forEach((element, index) => {
         if (accountData[i].id === userLocal.id) {
           accountData[i].cart = userLocal.cart;
         }
+
       }
 
       localStorage.setItem('User', JSON.stringify(userLocal));
@@ -321,6 +333,8 @@ window.addEventListener('beforeunload', function (event) {
   userLocal.processing = [...new Set(userLocal.processing)];
   localStorage.setItem('User', JSON.stringify(userLocal));
 });
+
+
 
 const input = document.getElementById('input');
 
@@ -360,7 +374,9 @@ input.addEventListener('input', event => {
   }
 });
 
-const table = document.getElementById('order_status_table');
+
+
+const table = document.getElementById("order_status_table");
 const allTh = table.querySelectorAll('th');
 allTh.forEach((e, index) => {
   e.addEventListener('click', () => {
@@ -368,29 +384,40 @@ allTh.forEach((e, index) => {
       location.reload();
     }
     if (index == 1) {
-      console.log('panding');
-      cartInfo.innerHTML = '';
+      console.log("panding")
+      cartInfo.innerHTML = ''
       handlePanding();
     }
     if (index == 2) {
       console.log('onDeliverery');
-      cartInfo.innerHTML = '';
+      cartInfo.innerHTML = ''
       handleOnDelivery();
     }
-    allTh.forEach(e => (e.style.backgroundColor = '#585858'));
+    allTh.forEach(e => e.style.backgroundColor = '#585858')
     e.style.backgroundColor = '#45a049';
-  });
-});
+
+  })
+})
+
 
 function handleOnDelivery() {
   const cartInfo = document.getElementById('cart-info');
+  var tmp = 0;
+  for (let i = 0; i < DUMMY_API.length; i++) {
+    if (DUMMY_API[i].idUser === getIdUser()) {
+      tmp = i;
+    }
+  }
   let check = false;
   for (let i = 0; i < data.length; i++) {
-    for (let j = 0; j < DUMMY_API[0].cart.length; j++) {
-      for (let k = 0; k < DUMMY_API[0].cart[j].product.length; k++) {
-        if (DUMMY_API[0].cart[j].product[k].processed === true) {
+
+    for (let j = 0; j < DUMMY_API[tmp].cart.length; j++) {
+
+      for (let k = 0; k < DUMMY_API[tmp].cart[j].product.length; k++) {
+        if (DUMMY_API[tmp].cart[j].product[k].processed === true) {
           check = true;
         }
+
       }
     }
   }
@@ -404,38 +431,38 @@ function handleOnDelivery() {
     toast.style.display = 'flex';
   }
   for (let i = 0; i < data.length; i++) {
-    for (let j = 0; j < DUMMY_API[0].cart.length; j++) {
-      for (let k = 0; k < DUMMY_API[0].cart[j].product.length; k++) {
-        if (data[i].ID === DUMMY_API[0].cart[j].product[k].id && check) {
+
+    for (let j = 0; j < DUMMY_API[tmp].cart.length; j++) {
+
+      for (let k = 0; k < DUMMY_API[tmp].cart[j].product.length; k++) {
+        if (data[i].ID === DUMMY_API[tmp].cart[j].product[k].id && check) {
           const cartItem = document.createElement('tr');
 
-          if (DUMMY_API[0].cart[j].product[k].processed === true) {
+          if (DUMMY_API[tmp].cart[j].product[k].processed === true) {
             cartItem.classList.add('info-item-container');
 
             cartItem.innerHTML = `
-                        <td class="img"><img src="../../../${data[i].imgSrc}" alt="${data[i].name}"></td>
-                        <td class="name">
-                           
-                            ${data[i].name}
-                        </td>
-                        <td class="price">${data[i].price}</td>
-                        <td class="quantity">
-                            <div class="quantity-item">
-                                
-                                <span id="quantity">${DUMMY_API[0].cart[j].product[k].quantity}</span>
-                               
-                            </div>
-                        </td>
-                        <td >
-                            <div class="checkbox">
-                                <p class="id">${data[i].ID}</p>
-                                <label class="checkbox-container">
-                                    ${status}
-                                </label>
-    
-                            </div>
-                        </td>
-                    `;
+                          <td class="img"><img src="../../../${data[i].imgSrc}" alt="${data[i].name}"></td>
+                          <td class="name">
+                             
+                              ${data[i].name}
+                          </td>
+                          <td class="price">${data[i].price}</td>
+                          <td class="quantity">
+                              <div class="quantity-item">
+                                  
+                                  <span id="quantity">${DUMMY_API[tmp].cart[j].product[k].quantity}</span>
+                                 
+                              </div>
+                          </td>
+                          <td >
+                              <div class="checkbox">
+                                  <p class="id">${data[i].ID}</p>
+                                  
+      
+                              </div>
+                          </td>
+                      `;
 
             cartInfo.appendChild(cartItem);
             console.log(cartInfo);
@@ -446,9 +473,19 @@ function handleOnDelivery() {
   }
 }
 
+
+
 function handlePanding() {
+  var tmp = 0;
+  for (let i = 0; i < DUMMY_API.length; i++) {
+    if (DUMMY_API[i].idUser === getIdUser()) {
+      tmp = i;
+      console.log(i);
+    }
+  }
   const cartInfo = document.getElementById('cart-info');
-  if (DUMMY_API[0].cart.length > 0) {
+  // console.log(tmp)
+  if (DUMMY_API[tmp].cart.length > 0) {
     footer.style.display = 'none';
     menu.style.display = 'table';
     toast.style.display = 'none';
@@ -458,51 +495,55 @@ function handlePanding() {
     toast.style.display = 'flex';
   }
   for (let i = 0; i < data.length; i++) {
-    for (let j = 0; j < DUMMY_API[0].cart.length; j++) {
-      for (let k = 0; k < DUMMY_API[0].cart[j].product.length; k++) {
-        if (data[i].ID === DUMMY_API[0].cart[j].product[k].id && check) {
+    for (let j = 0; j < DUMMY_API[tmp].cart.length; j++) {
+
+      for (let k = 0; k < DUMMY_API[tmp].cart[j].product.length; k++) {
+        if (data[i].ID === DUMMY_API[tmp].cart[j].product[k].id && check) {
           const cartItem = document.createElement('tr');
 
-          if (DUMMY_API[0].cart[j].product[k].processed === false) {
+          if (DUMMY_API[tmp].cart[j].product[k].processed === false) {
             cartItem.classList.add('info-item-container');
 
             cartItem.innerHTML = `
-                        <td class="img"><img src="../../../${data[i].imgSrc}" alt="${data[i].name}"></td>
-                        <td class="name">
-                           
-                            ${data[i].name}
-                        </td>
-                        <td class="price">${data[i].price}</td>
-                        <td class="quantity">
-                            <div class="quantity-item">
-                                
-                                <span id="quantity">${DUMMY_API[0].cart[j].product[k].quantity}</span>
-                               
-                            </div>
-                        </td>
-                        <td >
-                            <div class="checkbox">
-                                <p class="id">${data[i].ID}</p>
-                                <label class="checkbox-container">
-                                    <button id="cancelPanding"> Hủy đơn </button>
-                                </label>
-    
-                            </div>
-                        </td>
-                    `;
+                          <td class="img"><img src="../../../${data[i].imgSrc}" alt="${data[i].name}"></td>
+                          <td class="name">
+                             
+                              ${data[i].name}
+                          </td>
+                          <td class="price">${data[i].price}</td>
+                          <td class="quantity">
+                              <div class="quantity-item">
+                                  
+                                  <span id="quantity">${DUMMY_API[tmp].cart[j].product[k].quantity}</span>
+                                 
+                              </div>
+                          </td>
+                          <td >
+                              <div class="checkbox">
+                                  <p class="id">${data[i].ID}</p>
+                                  <label class="checkbox-container">
+                                      <button id="cancelPanding"> Hủy đơn </button>
+                                  </label>
+      
+                              </div>
+                          </td>
+                      `;
 
             cartInfo.appendChild(cartItem);
             console.log(cartInfo);
             const cancelOrder = cartItem.querySelector('#cancelPanding');
             console.log(cancelOrder);
             cancelOrder.addEventListener('click', () => {
-              DUMMY_API[0].cart.splice(j, 1);
+              DUMMY_API[tmp].cart.splice(j, 1);
               localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
               location.reload();
-            });
+            })
           }
+
         }
+
       }
+
     }
   }
 }
