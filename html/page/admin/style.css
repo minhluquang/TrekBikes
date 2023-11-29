@@ -836,3 +836,9 @@ th {
 .imagePreview {
   border-radius: 5px;
 }
+
+.createMessage ,
+.nameMessage ,
+.updateMessage {
+  color: red;
+}

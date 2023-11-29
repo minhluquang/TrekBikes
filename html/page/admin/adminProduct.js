@@ -53,6 +53,8 @@ function displayFormChange() {
   form.style.display = 'flex';
 }
 
+
+
 function closeForm() {
   const form = document.getElementById('change-product-info-container');
   const close = form.querySelector('.close');
@@ -101,13 +103,34 @@ function updateEvent(item, index, id, element) {
         const formNameInputValue = document.querySelector('.form-group #name').value.trim();
         const formDateUpdateValue = document.querySelector('.form-group #dateupdate').value;
         const formDateCreateValue = document.querySelector('.form-group #datecreate').value;
-
+        
         let isValidName = true;
         let isValidDateUpdate = true;
         let isValidDateCreate = true;
-
+        const nameMessgae = document.querySelector('.nameMessage');
+        const updateMessage = document.querySelector('.updateMessage');
+        const createMessage = document.querySelector('.createMessage');
         // Check đúng sai dữ liệu
+        if(formNameInputValue === "") {
+          isValidName = false;
+          nameMessgae.innerHTML = "*Vui lòng nhập tên sản phẩm" ;
+        } else {
+          nameMessgae.innerHTML = "";
+        }
 
+        if(formDateUpdateValue === "") {
+          isValidName = false;
+          updateMessage.innerHTML = "*Vui lòng nhập dữ liệu" ;
+        } else {
+          updateMessage.innerHTML = "";
+        }
+
+        if(formDateCreateValue === "") {
+          isValidName = false;
+          createMessage.innerHTML = "*Vui lòng nhập dữ liệu" ;
+        } else {
+          createMessage.innerHTML = "";
+        }
         let isValidForm = isValidName && isValidDateUpdate && isValidDateCreate;
 
         if (isValidForm) {
@@ -119,10 +142,10 @@ function updateEvent(item, index, id, element) {
               product.dateUpdate = new Date(formDateUpdateValue).toISOString();
             }
           });
+          localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
+          location.reload();
         }
-        localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
-
-        location.reload();
+        
       });
     });
   });
