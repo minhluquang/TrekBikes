@@ -4,7 +4,7 @@ const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const DUMMY_API = JSON.parse(localStorage.getItem('DUMMY_API'));
 
 const data = DUMMY_PRODUCTS;
-
+const accountData = JSON.parse(localStorage.getItem('accounts'));
 function generateRandomId() {
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var id = '';
@@ -267,28 +267,7 @@ infoContainer.forEach((element, index) => {
     }
   });
   confirmButton.addEventListener('click', function () {
-    // const elementsToAdd = [];
-
-    // updateESelect.forEach(e => {
-    //   if (!userLocal.processing.includes(e)) {
-    //     elementsToAdd.push(e);
-    //   }
-    // });
-
-    // userLocal.processing.push(...elementsToAdd);
-
-    // console.log(updateESelect);
-    // container.style.display = 'none';
-
-    // const productsToDelete = userLocal.cart.filter(product => currentSelectProduct.includes(product.id));
-
-    // for (const productToDelete of productsToDelete) {
-    //   const index = userLocal.cart.indexOf(productToDelete);
-    //   userLocal.cart.splice(index, 1);
-    // }
-
-    // localStorage.setItem('User', JSON.stringify(userLocal));
-    // location.reload();
+    
     if (chekcbuy) {
       var currentTime = new Date();
 
@@ -322,8 +301,15 @@ infoContainer.forEach((element, index) => {
           }
         }
       }
+      for (let i = 0; i < accountData.length; i++) {
+        if(accountData[i].id === userLocal.id){
+          accountData[i].cart = userLocal.cart;
+        }
+        
+      }
 
       localStorage.setItem('User', JSON.stringify(userLocal));
+      localStorage.setItem('accounts',JSON.stringify(accountData));
       console.log(DUMMY_API);
       localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
 
@@ -338,28 +324,7 @@ window.addEventListener('beforeunload', function (event) {
   localStorage.setItem('User', JSON.stringify(userLocal));
 });
 
-// <label class="checkbox-container">
-//     <input type="checkbox" id="checkboxId">
-//         <span class="checkmark"></span>
-// </label>
-// const infoItems = document.querySelectorAll('info-item-container');
-// let currentCheckID = [];
-// function confirmBtn(){
-//     infoItems.forEach(e=>{
 
-//         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-//         const id = e.querySelector('#id');
-
-//         checkboxes.forEach(function (checkbox) {
-//             if (checkbox.checked) {
-//                 currentCheckID.push(id.textContent)
-//             }
-//         });
-//         const confirmButton = document.getElementById('confirmButton');
-
-//     })
-// }
-// confirmBtn();
 
 const input = document.getElementById('input');
 
