@@ -102,7 +102,7 @@ function countOrdersStatus(data) {
   let processedCount = 0;
   let unprocessedCount = 0;
 
-  data.forEach(user => {
+  data?.forEach(user => {
     user.cart.forEach(order => {
       order.product.forEach(item => {
         if (item.processed) {
@@ -159,7 +159,7 @@ if (Array.isArray(users)) {
 // Tính tổng tiền thu nhập của shop
 let arrayTemp = [];
 //const DUMM_API = [];
-DUMMY_API.forEach(idUser => {
+DUMMY_API?.forEach(idUser => {
   idUser.cart.forEach(order => {
     order.product.forEach(item => {
       if (item.processed) {

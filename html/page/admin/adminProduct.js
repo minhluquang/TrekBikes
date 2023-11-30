@@ -1,11 +1,11 @@
 const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
-const data = DUMMY_PRODUCTS;
+let data = DUMMY_PRODUCTS;
 let filteredData = [...data];
 
 // const currentDateTime = JSON.parse(localStorage.getItem('DateTimeP'));
 const closeFormClick = document.getElementById('close');
 
-function setValuesInput(ImageUrl, Name, UpdateDate, CreationDate,Type) {
+function setValuesInput(ImageUrl, Name, UpdateDate, CreationDate, Type) {
   const imageUrl = document.getElementById('imageUrl');
   const name = document.getElementById('name');
   const updateDate = document.getElementById('dateupdate');
@@ -152,8 +152,8 @@ function updateEvent(item, index, id, element) {
         const formNameInputValue = document.querySelector('.form-group #name').value.trim();
         const formDateUpdateValue = document.querySelector('.form-group #dateupdate').value;
         const formDateCreateValue = document.querySelector('.form-group #datecreate').value;
-        const formTypeValue = document.querySelector('.form-group #type').value;
-        
+        // const formTypeValue = document.querySelector('.form-group #type').value;
+
         let isValidName = true;
         let isValidDateUpdate = true;
         let isValidDateCreate = true;
@@ -190,7 +190,7 @@ function updateEvent(item, index, id, element) {
               product.name = formNameInputValue;
               product.dateCreate = new Date(formDateCreateValue).toISOString();
               product.dateUpdate = new Date(formDateUpdateValue).toISOString();
-              product.type = formTypeValue;
+              // product.type = formTypeValue;
             }
           });
           // Đặt item = 'needReturnProductPage' trên local để khi reload lại trang
@@ -199,7 +199,6 @@ function updateEvent(item, index, id, element) {
           localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
           location.reload();
         }
-        
       });
     });
   });
@@ -697,7 +696,7 @@ const filterSubmitBtn = formFilter.querySelector('#filter-submit-btn');
 //  let dataFilter = data;
 filterSubmitBtn.addEventListener('click', e => {
   e.preventDefault();
-  
+
   const productName = manageProduct.querySelector('#productName');
   const productCode = manageProduct.querySelector('#productCode');
   const categorySelect = manageProduct.querySelector('#categorySelect');
@@ -715,60 +714,57 @@ filterSubmitBtn.addEventListener('click', e => {
     const selectedMonth = selectedCreationDate.getMonth() + 1;
     const selectedYear = selectedCreationDate.getFullYear();
 
-     dataFilter = dataFilter.filter(product => {
-    // console.log(selectedDay +" " + selectedMonth + " " + selectedYear);
     dataFilter = dataFilter.filter(product => {
-      const timeCreatProduct = new Date(product.dateCreate);
-      const dayProuct = timeCreatProduct.getDate();
-      const monthProduct = timeCreatProduct.getMonth() + 1;
-      const yearProduct = timeCreatProduct.getFullYear();
-      return dayProuct === selectedDay && monthProduct === selectedMonth && yearProduct === selectedYear;
-      
+      // console.log(selectedDay +" " + selectedMonth + " " + selectedYear);
+      dataFilter = dataFilter.filter(product => {
+        const timeCreatProduct = new Date(product.dateCreate);
+        const dayProuct = timeCreatProduct.getDate();
+        const monthProduct = timeCreatProduct.getMonth() + 1;
+        const yearProduct = timeCreatProduct.getFullYear();
+        return dayProuct === selectedDay && monthProduct === selectedMonth && yearProduct === selectedYear;
+      });
     });
-  });
+  }
+  //end lọc theo ngày tháng năm
 
-}
-//end lọc theo ngày tháng năm
-
-// Lọc theo tên sản phẩm
+  // Lọc theo tên sản phẩm
   if (productName.value.trim()) {
-    dataFilter  = dataFilter.filter(e => e.name.toLowerCase().includes(productName.value.trim().toLowerCase()));
+    dataFilter = dataFilter.filter(e => e.name.toLowerCase().includes(productName.value.trim().toLowerCase()));
   }
 
   // Lọc theo id sản phẩm
-  
+
   if (productCode.value.trim()) {
     dataFilter = dataFilter.filter(e => e.ID.includes(productCode.value));
   }
 
-
-// Lọc theo phân loại
+  // Lọc theo phân loại
 
   if (categorySelect.value != 'all') {
-  dataFilter = dataFilter.filter(e => e.type === categorySelect.value);
+    dataFilter = dataFilter.filter(e => e.type === categorySelect.value);
   }
   filteredData = [...dataFilter];
   generatePagination();
   loadData();
- 
-   const content = document.getElementById('content');
-   content.innerHTML = '';
-    const id = document.getElementById('id');
-    for (let index = 0; index < filteredData.length; index++) {
-      const element = filteredData[index];
-      const item = document.createElement('tr');
 
-      const dateCreate = new Date(element.dateCreate);
-      const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
-      const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
-      const dateCreateYear = dateCreate.getFullYear();
+  const content = document.getElementById('content');
+  content.innerHTML = '';
+  const id = document.getElementById('id');
+  for (let index = 0; index < filteredData.length; index++) {
+    const element = filteredData[index];
+    const item = document.createElement('tr');
 
-      const dateUpdate = new Date(element.dateUpdate);
-      const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
-      const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
-      const dateUpdateYear = dateUpdate.getFullYear();
+    const dateCreate = new Date(element.dateCreate);
+    const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
+    const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
+    const dateCreateYear = dateCreate.getFullYear();
 
-      item.innerHTML = `
+    const dateUpdate = new Date(element.dateUpdate);
+    const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
+    const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
+    const dateUpdateYear = dateUpdate.getFullYear();
+
+    item.innerHTML = `
               <th class="id">${element.ID}</th>
               <th class="image"><img src="${returnPathImg(element)}"></th>
               <th class="name">${element.name}</th>
@@ -781,21 +777,47 @@ filterSubmitBtn.addEventListener('click', e => {
               <th class="delete" id="delete">Xóa</th>
       `;
 
-      content.appendChild(item);
-      updateEvent(item, index, id, element);
-    }
-    
-    
+    content.appendChild(item);
+    updateEvent(item, index, id, element);
+  }
 });
 
 // Reset
 const resetBtn = document.querySelector('.product--reset__btn');
-  resetBtn.addEventListener('click', () => {
-    productName.value = '';
-    productCode.value = '';
-    categorySelect.value = 'all';
-    filteredData = [...data];
-    generatePagination();
-    loadData();
+resetBtn.addEventListener('click', () => {
+  productName.value = '';
+  productCode.value = '';
+  categorySelect.value = 'all';
+  filteredData = [...data];
+  generatePagination();
+  loadData();
+});
+
+// Tự động return lại trang product page khi sửa hay xóa sp
+const autoReturnProductPageWhenReload = () => {
+  const taskbarItems = document.querySelectorAll('.admin__taskbar--body__list li');
+  const contentElements = document.querySelectorAll('.admin__content');
+
+  // Ẩn đi hết trạng thái active bên thanh sidebar
+  taskbarItems.forEach(item => {
+    item.classList.remove('active');
   });
 
+  // Ẩn đi hết nội dụng phần content
+  contentElements.forEach(content => {
+    content.classList.add('hideItem');
+  });
+
+  // Hiện nội dung trang product
+  // Bật trạng thái active cho product bên sidebar
+  document.querySelector('.admin__taskbar--body__list #product').classList.add('active');
+  productContent.classList.remove('hideItem');
+};
+
+window.addEventListener('load', e => {
+  const isNeedReturn = JSON.parse(localStorage.getItem('needReturnProductPage'));
+  if (isNeedReturn) {
+    autoReturnProductPageWhenReload();
+    localStorage.setItem('needReturnProductPage', JSON.stringify(false));
+  }
+});
