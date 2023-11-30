@@ -102,10 +102,10 @@ function countOrdersStatus(data) {
   let processedCount = 0;
   let unprocessedCount = 0;
 
-  data.forEach(user => {
+  data?.forEach(user => {
     user.cart.forEach(order => {
       order.product.forEach(item => {
-        if (item.proccessed) {
+        if (item.processed) {
           processedCount++;
         } else {
           unprocessedCount++;
@@ -150,8 +150,8 @@ if (Array.isArray(users)) {
   });
 
   // Hiển thị kết quả
-  // console.log('Số lượng đơn hàng chưa xử lí:', pendingOrdersCount);
-  // console.log('Số lượng đơn hàng đã xử lí:', processedOrdersCount);
+  console.log('Số lượng đơn hàng chưa xử lí:', pendingOrdersCount);
+  console.log('Số lượng đơn hàng đã xử lí:', processedOrdersCount);
 } else {
   console.log('Dữ liệu người dùng không phải là mảng hợp lệ.');
 }
@@ -159,7 +159,7 @@ if (Array.isArray(users)) {
 // Tính tổng tiền thu nhập của shop
 let arrayTemp = [];
 //const DUMM_API = [];
-DUMMY_API.forEach(idUser => {
+DUMMY_API?.forEach(idUser => {
   idUser.cart.forEach(order => {
     order.product.forEach(item => {
       if (item.processed) {

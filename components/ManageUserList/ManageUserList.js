@@ -70,24 +70,20 @@ function renderAddUserModal() {
   });
 
   // Xử lý ẩn hiện mật khẩu
-  const showBtn = document.querySelector("#eyeIcon");
-showBtn.addEventListener("click", e  => {
-  var passwordField = document.getElementById("newUserPassword");
-  if (passwordField.type === "password") {
-    passwordField.type = "text";
-    eyeIcon.classList.remove("fa-eye-slash");
-    eyeIcon.classList.add("fa-eye");
-} else {
-    passwordField.type = "password";
-    eyeIcon.classList.remove("fa-eye");
-    eyeIcon.classList.add("fa-eye-slash");
+  const showBtn = document.querySelector('#eyeIcon');
+  showBtn.addEventListener('click', e => {
+    var passwordField = document.getElementById('newUserPassword');
+    if (passwordField.type === 'password') {
+      passwordField.type = 'text';
+      eyeIcon.classList.remove('fa-eye-slash');
+      eyeIcon.classList.add('fa-eye');
+    } else {
+      passwordField.type = 'password';
+      eyeIcon.classList.remove('fa-eye');
+      eyeIcon.classList.add('fa-eye-slash');
+    }
+  });
 }
-})
-}
-
-
-
-
 
 // Hàm xử lý thêm người dùng
 function addUserHandler() {
@@ -207,15 +203,15 @@ submitBtn.addEventListener('click', e => {
   const day = time.getDate();
   const month = time.getMonth();
   const year = time.getFullYear();
-  const inputRoleClinetValue = document.querySelector("#userRoleClient select").value;
+  const inputRoleClinetValue = document.querySelector('#userRoleClient select').value;
   let isAdmiValid;
-  if (inputRoleClinetValue === "admin") {
+  if (inputRoleClinetValue === 'admin') {
     isAdmiValid = true;
-  } else if (inputRoleClinetValue === "user") {
+  } else if (inputRoleClinetValue === 'user') {
     isAdmiValid = false;
-  } 
+  }
 
-  if (!inputNameClientValue && !inputIdClientValue && !inputDateClientValue  && !inputRoleClinetValue) {
+  if (!inputNameClientValue && !inputIdClientValue && !inputDateClientValue && !inputRoleClinetValue) {
     return;
   } else {
     const usersContainer = document.querySelector('#userList');
@@ -228,8 +224,6 @@ submitBtn.addEventListener('click', e => {
 
   // If data isn't an array, then convert to array
   const userList = JSON.parse(localStorage.getItem('accounts'));
-
-  
 
   if (Array.isArray(userList)) {
     data = userList;
@@ -255,12 +249,11 @@ submitBtn.addEventListener('click', e => {
     });
   }
 
-  if(inputRoleClinetValue === "all") {
+  if (inputRoleClinetValue === 'all') {
     renderUsersInfo(data);
   } else {
     data = data.filter(item => item.isAdmin === isAdmiValid);
   }
-
 
   // -------------------------------
 

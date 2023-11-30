@@ -5,6 +5,9 @@ const navDropdown = document.getElementById('nav-dropdown');
 const userLocal = JSON.parse(localStorage.getItem('User'));
 const input = document.getElementById('input');
 const statusSearch = document.getElementById('statusSearch');
+const DUMMY_API = JSON.parse(localStorage.getItem('DUMMY_API'));
+const accountData = JSON.parse(localStorage.getItem('accounts'));
+
 if (!localStorage.getItem('inputSearchCheck')) {
   console.log('Mã đã chạy lần đầu tiên');
   const inputSearch = [];
@@ -207,18 +210,14 @@ input.addEventListener('input', event => {
 });
 const navItemCart = document.getElementById('nav-item-cart');
 
-let quantity = 0;
+let quantity = 1;
 const clickAddCart = () => {
-  console.log(overlayid);
   for (let i = 0; i < userLocal.cart.length; i++) {
     if (userLocal.cart[i].id === overlayid.textContent) {
       quantity = parseInt(userLocal.cart[i].quantity);
       break;
     }
   }
-  quantity = quantity + 1;
-  toastContainer.style.display = 'flex';
-  toastAddCart.style.display = 'flex';
 
   const process = {
     id: overlayid.textContent,
@@ -237,11 +236,17 @@ const clickAddCart = () => {
   }
   if (!found) {
     userLocal.cart.push(process);
-    quantity = 0;
+    quantity = 1;
   }
 
   // alert("Ngày " + ngay + "/" + thang + "/" + nam + " lúc " + gio + ":" + phut + ":" + giay)
+  for (let i = 0; i < accountData.length; i++) {
+    if (accountData[i].id === userLocal.id) {
+      accountData[i].cart = userLocal.cart;
+    }
+  }
   localStorage.setItem('User', JSON.stringify(userLocal));
+  localStorage.setItem('accounts', JSON.stringify(accountData));
   const itemCart = document.createElement('p');
   itemCart.classList.add('item-cart');
   itemCart.innerText = `${userLocal.cart.length}`;
@@ -382,6 +387,12 @@ submitBtn.addEventListener('click', e => {
             const updateLike = [...new Set(userLocal.like)];
             userLocal.like = updateLike;
             localStorage.setItem('User', JSON.stringify(userLocal));
+            for (let i = 0; i < accountData.length; i++) {
+              if (accountData[i].id === userLocal.id) {
+                accountData[i].like = userLocal.like;
+              }
+            }
+            localStorage.setItem('accounts', JSON.stringify(accountData))
 
             // localStorage.setItem('User', JSON.stringify(userLocal))
           });
@@ -457,8 +468,13 @@ submitBtn.addEventListener('click', e => {
           itemHeart.innerText = `${userLocal.like.length}`;
           navItemHeart.appendChild(itemHeart);
           userLocal.like = updateLike;
-          console.log(userLocal);
+          for (let i = 0; i < accountData.length; i++) {
+            if (accountData[i].id === userLocal.id) {
+              accountData[i].like = userLocal.like;
+            }
+          }
           localStorage.setItem('User', JSON.stringify(userLocal));
+          localStorage.setItem('accounts', JSON.stringify(accountData));
         });
       });
     } else if (matchingProduct.length <= 0) {

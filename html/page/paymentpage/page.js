@@ -6,6 +6,11 @@ const userLocal = JSON.parse(localStorage.getItem('User'))
 const id = JSON.parse(localStorage.getItem('currentIdbuy'));
 const DUMMY_API = JSON.parse(localStorage.getItem('DUMMY_API'));
 const accountData = JSON.parse(localStorage.getItem('accounts'));
+
+function getId() {
+  return userLocal.id;
+}
+console.log(getId());
 function generateRandomId(length) {
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var id = '';
@@ -20,7 +25,7 @@ function generateRandomId(length) {
 
 const totalpayment = document.getElementById('totalPayment');
 
-console.log(DUMMY_API[0]);
+
 const disPlayTotalPayment = async () => {
   for (let i = 0; i < data.length; i++) {
     if (data[i].ID === id) {
@@ -52,16 +57,22 @@ confirmButton.addEventListener('click', function () {
     ]
   };
 
-  DUMMY_API[0].cart.push(processing);
-  for (let i = 0; i < accountData.length; i++) {
-    if (accountData[i].id === DUMMY_API[0].id) {
-      accountData[i].cart = DUMMY_API[0].cart;
+  // DUMMY_API[0].cart.push(processing);
+  for (let i = 0; i < DUMMY_API.length; i++) {
+    if (DUMMY_API[i].idUser === id) {
+      DUMMY_API[i].cart.push(processing);
     }
 
   }
+  // for (let i = 0; i < accountData.length; i++) {
+  //   if (accountData[i].id === DUMMY_API[0].id) {
+  //     accountData[i].cart = DUMMY_API[0].cart;
+  //   }
+
+  // }
   //   console.log(DUMMY_API);
 
   localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
-  localStorage.setItem('accounts', JSON.stringify(accountData));
+  // localStorage.setItem('accounts', JSON.stringify(accountData));
 
 });

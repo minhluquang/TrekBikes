@@ -1,3 +1,5 @@
+const User = JSON.parse(localStorage.getItem('User'));
+
 // start: Xử lý đóng mở taskbar
 const toggleMenuIcon = document.querySelector('.admin__content--header__cate');
 const container = document.querySelector('.container');
@@ -76,3 +78,6 @@ const init = () => {
 
 init();
 
+// Sét name admin UI cho page admin
+const nameUserAdmin = document.querySelector('.admin__content--header__user p strong');
+nameUserAdmin.textContent = User.name;
