@@ -724,9 +724,9 @@ filterSubmitBtn.addEventListener('click', e => {
       return dayProuct === selectedDay && monthProduct === selectedMonth && yearProduct === selectedYear;
       
     });
-  });
+  }
 
-}
+
 //end lọc theo ngày tháng năm
 
   // Lọc theo tên sản phẩm
