@@ -362,7 +362,7 @@
 }
 
 .isActiveStatus .products--item__status i {
-  display: none;
+  /* display: none;  */
 }
 
 .isNonActiveStatus .products--item__status {

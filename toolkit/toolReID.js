@@ -1,29 +1,32 @@
 const fs = require('fs');
-const crypto = require('crypto');
+const path = require('path');
 
-// Đọc dữ liệu từ tệp JSON hiện có
-const dataFilename = 'data.json';
-let data = [];
-
-try {
-  data = JSON.parse(fs.readFileSync(dataFilename, 'utf8'));
-} catch (error) {
-  console.error(`Lỗi khi đọc tệp JSON: ${error.message}`);
-  process.exit(1);
+function generateShortId() {
+  // Tạo một ID ngẫu nhiên với 5 ký tự
+  const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let shortId = '';
+  for (let i = 0; i < 5; i++) {
+    shortId += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return shortId;
 }
 
-// Hàm tạo ID ngẫu nhiên có độ dài 10 ký tự
-function generateRandomID() {
-  return crypto.randomBytes(5).toString('hex');
+function updateIds(products) {
+  for (const product of products) {
+    // Thay thế ID hiện tại bằng ID mới
+    product.ID = generateShortId();
+  }
 }
 
-// Cập nhật ID cho mỗi sản phẩm
-data = data.map(item => {
-  item.ID = generateRandomID();
-  return item;
-});
+// Đọc dữ liệu từ file JSON
+const filePath = path.join(__dirname, 'text.json');
+const productsData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
-// Lưu lại dữ liệu đã cập nhật vào tệp JSON
-fs.writeFileSync(dataFilename, JSON.stringify(data, null, 2));
+// Cập nhật IDs
+updateIds(productsData);
 
-console.log(`Đã cập nhật ID cho tất cả sản phẩm trong ${dataFilename}.`);
+// Ghi dữ liệu mới vào file
+const updatedFilePath = path.join(__dirname, 'your_updated_json_file.json');
+fs.writeFileSync(updatedFilePath, JSON.stringify(productsData, null, 2));
+
+console.log('IDs have been updated.');

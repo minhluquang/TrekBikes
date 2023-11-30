@@ -37,6 +37,14 @@ if (userLocal.cart.length <= 0) {
   toast.display = 'none';
 }
 
+function returnPathImg(element) {
+  let pathImg = element.imgSrc;
+  if (pathImg.startsWith('database')) {
+    pathImg = '../../../' + pathImg;
+  }
+  return pathImg;
+}
+
 function displayProductItems() {
   for (let i = 0; i < data.length; i++) {
     for (let j = 0; j < userLocal.cart.length; j++) {
@@ -45,7 +53,7 @@ function displayProductItems() {
         cartItem.classList.add('info-item-container');
 
         cartItem.innerHTML = `
-                    <td class="img"><img src="../../../${data[i].imgSrc}" alt="${data[i].name}"></td>
+                    <td class="img"><img src="${returnPathImg(data[i])}" alt="${data[i].name}"></td>
                     <td class="name">
                        
                         ${data[i].name}
@@ -87,7 +95,7 @@ displayProductItems();
 const infoContainer = document.querySelectorAll('.info-item-container');
 let currentSelectProduct = [];
 let updateESelect = [];
-const dialog = document.getElementById('dialog')
+const dialog = document.getElementById('dialog');
 const container = document.getElementById('container');
 
 const totalPricePay = document.getElementById('totalPricePay');
@@ -263,7 +271,7 @@ infoContainer.forEach((element, index) => {
       const idContainer = document.createElement('p');
       idContainer.classList.add('idContainer');
       idContainer.innerText = id.textContent;
-      dialog.style.display = 'flex'
+      dialog.style.display = 'flex';
       // container.style.display = 'block';
       container.appendChild(idContainer);
 
@@ -274,7 +282,7 @@ infoContainer.forEach((element, index) => {
   confirmButton.addEventListener('click', function () {
     const customerName = document.getElementById('customername');
     const customerAddress = document.getElementById('customeraddress');
-    if(customerName.value === '' && customerName.value === ''){
+    if (customerName.value === '' && customerName.value === '') {
       return;
     }
     if (chekcbuy && customerName.value !== '' && customerAddress !== '') {
@@ -297,9 +305,7 @@ infoContainer.forEach((element, index) => {
         for (let i = 0; i < DUMMY_API.length; i++) {
           if (DUMMY_API[i].idUser === getIdUser()) {
             DUMMY_API[i].cart.push(processing);
-
           }
-
         }
 
         // DUMMY_API[0].cart.push(processing);
@@ -321,7 +327,6 @@ infoContainer.forEach((element, index) => {
         if (accountData[i].id === userLocal.id) {
           accountData[i].cart = userLocal.cart;
         }
-
       }
 
       localStorage.setItem('User', JSON.stringify(userLocal));
@@ -339,8 +344,6 @@ window.addEventListener('beforeunload', function (event) {
   userLocal.processing = [...new Set(userLocal.processing)];
   localStorage.setItem('User', JSON.stringify(userLocal));
 });
-
-
 
 const input = document.getElementById('input');
 
@@ -380,9 +383,7 @@ input.addEventListener('input', event => {
   }
 });
 
-
-
-const table = document.getElementById("order_status_table");
+const table = document.getElementById('order_status_table');
 const allTh = table.querySelectorAll('th');
 allTh.forEach((e, index) => {
   e.addEventListener('click', () => {
@@ -390,21 +391,19 @@ allTh.forEach((e, index) => {
       location.reload();
     }
     if (index == 1) {
-      console.log("panding")
-      cartInfo.innerHTML = ''
+      console.log('panding');
+      cartInfo.innerHTML = '';
       handlePanding();
     }
     if (index == 2) {
       console.log('onDeliverery');
-      cartInfo.innerHTML = ''
+      cartInfo.innerHTML = '';
       handleOnDelivery();
     }
-    allTh.forEach(e => e.style.backgroundColor = '#585858')
+    allTh.forEach(e => (e.style.backgroundColor = '#585858'));
     e.style.backgroundColor = '#45a049';
-
-  })
-})
-
+  });
+});
 
 function handleOnDelivery() {
   const cartInfo = document.getElementById('cart-info');
@@ -416,14 +415,11 @@ function handleOnDelivery() {
   }
   let check = false;
   for (let i = 0; i < data.length; i++) {
-
     for (let j = 0; j < DUMMY_API[tmp].cart.length; j++) {
-
       for (let k = 0; k < DUMMY_API[tmp].cart[j].product.length; k++) {
         if (DUMMY_API[tmp].cart[j].product[k].processed === true) {
           check = true;
         }
-
       }
     }
   }
@@ -437,9 +433,7 @@ function handleOnDelivery() {
     toast.style.display = 'flex';
   }
   for (let i = 0; i < data.length; i++) {
-
     for (let j = 0; j < DUMMY_API[tmp].cart.length; j++) {
-
       for (let k = 0; k < DUMMY_API[tmp].cart[j].product.length; k++) {
         if (data[i].ID === DUMMY_API[tmp].cart[j].product[k].id && check) {
           const cartItem = document.createElement('tr');
@@ -448,7 +442,7 @@ function handleOnDelivery() {
             cartItem.classList.add('info-item-container');
 
             cartItem.innerHTML = `
-                          <td class="img"><img src="../../../${data[i].imgSrc}" alt="${data[i].name}"></td>
+                          <td class="img"><img src="${returnPathImg(data[i])}" alt="${data[i].name}"></td>
                           <td class="name">
                              
                               ${data[i].name}
@@ -479,8 +473,6 @@ function handleOnDelivery() {
   }
 }
 
-
-
 function handlePanding() {
   var tmp = 0;
   for (let i = 0; i < DUMMY_API.length; i++) {
@@ -502,7 +494,6 @@ function handlePanding() {
   }
   for (let i = 0; i < data.length; i++) {
     for (let j = 0; j < DUMMY_API[tmp].cart.length; j++) {
-
       for (let k = 0; k < DUMMY_API[tmp].cart[j].product.length; k++) {
         if (data[i].ID === DUMMY_API[tmp].cart[j].product[k].id && check) {
           const cartItem = document.createElement('tr');
@@ -511,7 +502,7 @@ function handlePanding() {
             cartItem.classList.add('info-item-container');
 
             cartItem.innerHTML = `
-                          <td class="img"><img src="../../../${data[i].imgSrc}" alt="${data[i].name}"></td>
+                          <td class="img"><img src="${returnPathImg(data[i])}" alt="${data[i].name}"></td>
                           <td class="name">
                              
                               ${data[i].name}
@@ -543,13 +534,10 @@ function handlePanding() {
               DUMMY_API[tmp].cart.splice(j, 1);
               localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
               location.reload();
-            })
+            });
           }
-
         }
-
       }
-
     }
   }
 }

@@ -722,12 +722,10 @@ filterSubmitBtn.addEventListener('click', e => {
       const monthProduct = timeCreatProduct.getMonth() + 1;
       const yearProduct = timeCreatProduct.getFullYear();
       return dayProuct === selectedDay && monthProduct === selectedMonth && yearProduct === selectedYear;
-      
     });
   }
 
-
-//end lọc theo ngày tháng năm
+  //end lọc theo ngày tháng năm
 
   // Lọc theo tên sản phẩm
   if (productName.value.trim()) {
@@ -748,56 +746,52 @@ filterSubmitBtn.addEventListener('click', e => {
   filteredData = [...dataFilter];
   generatePagination(filteredData);
   loadData(filteredData);
- 
-   const content = document.getElementById('content');
-   
 
-  //  content.innerHTML = '';
-  //   const id = document.getElementById('id');
-  //   for (let index = 0; index < filteredData.length; index++) {
-  //     const element = filteredData[index];
-  //     const item = document.createElement('tr');
+  const content = document.getElementById('content');
+
+  content.innerHTML = '';
+  const id = document.getElementById('id');
+  for (let index = 0; index < filteredData.length; index++) {
+    const element = filteredData[index];
+    const item = document.createElement('tr');
 
     const dateCreate = new Date(element.dateCreate);
     const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
     const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
     const dateCreateYear = dateCreate.getFullYear();
 
-      const dateUpdate = new Date(element.dateUpdate);
-      const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
-      const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
-      const dateUpdateYear = dateUpdate.getFullYear();
+    const dateUpdate = new Date(element.dateUpdate);
+    const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
+    const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
+    const dateUpdateYear = dateUpdate.getFullYear();
 
     item.innerHTML = `
-              <th class="id">${element.ID}</th>
-              <th class="image"><img src="${returnPathImg(element)}"></th>
-              <th class="name">${element.name}</th>
-              <th class="type">${element.type}</th>
-             
-  //             <th class="date-update">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
-  //             <th class="date-creat">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
-  //             <th class="copy" id="copy">Copy</th>
-  //             <th class="edit" id="edit">Sửa</th>
-  //             <th class="delete" id="delete">Xóa</th>
-  //     `;
+      <th class="id">${element.ID}</th>
+      <th class="image"><img src="${returnPathImg(element)}"></th>
+      <th class="name">${element.name}</th>
+      <th class="type">${element.type}</th>
+      <th class="date-update">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
+      <th class="date-creat">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
+      <th class="copy" id="copy">Copy</th>
+      <th class="edit" id="edit">Sửa</th>
+      <th class="delete" id="delete">Xóa</th>
+    `;
 
-  //     content.appendChild(item);
-  //     updateEvent(item, index, id, element);
-  //   }
-    
-    
+    content.appendChild(item);
+    updateEvent(item, index, id, element);
+  }
 });
 
 // Reset
 const resetBtn = document.querySelector('.product--reset__btn');
-  resetBtn.addEventListener('click', () => {
-    productName.value = '';
-    productCode.value = '';
-    categorySelect.value = 'all';
-    filteredData = [...data];
-    generatePagination(filteredData);
-    loadData(data);
-  });
+resetBtn.addEventListener('click', () => {
+  productName.value = '';
+  productCode.value = '';
+  categorySelect.value = 'all';
+  filteredData = [...data];
+  generatePagination(filteredData);
+  loadData(data);
+});
 
 // Tự động return lại trang product page khi sửa hay xóa sp
 const autoReturnProductPageWhenReload = () => {

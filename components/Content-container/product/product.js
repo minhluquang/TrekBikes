@@ -8,25 +8,25 @@ const userLocal = JSON.parse(localStorage.getItem('User'));
 //       throw new Error('Required variables are undefined.');
 //     }
 
-    // var DateTimeP = [];
-    // const DUMMY_API = [
-    //   {
-    //     idUser: userLocal.id,
-    //     cart: []
-    //   }
-    // ];
+// var DateTimeP = [];
+// const DUMMY_API = [
+//   {
+//     idUser: userLocal.id,
+//     cart: []
+//   }
+// ];
 
-    // for (let i = 0; i < datalocal.length; i++) {
-    //   DateTimeP.push({
-    //     productId: datalocal[i].ID,
-    //     createAT: '14/11/2023  20:00',
-    //     updateAt: '14/11/2023  20:00'
-    //   });
-    // }
+// for (let i = 0; i < datalocal.length; i++) {
+//   DateTimeP.push({
+//     productId: datalocal[i].ID,
+//     createAT: '14/11/2023  20:00',
+//     updateAt: '14/11/2023  20:00'
+//   });
+// }
 
-    // localStorage.setItem('DateTimeP', JSON.stringify(DateTimeP));
-    // localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(datalocal));
-    // localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+// localStorage.setItem('DateTimeP', JSON.stringify(DateTimeP));
+// localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(datalocal));
+// localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
 
 //     localStorage.setItem('codeHasRunBefore', 'true');
 //   } catch (error) {
@@ -61,7 +61,7 @@ function generateRandomId() {
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var id = '';
 
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 5; i++) {
     var randomIndex = Math.floor(Math.random() * characters.length);
     id += characters.charAt(randomIndex);
   }
@@ -220,6 +220,16 @@ function displayQuantityCart() {
 displayQuantityCart();
 console.log(data[data.length - 1]);
 
+function returnPathImg(element) {
+  let pathImg = element.imgSrc;
+  if (pathImg.startsWith('\\data:')) {
+    pathImg = pathImg.split('\\')[1].trim();
+  } else if (pathImg.startsWith('database')) {
+    pathImg = '/' + pathImg;
+  }
+  return pathImg;
+}
+
 function displayItem(startIndex, endIndex) {
   productList.innerHTML = '';
   for (let i = startIndex; i < endIndex; i++) {
@@ -229,12 +239,12 @@ function displayItem(startIndex, endIndex) {
       let productItem = document.createElement('div');
       productItem.classList.add('product-item');
 
-      console.log(data[i].imgSrc);
+      // console.log(data[i].imgSrc);
 
       productItem.innerHTML = `
                        <div class = "id">${data[i].ID}</div>
                          <div class="imgSrc">
-                         <img src="${data[i].imgSrc}">
+                         <img src="${returnPathImg(data[i])}">
                          <div class="overlay-hover">
                          
                         <div class="top-button">                  

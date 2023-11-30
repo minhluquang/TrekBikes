@@ -1,6 +1,11 @@
 import DUMMY_PRODUCTS from '../../database/products.js';
-localStorage.setItem("DUMMY_PRODUCTS", JSON.stringify(DUMMY_PRODUCTS))
 
+let productsFromLocal = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
+
+if (!productsFromLocal) {
+  localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
+  productsFromLocal = DUMMY_PRODUCTS;
+}
 
 const resultSearch = document.querySelector('.search__result');
 const inputSearch = document.querySelector('.header__bottom--extention-search input');
@@ -12,7 +17,7 @@ inputSearch.addEventListener('input', e => {
     return;
   }
 
-  DUMMY_PRODUCTS.forEach(item => {
+  productsFromLocal.forEach(item => {
     const itemName = item.name.toLowerCase();
     const inputValue = e.target.value.toLowerCase();
 

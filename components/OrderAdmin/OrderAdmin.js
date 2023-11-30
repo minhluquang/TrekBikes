@@ -6,7 +6,7 @@ import DUMMY_PRODUCTS from '../../database/products.js';
 // localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
 const productsList = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 // console.log(userData)
-let datalocal = DUMMY_PRODUCTS;
+let datalocal = productsList;
 let userLocal = JSON.parse(localStorage.getItem('User'));
 
 // if (!localStorage.getItem('codeHasRunBefore')) {
@@ -212,7 +212,7 @@ const uiElement = (idUser, idOrder, day, month, year, quantity, productInfo, idP
       isProcessed
         ? `<li class="admin__content--body__status products--item__status">
         Đã xử lý
-        <i class="fa-solid fa-pen-to-square"></i>
+        <i class="fa-solid fa-circle-info"></i>
       </li>`
         : `<li class="admin__content--body__status products--item__status">
         Chưa xử lý
@@ -362,18 +362,21 @@ submitBtn.addEventListener('click', e => {
     renderItems(true, false, data);
     data?.forEach(() => {
       clickIconHandler();
+      clickIconInfoHandler();
       clickDeleteBtnHandler();
     });
   } else if (isProcessed === 'processing') {
     renderItems(false, true, data);
     data?.forEach(() => {
       clickIconHandler();
+      clickIconInfoHandler();
       clickDeleteBtnHandler();
     });
   } else if (isProcessed === 'all') {
     renderItems(false, false, data);
     data?.forEach(() => {
       clickIconHandler();
+      clickIconInfoHandler();
       clickDeleteBtnHandler();
       sortProductsNonActiveFirst();
     });
@@ -456,6 +459,31 @@ const clickIconHandler = () => {
   });
 };
 // end: Logic for click edit status handler
+
+const clickIconInfoHandler = () => {
+  const isActiveElements = document.querySelectorAll('.isActiveStatus');
+  isActiveElements.forEach(icon => {
+    icon.addEventListener('click', e => {
+      const currentOID = icon.querySelector('.products--item__orderId').getAttribute('id');
+      const currentUID = icon.querySelector('.products--item__id').getAttribute('id');
+      const currentPID = icon.querySelector('.products--item__productId').textContent;
+      const currentQNT = icon.querySelector('.products--item__qnt').getAttribute('data-qnt');
+
+      userData.forEach((user, idx) => {
+        if (user.idUser === currentUID) {
+          // Kiểm tra id order chính xác với element click
+          user.cart.forEach(cart => {
+            if (cart.idOrder === currentOID) {
+              showModal(user, currentPID, cart, currentQNT);
+              clickedExitBtnHandler();
+              document.querySelector('.modal__action--process').style.display = 'none';
+            }
+          });
+        }
+      });
+    });
+  });
+};
 
 // start: logic click delete btn
 const deleteProduct = (currentUID, currentPID, currentOID, isNonActiveItem) => {
@@ -571,6 +599,7 @@ const sortProductsNonActiveFirst = () => {
 const init = () => {
   renderItems();
   clickIconHandler();
+  clickIconInfoHandler();
   clickDeleteBtnHandler();
   sortProductsNonActiveFirst();
 };
