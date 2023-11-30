@@ -115,6 +115,7 @@ const DUMMY_PRODUCTS = [
     price: '16.900.000 VND',
     dataColors: ['#1e73be', '#b2b2b2'],
     ID: '498d916eed',
+    type: 'touring',
     dateCreate: '2023-01-01T00:00:00.000Z',
     dateUpdate: '2023-01-01T00:00:00.000Z'
   },
@@ -184,6 +185,7 @@ const DUMMY_PRODUCTS = [
     price: '13.500.000 VND',
     dataColors: ['#000000', '#967801'],
     ID: 'd6fa221733',
+    type: 'touring',
     dateCreate: '2023-01-01T00:00:00.000Z',
     dateUpdate: '2023-01-01T00:00:00.000Z'
   },
@@ -193,6 +195,7 @@ const DUMMY_PRODUCTS = [
     price: '16.900.000 VND',
     dataColors: ['#40ceb2', '#003b42'],
     ID: '98c93cb961',
+    type: 'touring',
     dateCreate: '2023-01-01T00:00:00.000Z',
     dateUpdate: '2023-01-01T00:00:00.000Z'
   },
@@ -202,6 +205,7 @@ const DUMMY_PRODUCTS = [
     price: '13.500.000 VND',
     dataColors: ['#dd3333', '#353535'],
     ID: '57a59cf160',
+    type: 'touring',
     dateCreate: '2023-01-01T00:00:00.000Z',
     dateUpdate: '2023-01-01T00:00:00.000Z'
   },
@@ -691,6 +695,7 @@ const DUMMY_PRODUCTS = [
     price: '13.500.000 VND',
     dataColors: ['#fff9ef', '#ffb656'],
     ID: 'e2c9d249b5',
+    type: 'touring',
     dateCreate: '2023-01-01T00:00:00.000Z',
     dateUpdate: '2023-01-01T00:00:00.000Z'
   },
