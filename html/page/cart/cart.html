@@ -14,15 +14,24 @@
 </head>
 
 <body>
-  <div class="container" id="container">
-    <h1>Xác nhận thanh toán</h1>
-    <p>Vui lòng kiểm tra thông tin thanh toán của bạn trước khi xác nhận:</p>
-    <div class="payment-details">
-      <p><strong>Tên người mua:</strong> John Doe</p>
-      <p><strong>Địa chỉ giao hàng:</strong> 123 Main Street, City</p>
-      <p><strong id="totalPricePay">Tổng số tiền:</strong></p>
+  <div class="dialog" id="dialog">
+    <div class="container" id="container">
+      <h1>Xác nhận thanh toán</h1>
+      <p>Vui lòng kiểm tra thông tin thanh toán của bạn trước khi xác nhận:</p>
+      <div class="payment-details">
+        <div class="form-field">
+          <label for="name">Tên người mua</label>
+          <input type="text" id="customername">
+        </div>
+        <div class="form-field">
+          <label for="address">Địa chỉ giao hàng</label>
+          <input type="text" id="customeraddress">
+        </div>
+       
+        <p><strong id="totalPricePay">Tổng số tiền:</strong></p>
+      </div>
+      <button id="confirmButton">Xác nhận thanh toán</button>
     </div>
-    <button id="confirmButton">Xác nhận thanh toán</button>
   </div>
 
   <header>

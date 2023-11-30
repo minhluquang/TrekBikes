@@ -87,6 +87,7 @@ displayProductItems();
 const infoContainer = document.querySelectorAll('.info-item-container');
 let currentSelectProduct = [];
 let updateESelect = [];
+const dialog = document.getElementById('dialog')
 const container = document.getElementById('container');
 
 const totalPricePay = document.getElementById('totalPricePay');
@@ -262,7 +263,8 @@ infoContainer.forEach((element, index) => {
       const idContainer = document.createElement('p');
       idContainer.classList.add('idContainer');
       idContainer.innerText = id.textContent;
-      container.style.display = 'block';
+      dialog.style.display = 'flex'
+      // container.style.display = 'block';
       container.appendChild(idContainer);
 
       totalPrice = totalPrice.toLocaleString();
@@ -270,8 +272,12 @@ infoContainer.forEach((element, index) => {
     }
   });
   confirmButton.addEventListener('click', function () {
-
-    if (chekcbuy) {
+    const customerName = document.getElementById('customername');
+    const customerAddress = document.getElementById('customeraddress');
+    if(customerName.value === '' && customerName.value === ''){
+      return;
+    }
+    if (chekcbuy && customerName.value !== '' && customerAddress !== '') {
       var currentTime = new Date();
 
       for (let index = 0; index < updateESelect.length; index++) {
