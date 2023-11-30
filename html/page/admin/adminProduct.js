@@ -68,10 +68,23 @@ function displayFormChange() {
           <input type="file" id="imageUrl" name="imageUrl" required />
           <img id="form-group--previewImg"></img>
         </div>
-        <div class="form-group">
+        <div class="form-group-1">
+        <div class="form-group-name">
           <label for="">Tên sản phẩm</label>
           <input type="text" id="name" name="name" required />
           <p class="nameMessage"></p>
+        </div>
+        <div class="form-group-type">
+          <label for="">Phân loại</label>
+          <select id="type">
+          <option value="all">Chọn phân loại</option>
+          <option value="mountain">Mountain</option>
+          <option value="road">Road</option>
+          <option value="kids">Kids</option>
+          <option value="touring">Touring</option>
+          </select>
+          <p class="typeMessage"></p>
+        </div>
         </div>
         <div class="form-group">
           <label for="">Ngày cập nhật</label>
@@ -136,7 +149,7 @@ function updateEvent(item, index, id, element) {
 
       // Set name mặc định là name hiện tại
       const currentProductName = edit.parentElement.querySelector('.name').innerText.trim();
-      document.querySelector('.form-group #name').setAttribute('value', currentProductName);
+      document.querySelector('.form-group-name #name').setAttribute('value', currentProductName);
 
       // Nếu có sự input hình ảnh thì hiển thị
       const formImgInput = document.querySelector('.form-group #imageUrl');
@@ -149,17 +162,21 @@ function updateEvent(item, index, id, element) {
         e.preventDefault();
 
         const formImgPathLink = document.querySelector('#form-group--previewImg');
-        const formNameInputValue = document.querySelector('.form-group #name').value.trim();
+        const formNameInputValue = document.querySelector('.form-group-1 #name').value.trim();
         const formDateUpdateValue = document.querySelector('.form-group #dateupdate').value;
         const formDateCreateValue = document.querySelector('.form-group #datecreate').value;
-        // const formTypeValue = document.querySelector('.form-group #type').value;
+        const formTypeValue = document.querySelector('.form-group-1 #type').value;
+        
 
         let isValidName = true;
         let isValidDateUpdate = true;
         let isValidDateCreate = true;
+        let isValidType = true ;
         const nameMessgae = document.querySelector('.nameMessage');
         const updateMessage = document.querySelector('.updateMessage');
         const createMessage = document.querySelector('.createMessage');
+        const typeMessage = document.querySelector('.typeMessage');
+        console.log(typeMessage);
         // Check đúng sai dữ liệu
         if (formNameInputValue === '') {
           isValidName = false;
@@ -181,6 +198,13 @@ function updateEvent(item, index, id, element) {
         } else {
           createMessage.innerHTML = '';
         }
+
+        if(formTypeValue === 'all') {
+          isValidType = false;
+          typeMessage.innerHTML = '*Vui lòng chọn thể loại';
+        } else {
+          typeMessage.innerHTML ='';
+        }
         let isValidForm = isValidName && isValidDateUpdate && isValidDateCreate;
 
         if (isValidForm) {
@@ -190,7 +214,7 @@ function updateEvent(item, index, id, element) {
               product.name = formNameInputValue;
               product.dateCreate = new Date(formDateCreateValue).toISOString();
               product.dateUpdate = new Date(formDateUpdateValue).toISOString();
-              // product.type = formTypeValue;
+              product.type = formTypeValue;
             }
           });
           // Đặt item = 'needReturnProductPage' trên local để khi reload lại trang
@@ -725,6 +749,7 @@ filterSubmitBtn.addEventListener('click', e => {
     });
   }
 
+
   //end lọc theo ngày tháng năm
 
   // Lọc theo tên sản phẩm
@@ -755,10 +780,10 @@ filterSubmitBtn.addEventListener('click', e => {
     const element = filteredData[index];
     const item = document.createElement('tr');
 
-    const dateCreate = new Date(element.dateCreate);
-    const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
-    const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
-    const dateCreateYear = dateCreate.getFullYear();
+  const dateCreate = new Date(element.dateCreate);
+  const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
+  const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
+  const dateCreateYear = dateCreate.getFullYear();
 
     const dateUpdate = new Date(element.dateUpdate);
     const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');

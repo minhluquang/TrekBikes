@@ -27,6 +27,15 @@ const paging = document.getElementById('pagination');
 const returnPage = document.getElementById('return-to-page');
 const overlay = document.getElementById('overlay');
 
+function returnPathImg(element) {
+  let pathImg = element.imgSrc;
+  if (pathImg.startsWith('\\data:')) {
+    pathImg = pathImg.split('\\')[1].trim();
+  } else if (pathImg.startsWith('database')) {
+    pathImg = '/' + pathImg;
+  }
+  return pathImg;
+}
 function displayItem(startIndex, endIndex) {
   productList.innerHTML = '';
 
@@ -39,7 +48,7 @@ function displayItem(startIndex, endIndex) {
       productItem.innerHTML = `
                        <div class = "id">${data[i].ID}</div>
                          <div class="imgSrc">
-                         <img src="//${data[i].imgSrc}">
+                         <img src="${returnPathImg(data[i])}">
                          <div class="overlay-hover">
                          
                         <div class="top-button">                  
@@ -59,8 +68,8 @@ function displayItem(startIndex, endIndex) {
                          </div>
                         <div class="product-information">
                              <div class="color-dots">${colors.map(
-        color => `<div class="dot-items" style="background-color: ${color};"></div>`
-      )}</div>
+                               color => `<div class="dot-items" style="background-color: ${color};"></div>`
+                             )}</div>
                             <h3>${data[i].name}</h3>
                             <p>Price: ${data[i].price}</p>
                         </div>
@@ -303,8 +312,8 @@ submitBtn.addEventListener('click', e => {
                              </div>
                             <div class="product-information">
                                  <div class="color-dots">${colors.map(
-          color => `<div class="dot-items" style="background-color: ${color};"></div>`
-        )}</div>
+                                   color => `<div class="dot-items" style="background-color: ${color};"></div>`
+                                 )}</div>
                                 <h3>${e.name}</h3>
                                 <p>Price: ${e.price}</p>
                             </div>
@@ -392,7 +401,7 @@ submitBtn.addEventListener('click', e => {
                 accountData[i].like = userLocal.like;
               }
             }
-            localStorage.setItem('accounts', JSON.stringify(accountData))
+            localStorage.setItem('accounts', JSON.stringify(accountData));
 
             // localStorage.setItem('User', JSON.stringify(userLocal))
           });

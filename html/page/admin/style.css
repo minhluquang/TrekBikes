@@ -548,11 +548,40 @@ th {
   gap: 10px;
 }
 
+.change-product-info form .form-group-1 {
+ display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
+.change-product-info form .form-group-1 .form-group-name {
+width: 60%;
+}
+
+.change-product-info form .form-group-1 .form-group-type  {
+  width: 40%;
+  /* height: 40px; */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.change-product-info form .form-group-1 .form-group-type  select{
+  height: 40px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
 .change-product-info form label {
   font-weight: bold;
   font-size: 16px;
 }
 
+.typeMessage {
+  color: red;
+}
 .change-product-info form input {
   width: 100%;
   height: 35px;
