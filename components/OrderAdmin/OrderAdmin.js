@@ -3,12 +3,11 @@ import DUMMY_PRODUCTS from '../../database/products.js';
 // const productsList = DUMMY_PRODUCTS;
 // console.log(productsList);
 
-
 // localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
 const productsList = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 // console.log(userData)
-const datalocal = DUMMY_PRODUCTS;
-const userLocal = JSON.parse(localStorage.getItem('User'));
+let datalocal = DUMMY_PRODUCTS;
+let userLocal = JSON.parse(localStorage.getItem('User'));
 
 // if (!localStorage.getItem('codeHasRunBefore')) {
 //   try {
@@ -43,8 +42,6 @@ const userLocal = JSON.parse(localStorage.getItem('User'));
 // } else {
 //   console.log('Code will not run again.');
 // }
-
-
 
 // const DUMMY_API = [
 //   {
@@ -238,41 +235,44 @@ const renderItems = (processed = false, processing = false, data = userData) => 
 
     // Nếu trong cart của user không có phần tử tức là user đó chưa mua gì
     // thì không cần render giao diện
-    if (user.cart.length === 0) {
+    if (user.cart?.length === 0) {
       return;
     }
 
-    user.cart?.forEach(cart => {
-      const idOrder = cart.idOrder;
-      const dateCreate = cart.dateCreate;
-      const convertDateCreate = new Date(dateCreate);
+    // Sau khi filter theo idOrder thì có dữ liệu cart trả về underfined
+    if (user.cart !== undefined) {
+      user.cart.forEach(cart => {
+        const idOrder = cart.idOrder;
+        const dateCreate = cart.dateCreate;
+        const convertDateCreate = new Date(dateCreate);
 
-      // Chuyển đổi ngày tháng năm phù hợp để hiển thị giao diện
-      const day = convertDateCreate.getDate().toString().padStart(2, '0');
-      const month = (convertDateCreate.getMonth() + 1).toString().padStart(2, '0');
-      const year = convertDateCreate.getFullYear();
+        // Chuyển đổi ngày tháng năm phù hợp để hiển thị giao diện
+        const day = convertDateCreate.getDate().toString().padStart(2, '0');
+        const month = (convertDateCreate.getMonth() + 1).toString().padStart(2, '0');
+        const year = convertDateCreate.getFullYear();
 
-      cart.product.forEach(product => {
-        const idProduct = product.id;
-        const quantity = product.quantity;
-        const isProcessed = product.processed;
+        cart.product.forEach(product => {
+          const idProduct = product.id;
+          const quantity = product.quantity;
+          const isProcessed = product.processed;
 
-        const productInfo = productsList.find(product => product.ID === idProduct);
+          const productInfo = productsList.find(product => product.ID === idProduct);
 
-        // Nếu đối số truyền vào là cần lọc sản phẩm đã xử lý
-        let html;
+          // Nếu đối số truyền vào là cần lọc sản phẩm đã xử lý
+          let html;
 
-        if (processed && isProcessed === true) {
-          html = uiElement(idUser, idOrder, day, month, year, quantity, productInfo, idProduct, isProcessed);
-        } else if (processing && isProcessed === false) {
-          html = uiElement(idUser, idOrder, day, month, year, quantity, productInfo, idProduct, isProcessed);
-        } else if (!processed && !processing) {
-          html = uiElement(idUser, idOrder, day, month, year, quantity, productInfo, idProduct, isProcessed);
-        }
+          if (processed && isProcessed === true) {
+            html = uiElement(idUser, idOrder, day, month, year, quantity, productInfo, idProduct, isProcessed);
+          } else if (processing && isProcessed === false) {
+            html = uiElement(idUser, idOrder, day, month, year, quantity, productInfo, idProduct, isProcessed);
+          } else if (!processed && !processing) {
+            html = uiElement(idUser, idOrder, day, month, year, quantity, productInfo, idProduct, isProcessed);
+          }
 
-        listProducts.insertAdjacentHTML('beforeend', html);
+          listProducts.insertAdjacentHTML('beforeend', html);
+        });
       });
-    });
+    }
   });
 };
 // start: Logic for filter products
@@ -296,7 +296,7 @@ submitBtn.addEventListener('click', e => {
 
   // console.log(day +" " + month + " " +year);
   // Nếu có dữ liệu nhập vào ít nhất ở 1 ô thì mới cuộn xuống, không có thì k làm gì
-  if (inputIdClientValue === '' && inputIdOrderValue === '' && !selectStatusValue &&!inputOrderDayValue) {
+  if (inputIdClientValue === '' && inputIdOrderValue === '' && !selectStatusValue && !inputOrderDayValue) {
     return;
   } else {
     const contentListProduct = document.querySelector('#orderList');
@@ -309,30 +309,25 @@ submitBtn.addEventListener('click', e => {
 
   data = userData;
 
+  // Lọc theo ngày tháng năm
 
-// Lọc theo ngày tháng năm
+  if (inputOrderDayValue) {
+    const time = new Date(inputOrderDayValue);
+    const day = time.getDate();
+    const month = time.getMonth();
+    const year = time.getFullYear();
 
+    data = data.filter(user => {
+      return user.cart.some(cart => {
+        const timeOrder = new Date(cart.dateCreate);
+        const dayOrder = timeOrder.getDate();
+        const monthOrder = timeOrder.getMonth();
+        const yearOrder = timeOrder.getFullYear();
 
-
-
-if (inputOrderDayValue) {
-  const time = new Date(inputOrderDayValue);
-  const day = time.getDate();
-  const month = time.getMonth();
-  const year = time.getFullYear();
-
-  data = data.filter(user => {
-    return user.cart.some(cart => {
-      const timeOrder = new Date(cart.dateCreate);
-      const dayOrder = timeOrder.getDate();
-      const monthOrder = timeOrder.getMonth();
-      const yearOrder = timeOrder.getFullYear();
-
-      return dayOrder === day && monthOrder === month && yearOrder === year;
+        return dayOrder === day && monthOrder === month && yearOrder === year;
+      });
     });
-  });
-}
-
+  }
 
   // Lọc theo id client
   if (inputIdClientValue) {
@@ -341,7 +336,15 @@ if (inputOrderDayValue) {
 
   // Lọc theo id order
   if (inputIdOrderValue) {
-    data = data.filter(user => user.cart.some(cart => cart.idOrder === inputIdOrderValue.trim()));
+    // Dùng map để trả về mảng mới với idUser là id user lặp qua
+    // còn cart trả về là một object tìm thấy ấy id nếu không thì trả về underfined
+    // Từ đó filter lại cái cart nào vị trí đầu khác underfined và length > 0 mới lấy
+    data = data
+      .map(user => ({
+        idUser: user.idUser,
+        cart: [user.cart.find(cart => cart.idOrder === inputIdOrderValue)]
+      }))
+      .filter(user => user.cart.length > 0 && user.cart[0] !== undefined);
   }
 
   if (selectStatusValue) {
