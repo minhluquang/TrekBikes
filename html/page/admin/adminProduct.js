@@ -152,7 +152,7 @@ function updateEvent(item, index, id, element) {
         const formNameInputValue = document.querySelector('.form-group #name').value.trim();
         const formDateUpdateValue = document.querySelector('.form-group #dateupdate').value;
         const formDateCreateValue = document.querySelector('.form-group #datecreate').value;
-        const formTypeValue = document.querySelector('.form-group #type').value;
+        // const formTypeValue = document.querySelector('.form-group #type').value;
         
         let isValidName = true;
         let isValidDateUpdate = true;
@@ -190,7 +190,7 @@ function updateEvent(item, index, id, element) {
               product.name = formNameInputValue;
               product.dateCreate = new Date(formDateCreateValue).toISOString();
               product.dateUpdate = new Date(formDateUpdateValue).toISOString();
-              product.type = formTypeValue;
+              // product.type = formTypeValue;
             }
           });
           // Đặt item = 'needReturnProductPage' trên local để khi reload lại trang
@@ -286,7 +286,7 @@ function returnPathImg(element) {
   return pathImg;
 }
 
-function disPlayProductItem(pageStart, pageEnd) {
+function disPlayProductItem(pageStart, pageEnd, data) {
   const content = document.getElementById('content');
 
   const id = document.getElementById('id');
@@ -593,7 +593,7 @@ addProductBtn.addEventListener('click', e => {
       pagination.style.display = 'flex';
       cancel.style.display = 'none';
       addProductBtn.style.display = 'block';
-      loadData();
+      loadData(data);
 
       unhideFilterContent();
       alert('Đã thêm sản phẩm thành công!');
@@ -613,7 +613,7 @@ cancel.addEventListener('click', e => {
   pagination.style.display = 'flex';
   cancel.style.display = 'none';
   addProductBtn.style.display = 'block';
-  loadData();
+  loadData(loadData);
 });
 
 // page
@@ -623,7 +623,7 @@ var currentPage = 1;
 const ITEMS_PER_PAGE = 10;
 var maxPagesToShow = 5;
 
-function generatePagination() {
+function generatePagination(data) {
   const pagination = document.getElementById('pagination');
   pagination.innerHTML = '';
 
@@ -634,8 +634,8 @@ function generatePagination() {
   prevBtn.addEventListener('click', () => {
     if (currentPage > 1) {
       currentPage--;
-      generatePagination();
-      loadData();
+      generatePagination(data);
+      loadData(data);
     }
   });
   pagination.appendChild(prevBtn);
@@ -654,8 +654,8 @@ function generatePagination() {
 
     pageLink.addEventListener('click', function () {
       currentPage = parseInt(this.innerHTML);
-      generatePagination();
-      loadData();
+      generatePagination(data);
+      loadData(data);
     });
 
     pagination.appendChild(pageLink);
@@ -669,24 +669,24 @@ function generatePagination() {
   nextBtn.addEventListener('click', () => {
     if (currentPage < totalPages) {
       currentPage++;
-      generatePagination();
-      loadData();
+      generatePagination(data);
+      loadData(data);
     }
   });
   pagination.appendChild(nextBtn);
 }
 
-function loadData() {
+function loadData(data) {
   var startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   var endIndex = startIndex + ITEMS_PER_PAGE;
-  if (endIndex > filteredData.length) {
-    endIndex = filteredData.length;
+  if (endIndex > data.length) {
+    endIndex = data.length;
   }
-  disPlayProductItem(startIndex, endIndex);
+  disPlayProductItem(startIndex, endIndex, data);
 }
 
-generatePagination();
-loadData();
+generatePagination(data);
+loadData(data);
 
 // filter
 const manageProduct = document.getElementById('manageProduct');
@@ -708,6 +708,7 @@ filterSubmitBtn.addEventListener('click', e => {
   }
 
   let dataFilter = [...data];
+
   // lọc theo ngày tháng năm
   if (creationDateInput) {
     const selectedCreationDate = new Date(creationDateInput);
@@ -715,7 +716,6 @@ filterSubmitBtn.addEventListener('click', e => {
     const selectedMonth = selectedCreationDate.getMonth() + 1;
     const selectedYear = selectedCreationDate.getFullYear();
 
-     dataFilter = dataFilter.filter(product => {
     // console.log(selectedDay +" " + selectedMonth + " " + selectedYear);
     dataFilter = dataFilter.filter(product => {
       const timeCreatProduct = new Date(product.dateCreate);
@@ -725,8 +725,6 @@ filterSubmitBtn.addEventListener('click', e => {
       return dayProuct === selectedDay && monthProduct === selectedMonth && yearProduct === selectedYear;
       
     });
-  });
-
 }
 //end lọc theo ngày tháng năm
 
@@ -748,42 +746,44 @@ filterSubmitBtn.addEventListener('click', e => {
   dataFilter = dataFilter.filter(e => e.type === categorySelect.value);
   }
   filteredData = [...dataFilter];
-  generatePagination();
-  loadData();
+  generatePagination(filteredData);
+  loadData(filteredData);
  
    const content = document.getElementById('content');
-   content.innerHTML = '';
-    const id = document.getElementById('id');
-    for (let index = 0; index < filteredData.length; index++) {
-      const element = filteredData[index];
-      const item = document.createElement('tr');
+   
 
-      const dateCreate = new Date(element.dateCreate);
-      const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
-      const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
-      const dateCreateYear = dateCreate.getFullYear();
+  //  content.innerHTML = '';
+  //   const id = document.getElementById('id');
+  //   for (let index = 0; index < filteredData.length; index++) {
+  //     const element = filteredData[index];
+  //     const item = document.createElement('tr');
 
-      const dateUpdate = new Date(element.dateUpdate);
-      const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
-      const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
-      const dateUpdateYear = dateUpdate.getFullYear();
+  //     const dateCreate = new Date(element.dateCreate);
+  //     const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
+  //     const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
+  //     const dateCreateYear = dateCreate.getFullYear();
 
-      item.innerHTML = `
-              <th class="id">${element.ID}</th>
-              <th class="image"><img src="${returnPathImg(element)}"></th>
-              <th class="name">${element.name}</th>
-              <th class="type">${element.type}</th>
+  //     const dateUpdate = new Date(element.dateUpdate);
+  //     const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
+  //     const dateUpdateMonth = (dateUpdate.getMonth() + 1).toString().padStart(2, '0');
+  //     const dateUpdateYear = dateUpdate.getFullYear();
+
+  //     item.innerHTML = `
+  //             <th class="id">${element.ID}</th>
+  //             <th class="image"><img src="${returnPathImg(element)}"></th>
+  //             <th class="name">${element.name}</th>
+  //             <th class="type">${element.type}</th>
              
-              <th class="date-update">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
-              <th class="date-creat">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
-              <th class="copy" id="copy">Copy</th>
-              <th class="edit" id="edit">Sửa</th>
-              <th class="delete" id="delete">Xóa</th>
-      `;
+  //             <th class="date-update">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
+  //             <th class="date-creat">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
+  //             <th class="copy" id="copy">Copy</th>
+  //             <th class="edit" id="edit">Sửa</th>
+  //             <th class="delete" id="delete">Xóa</th>
+  //     `;
 
-      content.appendChild(item);
-      updateEvent(item, index, id, element);
-    }
+  //     content.appendChild(item);
+  //     updateEvent(item, index, id, element);
+  //   }
     
     
 });
@@ -795,7 +795,7 @@ const resetBtn = document.querySelector('.product--reset__btn');
     productCode.value = '';
     categorySelect.value = 'all';
     filteredData = [...data];
-    generatePagination();
-    loadData();
+    generatePagination(filteredData);
+    loadData(data);
   });
 
