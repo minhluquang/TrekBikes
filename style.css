@@ -592,7 +592,6 @@ body {
   left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  /* opacity: 0; */
   display: none;
   transform: translateX(0);
   opacity: 1;
@@ -605,9 +604,6 @@ body {
   opacity: 1 !important;
   z-index: 11 !important;
 }
-
-/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
-/* NGOC */
 
 
 

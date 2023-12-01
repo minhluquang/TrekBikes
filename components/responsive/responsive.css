@@ -545,23 +545,10 @@
 /* Animation */
 @keyframes fade {
   0% {
-    height: 550px;
     opacity: 1;
   }
-
-  20% {
-    width: 450px;
-  }
-
-  80% {
-    height: 50px;
-    width: 0px;
-  }
-
   100% {
     opacity: 0;
-    width: 0;
-    height: 0;
   }
 }
 
@@ -1112,22 +1099,9 @@
 /* Animation */
 @keyframes fade {
   0% {
-    height: 550px;
     opacity: 1;
   }
-
-  20% {
-    width: 450px;
-  }
-
-  80% {
-    height: 50px;
-    width: 0px;
-  }
-
   100% {
     opacity: 0;
-    width: 0;
-    height: 0;
   }
 }

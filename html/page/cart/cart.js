@@ -215,7 +215,7 @@ infoContainer.forEach((element, index) => {
 
       deleteId.style.backgroundColor = '#313131';
 
-      selectAllButton.innerText = 'delete Select All';
+      selectAllButton.innerText = 'Bỏ chọn tất cả';
       checkSelect = false;
       for (let i = 0; i < userLocal.cart.length; i++) {
         currentSelectProduct.push(userLocal.cart[i].id);
@@ -227,7 +227,7 @@ infoContainer.forEach((element, index) => {
       checked = false;
 
       deleteId.style.backgroundColor = '#B5B5B5';
-      selectAllButton.innerText = 'select all';
+      selectAllButton.innerText = 'Chọn tất cả';
 
       checkSelect = true;
       currentSelectProduct = [];
@@ -541,3 +541,16 @@ function handlePanding() {
     }
   }
 }
+
+// Ẩn đi modal xác nhận thanh toán khi click vào bên ngoài (overlay)
+const dialogCloseBtn = document.querySelector('.dialog-close');
+
+dialog.addEventListener('click', e => {
+  if (e.target === dialog) {
+    dialog.style.display = 'none';
+  }
+});
+
+dialogCloseBtn.addEventListener('click', e => {
+  dialog.style.display = 'none';
+});

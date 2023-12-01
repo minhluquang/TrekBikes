@@ -108,8 +108,9 @@ const clickAddCart = () => {
       }
     }
   }
+
   if (!found) {
-    userLocal[0].cart.push(process);
+    userLocal[0]?.cart.push(process);
     quantity = 0;
   }
 
@@ -125,6 +126,11 @@ const clickAddCart = () => {
   itemCart.classList.add('item-cart');
   itemCart.innerText = `${userLocal.cart.length}`;
   navItemCart.appendChild(itemCart);
+
+  // Ẩn đi modal 
+  alert("Đã thêm vào giỏ hàng!")
+  overlay.style.display = 'none';
+  toastContainer.style.display = 'none';
 };
 
 overlayAddCart.addEventListener('click', () => {
@@ -192,7 +198,7 @@ function clickSave(like) {
   }
   const itemHeart = document.createElement('p');
   itemHeart.classList.add('item-heart');
-  itemHeart.innerText = `${userLocal.like.length}`;
+  // itemHeart.innerText = `${userLocal.like.length}`;
   // navItemHeart.appendChild(itemHeart);
   const updateLike = [...new Set(userLocal.like)];
   userLocal.like = updateLike;
@@ -283,7 +289,7 @@ const overlay = document.getElementById('overlay');
 navItemCart.appendChild(itemCart);
 const itemHeart = document.createElement('p');
 itemHeart.classList.add('item-heart');
-itemHeart.innerText = `${userLocal.like.length}`;
+// itemHeart.innerText = `${userLocal.like.length}`;
 // navItemHeart.appendChild(itemHeart);
 
 function updateEvent() {

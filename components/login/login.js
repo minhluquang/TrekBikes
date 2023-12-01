@@ -65,14 +65,14 @@ userIconHideMenu.addEventListener('click', e => {
 
 // ============================= Start: HIDE FORM
 const hideFormRegLogin = () => {
-  userWrapper.style.animation = `fade 1s ease-in`;
+  userWrapper.style.animation = `fade 0.5s ease-in`;
   setTimeout(() => {
     overlay.classList.remove('active__overlay');
     userWrapper.classList.remove('user__active');
     userWrapper.classList.remove('register__active');
     userWrapper.classList.remove('login__active');
     userWrapper.style.animation = `bottomUp 1s ease-in-out`;
-  }, 900);
+  }, 450);
 };
 
 overlay.addEventListener('click', e => {
@@ -95,8 +95,7 @@ const accounts = [
     password: 'admin',
     dateRegister: '2023-01-01T00:00:00.000Z',
     isAdmin: true,
-    cart: [],
-    like: []
+    cart: []
   }
 ];
 
@@ -182,10 +181,7 @@ registerSubmitBtn.addEventListener('click', e => {
       email: email,
       password: password,
       dateRegister: date,
-      like: [],
       cart: [],
-      bought: [],
-      processing: [],
       isAdmin: false
     });
 
@@ -208,10 +204,7 @@ registerSubmitBtn.addEventListener('click', e => {
         email: email,
         password: password,
         dateRegister: date,
-        like: [],
         cart: [],
-        bought: [],
-        processing: [],
         isAdmin: false
       })
     );
@@ -313,20 +306,6 @@ loginSubmitBtn.addEventListener('click', e => {
     }
   }
 });
-
-// popup section
-// const showPopup = () => {
-//   popUp.classList.add('active');
-//   userWrapper.classList.remove('user__active');
-//   userWrapper.classList.remove('register__active');
-//   overlay.classList.add('active__overlay');
-// };
-
-// const popupBtn = document.querySelector('.pop-up button');
-// popupBtn.addEventListener('click', e => {
-//   popUp.classList.remove('active');
-//   hideFormRegLogin();
-// });
 
 // =========================== end: LOGIC FOR REGISTER ===========================
 
@@ -442,9 +421,9 @@ hideEyeLogin.addEventListener('click', e => {
 });
 
 // start: Checking login when click loveIcon/cartIcon
-const loveIcon = document.querySelector('.header__bottom--extention-love');
-const loveBtn = loveIcon.parentElement;
-const loveBtnLowDevice = document.querySelector('.hide__menu--list__extention .header__bottom--extention-love');
+// const loveIcon = document.querySelector('.header__bottom--extention-love');
+// const loveBtn = loveIcon.parentElement;
+// const loveBtnLowDevice = document.querySelector('.hide__menu--list__extention .header__bottom--extention-love');
 
 const cartIcon = document.querySelector('.header__bottom--extention-cart');
 const cartBtn = cartIcon.parentElement;
@@ -458,16 +437,16 @@ const closeMenu = () => {
 };
 
 if (!userLogin) {
-  loveBtn.addEventListener('click', e => {
-    e.preventDefault();
-    openFormRegister();
-  });
+  // loveBtn.addEventListener('click', e => {
+  //   e.preventDefault();
+  //   openFormRegister();
+  // });
 
-  loveBtnLowDevice.addEventListener('click', e => {
-    e.preventDefault();
-    openFormRegister();
-    closeMenu();
-  });
+  // loveBtnLowDevice.addEventListener('click', e => {
+  //   e.preventDefault();
+  //   openFormRegister();
+  //   closeMenu();
+  // });
 
   cartBtn.addEventListener('click', e => {
     e.preventDefault();

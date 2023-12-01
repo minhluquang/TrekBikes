@@ -29,7 +29,6 @@ header .navbar .navbar-brand {
   font-weight: bold;
   color: white;
   margin-left: 10%;
-  
 }
 
 header .navbar .navbar-menu {
@@ -66,7 +65,7 @@ header .navbar .navbar-menu li a {
 .search-container input {
   padding: 5px 20px;
   font-size: 16px;
-  border-radius:10px 0px 0px 10px;
+  border-radius: 10px 0px 0px 10px;
   border: 3px solid #333;
   background-color: white;
   transition: all 0.3s ease;
@@ -212,7 +211,8 @@ footer button:hover {
 .searchValue .searchItem p {
   color: black;
 }
-.dialog{
+.dialog {
+  z-index: 10;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -221,6 +221,7 @@ footer button:hover {
   display: none;
   align-items: center;
   justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .container {
@@ -234,17 +235,39 @@ footer button:hover {
   padding: 20px;
   text-align: center;
   z-index: 99999;
+  position: relative;
 }
-.form-field{
+
+.dialog-close {
+  background-color: transparent;
+  color: red;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.form-field {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   margin-bottom: 10px;
 }
-.form-field input{
+
+.form-field label {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.form-field input {
   width: 80%;
-  padding: 10px;
+  padding: 0 10px;
+  height: 40px;
+  font-size: 16px;
   border-radius: 5px;
+  width: 100%;
+  outline: none;
 }
 
 .container .idContainer {
@@ -255,6 +278,17 @@ footer button:hover {
 h1 {
   font-size: 24px;
   margin: 0;
+}
+
+.dialog-message {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.dialog-totalPrice {
+  text-align: end;
+  font-size: 16px;
+  margin-top: 15px;
 }
 
 .payment-details {
@@ -271,6 +305,8 @@ h1 {
   font-size: 16px;
   cursor: pointer;
   margin-top: 20px;
+  display: block;
+  float: right;
 }
 
 .container button:hover {
@@ -394,18 +430,14 @@ img {
   transform: rotate(45deg);
 }
 
-.order_status{
+.order_status {
   transform: translateY(-10px);
-  
 }
-.order_status th{
+.order_status th {
   background-color: #eee;
   color: #333;
   cursor: pointer;
 }
-.order_status th:first-child{
+.order_status th:first-child {
   background-color: #45a049;
-}
-
-.content {
 }
