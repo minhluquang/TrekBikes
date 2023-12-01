@@ -6,7 +6,7 @@ ul {
   list-style: none;
 }
 .navbar {
-  top: 0;
+  top: 30px;
   width: 100vw;
   background-color: #fff;
   padding: 10px;

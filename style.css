@@ -21,6 +21,14 @@ body {
 .header {
 }
 
+.header__container {
+  position: fixed ;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
 /* HEADER TOP */
 .header__top {
   height: var(--header-top-height);
@@ -186,6 +194,7 @@ body {
 
 .user-welcome.active {
   display: flex;
+  font-size: 16px;
 }
 
 .user-welcome p:last-child {
@@ -286,6 +295,7 @@ body {
 /* HEADER SLIDER */
 .header__slider {
   height: var(--header-slider-height);
+  margin-top: 110px;
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -603,7 +613,7 @@ body {
 .overlay.active__overlay {
   display: block !important;
   opacity: 1 !important;
-  z-index: 11 !important;
+  z-index: 9999 !important;
 }
 
 

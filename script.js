@@ -13,19 +13,6 @@ const currentYear = new Date().getFullYear();
 experienceYear.querySelector('span').innerText = `${currentYear - 1976}`;
 experienceYear.querySelector('span').setAttribute('data-value', `${currentYear - 1976}`);
 
-const userLocal = JSON.parse(localStorage.getItem('User'));
-function generateRandomId() {
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  var id = '';
-
-  for (var i = 0; i < 10; i++) {
-    var randomIndex = Math.floor(Math.random() * characters.length);
-    id += characters.charAt(randomIndex);
-  }
-
-  return id;
-}
-
 //Calculate Slider Height
 const headerTopHeight = 30;
 const headerBottomHeight = 80;
@@ -43,17 +30,17 @@ reseizeAndLoadEvent.forEach(event => {
 });
 
 //Sticky Navigation;
-const header = document.querySelector('.header');
-const topHeader = document.querySelector('.header__top');
-function sticky() {
-  if (window.pageYOffset > topHeader.clientHeight) {
-    header.classList.add('active');
-  } else {
-    header.classList.remove('active');
-  }
-}
+// const header = document.querySelector('.header');
+// const topHeader = document.querySelector('.header__top');
+// function sticky() {
+//   if (window.pageYOffset > topHeader.clientHeight) {
+//     header.classList.add('active');
+//   } else {
+//     header.classList.remove('active');
+//   }
+// }
 
-window.addEventListener('scroll', sticky);
+// window.addEventListener('scroll', sticky);
 
 //Search event
 const headerBottom = document.querySelector('.header__bottom');
@@ -154,7 +141,6 @@ typeProductsSidebarMenu.forEach(item =>
     const firstString = item.textContent.trim().charAt(0).toUpperCase(); //Cắt chữ đầu viết hoa
     const secondString = item.textContent.trim().substring(1).toLocaleLowerCase(); //Vế còn lại viết thường
     const type = firstString + secondString;
-    console.log(type);
     // Khi có sự kiện load trang thì set data
     localStorage.setItem('typeToFilter', JSON.stringify(type));
   })

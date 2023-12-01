@@ -9,23 +9,9 @@ function showSlide() {
   videos.forEach((video, idx) => {
     if (idx === currentSlide) {
       video.currentTime = 0;
-      // Show loading animation here if needed.
-
-      const playPromise = video.play();
-
-      if (playPromise !== undefined) {
-        playPromise
-          .then(_ => {
-            // Automatic playback started!
-            // Show playing UI or any other actions.
-            video.style.display = 'block';
-          })
-          .catch(error => {
-            // Auto-play was prevented
-            // Show paused UI or handle the error.
-            video.style.display = 'none';
-          });
-      }
+      video.play();
+      video.muted = true;
+      video.style.display = 'block';
     } else {
       video.style.display = 'none';
     }

@@ -6,8 +6,8 @@ const overlay = document.querySelector('.overlay');
 
 //Open hide menu
 hideMenuBtn.addEventListener('click', e => {
-  hideMenu.classList.add('active');
-  overlay.classList.add('active__overlay');
+  hideMenu.classList.toggle('active');
+  overlay.classList.toggle('active__overlay');
 });
 
 //Close menu function

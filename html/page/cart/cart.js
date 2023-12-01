@@ -554,3 +554,61 @@ dialog.addEventListener('click', e => {
 dialogCloseBtn.addEventListener('click', e => {
   dialog.style.display = 'none';
 });
+
+// XỬ LÝ THÊM ==================================================
+// Cập nhật tên cho User
+const headerTop = document.querySelector('.header__top');
+const user = JSON.parse(localStorage.getItem('User'));
+if (user) {
+  const nameClient = headerTop.querySelectorAll('p')[1];
+  nameClient.textContent = user.name;
+  headerTop.style.display = 'block';
+} else {
+  headerTop.querySelector('.header__top-item--left').style.display = 'none';
+}
+
+// Kiểm người dùng bấm vào MOUNTAIN - ROAD - TOURING -KIDS
+// Thì setLocal cho bên Sản phẩm lấy và lọc
+const typeProductsNav = document.querySelectorAll('.header__bottom--list ul li');
+
+typeProductsNav.forEach(item =>
+  item.addEventListener('click', e => {
+    const firstString = item.textContent.trim().charAt(0).toUpperCase(); //Cắt chữ đầu viết hoa
+    const secondString = item.textContent.trim().substring(1).toLocaleLowerCase(); //Vế còn lại viết thường
+    const type = firstString + secondString;
+
+    // Khi có sự kiện load trang thì set data
+    localStorage.setItem('typeToFilter', JSON.stringify(type));
+  })
+);
+
+const userCartBtn = document.querySelector('.header__bottom--extention-user');
+const userList = document.querySelector('.header__bottom--user__list');
+
+userCartBtn.addEventListener('mouseover', e => {
+  userList.style.display = 'block';
+});
+
+userCartBtn.addEventListener('mouseout', e => {
+  userList.style.display = 'none';
+});
+
+// =========================== start: LOGOUT LOGIC ===========================
+const logoutBtn = document.querySelector('.logout');
+
+const logoutHandler = () => {
+  window.location.href = '../../../../index.html';
+  localStorage.removeItem('User');
+  alert('Đăng xuất thành công!');
+};
+
+logoutBtn.addEventListener('click', logoutHandler);
+// =========================== end: LOGOUT LOGIC ===========================
+
+// =========================== start: GO TO ADMIN PAGE ===========================
+const manageBtn = document.querySelector('.adminManager');
+
+manageBtn.addEventListener('click', e => {
+  window.location.href = '/html/page/admin/Home.html';
+});
+// =========================== end: GO TO ADMIN PAGE ===========================

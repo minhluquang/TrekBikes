@@ -32,7 +32,7 @@
 
 .user__wrapper.user__active {
   display: block;
-  z-index: 12;
+  z-index: 99999;
   opacity: 1;
 }
 

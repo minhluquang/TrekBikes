@@ -62,7 +62,7 @@ const logoutBtn = document.querySelector('.logout');
 
 const logoutHandler = () => {
   localStorage.removeItem('User');
-  alert("Đăng xuất thành công!")
+  alert('Đăng xuất thành công!');
   location.reload();
 };
 
@@ -383,3 +383,14 @@ hideEyeLogin.addEventListener('click', e => {
   showEyeLogin.classList.toggle('hide');
   hideEyeLogin.classList.toggle('hide');
 });
+
+// Cập nhật tên cho User
+const headerTop = document.querySelector('.header__top');
+
+if (isLoggedIn) {
+  const nameClient = headerTop.querySelectorAll('p')[1];
+  nameClient.textContent = JSON.parse(localStorage.getItem('User')).name;
+  headerTop.style.display = 'block';
+} else {
+  headerTop.querySelector('.header__top-item--left').style.display = 'none';
+}

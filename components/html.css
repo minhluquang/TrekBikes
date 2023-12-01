@@ -10,3 +10,35 @@ body {
   overflow-x: hidden;
   font-family: 'Roboto', sans-serif;
 }
+
+.header__top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 9999;
+  background: #333;
+  width: 100%;
+  color: #fff;
+  height: 30px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.user-welcome {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 30px;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.user-welcome p:first-child {
+  margin-right: 5px;
+}
+
+.user-welcome p:last-child {
+  color: #fab300;
+}
