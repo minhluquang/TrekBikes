@@ -51,7 +51,6 @@ function displayProductItems() {
       if (data[i].ID === userLocal.cart[j].id && check) {
         const cartItem = document.createElement('tr');
         cartItem.classList.add('info-item-container');
-
         cartItem.innerHTML = `
                     <td class="img"><img src="${returnPathImg(data[i])}" alt="${data[i].name}"></td>
                     <td class="name">
@@ -350,38 +349,38 @@ const input = document.getElementById('input');
 const searchValue = document.getElementById('searchValue');
 const submitBtn = document.getElementById('submit-btn');
 const inputSearch = JSON.parse(localStorage.getItem('inputSearch'));
-input.addEventListener('input', event => {
-  event.preventDefault();
-  if (input.value.length < 0 || input.value === '') {
-    searchValue.style.display = 'none';
-  } else {
-    searchValue.style.display = 'block';
-    const inputValue = input.value.toLowerCase();
+// input.addEventListener('input', event => {
+//   event.preventDefault();
+//   if (input.value.length < 0 || input.value === '') {
+//     searchValue.style.display = 'none';
+//   } else {
+//     searchValue.style.display = 'block';
+//     const inputValue = input.value.toLowerCase();
 
-    inputSearch[0] = inputValue;
-    localStorage.setItem('inputSearch', JSON.stringify(inputSearch));
-    const matchingNames = database.filter(e => e.name.toLowerCase().includes(inputValue));
-    if (event.key === 'enter') {
-      alert('tên sản phẩm');
-    }
-    if (inputValue === '') {
-      searchValue.innerHTML = '';
-      searchValue.style.border = 'none';
-      return;
-    }
-    searchValue.innerHTML = '';
-    matchingNames.forEach(e => {
-      const searchInfoValue = document.createElement('div');
-      searchInfoValue.classList.add('searchItem');
-      searchInfoValue.innerHTML = `
-                 <img src="/${e.imgSrc}">
-                <p>${e.name}</p>
-            `;
-      searchValue.appendChild(searchInfoValue);
-      searchValue.style.border = '1px solid gray';
-    });
-  }
-});
+//     inputSearch[0] = inputValue;
+//     localStorage.setItem('inputSearch', JSON.stringify(inputSearch));
+//     const matchingNames = database.filter(e => e.name.toLowerCase().includes(inputValue));
+//     if (event.key === 'enter') {
+//       alert('tên sản phẩm');
+//     }
+//     if (inputValue === '') {
+//       searchValue.innerHTML = '';
+//       searchValue.style.border = 'none';
+//       return;
+//     }
+//     searchValue.innerHTML = '';
+//     matchingNames.forEach(e => {
+//       const searchInfoValue = document.createElement('div');
+//       searchInfoValue.classList.add('searchItem');
+//       searchInfoValue.innerHTML = `
+//                  <img src="/${e.imgSrc}">
+//                 <p>${e.name}</p>
+//             `;
+//       searchValue.appendChild(searchInfoValue);
+//       searchValue.style.border = '1px solid gray';
+//     });
+//   }
+// });
 
 const table = document.getElementById('order_status_table');
 const allTh = table.querySelectorAll('th');
@@ -400,8 +399,9 @@ allTh.forEach((e, index) => {
       cartInfo.innerHTML = '';
       handleOnDelivery();
     }
-    allTh.forEach(e => (e.style.backgroundColor = '#585858'));
+    allTh.forEach(e => (e.style.backgroundColor = '#eee'));
     e.style.backgroundColor = '#45a049';
+    e.style.color = '#333';
   });
 });
 

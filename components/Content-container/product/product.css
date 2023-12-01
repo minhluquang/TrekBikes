@@ -1,6 +1,8 @@
 .product {
   width: 100%;
+  transition: 0.5s all;
 }
+
 .product h1 {
   margin: 0 auto;
   display: flex;
@@ -84,7 +86,7 @@
   align-items: flex-start;
   gap: 10px;
   font-family: var(--fontFamily);
-  cursor: pointer;
+  /* cursor: pointer; */
   color: #333;
 
   padding: 0px 12px 20px;
@@ -94,23 +96,21 @@
 
 .product-information h3 {
   transition: all 0.3s ease-in-out;
-  cursor: pointer;
   font-weight: bold;
 }
 
 .product-information p {
   transition: all 0.3s ease-in-out;
-  cursor: pointer;
   font-weight: bold;
 }
 
-.product-information h3:hover {
+/* .product-information h3:hover {
   color: red;
 }
 
 .product-information p:hover {
   color: red;
-}
+} */
 
 .top-button {
   width: 100%;

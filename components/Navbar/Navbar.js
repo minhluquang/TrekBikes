@@ -36,15 +36,16 @@ function returnPathImg(element) {
   }
   return pathImg;
 }
+
 function displayItem(startIndex, endIndex) {
   productList.innerHTML = '';
 
   for (let i = startIndex; i < endIndex; i++) {
     if (data[i].imgSrc !== undefined && data[i].name !== undefined && data[i].price !== undefined) {
       let colors = data[i].dataColors;
-      console.log(colors);
       let productItem = document.createElement('div');
       productItem.classList.add('product-item');
+
       productItem.innerHTML = `
                        <div class = "id">${data[i].ID}</div>
                          <div class="imgSrc">
@@ -103,7 +104,8 @@ const toastSaveProduct = document.querySelector('.toast-save-product');
 const toast = document.querySelectorAll('.toast');
 const toastContainer = document.querySelector('.toast-container');
 const overlayid = document.getElementById('overlayid');
-const navItemHeart = document.getElementById('nav-item-heart');
+// const navItemHeart = document.getElementById('nav-item-heart');
+
 input.addEventListener('input', event => {
   event.preventDefault();
   if (input.value.length < 0 || input.value === '') {
@@ -118,6 +120,7 @@ input.addEventListener('input', event => {
     if (event.key === 'enter') {
       alert('tên sản phẩm');
     }
+
     if (inputValue === '') {
       searchValue.innerHTML = '';
       searchValue.style.border = 'none';
@@ -130,9 +133,11 @@ input.addEventListener('input', event => {
       searchInfoValue.classList.add('searchItem');
       searchInfoValue.innerHTML = `
                 <span id="id">${e.ID}</span>
-                 <img src="/${e.imgSrc}">
+                 <img src="${returnPathImg(e)}">
                 <p>${e.name}</p>
+                <p>${e.price}</p>
             `;
+
       searchValue.appendChild(searchInfoValue);
       searchValue.style.border = '1px solid gray';
       const id = searchInfoValue.querySelector('#id');
@@ -152,7 +157,7 @@ input.addEventListener('input', event => {
         overlay.style.display = 'flex';
         searchValue.style.display = 'none';
         overlayName.innerText = e.name;
-        overlayImg.src = `/${e.imgSrc}`;
+        overlayImg.src = `${returnPathImg(e)}`;
         overlayPrice.innerText = e.price;
         overlayid.innerHTML = id.textContent;
         console.log(overlayid);
@@ -201,7 +206,7 @@ input.addEventListener('input', event => {
           const itemHeart = document.createElement('p');
           itemHeart.classList.add('item-heart');
           itemHeart.innerText = `${userLocal.like.length}`;
-          navItemHeart.appendChild(itemHeart);
+          // navItemHeart.appendChild(itemHeart);
           const updateLike = [...new Set(userLocal.like)];
           userLocal.like = updateLike;
           localStorage.setItem('User', JSON.stringify(userLocal));
@@ -292,7 +297,7 @@ submitBtn.addEventListener('click', e => {
         productItem.innerHTML = `
                            <div class = "id">${e.ID}</div>
                              <div class="imgSrc">
-                             <img src="/${e.imgSrc}">
+                             <img src="${returnPathImg(e)}">
                              <div class="overlay-hover">
     
                             <div class="top-button">                  
@@ -348,7 +353,7 @@ submitBtn.addEventListener('click', e => {
             toastContainer.style.display = 'none';
           });
           overlayName.innerHTML = e.name;
-          overlayImg.src = `/${e.imgSrc}`;
+          overlayImg.src = `${returnPathImg(e)}`;
           overlayPrice.innerHTML = e.price;
           let checkLikeOverlay = true;
           for (let i = 0; i < userLocal.like.length; i++) {
@@ -392,7 +397,7 @@ submitBtn.addEventListener('click', e => {
             const itemHeart = document.createElement('p');
             itemHeart.classList.add('item-heart');
             itemHeart.innerText = `${userLocal.like.length}`;
-            navItemHeart.appendChild(itemHeart);
+            // navItemHeart.appendChild(itemHeart);
             const updateLike = [...new Set(userLocal.like)];
             userLocal.like = updateLike;
             localStorage.setItem('User', JSON.stringify(userLocal));
@@ -475,7 +480,7 @@ submitBtn.addEventListener('click', e => {
           const itemHeart = document.createElement('p');
           itemHeart.classList.add('item-heart');
           itemHeart.innerText = `${userLocal.like.length}`;
-          navItemHeart.appendChild(itemHeart);
+          // navItemHeart.appendChild(itemHeart);
           userLocal.like = updateLike;
           for (let i = 0; i < accountData.length; i++) {
             if (accountData[i].id === userLocal.id) {

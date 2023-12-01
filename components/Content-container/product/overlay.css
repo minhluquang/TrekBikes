@@ -14,12 +14,13 @@
 .overlay-container {
   display: block;
   width: 80%;
-  height: 85%;
+  height: 60%;
   background-color: white;
   border-radius: 20px;
   position: relative;
   overflow: hidden;
   margin-top: 5%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;  
 }
 .toast-container {
   width: 100vw;
@@ -87,7 +88,14 @@
 }
 
 .overlay-container .overlay-container-top .overlay-container-title .overlay-prev {
+  font-size: 18px;
   cursor: pointer;
+  font-weight: bold;
+}
+
+.overlay-container .overlay-container-top .overlay-container-title .overlay-prev i {
+  font-size: 18px;
+  margin-right: 5px;
 }
 
 .overlay-container .overlay-container-top .overlay-container-title h4 {
@@ -99,7 +107,7 @@
 .overlay-container .overlay-container-top .overlay-container-title .overlay-logo {
   font-size: x-large;
   font-weight: bold;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .overlay-container .overlay-container-top .overlay-container-btn {
@@ -109,6 +117,7 @@
   justify-content: flex-end;
   align-items: end;
   gap: 10%;
+  display: none;
 }
 
 .overlay-container .overlay-container-top .overlay-container-btn i {
@@ -119,7 +128,7 @@
 
 .overlay-container .overlay-body {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 50px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,6 +142,11 @@
   align-items: center;
   justify-content: center;
   position: relative;
+}
+
+.overlay-container .overlay-body .overlay-body-left img {
+  border-radius: 5px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .overlay-container .overlay-body .overlay-body-right {
@@ -190,6 +204,7 @@
 .overlay-body-right h1 {
   font-size: 30px;
   font-weight: bold;
+  margin-right: 10px;
 }
 
 .overlay-body-right .overlay-product-color {
@@ -206,6 +221,7 @@
 
 .overlay-body-right p {
   color: #696969;
+  margin-right: 10px;
 }
 
 .overlay-body-right span {
@@ -230,7 +246,7 @@
 .overlay-body-right .overlay-right-btn {
   position: absolute;
   display: flex;
-  bottom: 7%;
+  bottom: 0;
   right: 0;
 }
 
@@ -244,6 +260,7 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   font-weight: bold;
+  font-size: 16px;
 }
 .overlay-body-right .overlay-right-btn a {
   display: flex;

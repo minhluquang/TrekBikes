@@ -53,9 +53,9 @@ const navItemProcess = document.getElementById('nav-item-process');
 const overlayAddCart = document.getElementById('overlay-add-cart');
 const overlayid = document.getElementById('overlayid');
 
-const overlayLike = document.getElementById('overlayLike');
+// const overlayLike = document.getElementById('overlayLike');
 
-const overlayBuyNow = document.getElementById('overlay-buy-now');
+// const overlayBuyNow = document.getElementById('overlay-buy-now');
 
 function generateRandomId() {
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -130,9 +130,9 @@ const clickAddCart = () => {
 overlayAddCart.addEventListener('click', () => {
   clickAddCart();
 });
-overlayBuyNow.addEventListener('click', () => {
-  clickBuy();
-});
+// overlayBuyNow.addEventListener('click', () => {
+//   clickBuy();
+// });
 
 toast.forEach(e => {
   const exitToast = e.querySelector('.exit');
@@ -184,7 +184,7 @@ function clickSave(like) {
     toastText.innerText = 'Đã xóa khỏi danh mục yêu thích';
     toastContainer.style.display = 'flex';
     toastSaveProduct.style.display = 'flex';
-    overlayLike.style.color = 'gray';
+    // overlayLike.style.color = 'gray';
     like.style.color = 'gray';
     checkLike = true;
     checkLikeOverlay = !checkLikeOverlay;
@@ -193,7 +193,7 @@ function clickSave(like) {
   const itemHeart = document.createElement('p');
   itemHeart.classList.add('item-heart');
   itemHeart.innerText = `${userLocal.like.length}`;
-  navItemHeart.appendChild(itemHeart);
+  // navItemHeart.appendChild(itemHeart);
   const updateLike = [...new Set(userLocal.like)];
   userLocal.like = updateLike;
   localStorage.setItem('User', JSON.stringify(userLocal));
@@ -205,9 +205,9 @@ function clickSave(like) {
   localStorage.setItem('accounts', JSON.stringify(accountData));
 }
 
-overlayLike.addEventListener('click', () => {
-  clickSave();
-});
+// overlayLike.addEventListener('click', () => {
+//   clickSave();
+// });
 
 function displayQuantityCart() {
   if (userLocal[0]?.processing.length) {
@@ -249,7 +249,6 @@ function displayItem(startIndex, endIndex) {
                          
                         <div class="top-button">                  
                             <i class="fa-solid fa-cart-plus" id="add-cart"></i>                        
-                            <i class="fa-solid fa-heart" id="like"></i>
                         </div>
                         <div class="overlay-click">
                         
@@ -263,9 +262,6 @@ function displayItem(startIndex, endIndex) {
                          </div>
                          </div>
                         <div class="product-information">
-                            <div class="color-dots">${colors.map(
-                              color => `<div class="dot-items" style="background-color: ${color};"></div>`
-                            )}</div>
                             <h3>${data[i].name}</h3>
                             <p>Price: ${data[i].price}</p>
                         </div>
@@ -288,7 +284,7 @@ navItemCart.appendChild(itemCart);
 const itemHeart = document.createElement('p');
 itemHeart.classList.add('item-heart');
 itemHeart.innerText = `${userLocal.like.length}`;
-navItemHeart.appendChild(itemHeart);
+// navItemHeart.appendChild(itemHeart);
 
 function updateEvent() {
   const productItems = document.querySelectorAll('.product-item');
@@ -380,39 +376,39 @@ function updateEvent() {
       itemCart.innerText = `${userLocal.cart.length}`;
       navItemCart.appendChild(itemCart);
     });
-    like.addEventListener('click', () => {
-      for (let i = 0; i < userLocal.like.length; i++) {
-        if (userLocal.like[i] === id.textContent) {
-          checkLike = false;
-          like.style.color = 'red';
-          userLocal.like.splice(i, 1);
-        }
-      }
-      if (checkLike) {
-        like.style.color = 'red';
+    // like.addEventListener('click', () => {
+    //   for (let i = 0; i < userLocal.like.length; i++) {
+    //     if (userLocal.like[i] === id.textContent) {
+    //       checkLike = false;
+    //       like.style.color = 'red';
+    //       userLocal.like.splice(i, 1);
+    //     }
+    //   }
+    //   if (checkLike) {
+    //     like.style.color = 'red';
 
-        checkLike = !checkLike;
-        userLocal.like.push(id.textContent);
-      } else {
-        like.style.color = '#A0A0A0';
-        overlayLike.style.color = '#A0A0A0';
-        checkLike = !checkLike;
-      }
-      const updateLike = [...new Set(userLocal.like)];
+    //     checkLike = !checkLike;
+    //     userLocal.like.push(id.textContent);
+    //   } else {
+    //     like.style.color = '#A0A0A0';
+    //     // overlayLike.style.color = '#A0A0A0';
+    //     checkLike = !checkLike;
+    //   }
+    //   const updateLike = [...new Set(userLocal.like)];
 
-      const itemHeart = document.createElement('p');
-      itemHeart.classList.add('item-heart');
-      itemHeart.innerText = `${userLocal.like.length}`;
-      navItemHeart.appendChild(itemHeart);
-      userLocal.like = updateLike;
-      for (let i = 0; i < accountData.length; i++) {
-        if (accountData[i].id === userLocal.id) {
-          accountData[i].like = userLocal.like;
-        }
-      }
-      localStorage.setItem('User', JSON.stringify(userLocal));
-      localStorage.setItem('accounts', JSON.stringify(accountData));
-    });
+    //   const itemHeart = document.createElement('p');
+    //   itemHeart.classList.add('item-heart');
+    //   itemHeart.innerText = `${userLocal.like.length}`;
+    //   navItemHeart.appendChild(itemHeart);
+    //   userLocal.like = updateLike;
+    //   for (let i = 0; i < accountData.length; i++) {
+    //     if (accountData[i].id === userLocal.id) {
+    //       accountData[i].like = userLocal.like;
+    //     }
+    //   }
+    //   localStorage.setItem('User', JSON.stringify(userLocal));
+    //   localStorage.setItem('accounts', JSON.stringify(accountData));
+    // });
   }
 }
 updateEvent();
@@ -488,3 +484,11 @@ function loadData() {
 generatePagination();
 
 loadData();
+
+// Xử lý sự kiện ẩn modal
+// Khi vào thẻ cha overlay chứa tất cả modal thì mới ẩn đi
+overlay.addEventListener('click', function (event) {
+  if (event.target === overlay) {
+    overlay.style.display = 'none';
+  }
+});
