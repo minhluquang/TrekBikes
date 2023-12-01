@@ -462,12 +462,13 @@ const clickIconHandler = () => {
 
 const clickIconInfoHandler = () => {
   const isActiveElements = document.querySelectorAll('.isActiveStatus');
-  isActiveElements.forEach(icon => {
+  isActiveElements.forEach(element => {
+    const icon = element.querySelector('.products--item__status i');
     icon.addEventListener('click', e => {
-      const currentOID = icon.querySelector('.products--item__orderId').getAttribute('id');
-      const currentUID = icon.querySelector('.products--item__id').getAttribute('id');
-      const currentPID = icon.querySelector('.products--item__productId').textContent;
-      const currentQNT = icon.querySelector('.products--item__qnt').getAttribute('data-qnt');
+      const currentOID = element.querySelector('.products--item__orderId').getAttribute('id');
+      const currentUID = element.querySelector('.products--item__id').getAttribute('id');
+      const currentPID = element.querySelector('.products--item__productId').textContent;
+      const currentQNT = element.querySelector('.products--item__qnt').getAttribute('data-qnt');
 
       userData.forEach((user, idx) => {
         if (user.idUser === currentUID) {

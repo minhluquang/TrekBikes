@@ -107,10 +107,23 @@
   cursor: default;
 }
 
-.header__bottom--extention-love,
 .header__bottom--extention-cart {
   color: #333;
   text-decoration: none;
+  position: relative;
+}
+
+.header__bottom--extention-cart p {
+  position: absolute;
+  text-align: center;
+  width: 15px;
+  height: 15px;
+  top: -10px;
+  font-size: 12px;
+  background-color: #1e90ff;
+  border-radius: 5px;
+  right: -12px;
+  color: white;
 }
 
 .hide__menu--list__extention .header__bottom--extention__icon {
@@ -137,6 +150,10 @@
 
 .hide__menu--list__extention .header__bottom--extention-item span {
   font-size: 20px;
+}
+
+.hide__menu--list__extention .header__bottom--extention-item i {
+  font-size: 24px !important;
 }
 
 .hide__menu--user__list {

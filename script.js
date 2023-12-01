@@ -154,8 +154,18 @@ typeProductsSidebarMenu.forEach(item =>
     const firstString = item.textContent.trim().charAt(0).toUpperCase(); //Cắt chữ đầu viết hoa
     const secondString = item.textContent.trim().substring(1).toLocaleLowerCase(); //Vế còn lại viết thường
     const type = firstString + secondString;
-    console.log(type)
+    console.log(type);
     // Khi có sự kiện load trang thì set data
     localStorage.setItem('typeToFilter', JSON.stringify(type));
   })
 );
+
+// Hiển thị số lượng sản phẩm trong giỏ hàng
+const isLogged = JSON.parse(localStorage.getItem('User'));
+const numberOfProducts = document.querySelector('.header__bottom--extention-cart p');
+
+if (isLogged) {
+  numberOfProducts.textContent = isLogged.cart.length;
+} else {
+  numberOfProducts.style.display = 'none';
+}

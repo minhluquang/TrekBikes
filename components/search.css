@@ -183,3 +183,7 @@
   opacity: 1;
   transition: 0.5s all;
 }
+
+.header__bottom--extention-item i {
+  font-size: 24px;
+}

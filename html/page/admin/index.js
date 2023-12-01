@@ -17,6 +17,11 @@ toggleMenuIcon.addEventListener('click', e => {
   container.classList.toggle('hide');
 });
 
+// Xử lý click vào img thì về lại trang chủ
+logoMenu.addEventListener('click', e => {
+  window.location.href = window.location.origin + '/index.html';
+});
+
 // Xử lý đăng xuất tài khoản
 const logoutBtnOnAdminPage = document.querySelector('.admin__taskbar--footer');
 logoutBtnOnAdminPage.addEventListener('click', e => {
