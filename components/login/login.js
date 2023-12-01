@@ -327,14 +327,18 @@ const checkLoggedIn = () => {
     userName.innerText = userLogin.name;
     userNameOnLowDevice.innerText = userLogin.name;
     welcomeUser.classList.add('active');
+
     userIconHideMenu.removeEventListener('click', openFormRegister);
     userBtn.removeEventListener('click', openFormRegister);
+
     userBtn.addEventListener('mouseover', e => {
       userList.style.display = 'block';
     });
+
     userBtn.addEventListener('mouseout', e => {
       userList.style.display = 'none';
     });
+
     section4.style.display = 'none';
 
     // FOR ACOUNT BTN ON HIDE MENU
@@ -345,6 +349,7 @@ const checkLoggedIn = () => {
       userIconHideMenu.classList.toggle('active-up');
     });
 
+    // Kiểm tra quyền truy cập User nếu là admin thì hiển thị btn Quản lý
     if (userLogin.isAdmin) {
       document.querySelectorAll('.adminManager__item').forEach(item => (item.style.display = 'block'));
     }
@@ -365,6 +370,7 @@ const logoutLowDeviceBtn = document.querySelector('.hide__menu--list__type.logou
 
 const logoutHandler = () => {
   localStorage.removeItem('User');
+  alert("Đăng xuất thành công!")
   location.reload();
 };
 
@@ -420,11 +426,7 @@ hideEyeLogin.addEventListener('click', e => {
   hideEyeLogin.classList.toggle('hide');
 });
 
-// start: Checking login when click loveIcon/cartIcon
-// const loveIcon = document.querySelector('.header__bottom--extention-love');
-// const loveBtn = loveIcon.parentElement;
-// const loveBtnLowDevice = document.querySelector('.hide__menu--list__extention .header__bottom--extention-love');
-
+// start: Checking login when click cartIcon
 const cartIcon = document.querySelector('.header__bottom--extention-cart');
 const cartBtn = cartIcon.parentElement;
 const cartBtnLowDevice = document.querySelector('.hide__menu--list__extention .header__bottom--extention-cart');
@@ -437,17 +439,6 @@ const closeMenu = () => {
 };
 
 if (!userLogin) {
-  // loveBtn.addEventListener('click', e => {
-  //   e.preventDefault();
-  //   openFormRegister();
-  // });
-
-  // loveBtnLowDevice.addEventListener('click', e => {
-  //   e.preventDefault();
-  //   openFormRegister();
-  //   closeMenu();
-  // });
-
   cartBtn.addEventListener('click', e => {
     e.preventDefault();
     openFormRegister();
@@ -459,4 +450,4 @@ if (!userLogin) {
     closeMenu();
   });
 }
-// end: Checking login when click loveIcon/cartIcon
+// end: Checking login when click cartIcon

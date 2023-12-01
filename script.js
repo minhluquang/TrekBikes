@@ -140,7 +140,21 @@ typeProductsNav.forEach(item =>
     const firstString = item.textContent.trim().charAt(0).toUpperCase(); //Cắt chữ đầu viết hoa
     const secondString = item.textContent.trim().substring(1).toLocaleLowerCase(); //Vế còn lại viết thường
     const type = firstString + secondString;
-    
+
+    // Khi có sự kiện load trang thì set data
+    localStorage.setItem('typeToFilter', JSON.stringify(type));
+  })
+);
+
+// Kiểm tra trên thiết bị nhỏ hơn
+const typeProductsSidebarMenu = document.querySelectorAll('.hide__menu--list__type');
+
+typeProductsSidebarMenu.forEach(item =>
+  item.addEventListener('click', e => {
+    const firstString = item.textContent.trim().charAt(0).toUpperCase(); //Cắt chữ đầu viết hoa
+    const secondString = item.textContent.trim().substring(1).toLocaleLowerCase(); //Vế còn lại viết thường
+    const type = firstString + secondString;
+    console.log(type)
     // Khi có sự kiện load trang thì set data
     localStorage.setItem('typeToFilter', JSON.stringify(type));
   })

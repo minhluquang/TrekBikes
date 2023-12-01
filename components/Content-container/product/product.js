@@ -1,46 +1,11 @@
-// import DUMMY_PRODUCTS from '../../../database/products.js';
 const datalocal = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const userLocal = JSON.parse(localStorage.getItem('User'));
-
-// if (!localStorage.getItem('codeHasRunBefore')) {
-//   try {
-//     if (!userLocal || !datalocal) {
-//       throw new Error('Required variables are undefined.');
-//     }
-
-// var DateTimeP = [];
-// const DUMMY_API = [
-//   {
-//     idUser: userLocal.id,
-//     cart: []
-//   }
-// ];
-
-// for (let i = 0; i < datalocal.length; i++) {
-//   DateTimeP.push({
-//     productId: datalocal[i].ID,
-//     createAT: '14/11/2023  20:00',
-//     updateAt: '14/11/2023  20:00'
-//   });
-// }
-
-// localStorage.setItem('DateTimeP', JSON.stringify(DateTimeP));
-// localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(datalocal));
-// localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
-
-//     localStorage.setItem('codeHasRunBefore', 'true');
-//   } catch (error) {
-//     console.error('Error in code:', error.message);
-//   }
-// } else {
-//   console.log('Code will not run again.');
-// }
 
 const DUMMY_PRODUCTS_LOCAL = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const productList = document.getElementById('productList');
 const data = DUMMY_PRODUCTS_LOCAL;
 const accountData = JSON.parse(localStorage.getItem('accounts'));
-
+  
 for (let index = 0; index < data.length; index++) {
   data[index].imgSrc = `\\${data[index].imgSrc}`;
 }
@@ -52,10 +17,6 @@ const navItemProcess = document.getElementById('nav-item-process');
 
 const overlayAddCart = document.getElementById('overlay-add-cart');
 const overlayid = document.getElementById('overlayid');
-
-// const overlayLike = document.getElementById('overlayLike');
-
-// const overlayBuyNow = document.getElementById('overlay-buy-now');
 
 function generateRandomId() {
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

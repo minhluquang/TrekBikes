@@ -31,20 +31,52 @@ if (!accounts) {
 // Kiểm tra đã đăng nhập hay chưa ?
 const checkLoggedIn = () => {
   const userLogin = JSON.parse(localStorage.getItem('User'));
+  const userList = document.querySelector('.header__bottom--user__list');
 
   if (userLogin) {
     isLoggedIn = true;
+
     userProductBtn.removeEventListener('click', openFormRegister);
 
-    // if (userLogin.isAdmin) {
-    //   document.querySelectorAll('.adminManager__item').forEach(item => (item.style.display = 'block'));
-    // }
+    userProductBtn.addEventListener('mouseover', e => {
+      userList.style.display = 'block';
+    });
+
+    userProductBtn.addEventListener('mouseout', e => {
+      userList.style.display = 'none';
+    });
+
+    // Kiểm tra quyền truy cập User nếu là admin thì hiển thị btn Quản lý
+    if (userLogin.isAdmin) {
+      document.querySelectorAll('.adminManager__item').forEach(item => (item.style.display = 'block'));
+    }
   } else {
     isLoggedIn = false;
   }
 };
 
 checkLoggedIn();
+
+// =========================== start: LOGOUT LOGIC ===========================
+const logoutBtn = document.querySelector('.logout');
+
+const logoutHandler = () => {
+  localStorage.removeItem('User');
+  alert("Đăng xuất thành công!")
+  location.reload();
+};
+
+logoutBtn.addEventListener('click', logoutHandler);
+// =========================== end: LOGOUT LOGIC ===========================
+
+// =========================== start: GO TO ADMIN PAGE ===========================
+const manageBtn = document.querySelector('.adminManager');
+
+manageBtn.addEventListener('click', e => {
+  window.location.href = '/html/page/admin/Home.html';
+});
+
+// =========================== end: GO TO ADMIN PAGE ===========================
 
 // Mở form để đăng ký
 function openFormRegister() {
@@ -283,6 +315,20 @@ signinBtn.addEventListener('click', e => {
   userWrapper.classList.remove('register__active');
 });
 
+//Change to login when on low device
+const signinBtnOnLowDevice = document.querySelector('.signin button');
+const registerAgainOnLowDevice = document.querySelector('.register__again button');
+
+signinBtnOnLowDevice.addEventListener('click', e => {
+  userWrapper.classList.add('login__active');
+  userWrapper.classList.remove('register__active');
+});
+
+registerAgainOnLowDevice.addEventListener('click', e => {
+  userWrapper.classList.remove('login__active');
+  userWrapper.classList.add('register__active');
+});
+
 //Change to register when show login form
 const registerAgain = document.querySelector('.login__background button');
 registerAgain.addEventListener('click', e => {
@@ -290,3 +336,50 @@ registerAgain.addEventListener('click', e => {
   userWrapper.classList.remove('login__active');
 });
 // ============================= end: Switch mode reg/log
+
+// Xử lý hiện ô đăng ký ở footer
+const section4 = document.querySelector('.section--4-container ');
+
+if (!isLoggedIn) {
+  section4.classList.add('active');
+
+  const section4Btn = section4.querySelector('button');
+  section4Btn.addEventListener('click', e => {
+    openFormRegister();
+  });
+}
+
+// Ẩn hiện password
+const showEyeRegister = document.querySelector('.showEyeRegister');
+const hideEyeRegister = document.querySelector('.hideEyeRegister');
+
+showEyeRegister.addEventListener('click', e => {
+  e.preventDefault();
+  registerPasswordInput.type = 'text';
+  showEyeRegister.classList.toggle('hide');
+  hideEyeRegister.classList.toggle('hide');
+});
+
+hideEyeRegister.addEventListener('click', e => {
+  e.preventDefault();
+  registerPasswordInput.type = 'password';
+  showEyeRegister.classList.toggle('hide');
+  hideEyeRegister.classList.toggle('hide');
+});
+
+const showEyeLogin = document.querySelector('.showEyeLogin');
+const hideEyeLogin = document.querySelector('.hideEyeLogin');
+
+showEyeLogin.addEventListener('click', e => {
+  e.preventDefault();
+  loginPasswordInput.type = 'text';
+  showEyeLogin.classList.toggle('hide');
+  hideEyeLogin.classList.toggle('hide');
+});
+
+hideEyeLogin.addEventListener('click', e => {
+  e.preventDefault();
+  loginPasswordInput.type = 'password';
+  showEyeLogin.classList.toggle('hide');
+  hideEyeLogin.classList.toggle('hide');
+});
