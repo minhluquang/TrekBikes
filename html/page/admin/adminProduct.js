@@ -619,7 +619,7 @@ addProductBtn.addEventListener('click', e => {
       loadData(data);
 
       unhideFilterContent();
-      alert('Đã thêm sản phẩm thành công!');
+      alert('Đã thêm vào giỏ hàng!');
     }
   });
 });

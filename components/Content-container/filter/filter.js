@@ -190,12 +190,12 @@ function displayItem(data) {
       const id = productItem.querySelector('.id');
       const like = productItem.querySelector('#like');
 
-      for (let i = 0; i < userLocal.like.length; i++) {
-        if (userLocal.like[i] === id.textContent) {
-          checkLike = false;
-          like.style.color = 'red';
-        }
-      }
+      // for (let i = 0; i < userLocal.like.length; i++) {
+      //   if (userLocal.like[i] === id.textContent) {
+      //     checkLike = false;
+      //     like.style.color = 'red';
+      //   }
+      // }
       handleBtnClick(productItem);
 
       // like.addEventListener('click', () => {

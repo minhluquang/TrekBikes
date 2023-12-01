@@ -1,3 +1,47 @@
+/* Section 4 */
+.section--4-container {
+  background-color: #333;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: 1s all;
+  z-index: -1;
+  position: relative;
+}
+
+.section--4-container.active {
+  width: 100%;
+  z-index: 1;
+  opacity: 1;
+  transform: translateY(0);
+  text-align: center;
+}
+
+.section--4 {
+  padding: 50px !important;
+}
+
+.section--4 h1 {
+  margin-top: 20px;
+  color: #fff;
+}
+
+.section--4 button {
+  margin-top: 20px;
+  border: none;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  box-shadow: rgb(154, 154, 154) 0px 5px 0px 0px;
+}
+
+.section--4 button:active {
+  transform: translateY(2px);
+  box-shadow: rgb(154, 154, 154) 0px 0px 0px 0px;
+}
+
 .footer-container {
   width: 100%;
   border-top: 1px solid #777;
@@ -48,13 +92,17 @@
   font-weight: 900;
 }
 
-.footer-item--produce {}
+.footer-item--produce {
+}
 
-.footer-item--company {}
+.footer-item--company {
+}
 
-.footer-item--help {}
+.footer-item--help {
+}
 
-.footer-contact {}
+.footer-contact {
+}
 
 .footer-socials {
   margin-top: 40px;

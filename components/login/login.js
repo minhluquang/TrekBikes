@@ -460,16 +460,3 @@ if (!userLogin) {
   });
 }
 // end: Checking login when click loveIcon/cartIcon
-
-// start: Kiểm tra login khi bấm vào MOUNTAIN ROAD TOURING KIDS
-const typeProductsNav = document.querySelectorAll('.header__bottom--list ul li');
-
-typeProductsNav.forEach(item =>
-  item.addEventListener('click', e => {
-    if (!userLogin) {
-      e.preventDefault();
-      openFormRegister();
-      closeMenu();
-    }
-  })
-);

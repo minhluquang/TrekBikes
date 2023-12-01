@@ -1,9 +1,17 @@
+// Kiểm tra xem có DUMMY_PRODUCTS hay chưa
+import DUMMY_PRODUCTS from '../../database/products.js';
+
+let productsFromLocal = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
+
+if (!productsFromLocal) {
+  localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
+}
+
 // Set experience years
 const experienceYear = document.querySelector('#experienceYear');
 const currentYear = new Date().getFullYear();
 experienceYear.querySelector('span').innerText = `${currentYear - 1976}`;
 experienceYear.querySelector('span').setAttribute('data-value', `${currentYear - 1976}`);
-
 
 const userLocal = JSON.parse(localStorage.getItem('User'));
 function generateRandomId() {
@@ -49,35 +57,35 @@ window.addEventListener('scroll', sticky);
 
 //Search event
 const headerBottom = document.querySelector('.header__bottom');
-const searchBtn = document.querySelector('.header__bottom--extention-search i');
-const searchInput = document.querySelector('.header__bottom--extention-search input');
+// const searchBtn = document.querySelector('.header__bottom--extention-search i');
+// const searchInput = document.querySelector('.header__bottom--extention-search input');
 const overlay = document.querySelector('.overlay');
 
 let allowSearchEvent = true;
 
-searchBtn.addEventListener('click', e => {
-  if (allowSearchEvent) {
-    headerBottom.classList.toggle('search--active');
-    searchInput.focus();
-  }
-});
+// searchBtn.addEventListener('click', e => {
+//   if (allowSearchEvent) {
+//     headerBottom.classList.toggle('search--active');
+//     searchInput.focus();
+//   }
+// });
 
 // For low device
-reseizeAndLoadEvent.forEach(evt =>
-  window.addEventListener(`${evt}`, e => {
-    if (
-      window.matchMedia('(min-width: 740px) and (max-width: 1023px)').matches ||
-      window.matchMedia('(min-width: 320px) and (max-width: 740px)').matches
-    ) {
-      allowSearchEvent = false;
-      searchInput.addEventListener('focus', e => {
-        headerBottom.classList.add('search--active');
-      });
-    } else {
-      allowSearchEvent = true;
-    }
-  })
-);
+// reseizeAndLoadEvent.forEach(evt =>
+//   window.addEventListener(`${evt}`, e => {
+//     if (
+//       window.matchMedia('(min-width: 740px) and (max-width: 1023px)').matches ||
+//       window.matchMedia('(min-width: 320px) and (max-width: 740px)').matches
+//     ) {
+//       allowSearchEvent = false;
+//       searchInput.addEventListener('focus', e => {
+//         headerBottom.classList.add('search--active');
+//       });
+//     } else {
+//       allowSearchEvent = true;
+//     }
+//   })
+// );
 
 document.addEventListener('click', e => {
   if (document.querySelector('.header__bottom.search--active')) {
@@ -123,3 +131,17 @@ scrollEvents.forEach(event => {
   });
 });
 
+// Kiểm người dùng bấm vào MOUNTAIN - ROAD - TOURING -KIDS
+// Thì setLocal cho bên Sản phẩm lấy và lọc
+const typeProductsNav = document.querySelectorAll('.header__bottom--list ul li');
+
+typeProductsNav.forEach(item =>
+  item.addEventListener('click', e => {
+    const firstString = item.textContent.trim().charAt(0).toUpperCase(); //Cắt chữ đầu viết hoa
+    const secondString = item.textContent.trim().substring(1).toLocaleLowerCase(); //Vế còn lại viết thường
+    const type = firstString + secondString;
+    
+    // Khi có sự kiện load trang thì set data
+    localStorage.setItem('typeToFilter', JSON.stringify(type));
+  })
+);

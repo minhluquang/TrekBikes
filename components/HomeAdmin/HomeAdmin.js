@@ -59,11 +59,11 @@ if (storedProducts) {
 
   // Hiển thị số lượng loại (type)
   const numberOfTypes = Object.keys(categoryCounts).length;
-  console.log('Số lượng loại sản phẩm:', numberOfTypes);
+  // console.log('Số lượng loại sản phẩm:', numberOfTypes);
   updateDataInHTML('numberOfTypes', numberOfTypes);
   // In ra giá trị để kiểm tra
-  console.log('Số lượng sản phẩm: ', productCount);
-  console.log('Số lượng danh mục sản phẩm theo loại:', categoryCounts);
+  // console.log('Số lượng sản phẩm: ', productCount);
+  // console.log('Số lượng danh mục sản phẩm theo loại:', categoryCounts);
 } else {
   console.log('Không có dữ liệu trong local storage');
 }
@@ -83,7 +83,7 @@ if (accountsString) {
   memberCount = accounts.length;
 
   // Hiển thị số lượng thành viên trong console hoặc thực hiện các xử lý khác
-  console.log('Số lượng thành viên:', memberCount);
+  // console.log('Số lượng thành viên:', memberCount);
 } else {
   console.log('Không có dữ liệu thành viên trong localStorage');
 }
@@ -150,8 +150,8 @@ if (Array.isArray(users)) {
   });
 
   // Hiển thị kết quả
-  console.log('Số lượng đơn hàng chưa xử lí:', pendingOrdersCount);
-  console.log('Số lượng đơn hàng đã xử lí:', processedOrdersCount);
+  // console.log('Số lượng đơn hàng chưa xử lí:', pendingOrdersCount);
+  // console.log('Số lượng đơn hàng đã xử lí:', processedOrdersCount);
 } else {
   console.log('Dữ liệu người dùng không phải là mảng hợp lệ.');
 }
@@ -181,5 +181,5 @@ arrayTemp.forEach(item => {
 
 document.querySelector('.box #producttotalprice').innerText = total_Price.toLocaleString('vi-VN') + ' VNĐ';
 
-console.log('Những sản phẩm có processed là true:', arrayTemp);
-console.log('Tổng giá tiền của các sản phẩm: ', total_Price.toLocaleString('vi-VN') + 'VND');
+// console.log('Những sản phẩm có processed là true:', arrayTemp);
+// console.log('Tổng giá tiền của các sản phẩm: ', total_Price.toLocaleString('vi-VN') + 'VND');

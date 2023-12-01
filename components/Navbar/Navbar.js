@@ -15,7 +15,7 @@ if (!localStorage.getItem('inputSearchCheck')) {
 
   localStorage.setItem('inputSearchCheck', 'true');
 } else {
-  console.log('Mã không chạy nữa');
+  // console.log('Mã không chạy nữa');
 }
 const searchValue = document.getElementById('searchValue');
 const submitBtn = document.getElementById('submit-btn');
@@ -226,6 +226,15 @@ const navItemCart = document.getElementById('nav-item-cart');
 
 let quantity = 1;
 const clickAddCart = () => {
+  const isLoggedIn = JSON.parse(localStorage.getItem('User'));
+  // Nếu chưa đăng nhập thì không cho mua sản phẩm
+  if (!isLoggedIn) {
+    // Ẩn đi modal vừa bật
+    overlay.style.display = 'none';
+    toastContainer.style.display = 'none';
+    return;
+  }
+
   for (let i = 0; i < userLocal.cart.length; i++) {
     if (userLocal.cart[i].id === overlayid.textContent) {
       quantity = parseInt(userLocal.cart[i].quantity);
@@ -427,7 +436,7 @@ submitBtn.addEventListener('click', e => {
             }
           }
           quantity = quantity + 1;
-          alert('đã thêm vao giỏ hàng');
+          alert('Đã thêm vào giỏ hàng!');
 
           const process = {
             id: e.ID,

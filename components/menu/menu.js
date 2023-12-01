@@ -1,9 +1,8 @@
 const hideMenuBtn = document.querySelector('.header__bottom--hide-menu');
 const closeMenuBtn = document.querySelector('.hide__menu--close');
 const hideMenu = document.querySelector('.hide__menu');
-const iconUp = document.querySelector('.header__bottom--extention__icon--up');
-const iconDown = document.querySelector('.header__bottom--extention__icon--down');
 const overlay = document.querySelector('.overlay');
+
 
 //Open hide menu
 hideMenuBtn.addEventListener('click', e => {
@@ -42,6 +41,9 @@ const openFormRegister = () => {
 //Show more catelogy
 const catelogyBtn = document.querySelector('.hide__menu--list__extention .header__bottom--extention-cate');
 const hideMenuList = document.querySelector('.hide__menu--list__types');
+
+const iconUp = document.querySelector('.header__bottom--extention-cate .header__bottom--extention__icon--up');
+const iconDown = document.querySelector('.header__bottom--extention-cate .header__bottom--extention__icon--down');
 
 catelogyBtn.addEventListener('click', e => {
   hideMenuList.classList.toggle('active');
