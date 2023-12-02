@@ -3,6 +3,7 @@ const cartInfo = document.getElementById('cart-info');
 const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const DUMMY_API = JSON.parse(localStorage.getItem('DUMMY_API'));
 
+
 const data = DUMMY_PRODUCTS;
 const accountData = JSON.parse(localStorage.getItem('accounts'));
 function generateRandomId() {

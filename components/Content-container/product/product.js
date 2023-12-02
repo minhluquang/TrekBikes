@@ -38,6 +38,9 @@ const decrement = document.getElementById('decrement');
 var quantity = parseInt(document.getElementById('quantity').textContent);
 let productsPerPage = 10;
 let currentPage = 1;
+if(!userLocal){
+  navItemCart.style.display = 'none';
+}
 
 const clickBuy = () => {
   const id = overlayid.textContent;
