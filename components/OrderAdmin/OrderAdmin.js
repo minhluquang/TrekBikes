@@ -288,15 +288,12 @@ submitBtn.addEventListener('click', e => {
   const inputIdClientValue = document.querySelector('#orderIdClient input').value.trim();
   const inputIdOrderValue = document.querySelector('#orderIdOrder input').value.trim();
   const selectStatusValue = document.querySelector('#orderStatus select').value;
-  const inputOrderDayValue = document.querySelector('#orderDate input').value;
-  // const timeValue = new Date(inputOrderDayValue);
-  // const dayValue = timeValue.getDate();
-  // const monthValue = timeValue.getMonth();
-  // const yearValue = timeValue.getFullYear();
-
+  const inputOrderDateBegin = document.querySelector('#orderDateBegin input').value;
+  const inputOrderDateEnd = document.querySelector('#orderDateEnd input').value;
+ 
   // console.log(day +" " + month + " " +year);
   // Nếu có dữ liệu nhập vào ít nhất ở 1 ô thì mới cuộn xuống, không có thì k làm gì
-  if (inputIdClientValue === '' && inputIdOrderValue === '' && !selectStatusValue && !inputOrderDayValue) {
+  if (inputIdClientValue === '' && inputIdOrderValue === '' && !selectStatusValue && !inputOrderDateBegin && !inputOrderDateEnd) {
     return;
   } else {
     const contentListProduct = document.querySelector('#orderList');
@@ -311,20 +308,28 @@ submitBtn.addEventListener('click', e => {
 
   // Lọc theo ngày tháng năm
 
-  if (inputOrderDayValue) {
-    const time = new Date(inputOrderDayValue);
-    const day = time.getDate();
-    const month = time.getMonth();
-    const year = time.getFullYear();
+  if (inputOrderDateBegin && inputOrderDateEnd) {
+    const timeBegin = new Date(inputOrderDateBegin);
+    const dayBegin = timeBegin.getDate();
+    const monthBegin = timeBegin.getMonth();
+    const yearBegin = timeBegin.getFullYear();
 
+    const timeEnd = new Date(inputOrderDateEnd);
+    const dayEnd = timeEnd.getDate();
+    const monthEnd = timeEnd.getMonth();
+    const yearEnd = timeEnd.getFullYear();
     data = data.filter(user => {
       return user.cart.some(cart => {
         const timeOrder = new Date(cart.dateCreate);
         const dayOrder = timeOrder.getDate();
         const monthOrder = timeOrder.getMonth();
         const yearOrder = timeOrder.getFullYear();
-
-        return dayOrder === day && monthOrder === month && yearOrder === year;
+  
+        const orderDate = new Date(yearOrder, monthOrder, dayOrder);
+        const startDate = new Date(yearBegin, monthBegin, dayBegin);
+        const endDate = new Date(yearEnd, monthEnd, dayEnd);
+  
+        return orderDate >= startDate && orderDate <= endDate;
       });
     });
   }

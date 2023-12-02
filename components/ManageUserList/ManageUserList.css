@@ -17,7 +17,7 @@
 
 .admin__content--body__filter p {
   color: red;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .admin__content--body__filter--gr1,
@@ -66,11 +66,24 @@
   width: 50%;
 } */
 
-.body__filter--idClient,
+/* .body__filter--idClient,
 .body__filter--status,
 .body__filter--createDtae,
 .body__filter--nameClient {
   width: 25%;
+} */
+
+.body__filter--idClient,
+.body__filter--nameClient{
+  width: 32%;
+}
+
+.body__filter--dateClient {
+  width: 13%;
+}
+
+.body__filter--roleClient {
+  width: 31%;
 }
 
 .admin__content--body__filter--gr2 {

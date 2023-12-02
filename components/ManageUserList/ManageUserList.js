@@ -198,11 +198,16 @@ submitBtn.addEventListener('click', e => {
   e.preventDefault();
   const inputNameClientValue = document.querySelector('#userNameClient input').value.toLowerCase();
   const inputIdClientValue = document.querySelector('#userIdClient input').value;
-  const inputDateClientValue = document.querySelector('#userDate').value;
-  const time = new Date(inputDateClientValue);
-  const day = time.getDate();
-  const month = time.getMonth();
-  const year = time.getFullYear();
+  const inputBeginDate = document.querySelector('#beginDate').value;
+  const inputEndDate = document.querySelector('#endDate').value;
+  const timeBegin = new Date(inputBeginDate);
+  const dayBegin = timeBegin.getDate();
+  const monthBegin = timeBegin.getMonth();
+  const yearBegin = timeBegin.getFullYear();
+  const timeEnd = new Date(inputEndDate);
+  const dayEnd = timeEnd.getDate();
+  const monthEnd = timeEnd.getMonth();
+  const yearEnd = timeEnd.getFullYear();
   const inputRoleClinetValue = document.querySelector('#userRoleClient select').value;
   let isAdmiValid;
   if (inputRoleClinetValue === 'admin') {
@@ -211,7 +216,7 @@ submitBtn.addEventListener('click', e => {
     isAdmiValid = false;
   }
 
-  if (!inputNameClientValue && !inputIdClientValue && !inputDateClientValue && !inputRoleClinetValue) {
+  if (!inputNameClientValue && !inputIdClientValue && !inputBeginDate && !inputEndDate && !inputRoleClinetValue) {
     return;
   } else {
     const usersContainer = document.querySelector('#userList');
@@ -239,13 +244,16 @@ submitBtn.addEventListener('click', e => {
     data = data.filter(item => item.id.toString() === inputIdClientValue.trim());
   }
 
-  if (inputDateClientValue) {
+  if (inputBeginDate && inputEndDate) {
     data = data.filter(user => {
       const timeUser = new Date(user.dateRegister);
       const dayUser = timeUser.getDate();
       const monthUser = timeUser.getMonth();
       const yearUser = timeUser.getFullYear();
-      return dayUser === day && monthUser === month && yearUser === year;
+      const isAfterOrEqualBeginDate = new Date(yearUser, monthUser, dayUser) >= new Date(yearBegin, monthBegin, dayBegin);
+      const isBeforeOrEqualEndDate = new Date(yearUser, monthUser, dayUser) <= new Date(yearEnd, monthEnd, dayEnd);
+  
+      return isAfterOrEqualBeginDate && isBeforeOrEqualEndDate;
     });
   }
 
