@@ -45,10 +45,12 @@ const clickBuy = () => {
 };
 
 increment.addEventListener('click',()=>{
+  var quantity = parseInt(document.getElementById('quantity').textContent);
   quantity = quantity + 1;
   document.getElementById('quantity').innerHTML = quantity;
 })
 decrement.addEventListener('click', ()=>{
+  var quantity = parseInt(document.getElementById('quantity').textContent);
   if(quantity > 0){
     quantity = quantity - 1;
   }
@@ -61,7 +63,10 @@ decrement.addEventListener('click', ()=>{
 const clickAddCart = () => {
   const isLoggedIn = JSON.parse(localStorage.getItem('User'));
   // Nếu chưa đăng nhập thì không cho mua sản phẩm
- 
+  var quantity = parseInt(document.getElementById('quantity').textContent);
+  if(quantity < 1){
+    return;
+  }
   // console.log(quantity);
   if (!isLoggedIn) {
     // Ẩn đi modal vừa bật
