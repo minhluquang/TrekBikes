@@ -255,9 +255,13 @@ submitBtn.addEventListener('click', e => {
     data = data.filter(item => item.isAdmin === isAdmiValid);
   }
 
-  // -------------------------------
+  // Kiểm tra nếu lọc ra không có dữ liệu thì thông báo
+  if (data.length === 0) {
+    alert('Không tìm thấy thông tin người dùng!');
+  } else {
+    alert('Lọc thành công người dùng!');
+  }
 
-  // -------------------------------
   init(data);
   paginationHandler();
 });

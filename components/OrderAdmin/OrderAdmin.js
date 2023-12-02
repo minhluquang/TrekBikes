@@ -360,26 +360,20 @@ submitBtn.addEventListener('click', e => {
   listProducts.innerHTML = '';
   if (isProcessed === 'processed') {
     renderItems(true, false, data);
-    data?.forEach(() => {
-      clickIconHandler();
-      clickIconInfoHandler();
-      clickDeleteBtnHandler();
-    });
+    clickIconHandler();
+    clickIconInfoHandler();
+    clickDeleteBtnHandler();
   } else if (isProcessed === 'processing') {
     renderItems(false, true, data);
-    data?.forEach(() => {
-      clickIconHandler();
-      clickIconInfoHandler();
-      clickDeleteBtnHandler();
-    });
+    clickIconHandler();
+    clickIconInfoHandler();
+    clickDeleteBtnHandler();
   } else if (isProcessed === 'all') {
     renderItems(false, false, data);
-    data?.forEach(() => {
-      clickIconHandler();
-      clickIconInfoHandler();
-      clickDeleteBtnHandler();
-      sortProductsNonActiveFirst();
-    });
+    clickIconHandler();
+    clickIconInfoHandler();
+    clickDeleteBtnHandler();
+    sortProductsNonActiveFirst();
   }
 
   paginationHandler();

@@ -28,6 +28,7 @@ if (!accounts) {
   localStorage.setItem('accounts', JSON.stringify(accounts));
 }
 
+
 // Kiểm tra đã đăng nhập hay chưa ?
 const checkLoggedIn = () => {
   const userLogin = JSON.parse(localStorage.getItem('User'));
@@ -288,7 +289,7 @@ loginSubmitBtn.addEventListener('click', e => {
     if (findAccount) {
       if (findAccount.password === password) {
         localStorage.setItem('User', JSON.stringify(findAccount));
-        // showPopup();
+
         location.reload();
 
         loginEmailInput.value = '';

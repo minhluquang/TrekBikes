@@ -730,8 +730,14 @@ filterSubmitBtn.addEventListener('click', e => {
 
   // Kiểm tra xem nếu người dùng chọn ngày (dateFrom/dateTo)
   // mà chưa chọn loại ngày thì hiển thị thông báo
-  if (!productName.value && !productCode.value && !dateSelect.value && !dateFrom.value && !dateTo.value) {
-    alert('Vui lòng chọn ít nhất một dữ kiện cần lọc!');
+  if (
+    !productName.value &&
+    !productCode.value &&
+    !dateSelect.value &&
+    !dateFrom.value &&
+    !dateTo.value &&
+    !categorySelect.value
+  ) {
     return;
   }
 
@@ -837,6 +843,7 @@ filterSubmitBtn.addEventListener('click', e => {
     content.appendChild(item);
     updateEvent(item, index, id, element);
   }
+  alert('Lọc thành công sản phẩm!');
 });
 
 // Reset
