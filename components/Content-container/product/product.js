@@ -83,7 +83,6 @@ const clickAddCart = () => {
     quantity = 0;
   }
 
-  // alert("Ngày " + ngay + "/" + thang + "/" + nam + " lúc " + gio + ":" + phut + ":" + giay)
   for (let i = 0; i < accountData.length; i++) {
     if (accountData[i].id === userLocal.id) {
       accountData[i].cart = userLocal.cart;
@@ -105,9 +104,6 @@ const clickAddCart = () => {
 overlayAddCart.addEventListener('click', () => {
   clickAddCart();
 });
-// overlayBuyNow.addEventListener('click', () => {
-//   clickBuy();
-// });
 
 toast.forEach(e => {
   const exitToast = e.querySelector('.exit');
@@ -167,8 +163,6 @@ function clickSave(like) {
   }
   const itemHeart = document.createElement('p');
   itemHeart.classList.add('item-heart');
-  // itemHeart.innerText = `${userLocal.like.length}`;
-  // navItemHeart.appendChild(itemHeart);
   const updateLike = [...new Set(userLocal.like)];
   userLocal.like = updateLike;
   localStorage.setItem('User', JSON.stringify(userLocal));
@@ -180,20 +174,7 @@ function clickSave(like) {
   localStorage.setItem('accounts', JSON.stringify(accountData));
 }
 
-// overlayLike.addEventListener('click', () => {
-//   clickSave();
-// });
 
-// function displayQuantityCart() {
-//   if (userLocal[0]?.processing.length) {
-//     const itemProcess = document.createElement('p');
-//     itemProcess.classList.add('item-process');
-//     itemProcess.innerText = `${userLocal.processing.length}`;
-//     navItemProcess.appendChild(itemProcess);
-//   }
-// }
-// displayQuantityCart();
-// console.log(data[data.length - 1]);
 
 function returnPathImg(element) {
   let pathImg = element.imgSrc;
@@ -258,8 +239,7 @@ const overlay = document.getElementById('overlay');
 navItemCart.appendChild(itemCart);
 const itemHeart = document.createElement('p');
 itemHeart.classList.add('item-heart');
-// itemHeart.innerText = `${userLocal.like.length}`;
-// navItemHeart.appendChild(itemHeart);
+
 
 function updateEvent() {
   const productItems = document.querySelectorAll('.product-item');
@@ -293,20 +273,7 @@ function updateEvent() {
       overlayName.innerHTML = `${Element.querySelector('h3').textContent}`;
       overlayImg.src = `${ElementImg.src}`;
       overlayPrice.innerHTML = `${Element.querySelector('p').textContent}`;
-
-      // for (let i = 0; i < userLocal.like.length; i++) {
-      //   if (userLocal.like[i] == id.textContent) {
-      //     checkLikeOverlay = false;
-      //     checkLike = false;
-      //   }
-      // }
     });
-    // for (let i = 0; i < userLocal.like.length; i++) {
-    //   if (userLocal.like[i] === id.textContent) {
-    //     like.style.color = 'red';
-    //   }
-    // }
-
     addCart.addEventListener('click', () => {
       const isLoggedIn = JSON.parse(localStorage.getItem('User'));
       // Nếu chưa đăng nhập thì không cho mua sản phẩm
@@ -359,39 +326,6 @@ function updateEvent() {
       itemCart.innerText = `${userLocal?.cart.length}`;
       navItemCart.appendChild(itemCart);
     });
-    // like.addEventListener('click', () => {
-    //   for (let i = 0; i < userLocal.like.length; i++) {
-    //     if (userLocal.like[i] === id.textContent) {
-    //       checkLike = false;
-    //       like.style.color = 'red';
-    //       userLocal.like.splice(i, 1);
-    //     }
-    //   }
-    //   if (checkLike) {
-    //     like.style.color = 'red';
-
-    //     checkLike = !checkLike;
-    //     userLocal.like.push(id.textContent);
-    //   } else {
-    //     like.style.color = '#A0A0A0';
-    //     // overlayLike.style.color = '#A0A0A0';
-    //     checkLike = !checkLike;
-    //   }
-    //   const updateLike = [...new Set(userLocal.like)];
-
-    //   const itemHeart = document.createElement('p');
-    //   itemHeart.classList.add('item-heart');
-    //   itemHeart.innerText = `${userLocal.like.length}`;
-    //   navItemHeart.appendChild(itemHeart);
-    //   userLocal.like = updateLike;
-    //   for (let i = 0; i < accountData.length; i++) {
-    //     if (accountData[i].id === userLocal.id) {
-    //       accountData[i].like = userLocal.like;
-    //     }
-    //   }
-    //   localStorage.setItem('User', JSON.stringify(userLocal));
-    //   localStorage.setItem('accounts', JSON.stringify(accountData));
-    // });
   }
 }
 updateEvent();
@@ -399,6 +333,7 @@ updateEvent();
 var totalPages = Math.ceil(data.length / 10);
 const ITEMS_PER_PAGE = 10;
 var maxPagesToShow = 5;
+
 
 function generatePagination() {
   var pagination = document.getElementById('pagination');
@@ -413,7 +348,7 @@ function generatePagination() {
       generatePagination();
       loadData();
     }
-  });
+  }); 
   pagination.appendChild(prevBtn);
 
   var startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));

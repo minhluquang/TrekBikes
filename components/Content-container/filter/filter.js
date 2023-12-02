@@ -16,7 +16,6 @@ const toastAddCart = document.querySelector('.toast-add-cart');
 // localStorage.setItem('Carts', JSON.stringify(carts))
 const navItemCart = document.getElementById('nav-item-cart');
 const statusSearch = document.getElementById('statusSearch');
-const returnPage = document.getElementById('return-to-page');
 const paging = document.getElementById('pagination');
 const overlayLike = document.getElementById('overlayLike');
 const navItemHeart = document.getElementById('nav-item-heart');
@@ -152,9 +151,9 @@ function returnPathImg(element) {
   return pathImg;
 }
 
-function displayItem(data) {
+function displayItem(startIndex,endIndex,data) {
   productList.innerHTML = '';
-  for (let i = 0; i < data.length; i++) {
+  for (let i = startIndex; i < endIndex; i++) {
     if (data[i].imgSrc !== undefined && data[i].name !== undefined && data[i].price !== undefined) {
       let colors = data[i].dataColors;
       let checkLike = true;
@@ -189,42 +188,7 @@ function displayItem(data) {
       handleOverlayProduct(productItem);
       const id = productItem.querySelector('.id');
       const like = productItem.querySelector('#like');
-
-      // for (let i = 0; i < userLocal.like.length; i++) {
-      //   if (userLocal.like[i] === id.textContent) {
-      //     checkLike = false;
-      //     like.style.color = 'red';
-      //   }
-      // }
       handleBtnClick(productItem);
-
-      // like.addEventListener('click', () => {
-      //   for (let i = 0; i < userLocal.like.length; i++) {
-      //     if (userLocal.like[i] === id.textContent) {
-      //       checkLike = false;
-      //       like.style.color = 'red';
-      //       userLocal.like.splice(i, 1);
-      //     }
-      //   }
-      //   if (checkLike) {
-      //     like.style.color = 'red';
-
-      //     checkLike = !checkLike;
-      //     userLocal.like.push(id.textContent);
-      //   } else {
-      //     like.style.color = '#A0A0A0';
-      //     overlayLike.style.color = '#A0A0A0';
-      //     checkLike = !checkLike;
-      //   }
-      //   const updateLike = [...new Set(userLocal.like)];
-      //   const itemHeart = document.createElement('p');
-      //   itemHeart.classList.add('item-heart');
-      //   itemHeart.innerText = `${userLocal.like.length}`;
-      //   navItemHeart.appendChild(itemHeart);
-      //   userLocal.like = updateLike;
-      //   console.log(userLocal);
-      //   localStorage.setItem('User', JSON.stringify(userLocal));
-      // });
     } else {
       return;
     }
@@ -272,9 +236,10 @@ dropdownItems.forEach(item => {
       });
     }
     statusSearch.innerText = 'Các sản phẩm tìm thấy';
-    returnPage.style.display = 'flex';
-    paging.style.display = 'none';
-    displayItem(filteredProducts);
+    
+    generatePagination(filteredProducts);
+    loadData(filteredProducts);
+   
   });
 });
 
@@ -283,29 +248,34 @@ Type.forEach(e => {
   let filteredProducts = [];
   e.addEventListener('click', () => {
     if (e.textContent === 'Mountain') {
+      statusSearch.innerText = 'Mountain';
       filteredProducts = data.filter(product => {
         return product.type === 'mountain';
       });
     }
     if (e.textContent === 'Road') {
+      statusSearch.innerText = 'Road';
       filteredProducts = data.filter(product => {
         return product.type === 'road';
       });
     }
     if (e.textContent === 'Kids') {
+      statusSearch.innerText = 'Kids';
       filteredProducts = data.filter(product => {
         return product.type === 'kids';
       });
     }
     if (e.textContent === 'Touring') {
+      statusSearch.innerText = 'Touring';
       filteredProducts = data.filter(product => {
         return product.type === 'touring';
       });
     }
-    statusSearch.innerText = 'Các sản phẩm tìm thấy';
-    returnPage.style.display = 'flex';
-    paging.style.display = 'none';
-    displayItem(filteredProducts);
+    
+    
+    generatePagination(filteredProducts);
+    loadData(filteredProducts);
+ 
   });
 });
 
@@ -329,15 +299,90 @@ selectButton.forEach(e => {
       return price >= minPrice && price <= maxPrice;
     });
     if (filteredProducts.length > 0) {
-      displayItem(filteredProducts);
+      generatePagination(filteredProducts);
+      loadData(filteredProducts);
       statusSearch.innerText = 'Các sản phẩm tìm thấy';
-      returnPage.style.display = 'flex';
-      paging.style.display = 'none';
+    
     } else {
       statusSearch.innerText = 'Không tìm thấy sản phẩm';
       productList.innerHTML = '';
-      returnPage.style.display = 'flex';
-      paging.style.display = 'none';
+     
     }
   });
 });
+
+
+
+
+
+var totalPages = Math.ceil(data.length / 10);
+var ITEMS_PER_PAGE = 10;
+var maxPagesToShow = 5;
+var currentPage = 1;
+
+function generatePagination(data) {
+
+  var pagination = document.getElementById('pagination');
+  pagination.innerHTML = '';
+
+  var prevBtn = document.createElement('a');
+  prevBtn.href = 'javascript:void(0);';
+  prevBtn.innerHTML = '&laquo;';
+  pagination.appendChild(prevBtn);
+  prevBtn.addEventListener('click', function () {
+    if (currentPage > 1) {
+      currentPage--;
+      generatePagination(data);
+      loadData(data);
+    }
+  }); 
+
+  var startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+  var endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+
+  for (var i = startPage; i <= endPage; i++) {
+    var pageLink = document.createElement('a');
+    pageLink.href = 'javascript:void(0);';
+    pageLink.innerHTML = i;
+
+    if (i === currentPage) {
+      pageLink.classList.add('active');
+    }
+
+    pageLink.addEventListener('click', function () {
+      currentPage = parseInt(this.innerHTML);
+      generatePagination(data);
+      loadData(data);
+    });
+
+    pagination.appendChild(pageLink);
+  }
+
+  // Nút Next
+  var nextBtn = document.createElement('a');
+  nextBtn.href = 'javascript:void(0);';
+  nextBtn.innerHTML = '&raquo;';
+  nextBtn.addEventListener('click', function () {
+    if (currentPage < totalPages) {
+      currentPage++;
+      generatePagination(data);
+      loadData(data);
+    }
+  });
+  pagination.appendChild(nextBtn);
+  console.log(data);
+}
+
+function loadData(data) {
+  var startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  var endIndex = startIndex + ITEMS_PER_PAGE;
+  totalPages = Math.ceil(data.length / 10);
+  generatePagination(data);
+
+  if (endIndex > data.length) {
+    endIndex = data.length;
+  }
+  console.log(endIndex);
+  displayItem(startIndex,endIndex,data);
+}
+

@@ -168,6 +168,7 @@ infoContainer.forEach((element, index) => {
       currentPrice += priceFloat * parseInt(quantityDisplay.textContent);
       console.log(currentPrice);
       totalPriceDisplay.innerText = '0';
+      buyId.style.backgroundColor = '#313131'
 
       // localStorage.setItem('updateSelect', JSON.stringify(updateESelect));
     } else {
@@ -183,6 +184,7 @@ infoContainer.forEach((element, index) => {
         currentPrice -= priceFloat * parseInt(quantityDisplay.textContent);
       }
       console.log(currentPrice);
+      buyId.style.backgroundColor = '#b5b5b5'
     }
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     var totalPrice = 0;
@@ -306,8 +308,6 @@ infoContainer.forEach((element, index) => {
             DUMMY_API[i].cart.push(processing);
           }
         }
-
-        // DUMMY_API[0].cart.push(processing);
       }
       console.log(userLocal.cart);
       console.log(updateESelect);
