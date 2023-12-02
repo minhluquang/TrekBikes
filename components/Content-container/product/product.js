@@ -33,18 +33,44 @@ function generateRandomId() {
 const navItemCart = document.getElementById('nav-item-cart');
 const navItemHeart = document.getElementById('nav-item-heart');
 const DUMMY_API = JSON.parse(localStorage.getItem('DUMMY_API'));
+const increment = document.getElementById('increment');
+const decrement = document.getElementById('decrement');
+var quantity = parseInt(document.getElementById('quantity').textContent);
 let productsPerPage = 10;
 let currentPage = 1;
+if(!userLocal){
+  navItemCart.style.display = 'none';
+}
 
 const clickBuy = () => {
   const id = overlayid.textContent;
   localStorage.setItem('currentIdbuy', JSON.stringify(id));
 };
-let quantity = 0;
+
+increment.addEventListener('click',()=>{
+  var quantity = parseInt(document.getElementById('quantity').textContent);
+  quantity = quantity + 1;
+  document.getElementById('quantity').innerHTML = quantity;
+})
+decrement.addEventListener('click', ()=>{
+  var quantity = parseInt(document.getElementById('quantity').textContent);
+  if(quantity > 0){
+    quantity = quantity - 1;
+  }
+  document.getElementById('quantity').innerHTML = quantity;
+})
+
+
+
 
 const clickAddCart = () => {
   const isLoggedIn = JSON.parse(localStorage.getItem('User'));
   // Nếu chưa đăng nhập thì không cho mua sản phẩm
+  var quantity = parseInt(document.getElementById('quantity').textContent);
+  if(quantity < 1){
+    return;
+  }
+  // console.log(quantity);
   if (!isLoggedIn) {
     // Ẩn đi modal vừa bật
     overlay.style.display = 'none';
@@ -54,14 +80,7 @@ const clickAddCart = () => {
     openFormRegister();
     return;
   }
-
-  for (let i = 0; i < userLocal.cart.length; i++) {
-    if (userLocal.cart[i].id === overlayid.textContent) {
-      quantity = parseInt(userLocal.cart[i].quantity);
-      break;
-    }
-  }
-
+  // alert(quantity);
   const process = {
     id: overlayid.textContent,
     quantity: quantity
@@ -77,20 +96,26 @@ const clickAddCart = () => {
       }
     }
   }
-
-  if (!found) {
-    userLocal[0]?.cart.push(process);
-    quantity = 0;
-  }
-
-  // alert("Ngày " + ngay + "/" + thang + "/" + nam + " lúc " + gio + ":" + phut + ":" + giay)
+  // console.log(found);
   for (let i = 0; i < accountData.length; i++) {
     if (accountData[i].id === userLocal.id) {
       accountData[i].cart = userLocal.cart;
     }
   }
-  localStorage.setItem('User', JSON.stringify(userLocal));
-  localStorage.setItem('accounts', JSON.stringify(accountData));
+  
+
+  if (!found) {
+    userLocal.cart.push(process);
+    localStorage.setItem('test', JSON.stringify('test'))
+    localStorage.setItem('User', JSON.stringify(userLocal));
+    localStorage.setItem('accounts', JSON.stringify(accountData));
+  }
+
+  console.log(userLocal.cart);
+  // localStorage.setItem('User', JSON.stringify(userLocal));
+  // localStorage.setItem('accounts', JSON.stringify(accountData));
+  // localStorage.setItem('test', JSON.stringify('test'))
+
   const itemCart = document.createElement('p');
   itemCart.classList.add('item-cart');
   itemCart.innerText = `${userLocal?.cart.length}`;
@@ -104,10 +129,8 @@ const clickAddCart = () => {
 
 overlayAddCart.addEventListener('click', () => {
   clickAddCart();
+  // alert('clicked')
 });
-// overlayBuyNow.addEventListener('click', () => {
-//   clickBuy();
-// });
 
 toast.forEach(e => {
   const exitToast = e.querySelector('.exit');
@@ -167,8 +190,6 @@ function clickSave(like) {
   }
   const itemHeart = document.createElement('p');
   itemHeart.classList.add('item-heart');
-  // itemHeart.innerText = `${userLocal.like.length}`;
-  // navItemHeart.appendChild(itemHeart);
   const updateLike = [...new Set(userLocal.like)];
   userLocal.like = updateLike;
   localStorage.setItem('User', JSON.stringify(userLocal));
@@ -180,20 +201,7 @@ function clickSave(like) {
   localStorage.setItem('accounts', JSON.stringify(accountData));
 }
 
-// overlayLike.addEventListener('click', () => {
-//   clickSave();
-// });
 
-// function displayQuantityCart() {
-//   if (userLocal[0]?.processing.length) {
-//     const itemProcess = document.createElement('p');
-//     itemProcess.classList.add('item-process');
-//     itemProcess.innerText = `${userLocal.processing.length}`;
-//     navItemProcess.appendChild(itemProcess);
-//   }
-// }
-// displayQuantityCart();
-// console.log(data[data.length - 1]);
 
 function returnPathImg(element) {
   let pathImg = element.imgSrc;
@@ -258,10 +266,10 @@ const overlay = document.getElementById('overlay');
 navItemCart.appendChild(itemCart);
 const itemHeart = document.createElement('p');
 itemHeart.classList.add('item-heart');
-// itemHeart.innerText = `${userLocal.like.length}`;
-// navItemHeart.appendChild(itemHeart);
+
 
 function updateEvent() {
+  // let quantity = 1;
   const productItems = document.querySelectorAll('.product-item');
 
   for (let i = 0; i < productItems.length; i++) {
@@ -278,6 +286,7 @@ function updateEvent() {
 
     ElementInfo.addEventListener('click', () => {
       overlay.style.display = 'flex';
+      document.getElementById('quantity').innerHTML = 0;
       const overlayImg = overlay.querySelector('img');
       const closeToggle = overlay.querySelector('#close-toggler');
       const overlayName = overlay.querySelector('.name');
@@ -293,20 +302,7 @@ function updateEvent() {
       overlayName.innerHTML = `${Element.querySelector('h3').textContent}`;
       overlayImg.src = `${ElementImg.src}`;
       overlayPrice.innerHTML = `${Element.querySelector('p').textContent}`;
-
-      // for (let i = 0; i < userLocal.like.length; i++) {
-      //   if (userLocal.like[i] == id.textContent) {
-      //     checkLikeOverlay = false;
-      //     checkLike = false;
-      //   }
-      // }
     });
-    // for (let i = 0; i < userLocal.like.length; i++) {
-    //   if (userLocal.like[i] === id.textContent) {
-    //     like.style.color = 'red';
-    //   }
-    // }
-
     addCart.addEventListener('click', () => {
       const isLoggedIn = JSON.parse(localStorage.getItem('User'));
       // Nếu chưa đăng nhập thì không cho mua sản phẩm
@@ -321,8 +317,8 @@ function updateEvent() {
           break;
         }
       }
-      quantity = quantity + 1;
-      alert('Đã thêm vào giỏ hàng!');
+      // quantity = quantity + 1;
+      alert(quantity);
 
       const process = {
         id: id.textContent,
@@ -344,7 +340,7 @@ function updateEvent() {
 
       if (!found) {
         userLocal.cart.push(process);
-        quantity = 0;
+        // quantity = 0;
       }
 
       for (let i = 0; i < accountData.length; i++) {
@@ -359,39 +355,6 @@ function updateEvent() {
       itemCart.innerText = `${userLocal?.cart.length}`;
       navItemCart.appendChild(itemCart);
     });
-    // like.addEventListener('click', () => {
-    //   for (let i = 0; i < userLocal.like.length; i++) {
-    //     if (userLocal.like[i] === id.textContent) {
-    //       checkLike = false;
-    //       like.style.color = 'red';
-    //       userLocal.like.splice(i, 1);
-    //     }
-    //   }
-    //   if (checkLike) {
-    //     like.style.color = 'red';
-
-    //     checkLike = !checkLike;
-    //     userLocal.like.push(id.textContent);
-    //   } else {
-    //     like.style.color = '#A0A0A0';
-    //     // overlayLike.style.color = '#A0A0A0';
-    //     checkLike = !checkLike;
-    //   }
-    //   const updateLike = [...new Set(userLocal.like)];
-
-    //   const itemHeart = document.createElement('p');
-    //   itemHeart.classList.add('item-heart');
-    //   itemHeart.innerText = `${userLocal.like.length}`;
-    //   navItemHeart.appendChild(itemHeart);
-    //   userLocal.like = updateLike;
-    //   for (let i = 0; i < accountData.length; i++) {
-    //     if (accountData[i].id === userLocal.id) {
-    //       accountData[i].like = userLocal.like;
-    //     }
-    //   }
-    //   localStorage.setItem('User', JSON.stringify(userLocal));
-    //   localStorage.setItem('accounts', JSON.stringify(accountData));
-    // });
   }
 }
 updateEvent();
@@ -399,6 +362,7 @@ updateEvent();
 var totalPages = Math.ceil(data.length / 10);
 const ITEMS_PER_PAGE = 10;
 var maxPagesToShow = 5;
+
 
 function generatePagination() {
   var pagination = document.getElementById('pagination');
@@ -413,7 +377,7 @@ function generatePagination() {
       generatePagination();
       loadData();
     }
-  });
+  }); 
   pagination.appendChild(prevBtn);
 
   var startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));

@@ -162,7 +162,7 @@ footer button:nth-child(3) {
   background-color: #b5b5b5;
 }
 
-footer button:nth-child(4) {
+footer button:nth-child(2) {
   background-color: #b5b5b5;
 }
 
@@ -743,4 +743,9 @@ img {
 
 .content {
   margin-top: 150px;
+}
+
+.form-field p {
+  font-size: 13px;
+  color: red;
 }

@@ -3,6 +3,7 @@ const cartInfo = document.getElementById('cart-info');
 const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const DUMMY_API = JSON.parse(localStorage.getItem('DUMMY_API'));
 
+
 const data = DUMMY_PRODUCTS;
 const accountData = JSON.parse(localStorage.getItem('accounts'));
 function generateRandomId() {
@@ -112,12 +113,14 @@ let chekcbuy = true;
 console.log(userLocal.cart);
 let checked = false;
 var currentPrice = 0;
+
 infoContainer.forEach((element, index) => {
   const decrement = element.querySelector('#decrement');
   const increment = element.querySelector('#increment');
   const quantityDisplay = element.querySelector('#quantity');
   const checkbox = element.querySelector('#checkboxId');
   const id = element.querySelector('.id');
+  console.log(id);
   const buyId = document.getElementById('buy');
   const price = element.querySelector('.price');
 
@@ -125,7 +128,7 @@ infoContainer.forEach((element, index) => {
 
   const deleteId = document.getElementById('delete');
   decrement.addEventListener('click', () => {
-    if (parseInt(userLocal.cart[index].quantity) > 0 && userLocal.cart[index].quantity != null) {
+    if (parseInt(userLocal.cart[index].quantity) > 0 && userLocal.cart[index].quantity !== null) {
       userLocal.cart[index].quantity = parseInt(userLocal.cart[index].quantity) - 1;
       quantityDisplay.innerText = userLocal.cart[index].quantity;
     }
@@ -134,9 +137,11 @@ infoContainer.forEach((element, index) => {
       cartInfo.removeChild(element);
       localStorage.setItem('User', JSON.stringify(userLocal));
     }
+    console.log(index);
     const priceFloat = parseFloat(price.textContent.replace(/\D/g, ''));
     const totalPrice = parseFloat(totalPriceDisplay.textContent.replace(/\D/g, ''));
 
+    console.log(userLocal.cart[index].quantity);
     const currentPrice = totalPrice - priceFloat;
     totalPriceDisplay.innerText = currentPrice.toLocaleString() + ' ' + 'VND';
 
@@ -168,6 +173,7 @@ infoContainer.forEach((element, index) => {
       currentPrice += priceFloat * parseInt(quantityDisplay.textContent);
       console.log(currentPrice);
       totalPriceDisplay.innerText = '0';
+      buyId.style.backgroundColor = '#313131'
 
       // localStorage.setItem('updateSelect', JSON.stringify(updateESelect));
     } else {
@@ -183,6 +189,7 @@ infoContainer.forEach((element, index) => {
         currentPrice -= priceFloat * parseInt(quantityDisplay.textContent);
       }
       console.log(currentPrice);
+      buyId.style.backgroundColor = '#b5b5b5'
     }
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     var totalPrice = 0;
@@ -244,7 +251,6 @@ infoContainer.forEach((element, index) => {
         const index = userLocal.cart.indexOf(productToDelete);
         userLocal.cart.splice(index, 1);
       }
-
       localStorage.setItem('User', JSON.stringify(userLocal));
 
       location.reload();
@@ -281,10 +287,24 @@ infoContainer.forEach((element, index) => {
   confirmButton.addEventListener('click', function () {
     const customerName = document.getElementById('customername');
     const customerAddress = document.getElementById('customeraddress');
-    if (customerName.value === '' && customerName.value === '') {
+    const customerNameMessage = document.getElementById('customerNameMessage');
+    const customerAddressMessage = document.getElementById('customerAddressMessage');
+    if(customerName.value === '') {
+      customerNameMessage.innerHTML = "*Tên không được để trống";
+    } else {
+      customerNameMessage.innerHTML = "";
+    }
+
+    if(customerAddress.value === '') {
+      customerAddressMessage.innerHTML = "*Địa chỉ không được để trống";
+    } else {
+      customerAddressMessage.innerHTML = "";
+    }
+
+    if (customerName.value === '' || customerAddress.value === '') {
       return;
     }
-    if (chekcbuy && customerName.value !== '' && customerAddress !== '') {
+    if (chekcbuy && customerName.value !== '' && customerAddress.value !== '') {
       var currentTime = new Date();
 
       for (let index = 0; index < updateESelect.length; index++) {
@@ -306,8 +326,6 @@ infoContainer.forEach((element, index) => {
             DUMMY_API[i].cart.push(processing);
           }
         }
-
-        // DUMMY_API[0].cart.push(processing);
       }
       console.log(userLocal.cart);
       console.log(updateESelect);

@@ -56,9 +56,18 @@
   width: 50%;
 }
 
-.body__filter--field {
-  width: 25% !important;
+.body__filter--orderDate {
+  width: 15%;
 }
+
+.body__filter--status {
+  width: 20%;
+}
+
+
+/* .body__filter--field {
+  width: 20% !important;
+} */
 
 .admin__content--body__filter--gr2 {
   display: flex;
