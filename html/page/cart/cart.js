@@ -112,12 +112,14 @@ let chekcbuy = true;
 console.log(userLocal.cart);
 let checked = false;
 var currentPrice = 0;
+
 infoContainer.forEach((element, index) => {
   const decrement = element.querySelector('#decrement');
   const increment = element.querySelector('#increment');
   const quantityDisplay = element.querySelector('#quantity');
   const checkbox = element.querySelector('#checkboxId');
   const id = element.querySelector('.id');
+  console.log(id);
   const buyId = document.getElementById('buy');
   const price = element.querySelector('.price');
 
@@ -125,7 +127,7 @@ infoContainer.forEach((element, index) => {
 
   const deleteId = document.getElementById('delete');
   decrement.addEventListener('click', () => {
-    if (parseInt(userLocal.cart[index].quantity) > 0 && userLocal.cart[index].quantity != null) {
+    if (parseInt(userLocal.cart[index].quantity) > 0 && userLocal.cart[index].quantity !== null) {
       userLocal.cart[index].quantity = parseInt(userLocal.cart[index].quantity) - 1;
       quantityDisplay.innerText = userLocal.cart[index].quantity;
     }
@@ -134,9 +136,11 @@ infoContainer.forEach((element, index) => {
       cartInfo.removeChild(element);
       localStorage.setItem('User', JSON.stringify(userLocal));
     }
+    console.log(index);
     const priceFloat = parseFloat(price.textContent.replace(/\D/g, ''));
     const totalPrice = parseFloat(totalPriceDisplay.textContent.replace(/\D/g, ''));
 
+    console.log(userLocal.cart[index].quantity);
     const currentPrice = totalPrice - priceFloat;
     totalPriceDisplay.innerText = currentPrice.toLocaleString() + ' ' + 'VND';
 
@@ -246,7 +250,6 @@ infoContainer.forEach((element, index) => {
         const index = userLocal.cart.indexOf(productToDelete);
         userLocal.cart.splice(index, 1);
       }
-
       localStorage.setItem('User', JSON.stringify(userLocal));
 
       location.reload();

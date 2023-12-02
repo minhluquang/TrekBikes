@@ -224,7 +224,7 @@ input.addEventListener('input', event => {
 });
 const navItemCart = document.getElementById('nav-item-cart');
 
-let quantity = 1;
+let quantity = parseInt(document.getElementById('quantity'));
 const clickAddCart = () => {
   const isLoggedIn = JSON.parse(localStorage.getItem('User'));
   // Nếu chưa đăng nhập thì không cho mua sản phẩm
@@ -276,9 +276,9 @@ const clickAddCart = () => {
   navItemCart.appendChild(itemCart);
 };
 
-overlayAddCart.addEventListener('click', () => {
-  clickAddCart();
-});
+// overlayAddCart.addEventListener('click', () => {
+//   clickAddCart();
+// });
 
 submitBtn.addEventListener('click', e => {
   e.preventDefault();

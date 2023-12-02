@@ -48,7 +48,7 @@ function displayFilter() {
 displayFilter();
 
 let quantity = 0;
-const clickAddCart = id => {
+function clickAddCart(id) {
   for (let i = 0; i < userLocal.cart.length; i++) {
     if (userLocal.cart[i].id === id.textContent) {
       quantity = parseInt(userLocal.cart[i].quantity);
@@ -87,7 +87,7 @@ const clickAddCart = id => {
   }
   if (!found) {
     userLocal.cart.push(process);
-    quantity = 0;
+    quantity = 1;
   }
   userLocal.createCartAt.push(processAt);
   // alert("Ngày " + ngay + "/" + thang + "/" + nam + " lúc " + gio + ":" + phut + ":" + giay)

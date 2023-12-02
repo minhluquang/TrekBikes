@@ -98,13 +98,16 @@ const clickAddCart = () => {
 
   if (!found) {
     userLocal.cart.push(process);
+    localStorage.setItem('test', JSON.stringify('test'))
     localStorage.setItem('User', JSON.stringify(userLocal));
     localStorage.setItem('accounts', JSON.stringify(accountData));
   }
 
   console.log(userLocal.cart);
-  localStorage.setItem('User', JSON.stringify(userLocal));
-  localStorage.setItem('accounts', JSON.stringify(accountData));
+  // localStorage.setItem('User', JSON.stringify(userLocal));
+  // localStorage.setItem('accounts', JSON.stringify(accountData));
+  // localStorage.setItem('test', JSON.stringify('test'))
+
   const itemCart = document.createElement('p');
   itemCart.classList.add('item-cart');
   itemCart.innerText = `${userLocal?.cart.length}`;
@@ -118,6 +121,7 @@ const clickAddCart = () => {
 
 overlayAddCart.addEventListener('click', () => {
   clickAddCart();
+  // alert('clicked')
 });
 
 toast.forEach(e => {
