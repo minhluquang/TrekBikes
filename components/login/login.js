@@ -292,6 +292,15 @@ loginSubmitBtn.addEventListener('click', e => {
       if (findAccount.password === password) {
         localStorage.setItem('User', JSON.stringify(findAccount));
         // showPopup();
+
+        accounts.forEach(account => {
+          DUMMY_API.push({
+            idUser: account.id,
+            cart: []
+          });
+        });
+        localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+
         location.reload();
 
         loginEmailInput.value = '';
@@ -370,7 +379,7 @@ const logoutLowDeviceBtn = document.querySelector('.hide__menu--list__type.logou
 
 const logoutHandler = () => {
   localStorage.removeItem('User');
-  alert("Đăng xuất thành công!")
+  alert('Đăng xuất thành công!');
   location.reload();
 };
 

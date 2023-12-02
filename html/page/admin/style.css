@@ -850,12 +850,15 @@ width: 60%;
 .newMessageCategory {
   color: red;
 }
-.body__filter--createDtae label {
+
+.body__filter--datefrom label,
+.body__filter--dateto label {
   font-size: 16px;
   font-weight: 600;
 }
 
-.body__filter--createDtae input {
+.body__filter--datefrom input,
+.body__filter--dateto input {
   margin-top: 5px;
   width: 100%;
   height: 35px;
