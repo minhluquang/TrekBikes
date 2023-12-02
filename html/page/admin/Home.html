@@ -140,7 +140,7 @@
                     <input id="productCode" type="text" placeholder="Nhập mã sản phẩm" />
                   </div>
                   <div class="body__filter--status" id="">
-                    <p>Loại</p>
+                    <p>Loại sản phẩm</p>
                     <select name="category" id="categorySelect">
                       <option value="all">Chọn Loại</option>
                       <option value="mountain">Mountain</option>
@@ -149,12 +149,27 @@
                       <option value="kids">Kid</option>
                     </select>
                   </div>
+                </div>
 
-                  <div class="body__filter--createDtae" id="creatDate">
-                    <label>Ngày tạo:</label>
+                <div class="admin__content--body__filter--gr1">
+                  <div class="body__filter--status" id="">
+                    <p>Loại ngày</p>
+                    <select name="cateDate" id="cateDateSelect">
+                      <option value="">Chọn loại ngày</option>
+                      <option value="dateCreate">Ngày tạo</option>
+                      <option value="dateUpdate">Ngày cập nhật</option>
+                    </select>
+                  </div>
+                  <div class="body__filter--datefrom" id="dateFrom">
+                    <label>Từ ngày</label>
+                    <input type="date" />
+                  </div>
+                  <div class="body__filter--dateto" id="dateTo">
+                    <label>Đến ngày</label>
                     <input type="date" />
                   </div>
                 </div>
+
                 <div class="add-product">
                   <button id="add-product-btn">Thêm Sản Phẩm</button>
                 </div>

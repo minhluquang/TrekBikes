@@ -166,12 +166,11 @@ function updateEvent(item, index, id, element) {
         const formDateUpdateValue = document.querySelector('.form-group #dateupdate').value;
         const formDateCreateValue = document.querySelector('.form-group #datecreate').value;
         const formTypeValue = document.querySelector('.form-group-1 #type').value;
-        
 
         let isValidName = true;
         let isValidDateUpdate = true;
         let isValidDateCreate = true;
-        let isValidType = true ;
+        let isValidType = true;
         const nameMessgae = document.querySelector('.nameMessage');
         const updateMessage = document.querySelector('.updateMessage');
         const createMessage = document.querySelector('.createMessage');
@@ -199,11 +198,11 @@ function updateEvent(item, index, id, element) {
           createMessage.innerHTML = '';
         }
 
-        if(formTypeValue === 'all') {
+        if (formTypeValue === 'all') {
           isValidType = false;
           typeMessage.innerHTML = '*Vui lòng chọn thể loại';
         } else {
-          typeMessage.innerHTML ='';
+          typeMessage.innerHTML = '';
         }
         let isValidForm = isValidName && isValidDateUpdate && isValidDateCreate;
 
@@ -724,31 +723,64 @@ filterSubmitBtn.addEventListener('click', e => {
   const productName = manageProduct.querySelector('#productName');
   const productCode = manageProduct.querySelector('#productCode');
   const categorySelect = manageProduct.querySelector('#categorySelect');
-  const creationDateInput = document.querySelector('#creatDate input').value;
 
-  if (!productName.value && !productCode.value && !creationDateInput.value && !categorySelect.value) {
+  const dateSelect = manageProduct.querySelector('#cateDateSelect');
+  const dateFrom = manageProduct.querySelector('#dateFrom input');
+  const dateTo = manageProduct.querySelector('#dateTo input');
+
+  // Kiểm tra xem nếu người dùng chọn ngày (dateFrom/dateTo)
+  // mà chưa chọn loại ngày thì hiển thị thông báo
+  if (!productName.value && !productCode.value && !dateSelect.value && !dateFrom.value && !dateTo.value) {
+    alert('Vui lòng chọn ít nhất một dữ kiện cần lọc!');
     return;
   }
 
   let dataFilter = [...data];
 
   // lọc theo ngày tháng năm
-  if (creationDateInput) {
-    const selectedCreationDate = new Date(creationDateInput);
-    const selectedDay = selectedCreationDate.getDate();
-    const selectedMonth = selectedCreationDate.getMonth() + 1;
-    const selectedYear = selectedCreationDate.getFullYear();
+  if (dateFrom.value || dateTo.value || dateSelect.value !== '') {
+    if ((dateFrom.value || dateTo.value) && !dateSelect.value) {
+      alert('Vui lòng chọn dữ kiện loại ngày cần lọc!');
+      return;
+    }
 
-    // console.log(selectedDay +" " + selectedMonth + " " + selectedYear);
-    dataFilter = dataFilter.filter(product => {
-      const timeCreatProduct = new Date(product.dateCreate);
-      const dayProuct = timeCreatProduct.getDate();
-      const monthProduct = timeCreatProduct.getMonth() + 1;
-      const yearProduct = timeCreatProduct.getFullYear();
-      return dayProuct === selectedDay && monthProduct === selectedMonth && yearProduct === selectedYear;
-    });
+    if (!dateFrom.value) {
+      alert('Vui lòng chọn bắt đầu từ ngày nào!');
+      return;
+    } else if (!dateTo.value) {
+      alert('Vui lòng chọn kết thúc ngày nào!');
+      return;
+    }
+
+    const selectedDateFrom = new Date(dateFrom.value);
+    const selectedDateTo = new Date(dateTo.value);
+
+    // Kiểm tra ngày bắt đầu nhỏ hơn ngày kết thúc
+    if (selectedDateFrom <= selectedDateTo) {
+      dataFilter = dataFilter.filter(product => {
+        const dateCreateProduct = new Date(product.dateCreate);
+        const dateUpdateProduct = new Date(product.dateUpdate);
+
+        if (
+          dateSelect.value === 'dateCreate' &&
+          dateCreateProduct >= selectedDateFrom &&
+          dateCreateProduct <= selectedDateTo
+        ) {
+          return true;
+        } else if (
+          dateSelect.value === 'dateUpdate' &&
+          dateUpdateProduct >= selectedDateFrom &&
+          dateUpdateProduct <= selectedDateTo
+        ) {
+          return true;
+        }
+        return false;
+      });
+    } else {
+      alert('Ngày kết thúc không hợp lệ!');
+      return;
+    }
   }
-
 
   //end lọc theo ngày tháng năm
 
@@ -764,10 +796,10 @@ filterSubmitBtn.addEventListener('click', e => {
   }
 
   // Lọc theo phân loại
-
   if (categorySelect.value != 'all') {
     dataFilter = dataFilter.filter(e => e.type === categorySelect.value);
   }
+
   filteredData = [...dataFilter];
   generatePagination(filteredData);
   loadData(filteredData);
@@ -780,10 +812,10 @@ filterSubmitBtn.addEventListener('click', e => {
     const element = filteredData[index];
     const item = document.createElement('tr');
 
-  const dateCreate = new Date(element.dateCreate);
-  const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
-  const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
-  const dateCreateYear = dateCreate.getFullYear();
+    const dateCreate = new Date(element.dateCreate);
+    const dateCreateDate = dateCreate.getDate().toString().padStart(2, '0');
+    const dateCreateMonth = (dateCreate.getMonth() + 1).toString().padStart(2, '0');
+    const dateCreateYear = dateCreate.getFullYear();
 
     const dateUpdate = new Date(element.dateUpdate);
     const dateUpdateDate = dateUpdate.getDate().toString().padStart(2, '0');
