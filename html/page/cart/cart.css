@@ -744,3 +744,8 @@ img {
 .content {
   margin-top: 150px;
 }
+
+.form-field p {
+  font-size: 13px;
+  color: red;
+}

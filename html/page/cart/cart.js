@@ -287,10 +287,24 @@ infoContainer.forEach((element, index) => {
   confirmButton.addEventListener('click', function () {
     const customerName = document.getElementById('customername');
     const customerAddress = document.getElementById('customeraddress');
-    if (customerName.value === '' && customerName.value === '') {
+    const customerNameMessage = document.getElementById('customerNameMessage');
+    const customerAddressMessage = document.getElementById('customerAddressMessage');
+    if(customerName.value === '') {
+      customerNameMessage.innerHTML = "*Tên không được để trống";
+    } else {
+      customerNameMessage.innerHTML = "";
+    }
+
+    if(customerAddress.value === '') {
+      customerAddressMessage.innerHTML = "*Địa chỉ không được để trống";
+    } else {
+      customerAddressMessage.innerHTML = "";
+    }
+
+    if (customerName.value === '' || customerAddress.value === '') {
       return;
     }
-    if (chekcbuy && customerName.value !== '' && customerAddress !== '') {
+    if (chekcbuy && customerName.value !== '' && customerAddress.value !== '') {
       var currentTime = new Date();
 
       for (let index = 0; index < updateESelect.length; index++) {
