@@ -12,6 +12,11 @@
 .admin__content--body__filter h1 {
   font-size: 22px;
   color: #333;
+  margin-bottom: 2px;
+}
+
+.admin__content--body__filter p {
+  color: red;
   margin-bottom: 10px;
 }
 
@@ -22,6 +27,10 @@
   align-items: center;
   gap: 40px;
   margin-bottom: 20px;
+}
+
+.admin__content--body__filter--gr1 p {
+  color: #333;
 }
 
 .body__filter--nameClient {
@@ -60,8 +69,7 @@
 .body__filter--idClient,
 .body__filter--status,
 .body__filter--createDtae,
-.body__filter--nameClient
- {
+.body__filter--nameClient {
   width: 25%;
 }
 
@@ -619,11 +627,11 @@
 
 .body__filter--roleClient select {
   width: 100%;
-    height: 35px;
-    padding: 5px 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #333;
+  height: 35px;
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #333;
 }
 
 .modal--add-user .showPassword i {
