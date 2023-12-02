@@ -363,14 +363,20 @@ function previewImage(input, element) {
 function hideFilterContent() {
   const productPageFilterContainer = document.querySelector('#manageProduct .filter');
   productPageFilterContainer.querySelector('h1').style.display = 'none';
-  productPageFilterContainer.querySelector('.admin__content--body__filter--gr1').style.display = 'none';
+  productPageFilterContainer
+    .querySelectorAll('.admin__content--body__filter--gr1')
+    .forEach(element => (element.style.display = 'none'));
+  document.querySelector('#product-filter-form p').style.display = 'none';
   productPageFilterContainer.querySelector('.body__filter--actions').style.display = 'none';
 }
 
 function unhideFilterContent() {
   const productPageFilterContainer = document.querySelector('#manageProduct .filter');
   productPageFilterContainer.querySelector('h1').style.display = 'block';
-  productPageFilterContainer.querySelector('.admin__content--body__filter--gr1').style.display = 'flex';
+  productPageFilterContainer
+    .querySelectorAll('.admin__content--body__filter--gr1')
+    .forEach(element => (element.style.display = 'flex'));
+  document.querySelector('#product-filter-form p').style.display = 'block';
   productPageFilterContainer.querySelector('.body__filter--actions').style.display = 'block';
 }
 
@@ -580,10 +586,12 @@ addProductBtn.addEventListener('click', e => {
       const currentDate = new Date();
       const currentISOString = currentDate.toISOString();
 
+      const priveValue = +price.value;
+
       var newProduct = {
         name: name.value,
         imgSrc: imgLink,
-        price: price.value.toLocaleString('vi-VN') + ' VND',
+        price: priveValue.toLocaleString('vi-VN') + ' VND',
         dataColors: [codeColor.value],
         ID: id.value,
         type: category.value,
@@ -618,7 +626,7 @@ addProductBtn.addEventListener('click', e => {
       loadData(data);
 
       unhideFilterContent();
-      alert('Đã thêm vào giỏ hàng!');
+      alert('Đã thêm sản phẩm thành công!');
     }
   });
 });
@@ -635,7 +643,7 @@ cancel.addEventListener('click', e => {
   pagination.style.display = 'flex';
   cancel.style.display = 'none';
   addProductBtn.style.display = 'block';
-  loadData(loadData);
+  loadData(data);
 });
 
 // page

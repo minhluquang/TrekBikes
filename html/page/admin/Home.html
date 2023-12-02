@@ -90,6 +90,8 @@
           </div>
 
           <div class="admin__content--body__content">
+            <h1 class="statisticDashboard">Thống kê tổng quát</h1>
+
             <div class="dashboard-section">
               <div class="box">
                 <h3>Tổng thu nhập</h3>
@@ -115,11 +117,44 @@
                 <h3>Đơn hàng đã xử lý</h3>
                 <p id="processedOrderCount">0</p>
               </div>
-              <div id="revenueChart" style="width: 80%; margin: 20px auto;"></div>
+            </div>
 
+            <h1 class="statisticDashboard">Thống kê doanh thu từng loại</h1>
+
+            <div class="dashboard-section">
+              <div class="box box-4">
+                <h3>Mountain</h3>
+                <p id="mountainTotalPrice">0 VNĐ</p>
+                <div class="box-4--wrapper">
+                  <h3>Số lượng bán được:</h3>
+                  <p id="mountainTotalQuantity">0</p>
+                </div>
+              </div>
+              <div class="box box-4">
+                <h3>Road</h3>
+                <p id="roadTotalPrice">0 VNĐ</p>
+                <div class="box-4--wrapper">
+                  <h3>Số lượng bán được:</h3>
+                  <p id="roadTotalQuantity">0</p>
+                </div>
+              </div>
+              <div class="box box-4">
+                <h3>Touring</h3>
+                <p id="touringTotalPrice">0 VNĐ</p>
+                <div class="box-4--wrapper">
+                  <h3>Số lượng bán được:</h3>
+                  <p id="touringTotalQuantity">0</p>
+                </div>
+              </div>
+              <div class="box box-4">
+                <h3>Kids</h3>
+                <p id="kidsTotalPrice">0 VNĐ</p>
+                <div class="box-4--wrapper">
+                  <h3>Số lượng bán được:</h3>
+                  <p id="kidsTotalQuantity">0</p>
+                </div>
+              </div>
             </div>
-            </div>
-            <canvas id="canvas" height="450" width="610"></canvas>
           </div>
         </div>
       </div>
@@ -129,8 +164,8 @@
           <div class="tools">
             <div class="filter">
               <form class="admin__content--body__filter" id="product-filter-form">
-                  <h1>Lọc sản phẩm</h1>
-                  <p>* Lưu ý: Định dạng dữ liệu ngày được hiển thị là dạng dd/mm/yyyy</p>
+                <h1>Lọc sản phẩm</h1>
+                <p>* Lưu ý: Định dạng dữ liệu ngày được hiển thị là dạng dd/mm/yyyy</p>
                 <div class="admin__content--body__filter--gr1">
                   <div class="body__filter--nameClient" id="">
                     <p>Tên Sản phẩm</p>

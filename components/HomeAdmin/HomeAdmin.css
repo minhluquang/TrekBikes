@@ -102,6 +102,12 @@
     gap: 20px;
 }
 
+.statisticDashboard {
+  padding-top: 20px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
 .box {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -109,12 +115,17 @@
   border-radius: 10px;
   width: calc(33.33% - 20px);
   text-align: center;
-  cursor: pointer;
   transition: transform 0.2s;
+}
+
+.box-4 {
+  width: calc(25% - 20px)!important;
+  cursor: pointer;
 }
 
 .box:hover {
   transform: scale(1.05);
+  border: 1px solid #333;
 }
 
 .box h3 {
@@ -137,6 +148,16 @@
 
 .box a:hover {
   text-decoration: underline;
+}
+
+.box-4--wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-4--wrapper h3 {
+  margin-right: 5px;
 }
 
 /* CSS for smaller screens (e.g., tablets and mobile devices) */

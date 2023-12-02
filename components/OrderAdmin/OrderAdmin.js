@@ -418,6 +418,11 @@ const clickedProcessBtnHandler = (user, currentPID, currentOID) => {
     closeModal();
     init();
     paginationHandler();
+
+    // Khi bấm vào xử lý đơn, tức là đã thu tiền mà đã thu tiền thì
+    // reload lại page cho nó cập nhật giá trị ở page home admin
+    localStorage.setItem('isNeedReloadPageAdmin', JSON.stringify(true));
+
     localStorage.setItem('DUMMY_API', JSON.stringify(userData));
   });
 };

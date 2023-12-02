@@ -65,6 +65,15 @@ taskbarItems.forEach(item => {
     const pageToView = item.getAttribute('id');
 
     if (pageToView === 'home') {
+      // Nếu trên local có dữ liệu `isNeedReloadPageAdmin = true`
+      // tức là yêu cầu reload lại page để cập nhật giá trị mới
+      const isReload = JSON.parse(localStorage.getItem('isNeedReloadPageAdmin'));
+
+      if (isReload) {
+        location.reload();
+        localStorage.setItem('isNeedReloadPageAdmin', JSON.stringify(false));
+      }
+
       homeContent.classList.remove('hideItem');
     } else if (pageToView === 'order') {
       orderContent.classList.remove('hideItem');

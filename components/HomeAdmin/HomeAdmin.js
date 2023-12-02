@@ -39,7 +39,7 @@ const countCategories = products => {
 // Đọc dữ liệu từ local storage
 const storedProducts = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 
-// Kiểm tra nếu có dữ liệu trong local storage
+// kểm tra nếu có dữ liệu trong local storage
 if (storedProducts) {
   // Sử dụng dữ liệu từ local storage
   const DUMMY_PRODUCTS = storedProducts;
@@ -183,3 +183,73 @@ document.querySelector('.box #producttotalprice').innerText = total_Price.toLoca
 
 // console.log('Những sản phẩm có processed là true:', arrayTemp);
 // console.log('Tổng giá tiền của các sản phẩm: ', total_Price.toLocaleString('vi-VN') + 'VND');
+
+// Thống kê từng loại sản phẩm
+const productBought = [];
+const statisticType = [
+  { type: 'mountain', quantity: 0, totalPrice: 0 },
+  { type: 'touring', quantity: 0, totalPrice: 0 },
+  { type: 'road', quantity: 0, totalPrice: 0 },
+  { type: 'kids', quantity: 0, totalPrice: 0 }
+];
+
+// Trích sản phẩm, số lượng người dùng đã mua
+DUMMY_API.forEach(user => {
+  user.cart.forEach(order => {
+    if (order.product[0].processed) {
+      productBought.push({
+        id: order.product[0].id,
+        quantity: order.product[0].quantity
+      });
+    }
+  });
+});
+
+// Hàm chuyển đổi định dạng price trong database sang số có thể sử dụng được
+function convertToPrice(price) {
+  // Ex: 105.000.000 VND -> Left is 105.000.000
+  const getLeftString = price.split(' ')[0];
+  const convertToTruePrice = +getLeftString.replaceAll('.', '');
+  return convertToTruePrice;
+}
+
+// Đếm số sản phẩm theo loại và tính giá tiền
+DUMMY_PRODUCTS.forEach(product => {
+  productBought.forEach(productB => {
+    if (productB.id === product.ID) {
+      statisticType.forEach(statisticItem => {
+        if (statisticItem.type === product.type) {
+          statisticItem.quantity += productB.quantity;
+          statisticItem.totalPrice += convertToPrice(product.price);
+        }
+      });
+    }
+  });
+});
+
+const mountainTotalPriceElement = document.querySelector('#mountainTotalPrice');
+const roadTotalPriceElement = document.querySelector('#roadTotalPrice');
+const touringTotalPriceElement = document.querySelector('#touringTotalPrice');
+const kidsTotalPriceElement = document.querySelector('#kidsTotalPrice');
+
+const mountainTotalQuantityElement = document.querySelector('#mountainTotalQuantity');
+const roadTotalQuantityElement = document.querySelector('#roadTotalQuantity');
+const touringTotalQuantityElement = document.querySelector('#touringTotalQuantity');
+const kidsTotalQuantityElement = document.querySelector('#kidsTotalQuantity');
+
+
+statisticType.forEach(type => {
+  if (type.type === 'mountain') {
+    mountainTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
+    mountainTotalQuantityElement.textContent = type.quantity;
+  } else if (type.type === 'road') {
+    roadTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
+    roadTotalQuantityElement.textContent = type.quantity;
+  } else if (type.type === 'touring') {
+    touringTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
+    touringTotalQuantityElement.textContent = type.quantity;
+  } else if (type.type === 'touring') {
+    kidsTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
+    kidsTotalQuantityElement.textContent = type.quantity;
+  }
+});
