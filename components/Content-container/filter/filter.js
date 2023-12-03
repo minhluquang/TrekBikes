@@ -298,7 +298,7 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
     }
   });
 
-  if (checkedTypes || checkedPrices) {
+  if (checkedTypes && checkedPrices) {
     var selectedPrices;
     var selectedTypes;
     var foundTypes = [];
@@ -342,7 +342,7 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
 
     console.log('FoundPrice: ', totalFound);
   } else {
-    console.log('No type or price selected.');
+    alert('No type or price selected.');
   }
 });
 
