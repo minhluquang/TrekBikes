@@ -208,7 +208,7 @@ function returnPathImg(element) {
   return pathImg;
 }
 
-function displayItem(startIndex, endIndex) {
+function displayItem(startIndex, endIndex, data) {
   productList.innerHTML = '';
   for (let i = startIndex; i < endIndex; i++) {
     if (data[i].imgSrc !== undefined && data[i].name !== undefined && data[i].price !== undefined) {
@@ -250,7 +250,7 @@ function displayItem(startIndex, endIndex) {
     }
   }
 }
-displayItem(0, productsPerPage);
+// displayItem(0, productsPerPage, data);
 
 const itemCart = document.createElement('p');
 itemCart.classList.add('item-cart');
@@ -357,7 +357,7 @@ var totalPages = Math.ceil(data.length / 10);
 const ITEMS_PER_PAGE = 10;
 var maxPagesToShow = 5;
 
-function generatePagination() {
+function generatePagination(data) {
   var pagination = document.getElementById('pagination');
   pagination.innerHTML = '';
 
@@ -367,8 +367,8 @@ function generatePagination() {
   prevBtn.addEventListener('click', function () {
     if (currentPage > 1) {
       currentPage--;
-      generatePagination();
-      loadData();
+      generatePagination(data);
+      loadData(data);
     }
   });
   pagination.appendChild(prevBtn);
@@ -387,8 +387,8 @@ function generatePagination() {
 
     pageLink.addEventListener('click', function () {
       currentPage = parseInt(this.innerHTML);
-      generatePagination();
-      loadData();
+      generatePagination(data);
+      loadData(data);
     });
 
     pagination.appendChild(pageLink);
@@ -401,29 +401,38 @@ function generatePagination() {
   nextBtn.addEventListener('click', function () {
     if (currentPage < totalPages) {
       currentPage++;
-      generatePagination();
-      loadData();
+      generatePagination(data);
+      loadData(data);
     }
   });
   pagination.appendChild(nextBtn);
 }
 
-function loadData() {
+function loadData(data) {
   var startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   var endIndex = startIndex + ITEMS_PER_PAGE;
+  totalPages = Math.ceil(data.length / 10);
+  generatePagination(data);
 
   // console.log(startIndex);
   // console.log(endIndex);
   if (endIndex > data.length) {
     endIndex = data.length;
   }
-  displayItem(startIndex, endIndex);
+  displayItem(startIndex, endIndex, data);
   updateEvent();
 }
 
-generatePagination();
 
-loadData();
+function displayItemTypes() {
+  const type = JSON.parse(localStorage.getItem('typeToFilter'));
+  const foundTypes = data.filter(product=> product.type === type.toLowerCase())
+  generatePagination(foundTypes);
+  loadData(foundTypes);
+}
+
+displayItemTypes();
+
 
 // Xử lý sự kiện ẩn modal
 // Khi vào thẻ cha overlay chứa tất cả modal thì mới ẩn đi
