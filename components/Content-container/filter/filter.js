@@ -298,7 +298,7 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
     }
   });
 
-  if (checkedTypes && checkedPrices) {
+  if (checkedTypes || checkedPrices) {
     var selectedPrices;
     var selectedTypes;
     var foundTypes = [];
