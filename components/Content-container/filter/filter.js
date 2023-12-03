@@ -96,7 +96,7 @@ function clickAddCart(id) {
   itemCart.classList.add('item-cart');
   itemCart.innerText = `${userLocal.cart.length}`;
   navItemCart.appendChild(itemCart);
-};
+}
 
 function handleBtnClick(productItem) {
   const id = productItem.querySelector('.id');
@@ -151,7 +151,7 @@ function returnPathImg(element) {
   return pathImg;
 }
 
-function displayItem(startIndex,endIndex,data) {
+function displayItem(startIndex, endIndex, data) {
   productList.innerHTML = '';
   for (let i = startIndex; i < endIndex; i++) {
     if (data[i].imgSrc !== undefined && data[i].name !== undefined && data[i].price !== undefined) {
@@ -236,14 +236,14 @@ dropdownItems.forEach(item => {
       });
     }
     statusSearch.innerText = 'Các sản phẩm tìm thấy';
-    
+
     generatePagination(filteredProducts);
     loadData(filteredProducts);
-   
   });
 });
 
 const Type = document.querySelectorAll('#type-item');
+
 Type.forEach(e => {
   let filteredProducts = [];
   e.addEventListener('click', () => {
@@ -271,11 +271,9 @@ Type.forEach(e => {
         return product.type === 'touring';
       });
     }
-    
-    
+
     generatePagination(filteredProducts);
     loadData(filteredProducts);
- 
   });
 });
 
@@ -302,18 +300,12 @@ selectButton.forEach(e => {
       generatePagination(filteredProducts);
       loadData(filteredProducts);
       statusSearch.innerText = 'Các sản phẩm tìm thấy';
-    
     } else {
       statusSearch.innerText = 'Không tìm thấy sản phẩm';
       productList.innerHTML = '';
-     
     }
   });
 });
-
-
-
-
 
 var totalPages = Math.ceil(data.length / 10);
 var ITEMS_PER_PAGE = 10;
@@ -321,7 +313,6 @@ var maxPagesToShow = 5;
 var currentPage = 1;
 
 function generatePagination(data) {
-
   var pagination = document.getElementById('pagination');
   pagination.innerHTML = '';
 
@@ -335,7 +326,7 @@ function generatePagination(data) {
       generatePagination(data);
       loadData(data);
     }
-  }); 
+  });
 
   var startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
   var endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
@@ -383,6 +374,5 @@ function loadData(data) {
     endIndex = data.length;
   }
   console.log(endIndex);
-  displayItem(startIndex,endIndex,data);
+  displayItem(startIndex, endIndex, data);
 }
-

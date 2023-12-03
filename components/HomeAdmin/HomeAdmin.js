@@ -220,7 +220,7 @@ DUMMY_PRODUCTS.forEach(product => {
       statisticType.forEach(statisticItem => {
         if (statisticItem.type === product.type) {
           statisticItem.quantity += productB.quantity;
-          statisticItem.totalPrice += convertToPrice(product.price) * productB.quantity;  
+          statisticItem.totalPrice += convertToPrice(product.price) * productB.quantity;
         }
       });
     }
@@ -237,7 +237,6 @@ const roadTotalQuantityElement = document.querySelector('#roadTotalQuantity');
 const touringTotalQuantityElement = document.querySelector('#touringTotalQuantity');
 const kidsTotalQuantityElement = document.querySelector('#kidsTotalQuantity');
 
-
 statisticType.forEach(type => {
   if (type.type === 'mountain') {
     mountainTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
@@ -248,8 +247,140 @@ statisticType.forEach(type => {
   } else if (type.type === 'touring') {
     touringTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
     touringTotalQuantityElement.textContent = type.quantity;
-  } else if (type.type === 'touring') {
+  } else if (type.type === 'kids') {
     kidsTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
     kidsTotalQuantityElement.textContent = type.quantity;
   }
 });
+
+// Bật modal thống kê
+const modal = document.querySelector('.modal_statistic');
+const modalTableContent = modal.querySelector('.table_body');
+const overlay = document.querySelector('.overlay');
+
+const mountainBtn = document.querySelector('#mountainBtn');
+const touringBtn = document.querySelector('#touringBtn');
+const roadBtn = document.querySelector('#roadBtn');
+const kidsBtn = document.querySelector('#kidsBtn');
+
+// Xử dụng lại hàm viết bên dưới để render
+mountainBtn.addEventListener('click', e => {
+  renderDetailStatisticUniqueType(groupMountainQuantityStatistic);
+});
+
+touringBtn.addEventListener('click', e => {
+  renderDetailStatisticUniqueType(groupTouringQuantityStatistic);
+});
+
+roadBtn.addEventListener('click', e => {
+  renderDetailStatisticUniqueType(groupRoadQuantityStatistic);
+});
+
+kidsBtn.addEventListener('click', e => {
+  renderDetailStatisticUniqueType(groupKidsQuantityStatistic);
+});
+
+// Xử lý click ==============================
+const exitBtn = document.querySelector('.table-exit-btn');
+exitBtn.addEventListener('click', e => {
+  modal.classList.remove('active');
+  overlay.classList.remove('active');
+});
+
+overlay.addEventListener('click', (e) => {
+  modal.classList.remove('active');
+  overlay.classList.remove('active');
+})
+// ==============================
+
+// Xử lý thuật toán thống kê rõ ràng theo từng loại ==================
+const mountainStatistic = [];
+const roadStatistic = [];
+const touringStatistic = [];
+const kidsStatistic = [];
+
+DUMMY_API.forEach(userCart => {
+  userCart.cart.forEach(cart => {
+    const whatTypeIs = DUMMY_PRODUCTS.find(product => product.ID === cart.product[0].id);
+
+    if (whatTypeIs.type === 'mountain') {
+      mountainStatistic.push({
+        id: whatTypeIs.ID,
+        imgSrc: whatTypeIs.imgSrc,
+        price: whatTypeIs.price,
+        name: whatTypeIs.name,
+        quantitySold: cart.product[0].quantity
+      });
+    } else if (whatTypeIs.type === 'road') {
+      roadStatistic.push({
+        id: whatTypeIs.ID,
+        imgSrc: whatTypeIs.imgSrc,
+        price: whatTypeIs.price,
+        name: whatTypeIs.name,
+        quantitySold: cart.product[0].quantity
+      });
+    } else if (whatTypeIs.type === 'touring') {
+      touringStatistic.push({
+        id: whatTypeIs.ID,
+        imgSrc: whatTypeIs.imgSrc,
+        price: whatTypeIs.price,
+        name: whatTypeIs.name,
+        quantitySold: cart.product[0].quantity
+      });
+    } else if (whatTypeIs.type === 'kids') {
+      kidsStatistic.push({
+        id: whatTypeIs.ID,
+        imgSrc: whatTypeIs.imgSrc,
+        price: whatTypeIs.price,
+        name: whatTypeIs.name,
+        quantitySold: cart.product[0].quantity
+      });
+    }
+  });
+});
+
+const groupMountainQuantityStatistic = [];
+const groupRoadQuantityStatistic = [];
+const groupTouringQuantityStatistic = [];
+const groupKidsQuantityStatistic = [];
+
+function calculateTotalQuantitySold(inputArray, outputArray) {
+  inputArray.forEach(product => {
+    // Kiểm tra thử xem trong mảng group đã có id sp đó chưa
+    const isExistInGroupArray = outputArray.find(groupProduct => groupProduct.id === product.id);
+
+    // Nếu chưa thì add vào mảng group
+    if (!isExistInGroupArray) {
+      outputArray.push({ ...product });
+    }
+    // Nếu có rồi thì chỉ cần tăng số lượng trùng id
+    else {
+      const quantitySoldUpdate = outputArray[outputArray.length - 1].quantitySold + product.quantitySold;
+      outputArray[outputArray.length - 1].quantitySold = quantitySoldUpdate;
+    }
+  });
+}
+
+calculateTotalQuantitySold(mountainStatistic, groupMountainQuantityStatistic);
+calculateTotalQuantitySold(roadStatistic, groupRoadQuantityStatistic);
+calculateTotalQuantitySold(touringStatistic, groupTouringQuantityStatistic);
+calculateTotalQuantitySold(kidsStatistic, groupKidsQuantityStatistic);
+
+function renderDetailStatisticUniqueType(inputGroupArray) {
+  modal.classList.add('active');
+  modalTableContent.innerHTML = '';
+
+  overlay.classList.add('active');
+
+  inputGroupArray.forEach(item => {
+    const html = `
+      <tr>
+        <td>${item.id}</td>
+        <td>${item.name}</td>
+        <td>${item.price}</td>
+        <td>${item.quantitySold}</td>
+      </tr>
+    `;
+    modalTableContent.insertAdjacentHTML('afterbegin', html);
+  });
+}
