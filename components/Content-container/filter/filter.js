@@ -289,7 +289,8 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
     }
   });
 
-  if (checkedTypes || checkedPrices) {
+  
+  if (checkedTypes && checkedPrices) {
     var selectedPrices;
     var selectedTypes;
     var foundTypes = [];
@@ -336,9 +337,62 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
     loadData(totalFound);
 
     console.log('FoundPrice: ', totalFound);
-  } else {
-    alert('No type or price selected.');
+  } 
+  if(checkedPrices){
+    var selectedPrices;
+    var foundPrices = [];
+
+    document.getElementById('dropdown-menu').querySelectorAll('input:checked').forEach(function (checkbox) {
+      selectedPrices = checkbox.parentElement.textContent.trim();
+    });
+
+    if (selectedPrices) {
+      if (selectedPrices === '10tr - 50tr') {
+        foundPrices = data.filter(product => {
+          const price = parseInt(product.price.replace(/[^\d]/g, ''));
+          return price >= 10000000 && price <= 50000000
+        })
+      }
+      if (selectedPrices === '50tr - 100tr') {
+        foundPrices = data.filter(product => {
+          const price = parseInt(product.price.replace(/[^\d]/g, ''));
+          return price >= 50000000 && price <= 100000000
+        })
+      }
+      if (selectedPrices === '100tr - 300tr') {
+        foundPrices = data.filter(product => {
+          const price = parseInt(product.price.replace(/[^\d]/g, ''));
+          return price >= 100000000 && price <= 300000000
+        })
+        console.log(foundPrices)
+      }
+    }
+  
+    generatePagination(foundPrices)
+    loadData(foundPrices);
+
+    console.log('FoundPrice: ', foundPrices);
   }
+  if(checkedTypes){
+    var selectedTypes;
+    var foundTypes = [];
+
+
+    document.querySelectorAll('#type-item input:checked').forEach(function (checkbox) {
+      selectedTypes = checkbox.parentElement.textContent.trim();
+    });
+
+    if (selectedTypes) {
+      foundTypes = data.filter(product => product.type === selectedTypes.toLowerCase());
+    }
+    
+    generatePagination(foundTypes)
+    loadData(foundTypes);
+
+    console.log('FoundPrice: ', foundTypes);
+  }
+
+
 });
 
 var totalPages = Math.ceil(data.length / 10);
