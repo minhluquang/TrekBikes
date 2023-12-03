@@ -213,8 +213,6 @@ dropdownButton.forEach(e => {
   });
 });
 
-
-
 selectButton.forEach(e => {
   e.addEventListener('click', () => {
     const minInput = e.parentElement.querySelector('#minInput');
@@ -245,39 +243,32 @@ selectButton.forEach(e => {
   });
 });
 
-
-
-
-
-
 function filteredProducts() {
   const dropdownMenu = document.getElementById('dropdown-menu');
   const confirmButton = document.getElementById('filter-confirm-button');
   const types = document.getElementById('types');
 
-  // let price = '';  
+  // let price = '';
   dropdownMenu.querySelectorAll('input').forEach(element => {
     element.addEventListener('click', () => {
       dropdownMenu.querySelectorAll('input').forEach(otherElement => {
         if (otherElement !== element) {
-          otherElement.checked = false
+          otherElement.checked = false;
         }
-      })
-    })
-  })
+      });
+    });
+  });
   types.querySelectorAll('input').forEach(element => {
     element.addEventListener('click', () => {
       types.querySelectorAll('input').forEach(otherElement => {
         if (otherElement !== element) {
-          otherElement.checked = false
+          otherElement.checked = false;
         }
-      })
-    })
-  })
-
+      });
+    });
+  });
 }
 filteredProducts();
-
 
 document.getElementById('filter-confirm-button').addEventListener('click', function () {
   const types = document.getElementById('types');
@@ -305,9 +296,12 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
     var foundPrices = [];
     var totalFound = [];
 
-    document.getElementById('dropdown-menu').querySelectorAll('input:checked').forEach(function (checkbox) {
-      selectedPrices = checkbox.parentElement.textContent.trim();
-    });
+    document
+      .getElementById('dropdown-menu')
+      .querySelectorAll('input:checked')
+      .forEach(function (checkbox) {
+        selectedPrices = checkbox.parentElement.textContent.trim();
+      });
 
     document.querySelectorAll('#type-item input:checked').forEach(function (checkbox) {
       selectedTypes = checkbox.parentElement.textContent.trim();
@@ -320,25 +314,25 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
       if (selectedPrices === '10tr - 50tr') {
         foundPrices = data.filter(product => {
           const price = parseInt(product.price.replace(/[^\d]/g, ''));
-          return price >= 10000000 && price <= 50000000
-        })
+          return price >= 10000000 && price <= 50000000;
+        });
       }
       if (selectedPrices === '50tr - 100tr') {
         foundPrices = data.filter(product => {
           const price = parseInt(product.price.replace(/[^\d]/g, ''));
-          return price >= 50000000 && price <= 100000000
-        })
+          return price >= 50000000 && price <= 100000000;
+        });
       }
       if (selectedPrices === '100tr - 300tr') {
         foundPrices = data.filter(product => {
           const price = parseInt(product.price.replace(/[^\d]/g, ''));
-          return price >= 100000000 && price <= 300000000
-        })
-        console.log(foundPrices)
+          return price >= 100000000 && price <= 300000000;
+        });
+        console.log(foundPrices);
       }
     }
     totalFound = [...new Set([...foundPrices, ...foundTypes])];
-    generatePagination(totalFound)
+    generatePagination(totalFound);
     loadData(totalFound);
 
     console.log('FoundPrice: ', totalFound);
@@ -346,12 +340,6 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
     alert('No type or price selected.');
   }
 });
-
-
-
-
-
-
 
 var totalPages = Math.ceil(data.length / 10);
 var ITEMS_PER_PAGE = 10;
