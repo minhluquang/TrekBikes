@@ -128,7 +128,7 @@
 
 .overlay-container .overlay-body {
   width: 100%;
-  height: calc(100% - 50px);
+  height: calc(100% - 20px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -152,7 +152,7 @@
 .overlay-container .overlay-body .overlay-body-right {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: start;
   position: relative;
   gap: 4%;
@@ -205,6 +205,7 @@
   font-size: 30px;
   font-weight: bold;
   margin-right: 10px;
+  margin-top: 10px;
 }
 
 .overlay-body-right .overlay-product-color {
@@ -244,7 +245,6 @@
 }
 
 .overlay-body-right .overlay-right-btn {
-  position: absolute;
   display: flex;
   bottom: 0;
   right: 0;
@@ -289,7 +289,9 @@
 .overlay-body-right .overlay-right-btn button:hover {
   background-color: #a9a9a9;
 }
-
+#overlay-price {
+  margin-bottom: 5px;
+}
 /* Overlay for login */
 .overlay-login {
   position: fixed;
@@ -311,15 +313,14 @@
   z-index: 11 !important;
 }
 
-
-.quantityBtn{
+.quantityBtn {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
   margin-bottom: 20px;
 }
-.quantityBtn button{
+.quantityBtn button {
   background-color: #4caf50;
   border: none;
   border-radius: 5px;

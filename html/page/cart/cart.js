@@ -3,6 +3,13 @@ const cartInfo = document.getElementById('cart-info');
 const DUMMY_PRODUCTS = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 const DUMMY_API = JSON.parse(localStorage.getItem('DUMMY_API'));
 
+// Kiểm tra quyền truy cập User nếu là admin thì hiển thị btn Quản lý
+const userLogin = JSON.parse(localStorage.getItem('User'));
+if (userLogin.isAdmin) {
+  document.querySelectorAll('.adminManager__item').forEach(item => (item.style.display = 'block'));
+} else {
+  document.querySelectorAll('.adminManager__item').forEach(item => (item.style.display = 'none'));
+}
 
 const data = DUMMY_PRODUCTS;
 const accountData = JSON.parse(localStorage.getItem('accounts'));
@@ -128,14 +135,15 @@ infoContainer.forEach((element, index) => {
 
   const deleteId = document.getElementById('delete');
   decrement.addEventListener('click', () => {
-    if (parseInt(userLocal.cart[index].quantity) > 0 && userLocal.cart[index].quantity !== null) {
+    if (parseInt(userLocal.cart[index].quantity) > 1 && userLocal.cart[index].quantity !== null) {
       userLocal.cart[index].quantity = parseInt(userLocal.cart[index].quantity) - 1;
       quantityDisplay.innerText = userLocal.cart[index].quantity;
     }
-    if (parseInt(userLocal.cart[index].quantity) <= 0) {
-      userLocal.cart.splice(index, 1);
-      cartInfo.removeChild(element);
-      localStorage.setItem('User', JSON.stringify(userLocal));
+    if (parseInt(userLocal.cart[index].quantity) <= 1) {
+      // userLocal.cart.splice(index, 1);
+      // cartInfo.removeChild(element);
+      // localStorage.setItem('User', JSON.stringify(userLocal));
+      return;
     }
     console.log(index);
     const priceFloat = parseFloat(price.textContent.replace(/\D/g, ''));
@@ -173,7 +181,10 @@ infoContainer.forEach((element, index) => {
       currentPrice += priceFloat * parseInt(quantityDisplay.textContent);
       console.log(currentPrice);
       totalPriceDisplay.innerText = '0';
-      buyId.style.backgroundColor = '#313131'
+      deleteId.style.backgroundColor = '#313131';
+      buyId.style.backgroundColor = '#313131';
+      deleteId.style.cursor = 'pointer';
+      buyId.style.cursor = 'pointer';
 
       // localStorage.setItem('updateSelect', JSON.stringify(updateESelect));
     } else {
@@ -189,7 +200,10 @@ infoContainer.forEach((element, index) => {
         currentPrice -= priceFloat * parseInt(quantityDisplay.textContent);
       }
       console.log(currentPrice);
-      buyId.style.backgroundColor = '#b5b5b5'
+      buyId.style.backgroundColor = '#b5b5b5';
+      deleteId.style.backgroundColor = '#b5b5b5';
+      buyId.style.cursor = 'not-allowed';
+      deleteId.style.cursor = 'not-allowed';
     }
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     var totalPrice = 0;
@@ -221,6 +235,9 @@ infoContainer.forEach((element, index) => {
       checked = true;
 
       deleteId.style.backgroundColor = '#313131';
+      buyId.style.backgroundColor = '#313131';
+      deleteId.style.cursor = 'pointer';
+      buyId.style.cursor = 'pointer';
 
       selectAllButton.innerText = 'Bỏ chọn tất cả';
       checkSelect = false;
@@ -234,6 +251,10 @@ infoContainer.forEach((element, index) => {
       checked = false;
 
       deleteId.style.backgroundColor = '#B5B5B5';
+      buyId.style.backgroundColor = '#B5B5B5';
+      deleteId.style.cursor = 'not-allowed';
+      buyId.style.cursor = 'not-allowed';
+
       selectAllButton.innerText = 'Chọn tất cả';
 
       checkSelect = true;
@@ -243,22 +264,63 @@ infoContainer.forEach((element, index) => {
     checkBuyAll = true;
   });
 
-  deleteId.addEventListener('click', () => {
-    if (checked) {
-      const productsToDelete = userLocal.cart.filter(product => currentSelectProduct.includes(product.id));
+  deleteId.addEventListener('click', e => {
+    e.preventDefault();
 
-      for (const productToDelete of productsToDelete) {
-        const index = userLocal.cart.indexOf(productToDelete);
-        userLocal.cart.splice(index, 1);
+    const modal = document.querySelector('.modal');
+    const overlay = document.querySelector('.overlay');
+
+    overlay.classList.add('active');
+    modal.classList.add('active');
+
+    const submitDeleteBtn = document.querySelector('.modal__footer--delete');
+    const exitDeleteBtn = document.querySelector('.modal__footer--exit');
+
+    submitDeleteBtn.addEventListener('click', e => {
+      if (checked) {
+        const productsToDelete = userLocal.cart.filter(product => currentSelectProduct.includes(product.id));
+
+        for (const productToDelete of productsToDelete) {
+          const index = userLocal.cart.indexOf(productToDelete);
+          userLocal.cart.splice(index, 1);
+        }
+
+        accountData.forEach(account => {
+          if (account.id === userLocal.id) {
+            account.cart = userLocal.cart;
+          }
+        });
+
+        localStorage.setItem('accounts', JSON.stringify(accountData));
+        localStorage.setItem('User', JSON.stringify(userLocal));
+
+        location.reload();
+        displayProductItems();
       }
-      localStorage.setItem('User', JSON.stringify(userLocal));
+    });
 
-      location.reload();
-    }
+    // Ẩn đi modal và overlay ==========================================
+    exitDeleteBtn.addEventListener('click', e => {
+      overlay.classList.remove('active');
+      modal.classList.remove('active');
+    });
+
+    overlay.addEventListener('click', e => {
+      overlay.classList.remove('active');
+      modal.classList.remove('active');
+    });
   });
 
   buyId.addEventListener('click', () => {
     if (checked) {
+      const overlay = document.querySelector('.overlay');
+      overlay.classList.add('active');
+
+      overlay.addEventListener('click', e => {
+        overlay.classList.remove('active');
+        dialog.style.display = 'none';
+      });
+
       var totalPrice = 0;
       var priceString;
       var priceNumber;
@@ -289,16 +351,16 @@ infoContainer.forEach((element, index) => {
     const customerAddress = document.getElementById('customeraddress');
     const customerNameMessage = document.getElementById('customerNameMessage');
     const customerAddressMessage = document.getElementById('customerAddressMessage');
-    if(customerName.value === '') {
-      customerNameMessage.innerHTML = "*Tên không được để trống";
+    if (customerName.value === '') {
+      customerNameMessage.innerHTML = '*Tên không được để trống';
     } else {
-      customerNameMessage.innerHTML = "";
+      customerNameMessage.innerHTML = '';
     }
 
-    if(customerAddress.value === '') {
-      customerAddressMessage.innerHTML = "*Địa chỉ không được để trống";
+    if (customerAddress.value === '') {
+      customerAddressMessage.innerHTML = '*Địa chỉ không được để trống';
     } else {
-      customerAddressMessage.innerHTML = "";
+      customerAddressMessage.innerHTML = '';
     }
 
     if (customerName.value === '' || customerAddress.value === '') {
@@ -562,15 +624,10 @@ function handlePanding() {
 
 // Ẩn đi modal xác nhận thanh toán khi click vào bên ngoài (overlay)
 const dialogCloseBtn = document.querySelector('.dialog-close');
-
-dialog.addEventListener('click', e => {
-  if (e.target === dialog) {
-    dialog.style.display = 'none';
-  }
-});
-
+const overlay = document.querySelector('.overlay');
 dialogCloseBtn.addEventListener('click', e => {
   dialog.style.display = 'none';
+  overlay.classList.remove('active');
 });
 
 // XỬ LÝ THÊM ==================================================

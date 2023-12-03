@@ -220,7 +220,7 @@ DUMMY_PRODUCTS.forEach(product => {
       statisticType.forEach(statisticItem => {
         if (statisticItem.type === product.type) {
           statisticItem.quantity += productB.quantity;
-          statisticItem.totalPrice += convertToPrice(product.price);
+          statisticItem.totalPrice += convertToPrice(product.price) * productB.quantity;  
         }
       });
     }

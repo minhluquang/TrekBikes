@@ -99,7 +99,7 @@ const accounts = [
   }
 ];
 
-const DUMMY_API = [];
+let DUMMY_API = [];
 
 const registerSubmitBtn = document.querySelector('.register__info--submit');
 const registerNameInput = document.querySelector('.register__info--input-name');
@@ -187,12 +187,30 @@ registerSubmitBtn.addEventListener('click', e => {
 
     localStorage.setItem('accounts', JSON.stringify(accounts));
 
-    accounts.forEach(account => {
-      DUMMY_API.push({
-        idUser: account.id,
-        cart: []
+    const isHasDummyAPI = JSON.parse(localStorage.getItem('DUMMY_API'));
+    // Nếu chưa có dữ liệu DUMMY API thì chỉ cần
+    // tạo mới hoàn toàn dựa trên accounts
+    if (!isHasDummyAPI) {
+      accounts.forEach(account => {
+        DUMMY_API.push({
+          idUser: account.id,
+          cart: []
+        });
       });
-    });
+    } else {
+      // Nếu đã có dữ liệu DUMMY API thì chỉ cần thêm mới
+      DUMMY_API = isHasDummyAPI;
+      console.log(DUMMY_API);
+      accounts.forEach(account => {
+        const isExistUserCart = DUMMY_API.find(userCart => account.id === userCart.idUser);
+        if (!isExistUserCart) {
+          DUMMY_API.push({
+            idUser: account.id,
+            cart: []
+          });
+        }
+      });
+    }
 
     localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
 
@@ -293,13 +311,16 @@ loginSubmitBtn.addEventListener('click', e => {
         localStorage.setItem('User', JSON.stringify(findAccount));
         // showPopup();
 
-        accounts.forEach(account => {
-          DUMMY_API.push({
-            idUser: account.id,
-            cart: []
+        const isHasDummyAPI = JSON.parse(localStorage.getItem('DUMMY_API'));
+        if (!isHasDummyAPI) {
+          accounts.forEach(account => {
+            DUMMY_API.push({
+              idUser: account.id,
+              cart: []
+            });
           });
-        });
-        localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+          localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+        }
 
         location.reload();
 

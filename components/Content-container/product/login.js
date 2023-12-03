@@ -28,7 +28,6 @@ if (!accounts) {
   localStorage.setItem('accounts', JSON.stringify(accounts));
 }
 
-
 // Kiểm tra đã đăng nhập hay chưa ?
 const checkLoggedIn = () => {
   const userLogin = JSON.parse(localStorage.getItem('User'));
@@ -46,10 +45,11 @@ const checkLoggedIn = () => {
     userProductBtn.addEventListener('mouseout', e => {
       userList.style.display = 'none';
     });
-
     // Kiểm tra quyền truy cập User nếu là admin thì hiển thị btn Quản lý
     if (userLogin.isAdmin) {
       document.querySelectorAll('.adminManager__item').forEach(item => (item.style.display = 'block'));
+    } else {
+      document.querySelectorAll('.adminManager__item').forEach(item => (item.style.display = 'none'));
     }
   } else {
     isLoggedIn = false;
@@ -121,7 +121,7 @@ btnCloseGlobal.addEventListener('click', e => {
 });
 
 // Xử lý khi bấm vào đăng ký
-const DUMMY_API = [];
+let DUMMY_API = [];
 
 const registerSubmitBtn = document.querySelector('.register__info--submit');
 const registerNameInput = document.querySelector('.register__info--input-name');
@@ -209,12 +209,30 @@ registerSubmitBtn.addEventListener('click', e => {
 
     localStorage.setItem('accounts', JSON.stringify(accounts));
 
-    accounts.forEach(account => {
-      DUMMY_API.push({
-        idUser: account.id,
-        cart: []
+    const isHasDummyAPI = JSON.parse(localStorage.getItem('DUMMY_API'));
+    // Nếu chưa có dữ liệu DUMMY API thì chỉ cần
+    // tạo mới hoàn toàn dựa trên accounts
+    if (!isHasDummyAPI) {
+      accounts.forEach(account => {
+        DUMMY_API.push({
+          idUser: account.id,
+          cart: []
+        });
       });
-    });
+    } else {
+      // Nếu đã có dữ liệu DUMMY API thì chỉ cần thêm mới
+      DUMMY_API = isHasDummyAPI;
+      console.log(DUMMY_API);
+      accounts.forEach(account => {
+        const isExistUserCart = DUMMY_API.find(userCart => account.id === userCart.idUser);
+        if (!isExistUserCart) {
+          DUMMY_API.push({
+            idUser: account.id,
+            cart: []
+          });
+        }
+      });
+    }
 
     localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
 
@@ -289,6 +307,17 @@ loginSubmitBtn.addEventListener('click', e => {
     if (findAccount) {
       if (findAccount.password === password) {
         localStorage.setItem('User', JSON.stringify(findAccount));
+
+        const isHasDummyAPI = JSON.parse(localStorage.getItem('DUMMY_API'));
+        if (!isHasDummyAPI) {
+          accounts.forEach(account => {
+            DUMMY_API.push({
+              idUser: account.id,
+              cart: []
+            });
+          });
+          localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+        }
 
         location.reload();
 

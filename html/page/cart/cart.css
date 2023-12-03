@@ -160,10 +160,12 @@ footer button {
 
 footer button:nth-child(3) {
   background-color: #b5b5b5;
+  cursor: not-allowed;
 }
 
 footer button:nth-child(2) {
   background-color: #b5b5b5;
+  cursor: not-allowed;
 }
 
 footer button:hover {
@@ -212,7 +214,7 @@ footer button:hover {
   color: black;
 }
 .dialog {
-  z-index: 10;
+  z-index: 12;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -748,4 +750,116 @@ img {
 .form-field p {
   font-size: 13px;
   color: red;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  transform: translateX(0);
+  opacity: 1;
+  z-index: 11;
+  transition: all 0.5s;
+}
+
+.overlay.active {
+  display: block !important;
+  opacity: 1 !important;
+  z-index: 11 !important;
+}
+
+/* Modal */
+.modal {
+  z-index: 12;
+  position: fixed;
+  height: auto;
+  width: 500px;
+  background-color: #fff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 20px;
+  border-radius: 10px;
+  transition: transform 0.5s;
+  transform: translate(-50%, -100%) scale(0);
+  top: 50%;
+  left: 50%;
+}
+
+.modal.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  visibility: visible;
+}
+
+.modal {
+}
+
+.modal__header {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.modal__header::after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: -5px;
+  height: 1px;
+  width: 100%;
+  background-color: #333;
+}
+
+.modal__header h1 {
+  font-size: 20px;
+}
+
+.modal__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.modal__content p {
+  font-size: 18px;
+}
+
+.modal__footer {
+  float: right;
+  margin-top: 10px;
+}
+
+.modal__footer button {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 10px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  color: #333;
+  font-weight: bold;
+}
+
+.modal__footer button:active {
+  transform: translateY(3px);
+  box-shadow: rgb(154, 154, 154) 0px 0px 0px 0px;
+}
+
+.modal__footer button + button {
+  margin-left: 10px;
+}
+
+.modal__footer--delete {
+  color: rgb(73, 26, 26) !important;
+  background-color: rgb(69, 220, 69);
+  box-shadow: rgba(48, 191, 13, 0.983) 0px 3px 0px 0px;
+}
+
+.modal__footer--exit {
+  background-color: #eee;
+  box-shadow: rgb(154, 154, 154) 0px 3px 0px 0px;
 }
