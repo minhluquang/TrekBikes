@@ -147,9 +147,6 @@ input.addEventListener('input', event => {
       const closeToggle = overlay.querySelector('#close-toggler');
       const overlayName = overlay.querySelector('.name');
       const overlayPrice = overlay.querySelector('#overlay-price');
-      const overlayLike = overlay.querySelector('#overlayLike');
-      let checkLike = true;
-      const like = document.querySelector('#like');
       const ElementImg = document.querySelector('img');
       const ElementInfo = document.querySelector('.overlay-click');
 
@@ -164,53 +161,7 @@ input.addEventListener('input', event => {
         overlayClose.addEventListener('click', () => {
           overlay.style.display = 'none';
         });
-        let checkLikeOverlay = true;
-        for (let i = 0; i < userLocal.like.length; i++) {
-          if (userLocal.like[i] == id.textContent) {
-            checkLikeOverlay = false;
-            checkLike = false;
-          }
-        }
-
-        overlayLike.addEventListener('click', () => {
-          const toastText = toastContainer.querySelector('h3');
-          for (let i = 0; i < userLocal.like.length; i++) {
-            if (userLocal.like[i] == id.textContent) {
-              checkLikeOverlay = false;
-              checkLike = false;
-              userLocal.like.splice(i, 1);
-            }
-          }
-          if (checkLikeOverlay) {
-            like.style.color = 'red';
-            checkLike = false;
-            checkLikeOverlay = !checkLikeOverlay;
-            toastContainer.style.display = 'flex';
-
-            toastText.innerText = 'Đã thêm vào danh mục yêu thích';
-            toastSaveProduct.style.display = 'flex';
-
-            userLocal.like.push(id.textContent);
-          } else {
-            toastText.innerText = 'Đã xóa khỏi danh mục yêu thích';
-
-            toastContainer.style.display = 'flex';
-
-            toastSaveProduct.style.display = 'flex';
-
-            overlayLike.style.color = 'gray';
-            like.style.color = 'gray';
-            checkLike = true;
-            checkLikeOverlay = !checkLikeOverlay;
-          }
-          const itemHeart = document.createElement('p');
-          itemHeart.classList.add('item-heart');
-          itemHeart.innerText = `${userLocal.like.length}`;
-          // navItemHeart.appendChild(itemHeart);
-          const updateLike = [...new Set(userLocal.like)];
-          userLocal.like = updateLike;
-          localStorage.setItem('User', JSON.stringify(userLocal));
-        });
+       
         toast.forEach(e => {
           const exitToast = e.querySelector('.exit');
           exitToast.addEventListener('click', () => {
@@ -335,17 +286,11 @@ submitBtn.addEventListener('click', e => {
                         `;
         productList.appendChild(productItem);
         returnPage.style.display = 'flex';
-        const like = productItem.querySelector('#like');
         const addCart = productItem.querySelector('#add-cart');
 
         const overlayClick = productItem.querySelector('.overlay-click');
 
-        for (let i = 0; i < userLocal.like.length; i++) {
-          if (userLocal.like[i] == e.ID) {
-            like.style.color = 'red';
-          }
-        }
-        let checkLike = true;
+        
         overlayClick.addEventListener('click', () => {
           overlay.style.display = 'flex';
           const overlayImg = overlay.querySelector('img');
@@ -353,7 +298,6 @@ submitBtn.addEventListener('click', e => {
           const closeToggle = overlay.querySelector('#close-toggler');
           const overlayName = overlay.querySelector('.name');
 
-          const overlayLike = overlay.querySelector('#overlayLike');
 
           const overlayid = overlay.querySelector('#overlayid');
           overlayid.innerHTML = e.ID;
@@ -364,61 +308,9 @@ submitBtn.addEventListener('click', e => {
           overlayName.innerHTML = e.name;
           overlayImg.src = `${returnPathImg(e)}`;
           overlayPrice.innerHTML = e.price;
-          let checkLikeOverlay = true;
-          for (let i = 0; i < userLocal.like.length; i++) {
-            if (userLocal.like[i] == e.ID) {
-              checkLikeOverlay = false;
-              checkLike = false;
-            }
-          }
-          overlayLike.addEventListener('click', () => {
-            const toastText = toastContainer.querySelector('h3');
-            for (let i = 0; i < userLocal.like.length; i++) {
-              if (userLocal.like[i] == e.ID) {
-                checkLikeOverlay = false;
-                checkLike = false;
-
-                userLocal.like.splice(i, 1);
-              }
-            }
-            if (checkLikeOverlay) {
-              like.style.color = 'red';
-              checkLike = false;
-              checkLikeOverlay = !checkLikeOverlay;
-              toastContainer.style.display = 'flex';
-
-              toastText.innerText = 'Đã thêm vào danh mục yêu thích';
-              toastSaveProduct.style.display = 'flex';
-
-              userLocal.like.push(e.ID);
-            } else {
-              toastText.innerText = 'Đã xóa khỏi danh mục yêu thích';
-
-              toastContainer.style.display = 'flex';
-
-              toastSaveProduct.style.display = 'flex';
-
-              overlayLike.style.color = 'gray';
-              like.style.color = 'gray';
-              checkLike = true;
-              checkLikeOverlay = !checkLikeOverlay;
-            }
-            const itemHeart = document.createElement('p');
-            itemHeart.classList.add('item-heart');
-            itemHeart.innerText = `${userLocal.like.length}`;
-            // navItemHeart.appendChild(itemHeart);
-            const updateLike = [...new Set(userLocal.like)];
-            userLocal.like = updateLike;
-            localStorage.setItem('User', JSON.stringify(userLocal));
-            for (let i = 0; i < accountData.length; i++) {
-              if (accountData[i].id === userLocal.id) {
-                accountData[i].like = userLocal.like;
-              }
-            }
-            localStorage.setItem('accounts', JSON.stringify(accountData));
-
-            // localStorage.setItem('User', JSON.stringify(userLocal))
-          });
+          
+         
+            
           toast.forEach(e => {
             const exitToast = e.querySelector('.exit');
             exitToast.addEventListener('click', () => {
@@ -465,39 +357,6 @@ submitBtn.addEventListener('click', e => {
           itemCart.classList.add('item-cart');
           itemCart.innerText = `${userLocal.cart.length}`;
           navItemCart.appendChild(itemCart);
-        });
-        like.addEventListener('click', () => {
-          for (let i = 0; i < userLocal.like.length; i++) {
-            if (userLocal.like[i] === e.ID) {
-              checkLike = false;
-              like.style.color = 'red';
-              userLocal.like.splice(i, 1);
-            }
-          }
-          if (checkLike) {
-            like.style.color = 'red';
-
-            checkLike = !checkLike;
-            userLocal.like.push(e.ID);
-          } else {
-            like.style.color = '#A0A0A0';
-            overlayLike.style.color = '#A0A0A0';
-            checkLike = !checkLike;
-          }
-          const updateLike = [...new Set(userLocal.like)];
-
-          const itemHeart = document.createElement('p');
-          itemHeart.classList.add('item-heart');
-          itemHeart.innerText = `${userLocal.like.length}`;
-          // navItemHeart.appendChild(itemHeart);
-          userLocal.like = updateLike;
-          for (let i = 0; i < accountData.length; i++) {
-            if (accountData[i].id === userLocal.id) {
-              accountData[i].like = userLocal.like;
-            }
-          }
-          localStorage.setItem('User', JSON.stringify(userLocal));
-          localStorage.setItem('accounts', JSON.stringify(accountData));
         });
       });
     } else if (matchingProduct.length <= 0) {
