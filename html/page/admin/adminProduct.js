@@ -707,8 +707,11 @@ function generatePagination(data) {
 }
 
 function loadData(data) {
+  totalPages = Math.ceil(data.length / 10);
   var startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   var endIndex = startIndex + ITEMS_PER_PAGE;
+  generatePagination(data);
+
   if (endIndex > data.length) {
     endIndex = data.length;
   }
