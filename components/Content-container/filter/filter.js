@@ -299,7 +299,7 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
   });
 
   
-  if (checkedTypes && checkedPrices) {
+  if (checkedTypes || checkedPrices) {
     var selectedPrices;
     var selectedTypes;
     var foundTypes = [];
@@ -314,91 +314,68 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
       selectedTypes = checkbox.parentElement.textContent.trim();
     });
 
-    if (selectedTypes) {
-      foundTypes = data.filter(product => product.type === selectedTypes.toLowerCase());
-    }
-    if (selectedPrices) {
+    if(selectedPrices && selectedTypes){
       if (selectedPrices === '10tr - 50tr') {
-        foundPrices = data.filter(product => {
+        totalFound = data.filter(product => {
           const price = parseInt(product.price.replace(/[^\d]/g, ''));
-          return price >= 10000000 && price <= 50000000
+          return price >= 10000000 && price <= 50000000 && product.type === selectedTypes.toLowerCase()
         })
       }
       if (selectedPrices === '50tr - 100tr') {
-        foundPrices = data.filter(product => {
+        totalFound = data.filter(product => {
           const price = parseInt(product.price.replace(/[^\d]/g, ''));
-          return price >= 50000000 && price <= 100000000
+          return price >= 50000000 && price <= 100000000 && product.type === selectedTypes.toLowerCase()
         })
       }
       if (selectedPrices === '100tr - 300tr') {
-        foundPrices = data.filter(product => {
+        totalFound = data.filter(product => {
           const price = parseInt(product.price.replace(/[^\d]/g, ''));
-          return price >= 100000000 && price <= 300000000
+          return price >= 100000000 && price <= 300000000 && product.type === selectedTypes.toLowerCase()
         })
-        console.log(foundPrices)
+        console.log(totalFound)
+      }
+    }else{
+      if (selectedTypes) {
+        totalFound = data.filter(product => product.type === selectedTypes.toLowerCase());
+      }
+      if (selectedPrices) {
+        if (selectedPrices === '10tr - 50tr') {
+          totalFound = data.filter(product => {
+            const price = parseInt(product.price.replace(/[^\d]/g, ''));
+            return price >= 10000000 && price <= 50000000
+          })
+        }
+        if (selectedPrices === '50tr - 100tr') {
+          totalFound = data.filter(product => {
+            const price = parseInt(product.price.replace(/[^\d]/g, ''));
+            return price >= 50000000 && price <= 100000000
+          })
+        }
+        if (selectedPrices === '100tr - 300tr') {
+          totalFound = data.filter(product => {
+            const price = parseInt(product.price.replace(/[^\d]/g, ''));
+            return price >= 100000000 && price <= 300000000
+          })
+          console.log(totalFound)
+        }
       }
     }
-    totalFound = [...new Set([...foundPrices, ...foundTypes])];
+
+    if(totalFound.length < 1){
+      alert('khong tim thay san pham');
+      location.reload();
+    }
+    
+   
     generatePagination(totalFound)
     loadData(totalFound);
 
     console.log('FoundPrice: ', totalFound);
-  } 
-  if(checkedPrices){
-    var selectedPrices;
-    var foundPrices = [];
-
-    document.getElementById('dropdown-menu').querySelectorAll('input:checked').forEach(function (checkbox) {
-      selectedPrices = checkbox.parentElement.textContent.trim();
-    });
-
-    if (selectedPrices) {
-      if (selectedPrices === '10tr - 50tr') {
-        foundPrices = data.filter(product => {
-          const price = parseInt(product.price.replace(/[^\d]/g, ''));
-          return price >= 10000000 && price <= 50000000
-        })
-      }
-      if (selectedPrices === '50tr - 100tr') {
-        foundPrices = data.filter(product => {
-          const price = parseInt(product.price.replace(/[^\d]/g, ''));
-          return price >= 50000000 && price <= 100000000
-        })
-      }
-      if (selectedPrices === '100tr - 300tr') {
-        foundPrices = data.filter(product => {
-          const price = parseInt(product.price.replace(/[^\d]/g, ''));
-          return price >= 100000000 && price <= 300000000
-        })
-        console.log(foundPrices)
-      }
-    }
-  
-    generatePagination(foundPrices)
-    loadData(foundPrices);
-
-    console.log('FoundPrice: ', foundPrices);
+  }else{
+    alert('khon tim thay san pham');
+    location.reload();
   }
-  if(checkedTypes){
-    var selectedTypes;
-    var foundTypes = [];
-
-
-    document.querySelectorAll('#type-item input:checked').forEach(function (checkbox) {
-      selectedTypes = checkbox.parentElement.textContent.trim();
-    });
-
-    if (selectedTypes) {
-      foundTypes = data.filter(product => product.type === selectedTypes.toLowerCase());
-    }
-    
-    generatePagination(foundTypes)
-    loadData(foundTypes);
-
-    console.log('FoundPrice: ', foundTypes);
-  }
-
-
+ 
 });
 
 
