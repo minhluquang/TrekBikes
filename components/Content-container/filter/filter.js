@@ -96,7 +96,7 @@ function clickAddCart(id) {
   itemCart.classList.add('item-cart');
   itemCart.innerText = `${userLocal.cart.length}`;
   navItemCart.appendChild(itemCart);
-};
+}
 
 function handleBtnClick(productItem) {
   const id = productItem.querySelector('.id');
@@ -151,7 +151,7 @@ function returnPathImg(element) {
   return pathImg;
 }
 
-function displayItem(startIndex,endIndex,data) {
+function displayItem(startIndex, endIndex, data) {
   productList.innerHTML = '';
   for (let i = startIndex; i < endIndex; i++) {
     if (data[i].imgSrc !== undefined && data[i].name !== undefined && data[i].price !== undefined) {
@@ -238,11 +238,9 @@ selectButton.forEach(e => {
       generatePagination(filteredProducts);
       loadData(filteredProducts);
       statusSearch.innerText = 'Các sản phẩm tìm thấy';
-    
     } else {
       statusSearch.innerText = 'Không tìm thấy sản phẩm';
       productList.innerHTML = '';
-     
     }
   });
 });
@@ -252,25 +250,25 @@ selectButton.forEach(e => {
 
 
 
-function filteredProducts (){
+function filteredProducts() {
   const dropdownMenu = document.getElementById('dropdown-menu');
   const confirmButton = document.getElementById('filter-confirm-button');
   const types = document.getElementById('types');
-  
+
   // let price = '';  
-  dropdownMenu.querySelectorAll('input').forEach(element=>{
-    element.addEventListener('click',()=>{
-      dropdownMenu.querySelectorAll('input').forEach(otherElement=>{
-        if(otherElement !== element){
+  dropdownMenu.querySelectorAll('input').forEach(element => {
+    element.addEventListener('click', () => {
+      dropdownMenu.querySelectorAll('input').forEach(otherElement => {
+        if (otherElement !== element) {
           otherElement.checked = false
         }
       })
     })
   })
-  types.querySelectorAll('input').forEach(element=>{
-    element.addEventListener('click',()=>{
-      types.querySelectorAll('input').forEach(otherElement=>{
-        if(otherElement !== element){
+  types.querySelectorAll('input').forEach(element => {
+    element.addEventListener('click', () => {
+      types.querySelectorAll('input').forEach(otherElement => {
+        if (otherElement !== element) {
           otherElement.checked = false
         }
       })
@@ -318,30 +316,30 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
     if (selectedTypes) {
       foundTypes = data.filter(product => product.type === selectedTypes.toLowerCase());
     }
-    if(selectedPrices){
-      if(selectedPrices === '10tr - 50tr'){
-        foundPrices = data.filter(product=>{
+    if (selectedPrices) {
+      if (selectedPrices === '10tr - 50tr') {
+        foundPrices = data.filter(product => {
           const price = parseInt(product.price.replace(/[^\d]/g, ''));
           return price >= 10000000 && price <= 50000000
         })
       }
-      if(selectedPrices === '50tr - 100tr'){
-          foundPrices = data.filter(product=>{
-            const price = parseInt(product.price.replace(/[^\d]/g, ''));
-            return price >= 50000000 && price <= 100000000
-          })
+      if (selectedPrices === '50tr - 100tr') {
+        foundPrices = data.filter(product => {
+          const price = parseInt(product.price.replace(/[^\d]/g, ''));
+          return price >= 50000000 && price <= 100000000
+        })
       }
-      if(selectedPrices === '100tr - 300tr'){
-          foundPrices = data.filter(product=>{
-            const price = parseInt(product.price.replace(/[^\d]/g));
-            return price >= 100000000 && price <= 300000000
-          })
+      if (selectedPrices === '100tr - 300tr') {
+        foundPrices = data.filter(product => {
+          const price = parseInt(product.price.replace(/[^\d]/g));
+          return price >= 100000000 && price <= 300000000
+        })
       }
     }
     totalFound = [...new Set([...foundPrices, ...foundTypes])];
     generatePagination(totalFound)
     loadData(totalFound);
-    
+
     console.log('FoundPrice: ', totalFound);
   } else {
     console.log('No type or price selected.');
@@ -372,7 +370,7 @@ function generatePagination(data) {
       generatePagination(data);
       loadData(data);
     }
-  }); 
+  });
   var startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
   var endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
   for (var i = startPage; i <= endPage; i++) {
@@ -414,6 +412,5 @@ function loadData(data) {
     endIndex = data.length;
   }
   console.log(endIndex);
-  displayItem(startIndex,endIndex,data);
+  displayItem(startIndex, endIndex, data);
 }
-

@@ -120,7 +120,6 @@
 
 .box-4 {
   width: calc(25% - 20px)!important;
-  cursor: pointer;
 }
 
 .box:hover {
@@ -174,3 +173,67 @@
 }
 /* End: Content */
 
+/* Start :Modal thống kê */
+.modal_statistic {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  height: 80%;
+  width: 50%;
+  border-radius: 5px;
+  overflow: auto;
+  background-color: #fff;
+  display: none;
+  z-index: 11;
+}
+
+.modal_statistic.active {
+  display: block;
+}
+
+.modal_table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table_head {
+  background-color: #333;
+  color: #fff;
+  height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.modal_table tr,
+.modal_table td {
+  border: 1px solid #333;
+}
+
+.modal_table th,
+.modal_table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.table_img {
+  width: 150px;
+}
+
+.table_img img {
+  border-radius: 4px;
+  width: 100%;
+  object-fit: contain;
+}
+
+.table-exit-btn {
+  float: right;
+  margin: 10px;
+  padding: 5px;
+}
+
+.box-4 button {
+  cursor: pointer;
+  padding: 5px;
+}
