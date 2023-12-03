@@ -4,10 +4,10 @@
   display: none;
   /* padding: 20px; */
   top: 12%;
-
+  /* background-color: red; */
   left: 0;
   width: 250px;
-  height: 630px;
+  height: 730px;
   z-index: 1;
   overflow: hidden;
   border-radius: 5px;
@@ -305,9 +305,14 @@
   padding: 5px 10px;
   cursor: pointer;
   display: flex;
-  justify-content: center;
+  gap: 10px;
+  justify-content: sp;
   align-items: center;
   font-weight: bold;
+}
+.dropdown-menu li input{
+  width: 20px;
+  height: 20px;
 }
 
 .dropdown-menu li:hover {
@@ -335,8 +340,24 @@
   color: #fff;
   font-weight: bold;
   cursor: pointer;
-  justify-content: center;
+  justify-content: space-between;
+}
+.type span input{
+  width: 20px;
+  height: 20px;
 }
 .type span:hover {
   background-color: #9c9c9c;
 }
+.type button{
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.type button:hover{
+  background-color: #828282;
+}
+

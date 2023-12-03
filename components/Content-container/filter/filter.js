@@ -213,71 +213,7 @@ dropdownButton.forEach(e => {
   });
 });
 
-const dropdownItems = document.querySelectorAll('.dropdown-menu li');
-dropdownItems.forEach(item => {
-  item.addEventListener('click', function () {
-    let filteredProducts = [];
-    if (item.textContent === '10tr - 50tr') {
-      filteredProducts = data.filter(product => {
-        const price = parseInt(product.price.replace(/\D/g, '')); // Lấy giá và bỏ đi ký tự không phải là số
-        return price >= 10000000 && price <= 50000000;
-      });
-    }
-    if (item.textContent === '50tr - 100tr') {
-      filteredProducts = data.filter(product => {
-        const price = parseInt(product.price.replace(/\D/g, '')); // Lấy giá và bỏ đi ký tự không phải là số
-        return price >= 50000000 && price <= 100000000;
-      });
-    }
-    if (item.textContent === '100tr - 300tr') {
-      filteredProducts = data.filter(product => {
-        const price = parseInt(product.price.replace(/\D/g, '')); // Lấy giá và bỏ đi ký tự không phải là số
-        return price >= 100000000 && price <= 300000000;
-      });
-    }
-    statusSearch.innerText = 'Các sản phẩm tìm thấy';
-    
-    generatePagination(filteredProducts);
-    loadData(filteredProducts);
-   
-  });
-});
 
-const Type = document.querySelectorAll('#type-item');
-Type.forEach(e => {
-  let filteredProducts = [];
-  e.addEventListener('click', () => {
-    if (e.textContent === 'Mountain') {
-      statusSearch.innerText = 'Mountain';
-      filteredProducts = data.filter(product => {
-        return product.type === 'mountain';
-      });
-    }
-    if (e.textContent === 'Road') {
-      statusSearch.innerText = 'Road';
-      filteredProducts = data.filter(product => {
-        return product.type === 'road';
-      });
-    }
-    if (e.textContent === 'Kids') {
-      statusSearch.innerText = 'Kids';
-      filteredProducts = data.filter(product => {
-        return product.type === 'kids';
-      });
-    }
-    if (e.textContent === 'Touring') {
-      statusSearch.innerText = 'Touring';
-      filteredProducts = data.filter(product => {
-        return product.type === 'touring';
-      });
-    }
-    
-    
-    generatePagination(filteredProducts);
-    loadData(filteredProducts);
- 
-  });
-});
 
 selectButton.forEach(e => {
   e.addEventListener('click', () => {
@@ -315,16 +251,117 @@ selectButton.forEach(e => {
 
 
 
+
+function filteredProducts (){
+  const dropdownMenu = document.getElementById('dropdown-menu');
+  const confirmButton = document.getElementById('filter-confirm-button');
+  const types = document.getElementById('types');
+  
+  // let price = '';  
+  dropdownMenu.querySelectorAll('input').forEach(element=>{
+    element.addEventListener('click',()=>{
+      dropdownMenu.querySelectorAll('input').forEach(otherElement=>{
+        if(otherElement !== element){
+          otherElement.checked = false
+        }
+      })
+    })
+  })
+  types.querySelectorAll('input').forEach(element=>{
+    element.addEventListener('click',()=>{
+      types.querySelectorAll('input').forEach(otherElement=>{
+        if(otherElement !== element){
+          otherElement.checked = false
+        }
+      })
+    })
+  })
+
+}
+filteredProducts();
+
+
+document.getElementById('filter-confirm-button').addEventListener('click', function () {
+  const types = document.getElementById('types');
+  const dropdownMenu = document.getElementById('dropdown-menu');
+
+  let checkedTypes = false;
+  let checkedPrices = false;
+
+  types.querySelectorAll('input').forEach(element => {
+    if (element.checked) {
+      checkedTypes = true;
+    }
+  });
+
+  dropdownMenu.querySelectorAll('input').forEach(element => {
+    if (element.checked) {
+      checkedPrices = true;
+    }
+  });
+
+  if (checkedTypes || checkedPrices) {
+    var selectedPrices;
+    var selectedTypes;
+    var foundTypes = [];
+    var foundPrices = [];
+    var totalFound = [];
+
+    document.getElementById('dropdown-menu').querySelectorAll('input:checked').forEach(function (checkbox) {
+      selectedPrices = checkbox.parentElement.textContent.trim();
+    });
+
+    document.querySelectorAll('#type-item input:checked').forEach(function (checkbox) {
+      selectedTypes = checkbox.parentElement.textContent.trim();
+    });
+
+    if (selectedTypes) {
+      foundTypes = data.filter(product => product.type === selectedTypes.toLowerCase());
+    }
+    if(selectedPrices){
+      if(selectedPrices === '10tr - 50tr'){
+        foundPrices = data.filter(product=>{
+          const price = parseInt(product.price.replace(/[^\d]/g, ''));
+          return price >= 10000000 && price <= 50000000
+        })
+      }
+      if(selectedPrices === '50tr - 100tr'){
+          foundPrices = data.filter(product=>{
+            const price = parseInt(product.price.replace(/[^\d]/g, ''));
+            return price >= 50000000 && price <= 100000000
+          })
+      }
+      if(selectedPrices === '100tr - 300tr'){
+          foundPrices = data.filter(product=>{
+            const price = parseInt(product.price.replace(/[^\d]/g));
+            return price >= 100000000 && price <= 300000000
+          })
+      }
+    }
+    totalFound = [...new Set([...foundPrices, ...foundTypes])];
+    generatePagination(totalFound)
+    loadData(totalFound);
+    
+    console.log('FoundPrice: ', totalFound);
+  } else {
+    console.log('No type or price selected.');
+  }
+});
+
+
+
+
+
+
+
 var totalPages = Math.ceil(data.length / 10);
 var ITEMS_PER_PAGE = 10;
 var maxPagesToShow = 5;
 var currentPage = 1;
 
 function generatePagination(data) {
-
   var pagination = document.getElementById('pagination');
   pagination.innerHTML = '';
-
   var prevBtn = document.createElement('a');
   prevBtn.href = 'javascript:void(0);';
   prevBtn.innerHTML = '&laquo;';
@@ -336,28 +373,22 @@ function generatePagination(data) {
       loadData(data);
     }
   }); 
-
   var startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
   var endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
-
   for (var i = startPage; i <= endPage; i++) {
     var pageLink = document.createElement('a');
     pageLink.href = 'javascript:void(0);';
     pageLink.innerHTML = i;
-
     if (i === currentPage) {
       pageLink.classList.add('active');
     }
-
     pageLink.addEventListener('click', function () {
       currentPage = parseInt(this.innerHTML);
       generatePagination(data);
       loadData(data);
     });
-
     pagination.appendChild(pageLink);
   }
-
   // Nút Next
   var nextBtn = document.createElement('a');
   nextBtn.href = 'javascript:void(0);';

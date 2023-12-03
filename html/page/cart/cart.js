@@ -85,16 +85,16 @@ function displayProductItems() {
                     </td>
                 `;
 
-        const priceString = data[i].price;
-        const priceNumber = parseFloat(priceString.replace(/\D/g, ''));
-        totalPrice = totalPrice + priceNumber * parseInt(userLocal.cart[j].quantity);
+        // const priceString = data[i].price;
+        // const priceNumber = parseFloat(priceString.replace(/\D/g, ''));
+        // totalPrice = totalPrice + priceNumber * parseInt(userLocal.cart[j].quantity);
 
         cartInfo.appendChild(cartItem);
       }
     }
   }
-  const priceString = totalPrice.toLocaleString();
-  totalPriceDisplay.innerText = priceString + ' ' + 'VND';
+  // const priceString = totalPrice.toLocaleString();
+  // totalPriceDisplay.innerText = priceString + ' ' + 'VND';
 }
 
 displayProductItems();
