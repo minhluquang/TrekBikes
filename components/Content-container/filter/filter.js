@@ -331,9 +331,10 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
       }
       if (selectedPrices === '100tr - 300tr') {
         foundPrices = data.filter(product => {
-          const price = parseInt(product.price.replace(/[^\d]/g));
+          const price = parseInt(product.price.replace(/[^\d]/g, ''));
           return price >= 100000000 && price <= 300000000
         })
+        console.log(foundPrices)
       }
     }
     totalFound = [...new Set([...foundPrices, ...foundTypes])];
