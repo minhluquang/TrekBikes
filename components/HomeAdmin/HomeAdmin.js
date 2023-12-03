@@ -287,10 +287,10 @@ exitBtn.addEventListener('click', e => {
   overlay.classList.remove('active');
 });
 
-overlay.addEventListener('click', (e) => {
+overlay.addEventListener('click', e => {
   modal.classList.remove('active');
   overlay.classList.remove('active');
-})
+});
 // ==============================
 
 // Xử lý thuật toán thống kê rõ ràng theo từng loại ==================
@@ -301,7 +301,12 @@ const kidsStatistic = [];
 
 DUMMY_API.forEach(userCart => {
   userCart.cart.forEach(cart => {
-    const whatTypeIs = DUMMY_PRODUCTS.find(product => product.ID === cart.product[0].id);
+    const whatTypeIs = DUMMY_PRODUCTS.find(product => product.ID === cart.product[0].id && cart.product[0].processed);
+
+    // Nếu tìm không thỏa thì thôi, khỏi cần tính tiếp
+    if (!whatTypeIs) {
+      return;
+    }
 
     if (whatTypeIs.type === 'mountain') {
       mountainStatistic.push({
@@ -348,15 +353,15 @@ function calculateTotalQuantitySold(inputArray, outputArray) {
   inputArray.forEach(product => {
     // Kiểm tra thử xem trong mảng group đã có id sp đó chưa
     const isExistInGroupArray = outputArray.find(groupProduct => groupProduct.id === product.id);
-
     // Nếu chưa thì add vào mảng group
     if (!isExistInGroupArray) {
       outputArray.push({ ...product });
     }
     // Nếu có rồi thì chỉ cần tăng số lượng trùng id
     else {
-      const quantitySoldUpdate = outputArray[outputArray.length - 1].quantitySold + product.quantitySold;
-      outputArray[outputArray.length - 1].quantitySold = quantitySoldUpdate;
+      const isIndex = outputArray.findIndex(groupProduct => groupProduct.id === product.id);
+      const quantitySoldUpdate = outputArray[isIndex].quantitySold + product.quantitySold;
+      outputArray[isIndex].quantitySold = quantitySoldUpdate;
     }
   });
 }
