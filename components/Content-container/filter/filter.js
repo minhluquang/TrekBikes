@@ -312,37 +312,18 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
       if (selectedPrices === '10tr - 50tr') {
         totalFound = data.filter(product => {
           const price = parseInt(product.price.replace(/[^\d]/g, ''));
-<<<<<<< HEAD
-          return price >= 10000000 && price <= 50000000;
-        });
-=======
           return price >= 10000000 && price <= 50000000 && product.type === selectedTypes.toLowerCase()
         })
->>>>>>> 128e32946398f6d7444f7ddfc1f4fb5c65c8becd
       }
       if (selectedPrices === '50tr - 100tr') {
         totalFound = data.filter(product => {
           const price = parseInt(product.price.replace(/[^\d]/g, ''));
-<<<<<<< HEAD
-          return price >= 50000000 && price <= 100000000;
-        });
-=======
           return price >= 50000000 && price <= 100000000 && product.type === selectedTypes.toLowerCase()
         })
->>>>>>> 128e32946398f6d7444f7ddfc1f4fb5c65c8becd
       }
       if (selectedPrices === '100tr - 300tr') {
         totalFound = data.filter(product => {
           const price = parseInt(product.price.replace(/[^\d]/g, ''));
-<<<<<<< HEAD
-          return price >= 100000000 && price <= 300000000;
-        });
-        console.log(foundPrices);
-      }
-    }
-    totalFound = [...new Set([...foundPrices, ...foundTypes])];
-    generatePagination(totalFound);
-=======
           return price >= 100000000 && price <= 300000000 && product.type === selectedTypes.toLowerCase()
         })
         console.log(totalFound)
@@ -381,7 +362,6 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
     
    
     generatePagination(totalFound)
->>>>>>> 128e32946398f6d7444f7ddfc1f4fb5c65c8becd
     loadData(totalFound);
 
     console.log('FoundPrice: ', totalFound);

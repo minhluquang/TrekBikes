@@ -124,10 +124,10 @@ function displayFormChange() {
 
 function updateEvent(item, index, id, element) {
   // copy
-  const copy = item.querySelector('#copy');
-  copy.addEventListener('click', () => {
-    copyNameProduct(element.imgSrc);
-  });
+  // const copy = item.querySelector('#copy');
+  // copy.addEventListener('click', () => {
+  //   copyNameProduct(element.imgSrc);
+  // });
 
   //  console.log(index);
 
@@ -181,20 +181,23 @@ function updateEvent(item, index, id, element) {
           isValidName = false;
           nameMessgae.innerHTML = '* Vui lòng nhập tên sản phẩm';
         } else {
+          isValidName = true;
           nameMessgae.innerHTML = '';
         }
 
         if (formDateUpdateValue === '') {
-          isValidName = false;
+          isValidDateUpdate = false;
           updateMessage.innerHTML = '* Vui lòng nhập dữ liệu';
         } else {
+          isValidDateUpdate = true;
           updateMessage.innerHTML = '';
         }
 
         if (formDateCreateValue === '') {
-          isValidName = false;
+          isValidDateCreate = false;
           createMessage.innerHTML = '* Vui lòng nhập dữ liệu';
         } else {
+          isValidDateCreate = true;
           createMessage.innerHTML = '';
         }
 
@@ -202,8 +205,18 @@ function updateEvent(item, index, id, element) {
           isValidType = false;
           typeMessage.innerHTML = '*Vui lòng chọn thể loại';
         } else {
+          isValidType = true;
           typeMessage.innerHTML = '';
         }
+
+        if (formDateCreateValue > formDateUpdateValue) {
+          isValidDateCreate = false;
+          createMessage.innerHTML = '* Vui lòng nhập ngày tạo nhỏ hơn hoặc bằng ngày cập nhật';
+        } else {
+          isValidDateCreate = true;
+          createMessage.innerHTML = '';
+        }
+
         let isValidForm = isValidName && isValidDateUpdate && isValidDateCreate;
 
         if (isValidForm) {
@@ -335,7 +348,7 @@ function disPlayProductItem(pageStart, pageEnd, data) {
               <th class="type">${element.type}</th>             
               <th class="date-update">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
               <th class="date-creat">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
-              <th class="copy" id="copy">Copy</th>
+              <th class="price">${element.price}</th>
               <th class="edit" id="edit">Sửa</th>
               <th class="delete" id="delete">Xóa</th>
       `;
