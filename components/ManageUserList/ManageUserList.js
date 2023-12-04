@@ -201,13 +201,18 @@ submitBtn.addEventListener('click', e => {
   const inputBeginDate = document.querySelector('#beginDate').value;
   const inputEndDate = document.querySelector('#endDate').value;
   const timeBegin = new Date(inputBeginDate);
-  const dayBegin = timeBegin.getDate();
-  const monthBegin = timeBegin.getMonth();
-  const yearBegin = timeBegin.getFullYear();
+  console.log("cmm",timeBegin)
+  // const dayBegin = timeBegin.getDate();
+  // const monthBegin = timeBegin.getMonth();
+  // const yearBegin = timeBegin.getFullYear();
   const timeEnd = new Date(inputEndDate);
-  const dayEnd = timeEnd.getDate();
-  const monthEnd = timeEnd.getMonth();
-  const yearEnd = timeEnd.getFullYear();
+  // const dayEnd = timeEnd.getDate();
+  // const monthEnd = timeEnd.getMonth();
+  // const yearEnd = timeEnd.getFullYear();
+  if(timeBegin > timeEnd) {
+    alert("Ngày bắt đầu phải nhỏ hơn ngày kết thúc");
+    return;
+  }
   const inputRoleClinetValue = document.querySelector('#userRoleClient select').value;
   let isAdmiValid;
   if (inputRoleClinetValue === 'admin') {
@@ -247,11 +252,13 @@ submitBtn.addEventListener('click', e => {
   if (inputBeginDate && inputEndDate) {
     data = data.filter(user => {
       const timeUser = new Date(user.dateRegister);
-      const dayUser = timeUser.getDate();
-      const monthUser = timeUser.getMonth();
-      const yearUser = timeUser.getFullYear();
-      const isAfterOrEqualBeginDate = new Date(yearUser, monthUser, dayUser) >= new Date(yearBegin, monthBegin, dayBegin);
-      const isBeforeOrEqualEndDate = new Date(yearUser, monthUser, dayUser) <= new Date(yearEnd, monthEnd, dayEnd);
+      // const dayUser = timeUser.getDate();
+      // const monthUser = timeUser.getMonth();
+      // const yearUser = timeUser.getFullYear();
+      // const isAfterOrEqualBeginDate = new Date(yearUser, monthUser, dayUser) >= new Date(yearBegin, monthBegin, dayBegin);
+      // const isBeforeOrEqualEndDate = new Date(yearUser, monthUser, dayUser) <= new Date(yearEnd, monthEnd, dayEnd);
+      const isAfterOrEqualBeginDate = timeBegin <= timeUser;
+      const isBeforeOrEqualEndDate = timeUser <= timeEnd;
   
       return isAfterOrEqualBeginDate && isBeforeOrEqualEndDate;
     });

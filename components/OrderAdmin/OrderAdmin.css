@@ -652,4 +652,8 @@
   background-color: rgb(69, 220, 69);
   box-shadow: rgba(48, 191, 13, 0.983) 0px 3px 0px 0px;
 }
+
+.body__filter--field.body__filter--orderDate {
+  width: 25%;
+}
 /* end: Modal */
