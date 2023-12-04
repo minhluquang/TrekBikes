@@ -445,8 +445,6 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
   if (checkedTypes || checkedPrices) {
     var selectedPrices;
     var selectedTypes;
-    var foundTypes = [];
-    var foundPrices = [];
     var totalFound = [];
 
     document.getElementById('dropdown-menu').querySelectorAll('input:checked').forEach(function (checkbox) {

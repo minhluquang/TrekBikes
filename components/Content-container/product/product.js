@@ -427,8 +427,14 @@ function loadData(data) {
 function displayItemTypes() {
   const type = JSON.parse(localStorage.getItem('typeToFilter'));
   const foundTypes = data.filter(product=> product.type === type.toLowerCase())
-  generatePagination(foundTypes);
-  loadData(foundTypes);
+  if(foundTypes.length < 1){
+    generatePagination(data);
+    loadData(data);
+  }else{
+    
+    generatePagination(foundTypes);
+    loadData(foundTypes);
+  }
 }
 
 displayItemTypes();
