@@ -423,10 +423,9 @@ function loadData(data) {
   updateEvent();
 }
 
-
 function displayItemTypes() {
   const type = JSON.parse(localStorage.getItem('typeToFilter'));
-  const foundTypes = data.filter(product=> product.type === type.toLowerCase())
+     const foundTypes = data.filter(product => product.type === type.toLowerCase());
   if(foundTypes.length < 1){
     generatePagination(data);
     loadData(data);
@@ -438,7 +437,6 @@ function displayItemTypes() {
 }
 
 displayItemTypes();
-
 
 // Xử lý sự kiện ẩn modal
 // Khi vào thẻ cha overlay chứa tất cả modal thì mới ẩn đi

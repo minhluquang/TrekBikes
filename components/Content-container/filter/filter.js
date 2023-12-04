@@ -213,8 +213,6 @@ dropdownButton.forEach(e => {
   });
 });
 
-
-
 selectButton.forEach(e => {
   e.addEventListener('click', () => {
     const minInput = e.parentElement.querySelector('#minInput');
@@ -245,36 +243,30 @@ selectButton.forEach(e => {
   });
 });
 
-
-
-
-
-
 function filteredProducts() {
   const dropdownMenu = document.getElementById('dropdown-menu');
   const confirmButton = document.getElementById('filter-confirm-button');
   const types = document.getElementById('types');
 
-  // let price = '';  
+  // let price = '';
   dropdownMenu.querySelectorAll('input').forEach(element => {
     element.addEventListener('click', () => {
       dropdownMenu.querySelectorAll('input').forEach(otherElement => {
         if (otherElement !== element) {
-          otherElement.checked = false
+          otherElement.checked = false;
         }
-      })
-    })
-  })
+      });
+    });
+  });
   types.querySelectorAll('input').forEach(element => {
     element.addEventListener('click', () => {
       types.querySelectorAll('input').forEach(otherElement => {
         if (otherElement !== element) {
-          otherElement.checked = false
+          otherElement.checked = false;
         }
-      })
-    })
-  })
-
+      });
+    });
+  });
 }
 filteredProducts();
 
@@ -447,9 +439,12 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
     var selectedTypes;
     var totalFound = [];
 
-    document.getElementById('dropdown-menu').querySelectorAll('input:checked').forEach(function (checkbox) {
-      selectedPrices = checkbox.parentElement.textContent.trim();
-    });
+    document
+      .getElementById('dropdown-menu')
+      .querySelectorAll('input:checked')
+      .forEach(function (checkbox) {
+        selectedPrices = checkbox.parentElement.textContent.trim();
+      });
 
     document.querySelectorAll('#type-item input:checked').forEach(function (checkbox) {
       selectedTypes = checkbox.parentElement.textContent.trim();
@@ -518,12 +513,6 @@ document.getElementById('filter-confirm-button').addEventListener('click', funct
   }
  
 });
-
-
-
-
-
-
 
 var totalPages = Math.ceil(data.length / 10);
 var ITEMS_PER_PAGE = 10;

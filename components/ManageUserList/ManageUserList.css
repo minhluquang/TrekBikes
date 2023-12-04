@@ -656,3 +656,7 @@
   font-size: 22px;
   color: #000;
 }
+ 
+.body__filter--field.body__filter--dateClient{
+  width: 25%;
+}

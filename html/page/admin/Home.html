@@ -234,7 +234,7 @@
                 <th>Phân loại</th>
                 <th>Ngày cập nhật</th>
                 <th>Ngày tạo</th>
-                <th>Copy</th>
+                <th>Giá</th>
                 <th>Sửa</th>
                 <th>Xóa</th>
               </tr>
@@ -327,6 +327,10 @@
                   </select>
                 </div>
 
+               
+              </div>
+
+              <div class="admin__content--body__filter--gr1">
                 <div class="body__filter--field body__filter--orderDate" id="orderDateBegin">
                   <label>Từ ngày:</label>
                   <input type="date" />
@@ -392,6 +396,17 @@
                   <input type="text" placeholder="Nhập mã khách hàng" />
                 </div>
 
+                <div class="body__filter--field body__filter--roleClient" id="userRoleClient">
+                  <p>Loại tài khoản</p>
+                  <select>
+                    <option value="all">Tất cả</option>
+                    <option value="admin">Quản trị viên</option>
+                    <option value="user">Người dùng</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="admin__content--body__filter--gr1">
                 <div class="body__filter--field body__filter--dateClient" id="userBeginDate">
                   <label for="userDate">Từ ngày:</label>
                   <input type="date" id="beginDate" />
@@ -400,15 +415,6 @@
                 <div class="body__filter--field body__filter--dateClient" id="userEndDate">
                   <label for="userDate">Đến ngày:</label>
                   <input type="date" id="endDate" />
-                </div>
-
-                <div class="body__filter--field body__filter--roleClient" id="userRoleClient">
-                  <p>Loại tài khoản</p>
-                  <select>
-                    <option value="all">Tất cả</option>
-                    <option value="admin">Quản trị viên</option>
-                    <option value="user">Người dùng</option>
-                  </select>
                 </div>
               </div>
               <div class="body__filter--actions">

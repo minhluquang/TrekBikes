@@ -613,6 +613,7 @@ function handlePanding() {
             cancelOrder.addEventListener('click', () => {
               DUMMY_API[tmp].cart.splice(j, 1);
               localStorage.setItem('DUMMY_API', JSON.stringify(DUMMY_API));
+              alert('Đã hủy đơn thành công!');
               location.reload();
             });
           }

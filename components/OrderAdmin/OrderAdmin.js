@@ -290,6 +290,12 @@ submitBtn.addEventListener('click', e => {
   const selectStatusValue = document.querySelector('#orderStatus select').value;
   const inputOrderDateBegin = document.querySelector('#orderDateBegin input').value;
   const inputOrderDateEnd = document.querySelector('#orderDateEnd input').value;
+  const timeBegin = new Date(inputOrderDateBegin);
+  const timeEnd = new Date(inputOrderDateEnd);
+  if(timeBegin > timeEnd) {
+    alert("Ngày bắt đầu phải nhỏ hơn ngày kết thúc");
+    return;
+  }
  
   // console.log(day +" " + month + " " +year);
   // Nếu có dữ liệu nhập vào ít nhất ở 1 ô thì mới cuộn xuống, không có thì k làm gì
@@ -309,17 +315,18 @@ submitBtn.addEventListener('click', e => {
   // Lọc theo ngày tháng năm
 
   if (inputOrderDateBegin && inputOrderDateEnd) {
-    const timeBegin = new Date(inputOrderDateBegin);
+    
     const dayBegin = timeBegin.getDate();
     const monthBegin = timeBegin.getMonth();
     const yearBegin = timeBegin.getFullYear();
 
-    const timeEnd = new Date(inputOrderDateEnd);
+    
     const dayEnd = timeEnd.getDate();
     const monthEnd = timeEnd.getMonth();
     const yearEnd = timeEnd.getFullYear();
     data = data.filter(user => {
       return user.cart.some(cart => {
+        console.log
         const timeOrder = new Date(cart.dateCreate);
         const dayOrder = timeOrder.getDate();
         const monthOrder = timeOrder.getMonth();
@@ -328,8 +335,11 @@ submitBtn.addEventListener('click', e => {
         const orderDate = new Date(yearOrder, monthOrder, dayOrder);
         const startDate = new Date(yearBegin, monthBegin, dayBegin);
         const endDate = new Date(yearEnd, monthEnd, dayEnd);
-  
-        return orderDate >= startDate && orderDate <= endDate;
+        const isAfterOrEqualBeginDate = startDate <= orderDate;
+        const isBeforeOrEqualEndDate = orderDate <= endDate;
+      
+
+        return isAfterOrEqualBeginDate && isBeforeOrEqualEndDate; 
       });
     });
   }
