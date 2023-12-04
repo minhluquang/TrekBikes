@@ -424,3 +424,14 @@ if (isLoggedIn) {
 } else {
   headerTop.querySelector('.header__top-item--left').style.display = 'none';
 }
+///-------------------------------
+// start : checking login when click Tai khoan
+function HienthiTaikhoan(){
+  console.log( document.querySelector(".user__wrapper"));
+  document.querySelector(".user__wrapper").style.display = 'flex';
+}
+//end : checking login when click Tai khoan
+function Dangky__btn(){
+    document.querySelector(".register").style.opacity = '1';
+}
+

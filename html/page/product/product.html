@@ -308,8 +308,8 @@
                     </button>
                     <div class="nav-dropdown" id="nav-dropdown">
                         <ul class="menu">
-                            <li class="item"><a href="#">Tài khoản</a></li>
-                            <li class="item"><a href="./page/cartPage/cart.html">cart</a></li>
+                            <li id="HienthiTaikhoan" onclick="HienthiTaikhoan()" class="item"><a href="#">Tài khoản</a></li>
+                            <li class="item"><a href="../cart/cart.html">Cart</a></li>
                         </ul>
                     </div>
                 </div>
@@ -652,7 +652,7 @@
   
             <div class="register__again" style="display: none">
               <p>Bạn chưa có tài khoản?</p>
-              <button>Đăng ký</button>
+              <button onclick="Dangky__btn()">Đăng ký</button>
             </div>
           </div>
           <div class="login__background">
@@ -662,6 +662,7 @@
           </div>
         </div>
       </div>
+      
     </div>
 
     <div class="overlay-login"></div>

@@ -1,5 +1,10 @@
 
 @media (max-width: 1000px) {
+    /* ---------------------- */
+    .register{
+        opacity: 0;
+    }
+    /* ---------------------- */
     .navbar .navbar-collapse .navbar-nav{
         display: none;
     }
@@ -231,7 +236,7 @@
        padding: 5px 14px;
    }
 
-    
+
    
 
 }
