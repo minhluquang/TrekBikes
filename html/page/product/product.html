@@ -179,15 +179,15 @@
                 <div class="price">
                     <h4>nhập khoảng giá</h4>
                     <div class="price-dropdown">
-                        <ul class="price-menu">
+                        <ul class="price-menu" id="sidebar-price-menu">
                             <li class="item">
-                                <input type="text" id="minInput">
+                                <input type="text" id="sidebar-minInput">
                             </li>
                             <li class="item">
                                 ->
                             </li>
                             <li class="item">
-                                <input type="text" id="maxInput">
+                                <input type="text" id="sidebar-maxInput">
                             </li>
                         </ul>
                         <button id="selectButton">Chọn</button>
@@ -196,18 +196,40 @@
                 </div>
                 <div class="dropdown">
                     <button class="dropdown-button">chọn khoảng giá</button>
-                    <ul class="dropdown-menu" style="color: #333;">
-                        <li>10tr - 50tr</li>
-                        <li>50tr - 100tr</li>
-                        <li>100tr - 300tr</li>
+                    <ul class="dropdown-menu" id="sidebar-dropdown-menu" style="color: #333;">
+                        <li>
+                            10tr - 50tr
+                            <input type="checkbox">
+                        </li>
+                        <li>
+                            50tr - 100tr
+                            <input type="checkbox">
+                        </li>
+                        <li>
+                            100tr - 300tr
+                            <input type="checkbox">
+                        </li>
                     </ul>
                 </div>
-                <div class="type">
-                    <span id="type-item">Mountain</span>
-                    <span id="type-item">Road</span>
-                    <span id="type-item">Kids</span>
-                    <span id="type-item">Touring</span>
+                <div class="type" id="sidebar-type">
+                    <span id="type-item">
+                        Mountain
+                        <input type="checkbox">
+                    </span>
+                    <span id="type-item">
+                        Road
+                        <input type="checkbox">
+                    </span>
+                    <span id="type-item">
+                        Kids
+                        <input type="checkbox">
+                    </span>
+                    <span id="type-item">
+                        Touring
+                        <input type="checkbox">
+                    </span>
                 
+                    <button id="sidebar-confirm-button">Submit</button>
                 </div>
             </div>
 

@@ -270,6 +270,150 @@ function filteredProducts() {
 }
 filteredProducts();
 
+
+function sidebarFilteredProducts() {
+  const dropdownMenu = document.getElementById('sidebar-dropdown-menu');
+  const types = document.getElementById('sidebar-type');
+
+  // let price = '';  
+  dropdownMenu.querySelectorAll('input').forEach(element => {
+    element.addEventListener('click', () => {
+      dropdownMenu.querySelectorAll('input').forEach(otherElement => {
+        if (otherElement !== element) {
+          otherElement.checked = false
+        }
+      })
+    })
+  })
+  types.querySelectorAll('input').forEach(element => {
+    element.addEventListener('click', () => {
+      types.querySelectorAll('input').forEach(otherElement => {
+        if (otherElement !== element) {
+          otherElement.checked = false
+        }
+      })
+    })
+  })
+
+}
+sidebarFilteredProducts();
+
+
+
+document.getElementById('sidebar-confirm-button').addEventListener('click', function () {
+  const types = document.getElementById('sidebar-type');
+  const dropdownMenu = document.getElementById('sidebar-dropdown-menu');
+
+  let checkedTypes = false;
+  let checkedPrices = false;
+
+  types.querySelectorAll('input').forEach(element => {
+    if (element.checked) {
+      checkedTypes = true;
+    }
+  });
+
+  dropdownMenu.querySelectorAll('input').forEach(element => {
+    if (element.checked) {
+      checkedPrices = true;
+    }
+  });
+
+  
+  if (checkedTypes || checkedPrices) {
+    var selectedPrices;
+    var selectedTypes;
+
+    var totalFound = [];
+
+    document.getElementById('sidebar-dropdown-menu').querySelectorAll('input:checked').forEach(function (checkbox) {
+      selectedPrices = checkbox.parentElement.textContent.trim();
+    });
+
+    document.querySelectorAll('#type-item input:checked').forEach(function (checkbox) {
+      selectedTypes = checkbox.parentElement.textContent.trim();
+    });
+
+    if(selectedPrices && selectedTypes){
+      if (selectedPrices === '10tr - 50tr') {
+        totalFound = data.filter(product => {
+          const price = parseInt(product.price.replace(/[^\d]/g, ''));
+          return price >= 10000000 && price <= 50000000 && product.type === selectedTypes.toLowerCase()
+        })
+      }
+      if (selectedPrices === '50tr - 100tr') {
+        totalFound = data.filter(product => {
+          const price = parseInt(product.price.replace(/[^\d]/g, ''));
+          return price >= 50000000 && price <= 100000000 && product.type === selectedTypes.toLowerCase()
+        })
+      }
+      if (selectedPrices === '100tr - 300tr') {
+        totalFound = data.filter(product => {
+          const price = parseInt(product.price.replace(/[^\d]/g, ''));
+          return price >= 100000000 && price <= 300000000 && product.type === selectedTypes.toLowerCase()
+        })
+        console.log(totalFound)
+      }
+    }else{
+      if (selectedTypes) {
+        totalFound = data.filter(product => product.type === selectedTypes.toLowerCase());
+      }
+      if (selectedPrices) {
+        if (selectedPrices === '10tr - 50tr') {
+          totalFound = data.filter(product => {
+            const price = parseInt(product.price.replace(/[^\d]/g, ''));
+            return price >= 10000000 && price <= 50000000
+          })
+        }
+        if (selectedPrices === '50tr - 100tr') {
+          totalFound = data.filter(product => {
+            const price = parseInt(product.price.replace(/[^\d]/g, ''));
+            return price >= 50000000 && price <= 100000000
+          })
+        }
+        if (selectedPrices === '100tr - 300tr') {
+          totalFound = data.filter(product => {
+            const price = parseInt(product.price.replace(/[^\d]/g, ''));
+            return price >= 100000000 && price <= 300000000
+          })
+          console.log(totalFound)
+        }
+      }
+    }
+
+    if(totalFound.length < 1){
+      alert('khong tim thay san pham');
+      location.reload();
+    }
+    
+   
+    generatePagination(totalFound)
+    loadData(totalFound);
+
+    console.log('FoundPrice: ', totalFound);
+  }else{
+    alert('khon tim thay san pham');
+    location.reload();
+  }
+ 
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 document.getElementById('filter-confirm-button').addEventListener('click', function () {
   const types = document.getElementById('types');
   const dropdownMenu = document.getElementById('dropdown-menu');
