@@ -429,8 +429,7 @@ function displayItemTypes() {
   if(foundTypes.length < 1){
     generatePagination(data);
     loadData(data);
-  }else{
-    
+  }else{ 
     generatePagination(foundTypes);
     loadData(foundTypes);
   }
