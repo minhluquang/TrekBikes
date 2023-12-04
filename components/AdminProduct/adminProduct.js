@@ -63,17 +63,26 @@ function displayFormChange() {
       <h2>Thay đổi thông tin sản phẩm</h2>
       <form>
         <p id="id" style="opacity: 0">2</p>
-        <div class="form-group">
-          <label for="">Hình ảnh</label>
-          <input type="file" id="imageUrl" name="imageUrl" required />
-          <img id="form-group--previewImg"></img>
+
+        <div class="form-group form-group--start">
+          <label for="">Xóa ảnh</label>
+          <input type="checkbox" id="deleteImgFormEdit" checked/>
         </div>
+
+        <div class="form-group" id="editImgForm">
+          <label for="">Hình ảnh</label>
+            <input type="file" id="imageUrl" name="imageUrl" required />
+            <img id="form-group--previewImg"></img>
+            <p class="imgMessage"></p>
+        </div>
+
         <div class="form-group-1">
         <div class="form-group-name">
           <label for="">Tên sản phẩm</label>
           <input type="text" id="name" name="name" required />
           <p class="nameMessage"></p>
         </div>
+
         <div class="form-group-type">
           <label for="">Phân loại</label>
           <select id="type">
@@ -86,16 +95,33 @@ function displayFormChange() {
           <p class="typeMessage"></p>
         </div>
         </div>
-        <div class="form-group">
-          <label for="">Ngày cập nhật</label>
-          <input type="date" id="dateupdate" name="dateupdate" required />
-          <p class="updateMessage"></p>
+
+        <div class="form-group-1">
+          <div class="form-group">
+            <label for="">Giá sản phẩm</label>
+            <input type="text" id="priceEditForm" name="priceEditForm" required />
+            <p class="priceMessage"></p>
+          </div>
+  
+          <div class="form-group form-group--start">
+            <label for="">Mã sản phẩm</label>
+            <input type="text" id="idProductEdit" required/>
+            <p class="idProductMessage"></p>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label for="">Ngày tạo</label>
-          <input type="date" id="datecreate" name="datecreate" required />
-          <p class="createMessage"></p>
+        <div class="form-group-1">
+          <div class="form-group">
+            <label for="">Ngày cập nhật</label>
+            <input type="date" id="dateupdate" name="dateupdate" required />
+            <p class="updateMessage"></p>
+          </div>
+  
+          <div class="form-group">
+            <label for="">Ngày tạo</label>
+            <input type="date" id="datecreate" name="datecreate" required />
+            <p class="createMessage"></p>
+          </div>
         </div>
 
         <button type="submit" id="formSubmit">Change</button>
@@ -151,32 +177,79 @@ function updateEvent(item, index, id, element) {
       const currentProductName = edit.parentElement.querySelector('.name').innerText.trim();
       document.querySelector('.form-group-name #name').setAttribute('value', currentProductName);
 
+      // Set price mặc định là price hiện tại
+      const currentProductPrice = edit.parentElement
+        .querySelector('.price')
+        .innerText.trim()
+        .split(' ')[0]
+        .replace(/\./g, '');
+      document.querySelector('#priceEditForm').setAttribute('value', currentProductPrice);
+
+      // Set mã id mặc định là id hiện tại
+      const currentIdProduct = edit.parentElement.querySelector('.id').innerText.trim();
+      document.querySelector('#idProductEdit').setAttribute('value', currentIdProduct);
+
+      // Set phân loại
+      const currentTypeProduct = edit.parentElement.querySelector('.type').innerText.trim();
+      document.querySelector('.form-group-type #type').value = currentTypeProduct;
+
       // Nếu có sự input hình ảnh thì hiển thị
       const formImgInput = document.querySelector('.form-group #imageUrl');
+
       formImgInput.addEventListener('change', e => {
         previewImage(formImgInput, '#form-group--previewImg');
+      });
+
+      // Kiểm tra ô input không check thì hiện input file hình ảnh
+      const formCheckboxDeleteImg = document.querySelector('#deleteImgFormEdit');
+      formCheckboxDeleteImg.addEventListener('click', e => {
+        const inputImg = document.querySelector('#editImgForm');
+        if (formCheckboxDeleteImg.checked) {
+          inputImg.style.display = 'none';
+        } else {
+          inputImg.style.display = 'block';
+        }
       });
 
       const submitBtn = document.getElementById('formSubmit');
       submitBtn.addEventListener('click', e => {
         e.preventDefault();
 
+        const imageUrlValue = document.querySelector('#imageUrl').value;
         const formImgPathLink = document.querySelector('#form-group--previewImg');
         const formNameInputValue = document.querySelector('.form-group-1 #name').value.trim();
         const formDateUpdateValue = document.querySelector('.form-group #dateupdate').value;
         const formDateCreateValue = document.querySelector('.form-group #datecreate').value;
         const formTypeValue = document.querySelector('.form-group-1 #type').value;
+        const formPriceValue = document.querySelector('#priceEditForm').value;
+        const formIdProductValue = document.querySelector('#idProductEdit').value;
 
+        let isValidInputImg = true;
         let isValidName = true;
         let isValidDateUpdate = true;
         let isValidDateCreate = true;
         let isValidType = true;
+        let isValidPrice = true;
+        let isValidIdProduct = true;
+
         const nameMessgae = document.querySelector('.nameMessage');
         const updateMessage = document.querySelector('.updateMessage');
         const createMessage = document.querySelector('.createMessage');
         const typeMessage = document.querySelector('.typeMessage');
-        console.log(typeMessage);
+        const imgMessage = document.querySelector('.imgMessage');
+        const priceMessage = document.querySelector('.priceMessage');
+        const idProductMessage = document.querySelector('.idProductMessage');
+
         // Check đúng sai dữ liệu
+
+        if (imageUrlValue === '' && !formCheckboxDeleteImg.checked) {
+          isValidInputImg = false;
+          imgMessage.innerHTML = '* Vui lòng chọn file hình ảnh';
+        } else {
+          isValidInputImg = true;
+          imgMessage.innerHTML = '';
+        }
+
         if (formNameInputValue === '') {
           isValidName = false;
           nameMessgae.innerHTML = '* Vui lòng nhập tên sản phẩm';
@@ -203,36 +276,88 @@ function updateEvent(item, index, id, element) {
 
         if (formTypeValue === 'all') {
           isValidType = false;
-          typeMessage.innerHTML = '*Vui lòng chọn thể loại';
+          typeMessage.innerHTML = '* Vui lòng chọn thể loại';
         } else {
           isValidType = true;
           typeMessage.innerHTML = '';
         }
 
-        if (formDateCreateValue > formDateUpdateValue) {
-          isValidDateCreate = false;
-          createMessage.innerHTML = '* Vui lòng nhập ngày tạo nhỏ hơn hoặc bằng ngày cập nhật';
+        if (formPriceValue.trim() === '') {
+          isValidPrice = false;
+          priceMessage.innerHTML = '* Vui lòng nhập dữ liệu';
+        } else if (!+formPriceValue.trim()) {
+          isValidPrice = false;
+          priceMessage.innerHTML = '* Vui lòng nhập dữ liệu là số';
         } else {
-          isValidDateCreate = true;
-          createMessage.innerHTML = '';
+          isValidPrice = true;
+          priceMessage.innerHTML = '';
         }
 
-        let isValidForm = isValidName && isValidDateUpdate && isValidDateCreate;
+        if (formIdProductValue.trim().length === 0) {
+          idProductMessage.innerHTML = '* Vui lòng nhập mã sản phẩm';
+          isValidIdProduct = false;
+        } else if (
+          // Kiểm tra vừa khác id trong list data và khác với id hiện tại thì mới thông báo lỗi
+          data.some(
+            product => product.ID === formIdProductValue.trim() && currentIdProduct !== formIdProductValue.trim()
+          )
+        ) {
+          idProductMessage.innerHTML = '* Mã sản phẩm đã tồn tại';
+          isValidIdProduct = false;
+        } else if (formIdProductValue.trim().length !== 5) {
+          idProductMessage.innerHTML = '* Mã sản phẩm phải bằng 5 ký tự';
+          isValidIdProduct = false;
+        } else {
+          idProductMessage.innerHTML = '';
+          isValidIdProduct = true;
+        }
+
+        // Nếu có đầu vào nhập ngày bắt đầu và ngày kết thúc thì
+        // tiếp tục kiểm tra ngày bắt đầu lớn hơn ngày kết thúc
+        if (isValidDateCreate && isValidDateUpdate) {
+          if (formDateCreateValue > formDateUpdateValue) {
+            isValidDateCreate = false;
+            createMessage.innerHTML = '* Vui lòng nhập ngày tạo nhỏ hơn hoặc bằng ngày cập nhật';
+          } else {
+            isValidDateCreate = true;
+            createMessage.innerHTML = '';
+          }
+        }
+
+        if (formCheckboxDeleteImg.checked) {
+          isValidInputImg = true;
+        }
+
+        let isValidForm =
+          isValidName &&
+          isValidDateUpdate &&
+          isValidDateCreate &&
+          isValidType &&
+          isValidInputImg &&
+          isValidPrice &&
+          isValidIdProduct;
 
         if (isValidForm) {
           data.forEach(product => {
             if (product.ID === id) {
-              product.imgSrc = formImgPathLink.src ? formImgPathLink.src : '../../../database/images/comming.jpg';
+              product.imgSrc = formCheckboxDeleteImg.checked
+                ? '../../../database/images/comming.jpg'
+                : formImgPathLink.src;
               product.name = formNameInputValue;
+              product.price = `${(+formPriceValue).toLocaleString('vi-VN')} VND`;
               product.dateCreate = new Date(formDateCreateValue).toISOString();
               product.dateUpdate = new Date(formDateUpdateValue).toISOString();
               product.type = formTypeValue;
+              product.ID = formIdProductValue;
             }
           });
           // Đặt item = 'needReturnProductPage' trên local để khi reload lại trang
           // kiểm tra xem có cần quay lại trang product admin không
           localStorage.setItem('needReturnProductPage', JSON.stringify(true));
           localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
+
+          alert('Cập nhật dữ liệu thành công!');
+
           location.reload();
         }
       });
@@ -292,6 +417,9 @@ function updateEvent(item, index, id, element) {
         // kiểm tra xem có cần quay lại trang product admin không
         localStorage.setItem('needReturnProductPage', JSON.stringify(true));
         localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(data));
+
+        alert('Xóa sản phẩm thành công!');
+
         location.reload();
         hideModal();
       });
@@ -519,17 +647,19 @@ addProductBtn.addEventListener('click', e => {
     } else if (data.some(product => product.ID === id.value.trim())) {
       showMessageIdRes.innerHTML = '* Mã sản phẩm đã tồn tại';
       isValidId = false;
+    } else if (id.value.trim().length !== 5) {
+      showMessageIdRes.innerHTML = '* Mã sản phẩm phải bằng 5 ký tự';
+      isValidId = false;
     } else {
+      showMessageIdRes.innerHTML = '';
       id.style.border = '1px solid #333';
       isValidId = true;
     }
 
-    const patternNumber = /^[-+]?[0-9]*\.?[0-9]+$/;
-
     if (price.value.trim().length === 0) {
       showMessagePrice.innerHTML = '* Vui lòng nhập giá sản phẩm';
       isValidPrice = false;
-    } else if (!patternNumber.test(price.value.trim())) {
+    } else if (!+price.value.trim()) {
       showMessagePrice.innerHTML = '* Giá sản phẩm phải là số';
       isValidPrice = false;
     } else {
