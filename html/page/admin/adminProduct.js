@@ -859,7 +859,7 @@ filterSubmitBtn.addEventListener('click', e => {
       <th class="type">${element.type}</th>
       <th class="date-update">${dateUpdateDate}/${dateUpdateMonth}/${dateUpdateYear}</th>
       <th class="date-creat">${dateCreateDate}/${dateCreateMonth}/${dateCreateYear}</th>
-      <th class="copy" id="copy">Copy</th>
+      <th class="price">${element.price}</th>
       <th class="edit" id="edit">Sửa</th>
       <th class="delete" id="delete">Xóa</th>
     `;
