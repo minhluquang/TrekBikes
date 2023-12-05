@@ -272,9 +272,7 @@ function updateEvent() {
     const id = Element.querySelector('.id');
     const colorDots = Element.querySelector('.dot');
 
-    let checkLike = true;
 
-    const like = Element.querySelector('#like');
     const ElementImg = Element.querySelector('img');
     const ElementInfo = Element.querySelector('.overlay-click');
 

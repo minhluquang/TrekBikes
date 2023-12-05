@@ -69,13 +69,86 @@ function displayItem(startIndex, endIndex, data) {
                          </div>
                         <div class="product-information">
                              <div class="color-dots">${colors.map(
-                               color => `<div class="dot-items" style="background-color: ${color};"></div>`
-                             )}</div>
+        color => `<div class="dot-items" style="background-color: ${color};"></div>`
+      )}</div>
                             <h3>${data[i].name}</h3>
                             <p>Price: ${data[i].price}</p>
                         </div>
                     `;
       productList.appendChild(productItem);
+      const addCart = productItem.querySelector('#add-cart');
+
+        const overlayClick = productItem.querySelector('.overlay-click');
+
+
+        overlayClick.addEventListener('click', () => {
+          overlay.style.display = 'flex';
+          const overlayImg = overlay.querySelector('img');
+
+          const closeToggle = overlay.querySelector('#close-toggler');
+          const overlayName = overlay.querySelector('.name');
+
+
+          const overlayid = overlay.querySelector('#overlayid');
+          overlayid.innerHTML = data[i].ID;
+          closeToggle.addEventListener('click', () => {
+            overlay.style.display = 'none';
+            toastContainer.style.display = 'none';
+          });
+          overlayName.innerHTML = data[i].name;
+          overlayImg.src = `${returnPathImg(data[i].imgSrc)}`;
+          overlayPrice.innerHTML = data[i].price;
+
+
+
+          toast.forEach(e => {
+            const exitToast = e.querySelector('.exit');
+            exitToast.addEventListener('click', () => {
+              toastContainer.style.display = 'none';
+              e.style.display = 'none';
+            });
+          });
+        });
+
+        addCart.addEventListener('click', () => {
+          for (let i = 0; i < userLocal.cart.length; i++) {
+            if (userLocal.cart[i].id === e.ID) {
+              quantity = parseInt(userLocal.cart[i].quantity);
+              break;
+            }
+          }
+          quantity = quantity + 1;
+          alert('Đã thêm vào giỏ hàng!');
+
+          const process = {
+            id: e.ID,
+            quantity: quantity
+          };
+          // alert(quantity);
+          let found = false;
+
+          if (userLocal.cart.length > 0) {
+            for (let i = 0; i < userLocal.cart.length; i++) {
+              if (process.id === userLocal.cart[i].id) {
+                userLocal.cart[i].quantity = quantity;
+                found = true;
+                break;
+              }
+            }
+          }
+
+          if (!found) {
+            userLocal.cart.push(process);
+            quantity = 0;
+          }
+
+          localStorage.setItem('User', JSON.stringify(userLocal));
+          const itemCart = document.createElement('p');
+          itemCart.classList.add('item-cart');
+          itemCart.innerText = `${userLocal.cart.length}`;
+          navItemCart.appendChild(itemCart);
+        });
+      
     } else {
       return;
     }
@@ -161,7 +234,7 @@ input.addEventListener('input', event => {
         overlayClose.addEventListener('click', () => {
           overlay.style.display = 'none';
         });
-       
+
         toast.forEach(e => {
           const exitToast = e.querySelector('.exit');
           exitToast.addEventListener('click', () => {
@@ -234,7 +307,7 @@ const clickAddCart = () => {
 submitBtn.addEventListener('click', e => {
   e.preventDefault();
   const matchingProduct = database.filter(e => e.name.toLowerCase().includes(inputSearch[0].trim().toLowerCase()));
-
+  // console.log(matchingProduct)
   productList.innerHTML = '';
   input.innerHTML = '';
 
@@ -244,24 +317,28 @@ submitBtn.addEventListener('click', e => {
 
   if (inputSearch[0].trim() === '') {
     alert('Không tìm thấy sản phẩm ');
-    displayItem(0, 10, data);
+    generatePagination(data);
+    loadData(data);
     paging.style.display = 'flex';
   } else {
     if (matchingProduct.length > 0) {
-        generatePagination(matchingProduct);
-        loadData(matchingProduct)
-    } else if (matchingProduct.length <= 0) {
+
+     generatePagination(matchingProduct);
+     loadData(matchingProduct);
+    } else {
       statusSearch.innerText = 'Không tìm thấy sản phẩm';
       alert('Không tìm thấy sản phẩm ');
-      generatePagination(database)
-      loadData();
+      generatePagination(data)
+      loadData(data)
       document.location.reload();
       paging.style.display = 'flex';
-      // returnPage.style.display = 'none';
+      returnPage.style.display = 'none';
     }
   }
 });
-
+returnPage.addEventListener('click', () => {
+  document.location.reload();
+});
 
 // window.addEventListener('popstate', (event) => {
 //     alert('Quay lại trang');
@@ -387,19 +464,6 @@ function loadData(data) {
   // updateEvent();
 }
 
-function displayItemTypes() {
-  const type = JSON.parse(localStorage.getItem('typeToFilter'));
-     const foundTypes = data.filter(product => product.type === type.toLowerCase());
-  if(foundTypes.length < 1){
-    generatePagination(data);
-    loadData(data);
-  }else{ 
-    generatePagination(foundTypes);
-    loadData(foundTypes);
-  }
-}
-
-displayItemTypes();
 
 window.addEventListener('resize', () => {
   check = false;
