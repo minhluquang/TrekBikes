@@ -165,7 +165,7 @@
   box-shadow: 3px 0px 2px 0px rgba(0, 0, 0, 0.3);
 }
 
-.admin__content--header::before {
+/* .admin__content--header::before {
   position: absolute;
   content: '';
   width: 25px;
@@ -185,7 +185,7 @@
   left: 0;
   border-radius: 50%;
   box-shadow: -20px -20px 0 #fff;
-}
+} */
 
 .admin__content--header__cate {
   color: #333;

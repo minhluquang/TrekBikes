@@ -1,12 +1,19 @@
 /* Admin Product */
-#content-product {
+.table__wrapper {
   width: calc(100% - 40px);
+  margin: 5px 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+#content-product {
+  width: 100%;
 }
 
 .admin-product table {
   border-collapse: collapse;
   width: 100%;
-  margin: 5px 20px;
 }
 
 .admin-product td,
@@ -55,6 +62,11 @@ th {
 .admin-product .type {
   width: 100px;
 }
+
+.admin-product .price {
+  width: 200px;
+}
+
 .admin-product .date-update {
   width: 150px;
 }
@@ -159,6 +171,13 @@ th {
   gap: 10px;
 }
 
+.change-product-info form .form-group div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 .change-product-info form .form-group-1 {
   display: flex;
   align-items: center;
@@ -229,9 +248,12 @@ th {
   box-shadow: rgba(48, 191, 13, 0.983) 0px 0px 0px 0px;
 }
 
+#changeImgFormEdit,
+#saveImgFormEdit,
 #deleteImgFormEdit {
   height: 20px;
   width: 20px;
+  margin-left: 5px;
 }
 
 #editImgForm {

@@ -61,16 +61,30 @@ function displayFormChange() {
     <div class="change-product-info">
       <i class="close fa-solid fa-xmark" id="close"></i>
       <h2>Thay đổi thông tin sản phẩm</h2>
+      <p>* Định dạng ngày ô nhập là mm/dd/yyyy</p>
       <form>
         <p id="id" style="opacity: 0">2</p>
 
         <div class="form-group form-group--start">
-          <label for="">Xóa ảnh</label>
-          <input type="checkbox" id="deleteImgFormEdit" checked/>
+          <label for="">Hình ảnh</label>
+          <div>
+            <div>
+              <p>Xóa hình</p>
+              <input type="radio" id="deleteImgFormEdit" value="delete" name="img" />
+            </div>
+            <div>
+              <p>Thay hình</p>
+              <input type="radio" id="changeImgFormEdit" value="change" name="img" />
+            </div>
+            <div>
+              <p>Giữ hình</p>
+              <input type="radio" id="saveImgFormEdit" value="save" name="img" checked />
+            </div>
+          </div>
         </div>
 
         <div class="form-group" id="editImgForm">
-          <label for="">Hình ảnh</label>
+          <label for="">Tải ảnh lên</label>
             <input type="file" id="imageUrl" name="imageUrl" required />
             <img id="form-group--previewImg"></img>
             <p class="imgMessage"></p>
@@ -193,6 +207,21 @@ function updateEvent(item, index, id, element) {
       const currentTypeProduct = edit.parentElement.querySelector('.type').innerText.trim();
       document.querySelector('.form-group-type #type').value = currentTypeProduct;
 
+      // Set date
+      const currentCreateDate = edit.parentElement.querySelector('.date-creat').innerText.trim().split('/');
+      const currentCreateDay = currentCreateDate[0];
+      const currentCreateMonth = currentCreateDate[1];
+      const currentCreateYear = currentCreateDate[2];
+
+      document.querySelector('#datecreate').value = `${currentCreateYear}-${currentCreateMonth}-${currentCreateDay}`;
+
+      const currentUpdateDate = edit.parentElement.querySelector('.date-update').innerText.trim().split('/');
+      const currentUpdateDay = currentUpdateDate[0];
+      const currentUpdateMonth = currentUpdateDate[1];
+      const currentUpdateYear = currentUpdateDate[2];
+
+      document.querySelector('#dateupdate').value = `${currentUpdateYear}-${currentUpdateMonth}-${currentUpdateDay}`;
+
       // Nếu có sự input hình ảnh thì hiển thị
       const formImgInput = document.querySelector('.form-group #imageUrl');
 
@@ -202,12 +231,25 @@ function updateEvent(item, index, id, element) {
 
       // Kiểm tra ô input không check thì hiện input file hình ảnh
       const formCheckboxDeleteImg = document.querySelector('#deleteImgFormEdit');
-      formCheckboxDeleteImg.addEventListener('click', e => {
-        const inputImg = document.querySelector('#editImgForm');
+      const formCheckboxSaveImg = document.querySelector('#saveImgFormEdit');
+      const formCheckboxChangeImg = document.querySelector('#changeImgFormEdit');
+      const inputImg = document.querySelector('#editImgForm');
+
+      formCheckboxDeleteImg.addEventListener('change', e => {
         if (formCheckboxDeleteImg.checked) {
           inputImg.style.display = 'none';
-        } else {
-          inputImg.style.display = 'block';
+        }
+      });
+
+      formCheckboxSaveImg.addEventListener('change', e => {
+        if (formCheckboxSaveImg.checked) {
+          inputImg.style.display = 'none';
+        }
+      });
+
+      formCheckboxChangeImg.addEventListener('change', e => {
+        if (formCheckboxChangeImg.checked) {
+          inputImg.style.display = 'flex';
         }
       });
 
@@ -242,7 +284,7 @@ function updateEvent(item, index, id, element) {
 
         // Check đúng sai dữ liệu
 
-        if (imageUrlValue === '' && !formCheckboxDeleteImg.checked) {
+        if (imageUrlValue === '' && formCheckboxChangeImg.checked) {
           isValidInputImg = false;
           imgMessage.innerHTML = '* Vui lòng chọn file hình ảnh';
         } else {
@@ -324,10 +366,6 @@ function updateEvent(item, index, id, element) {
           }
         }
 
-        if (formCheckboxDeleteImg.checked) {
-          isValidInputImg = true;
-        }
-
         let isValidForm =
           isValidName &&
           isValidDateUpdate &&
@@ -340,9 +378,19 @@ function updateEvent(item, index, id, element) {
         if (isValidForm) {
           data.forEach(product => {
             if (product.ID === id) {
-              product.imgSrc = formCheckboxDeleteImg.checked
-                ? '../../../database/images/comming.jpg'
-                : formImgPathLink.src;
+              let whatImgSrcIs;
+
+              if (formCheckboxDeleteImg.checked) {
+                whatImgSrcIs = '../../../database/images/comming.jpg';
+              } else if (formCheckboxChangeImg.checked) {
+                // Hình ảnh lấy từ function previewImage khi hiện thị lên màn hình
+                // Nhưng ở form này cho width: 0 nên không thấy hình ảnh, chỉ lấy được link src
+                whatImgSrcIs = formImgPathLink.src;
+              } else if (formCheckboxSaveImg) {
+                whatImgSrcIs = product.imgSrc;
+              }
+
+              product.imgSrc = whatImgSrcIs;
               product.name = formNameInputValue;
               product.price = `${(+formPriceValue).toLocaleString('vi-VN')} VND`;
               product.dateCreate = new Date(formDateCreateValue).toISOString();
@@ -351,6 +399,7 @@ function updateEvent(item, index, id, element) {
               product.ID = formIdProductValue;
             }
           });
+
           // Đặt item = 'needReturnProductPage' trên local để khi reload lại trang
           // kiểm tra xem có cần quay lại trang product admin không
           localStorage.setItem('needReturnProductPage', JSON.stringify(true));
