@@ -101,6 +101,14 @@ const closeModal = () => {
   overlay.classList.remove('active');
 };
 
+function returnTruePathLink(img) {
+  if (img.startsWith('data:image')) {
+    return img;
+  } else if (img.startsWith('database')) {
+    return '/' + img;
+  }
+}
+
 const showModal = (user, currentPID, cart, currentQNT) => {
   const form = modal.querySelector('form');
 
@@ -162,7 +170,7 @@ const showModal = (user, currentPID, cart, currentQNT) => {
         </ul>
       </div>
       <div class="modal__content--img">
-        <img src="/${productInfo.imgSrc}" alt="Hình ảnh xe đạp">
+        <img src="${returnTruePathLink(productInfo.imgSrc)}" alt="Hình ảnh xe đạp">
       </div>
       <div class="modal__conent--total__amount">
         <h1>Tổng tiền</h1>
@@ -292,14 +300,20 @@ submitBtn.addEventListener('click', e => {
   const inputOrderDateEnd = document.querySelector('#orderDateEnd input').value;
   const timeBegin = new Date(inputOrderDateBegin);
   const timeEnd = new Date(inputOrderDateEnd);
-  if(timeBegin > timeEnd) {
-    alert("Ngày bắt đầu phải nhỏ hơn ngày kết thúc");
+  if (timeBegin > timeEnd) {
+    alert('Ngày bắt đầu phải nhỏ hơn ngày kết thúc');
     return;
   }
- 
+
   // console.log(day +" " + month + " " +year);
   // Nếu có dữ liệu nhập vào ít nhất ở 1 ô thì mới cuộn xuống, không có thì k làm gì
-  if (inputIdClientValue === '' && inputIdOrderValue === '' && !selectStatusValue && !inputOrderDateBegin && !inputOrderDateEnd) {
+  if (
+    inputIdClientValue === '' &&
+    inputIdOrderValue === '' &&
+    !selectStatusValue &&
+    !inputOrderDateBegin &&
+    !inputOrderDateEnd
+  ) {
     return;
   } else {
     const contentListProduct = document.querySelector('#orderList');
@@ -315,31 +329,28 @@ submitBtn.addEventListener('click', e => {
   // Lọc theo ngày tháng năm
 
   if (inputOrderDateBegin && inputOrderDateEnd) {
-    
     const dayBegin = timeBegin.getDate();
     const monthBegin = timeBegin.getMonth();
     const yearBegin = timeBegin.getFullYear();
 
-    
     const dayEnd = timeEnd.getDate();
     const monthEnd = timeEnd.getMonth();
     const yearEnd = timeEnd.getFullYear();
     data = data.filter(user => {
       return user.cart.some(cart => {
-        console.log
+        console.log;
         const timeOrder = new Date(cart.dateCreate);
         const dayOrder = timeOrder.getDate();
         const monthOrder = timeOrder.getMonth();
         const yearOrder = timeOrder.getFullYear();
-  
+
         const orderDate = new Date(yearOrder, monthOrder, dayOrder);
         const startDate = new Date(yearBegin, monthBegin, dayBegin);
         const endDate = new Date(yearEnd, monthEnd, dayEnd);
         const isAfterOrEqualBeginDate = startDate <= orderDate;
         const isBeforeOrEqualEndDate = orderDate <= endDate;
-      
 
-        return isAfterOrEqualBeginDate && isBeforeOrEqualEndDate; 
+        return isAfterOrEqualBeginDate && isBeforeOrEqualEndDate;
       });
     });
   }
@@ -391,6 +402,7 @@ submitBtn.addEventListener('click', e => {
     sortProductsNonActiveFirst();
   }
 
+  renderImgTruePath();
   paginationHandler();
 });
 
@@ -617,6 +629,7 @@ const init = () => {
   clickIconInfoHandler();
   clickDeleteBtnHandler();
   sortProductsNonActiveFirst();
+  renderImgTruePath();
 };
 
 init();
@@ -696,3 +709,14 @@ function paginationHandler() {
 }
 paginationHandler();
 // end: pagination
+
+// Render lại hình ảnh
+function renderImgTruePath() {
+  const productOrders = document.querySelectorAll('.admin__content--body__products--item .products--item__img');
+  productOrders.forEach(order => {
+    const getImgPathLink = order.querySelector('img').getAttribute('src');
+    if (getImgPathLink.startsWith('/data:image')) {
+      order.querySelector('img').setAttribute('src', getImgPathLink.substring(1));
+    }
+  });
+}
