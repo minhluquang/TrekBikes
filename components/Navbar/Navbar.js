@@ -78,77 +78,78 @@ function displayItem(startIndex, endIndex, data) {
       productList.appendChild(productItem);
       const addCart = productItem.querySelector('#add-cart');
 
-        const overlayClick = productItem.querySelector('.overlay-click');
+      const overlayClick = productItem.querySelector('.overlay-click');
+      console.log(data);
 
 
-        overlayClick.addEventListener('click', () => {
-          overlay.style.display = 'flex';
-          const overlayImg = overlay.querySelector('img');
+      overlayClick.addEventListener('click', () => {
+        overlay.style.display = 'flex';
+        const overlayImg = overlay.querySelector('img');
 
-          const closeToggle = overlay.querySelector('#close-toggler');
-          const overlayName = overlay.querySelector('.name');
+        const closeToggle = overlay.querySelector('#close-toggler');
+        const overlayName = overlay.querySelector('.name');
 
 
-          const overlayid = overlay.querySelector('#overlayid');
-          overlayid.innerHTML = data[i].ID;
-          closeToggle.addEventListener('click', () => {
-            overlay.style.display = 'none';
+        const overlayid = overlay.querySelector('#overlayid');
+        overlayid.innerHTML = data[i].ID;
+        closeToggle.addEventListener('click', () => {
+          overlay.style.display = 'none';
+          toastContainer.style.display = 'none';
+        });
+        overlayName.innerHTML = data[i].name;
+        overlayImg.src = `${returnPathImg(data[i])}`;
+        overlayPrice.innerHTML = data[i].price;
+
+
+
+        toast.forEach(e => {
+          const exitToast = e.querySelector('.exit');
+          exitToast.addEventListener('click', () => {
             toastContainer.style.display = 'none';
-          });
-          overlayName.innerHTML = data[i].name;
-          overlayImg.src = `${returnPathImg(data[i].imgSrc)}`;
-          overlayPrice.innerHTML = data[i].price;
-
-
-
-          toast.forEach(e => {
-            const exitToast = e.querySelector('.exit');
-            exitToast.addEventListener('click', () => {
-              toastContainer.style.display = 'none';
-              e.style.display = 'none';
-            });
+            e.style.display = 'none';
           });
         });
+      });
 
-        addCart.addEventListener('click', () => {
+      addCart.addEventListener('click', () => {
+        for (let i = 0; i < userLocal.cart.length; i++) {
+          if (userLocal.cart[i].id === e.ID) {
+            quantity = parseInt(userLocal.cart[i].quantity);
+            break;
+          }
+        }
+        quantity = quantity + 1;
+        alert('Đã thêm vào giỏ hàng!');
+
+        const process = {
+          id: e.ID,
+          quantity: quantity
+        };
+        // alert(quantity);
+        let found = false;
+
+        if (userLocal.cart.length > 0) {
           for (let i = 0; i < userLocal.cart.length; i++) {
-            if (userLocal.cart[i].id === e.ID) {
-              quantity = parseInt(userLocal.cart[i].quantity);
+            if (process.id === userLocal.cart[i].id) {
+              userLocal.cart[i].quantity = quantity;
+              found = true;
               break;
             }
           }
-          quantity = quantity + 1;
-          alert('Đã thêm vào giỏ hàng!');
+        }
 
-          const process = {
-            id: e.ID,
-            quantity: quantity
-          };
-          // alert(quantity);
-          let found = false;
+        if (!found) {
+          userLocal.cart.push(process);
+          quantity = 0;
+        }
 
-          if (userLocal.cart.length > 0) {
-            for (let i = 0; i < userLocal.cart.length; i++) {
-              if (process.id === userLocal.cart[i].id) {
-                userLocal.cart[i].quantity = quantity;
-                found = true;
-                break;
-              }
-            }
-          }
+        localStorage.setItem('User', JSON.stringify(userLocal));
+        const itemCart = document.createElement('p');
+        itemCart.classList.add('item-cart');
+        itemCart.innerText = `${userLocal.cart.length}`;
+        navItemCart.appendChild(itemCart);
+      });
 
-          if (!found) {
-            userLocal.cart.push(process);
-            quantity = 0;
-          }
-
-          localStorage.setItem('User', JSON.stringify(userLocal));
-          const itemCart = document.createElement('p');
-          itemCart.classList.add('item-cart');
-          itemCart.innerText = `${userLocal.cart.length}`;
-          navItemCart.appendChild(itemCart);
-        });
-      
     } else {
       return;
     }
@@ -226,7 +227,7 @@ input.addEventListener('input', event => {
       searchInfoValue.addEventListener('click', () => {
         overlay.style.display = 'flex';
         searchValue.style.display = 'none';
-        overlayName.innerText = e.name;
+        overlayName.innerText = data.name;
         overlayImg.src = `${returnPathImg(e)}`;
         overlayPrice.innerText = e.price;
         overlayid.innerHTML = id.textContent;
