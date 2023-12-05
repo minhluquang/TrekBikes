@@ -37,7 +37,7 @@ function returnPathImg(element) {
   return pathImg;
 }
 
-function displayItem(startIndex, endIndex) {
+function displayItem(startIndex, endIndex, data) {
   productList.innerHTML = '';
 
   for (let i = startIndex; i < endIndex; i++) {
@@ -244,134 +244,24 @@ submitBtn.addEventListener('click', e => {
 
   if (inputSearch[0].trim() === '') {
     alert('Không tìm thấy sản phẩm ');
-    displayItem(0, 10);
+    displayItem(0, 10, data);
     paging.style.display = 'flex';
   } else {
     if (matchingProduct.length > 0) {
-      matchingProduct.forEach(e => {
-        let colors = e.dataColors;
-        paging.style.display = 'none';
-        statusSearch.innerText = 'Các sản phẩm tìm thấy';
-        let productItem = document.createElement('div');
-        productItem.classList.add('product-item');
-        productItem.innerHTML = `
-                           <div class = "id">${e.ID}</div>
-                             <div class="imgSrc">
-                             <img src="${returnPathImg(e)}">
-                             <div class="overlay-hover">
-    
-                            <div class="top-button">                  
-                                <i class="fa-solid fa-cart-plus" id="add-cart"></i>                        
-                                <i class="fa-solid fa-heart" id="like"></i>
-                            </div>
-                            <div class="overlay-click">
-    
-                            <button id="buy-now">
-                                    Mua ngay
-                            </button>
-    
-                            </div>
-    
-    
-                             </div>
-                             </div>
-                            <div class="product-information">
-                                 <div class="color-dots">${colors.map(
-                                   color => `<div class="dot-items" style="background-color: ${color};"></div>`
-                                 )}</div>
-                                <h3>${e.name}</h3>
-                                <p>Price: ${e.price}</p>
-                            </div>
-    
-                        `;
-        productList.appendChild(productItem);
-        returnPage.style.display = 'flex';
-        const addCart = productItem.querySelector('#add-cart');
-
-        const overlayClick = productItem.querySelector('.overlay-click');
-
-        
-        overlayClick.addEventListener('click', () => {
-          overlay.style.display = 'flex';
-          const overlayImg = overlay.querySelector('img');
-
-          const closeToggle = overlay.querySelector('#close-toggler');
-          const overlayName = overlay.querySelector('.name');
-
-
-          const overlayid = overlay.querySelector('#overlayid');
-          overlayid.innerHTML = e.ID;
-          closeToggle.addEventListener('click', () => {
-            overlay.style.display = 'none';
-            toastContainer.style.display = 'none';
-          });
-          overlayName.innerHTML = e.name;
-          overlayImg.src = `${returnPathImg(e)}`;
-          overlayPrice.innerHTML = e.price;
-          
-         
-            
-          toast.forEach(e => {
-            const exitToast = e.querySelector('.exit');
-            exitToast.addEventListener('click', () => {
-              toastContainer.style.display = 'none';
-              e.style.display = 'none';
-            });
-          });
-        });
-
-        addCart.addEventListener('click', () => {
-          for (let i = 0; i < userLocal.cart.length; i++) {
-            if (userLocal.cart[i].id === e.ID) {
-              quantity = parseInt(userLocal.cart[i].quantity);
-              break;
-            }
-          }
-          quantity = quantity + 1;
-          alert('Đã thêm vào giỏ hàng!');
-
-          const process = {
-            id: e.ID,
-            quantity: quantity
-          };
-          // alert(quantity);
-          let found = false;
-
-          if (userLocal.cart.length > 0) {
-            for (let i = 0; i < userLocal.cart.length; i++) {
-              if (process.id === userLocal.cart[i].id) {
-                userLocal.cart[i].quantity = quantity;
-                found = true;
-                break;
-              }
-            }
-          }
-
-          if (!found) {
-            userLocal.cart.push(process);
-            quantity = 0;
-          }
-
-          localStorage.setItem('User', JSON.stringify(userLocal));
-          const itemCart = document.createElement('p');
-          itemCart.classList.add('item-cart');
-          itemCart.innerText = `${userLocal.cart.length}`;
-          navItemCart.appendChild(itemCart);
-        });
-      });
+        generatePagination(matchingProduct);
+        loadData(matchingProduct)
     } else if (matchingProduct.length <= 0) {
       statusSearch.innerText = 'Không tìm thấy sản phẩm';
       alert('Không tìm thấy sản phẩm ');
-      displayItem(0, 10);
+      generatePagination(database)
+      loadData();
       document.location.reload();
       paging.style.display = 'flex';
-      returnPage.style.display = 'none';
+      // returnPage.style.display = 'none';
     }
   }
 });
-returnPage.addEventListener('click', () => {
-  document.location.reload();
-});
+
 
 // window.addEventListener('popstate', (event) => {
 //     alert('Quay lại trang');
@@ -425,6 +315,91 @@ returnPage.addEventListener('click', () => {
 //         event.preventDefault();
 //     }
 // });
+
+var totalPages = Math.ceil(data.length / 10);
+const ITEMS_PER_PAGE = 10;
+var maxPagesToShow = 5;
+var currentPage = 1;
+
+function generatePagination(data) {
+  var pagination = document.getElementById('pagination');
+  pagination.innerHTML = '';
+
+  var prevBtn = document.createElement('a');
+  prevBtn.href = 'javascript:void(0);';
+  prevBtn.innerHTML = '&laquo;';
+  prevBtn.addEventListener('click', function () {
+    if (currentPage > 1) {
+      currentPage--;
+      generatePagination(data);
+      loadData(data);
+    }
+  });
+  pagination.appendChild(prevBtn);
+
+  var startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+  var endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+
+  for (var i = startPage; i <= endPage; i++) {
+    var pageLink = document.createElement('a');
+    pageLink.href = 'javascript:void(0);';
+    pageLink.innerHTML = i;
+
+    if (i === currentPage) {
+      pageLink.classList.add('active');
+    }
+
+    pageLink.addEventListener('click', function () {
+      currentPage = parseInt(this.innerHTML);
+      generatePagination(data);
+      loadData(data);
+    });
+
+    pagination.appendChild(pageLink);
+  }
+
+  // Nút Next
+  var nextBtn = document.createElement('a');
+  nextBtn.href = 'javascript:void(0);';
+  nextBtn.innerHTML = '&raquo;';
+  nextBtn.addEventListener('click', function () {
+    if (currentPage < totalPages) {
+      currentPage++;
+      generatePagination(data);
+      loadData(data);
+    }
+  });
+  pagination.appendChild(nextBtn);
+}
+
+function loadData(data) {
+  var startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  var endIndex = startIndex + ITEMS_PER_PAGE;
+  totalPages = Math.ceil(data.length / 10);
+  generatePagination(data);
+
+  // console.log(startIndex);
+  // console.log(endIndex);
+  if (endIndex > data.length) {
+    endIndex = data.length;
+  }
+  displayItem(startIndex, endIndex, data);
+  updateEvent();
+}
+
+function displayItemTypes() {
+  const type = JSON.parse(localStorage.getItem('typeToFilter'));
+     const foundTypes = data.filter(product => product.type === type.toLowerCase());
+  if(foundTypes.length < 1){
+    generatePagination(data);
+    loadData(data);
+  }else{ 
+    generatePagination(foundTypes);
+    loadData(foundTypes);
+  }
+}
+
+displayItemTypes();
 
 window.addEventListener('resize', () => {
   check = false;
