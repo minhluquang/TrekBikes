@@ -1,13 +1,13 @@
 .container .content-container .filter-product_container .filter {
   /* position: ; */
-  position: sticky;
+  /* position: sticky; */
   display: none;
   /* padding: 20px; */
   top: 12%;
   /* background-color: red; */
   left: 0;
   width: 250px;
-  height: 730px;
+  height: auto;
   z-index: 1;
   overflow: hidden;
   border-radius: 5px;
@@ -267,7 +267,7 @@
 
   position: relative;
   display: inline-block;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .dropdown-button {
@@ -291,19 +291,18 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  display: none;
-  position: absolute;
+  display: block;
   background-color: #fff;
   border: 1px solid #ccc;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 5px;
 }
 
 .dropdown-menu li {
   width: 100%;
   padding: 5px 10px;
-  cursor: pointer;
   display: flex;
   gap: 10px;
   justify-content: space-between;
@@ -313,6 +312,7 @@
 .dropdown-menu li input{
   width: 20px;
   height: 20px;
+  cursor: pointer;
 }
 
 .dropdown-menu li:hover {
