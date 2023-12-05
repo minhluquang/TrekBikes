@@ -384,7 +384,7 @@ function loadData(data) {
     endIndex = data.length;
   }
   displayItem(startIndex, endIndex, data);
-  updateEvent();
+  // updateEvent();
 }
 
 function displayItemTypes() {
