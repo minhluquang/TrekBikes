@@ -526,3 +526,16 @@ th {
 .updateMessage {
   color: red;
 }
+
+#filterStatisticBtn {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+
+.filterStatisticStartDateMessage,
+.filterStatisticEndDateMessage {
+  margin-top: 4px;
+  font-weight: normal!important;
+  color: red!important;
+}

@@ -184,74 +184,7 @@ document.querySelector('.box #producttotalprice').innerText = total_Price.toLoca
 // console.log('Những sản phẩm có processed là true:', arrayTemp);
 // console.log('Tổng giá tiền của các sản phẩm: ', total_Price.toLocaleString('vi-VN') + 'VND');
 
-// Thống kê từng loại sản phẩm
-const productBought = [];
-const statisticType = [
-  { type: 'mountain', quantity: 0, totalPrice: 0 },
-  { type: 'touring', quantity: 0, totalPrice: 0 },
-  { type: 'road', quantity: 0, totalPrice: 0 },
-  { type: 'kids', quantity: 0, totalPrice: 0 }
-];
-
-// Trích sản phẩm, số lượng người dùng đã mua
-DUMMY_API.forEach(user => {
-  user.cart.forEach(order => {
-    if (order.product[0].processed) {
-      productBought.push({
-        id: order.product[0].id,
-        quantity: order.product[0].quantity
-      });
-    }
-  });
-});
-
-// Hàm chuyển đổi định dạng price trong database sang số có thể sử dụng được
-function convertToPrice(price) {
-  // Ex: 105.000.000 VND -> Left is 105.000.000
-  const getLeftString = price.split(' ')[0];
-  const convertToTruePrice = +getLeftString.replaceAll('.', '');
-  return convertToTruePrice;
-}
-
-// Đếm số sản phẩm theo loại và tính giá tiền
-DUMMY_PRODUCTS.forEach(product => {
-  productBought.forEach(productB => {
-    if (productB.id === product.ID) {
-      statisticType.forEach(statisticItem => {
-        if (statisticItem.type === product.type) {
-          statisticItem.quantity += productB.quantity;
-          statisticItem.totalPrice += convertToPrice(product.price) * productB.quantity;
-        }
-      });
-    }
-  });
-});
-
-const mountainTotalPriceElement = document.querySelector('#mountainTotalPrice');
-const roadTotalPriceElement = document.querySelector('#roadTotalPrice');
-const touringTotalPriceElement = document.querySelector('#touringTotalPrice');
-const kidsTotalPriceElement = document.querySelector('#kidsTotalPrice');
-
-const mountainTotalQuantityElement = document.querySelector('#mountainTotalQuantity');
-const roadTotalQuantityElement = document.querySelector('#roadTotalQuantity');
-const touringTotalQuantityElement = document.querySelector('#touringTotalQuantity');
-const kidsTotalQuantityElement = document.querySelector('#kidsTotalQuantity');
-
-statisticType.forEach(type => {
-  if (type.type === 'mountain') {
-    mountainTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
-    mountainTotalQuantityElement.textContent = type.quantity;
-  } else if (type.type === 'road') {
-    roadTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
-    roadTotalQuantityElement.textContent = type.quantity;
-  } else if (type.type === 'touring') {
-    touringTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
-    touringTotalQuantityElement.textContent = type.quantity;
-  } else if (type.type === 'kids') {
-    kidsTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
-    kidsTotalQuantityElement.textContent = type.quantity;
-  }
-});
+// THỐNG KÊ TỪNG LOẠI =====================================================================
 
 // Bật modal thống kê
 const modal = document.querySelector('.modal_statistic');
@@ -262,23 +195,6 @@ const mountainBtn = document.querySelector('#mountainBtn');
 const touringBtn = document.querySelector('#touringBtn');
 const roadBtn = document.querySelector('#roadBtn');
 const kidsBtn = document.querySelector('#kidsBtn');
-
-// Xử dụng lại hàm viết bên dưới để render
-mountainBtn.addEventListener('click', e => {
-  renderDetailStatisticUniqueType(groupMountainQuantityStatistic);
-});
-
-touringBtn.addEventListener('click', e => {
-  renderDetailStatisticUniqueType(groupTouringQuantityStatistic);
-});
-
-roadBtn.addEventListener('click', e => {
-  renderDetailStatisticUniqueType(groupRoadQuantityStatistic);
-});
-
-kidsBtn.addEventListener('click', e => {
-  renderDetailStatisticUniqueType(groupKidsQuantityStatistic);
-});
 
 // Xử lý click ==============================
 const exitBtn = document.querySelector('.table-exit-btn');
@@ -292,7 +208,6 @@ overlay.addEventListener('click', e => {
   overlay.classList.remove('active');
 });
 // ==============================
-
 // Xử lý thuật toán thống kê rõ ràng theo từng loại ==================
 const mountainStatistic = [];
 const roadStatistic = [];
@@ -311,34 +226,34 @@ DUMMY_API.forEach(userCart => {
     if (whatTypeIs.type === 'mountain') {
       mountainStatistic.push({
         id: whatTypeIs.ID,
-        imgSrc: whatTypeIs.imgSrc,
         price: whatTypeIs.price,
         name: whatTypeIs.name,
-        quantitySold: cart.product[0].quantity
+        quantitySold: cart.product[0].quantity,
+        dateCreate: cart.dateCreate
       });
     } else if (whatTypeIs.type === 'road') {
       roadStatistic.push({
         id: whatTypeIs.ID,
-        imgSrc: whatTypeIs.imgSrc,
         price: whatTypeIs.price,
         name: whatTypeIs.name,
-        quantitySold: cart.product[0].quantity
+        quantitySold: cart.product[0].quantity,
+        dateCreate: cart.dateCreate
       });
     } else if (whatTypeIs.type === 'touring') {
       touringStatistic.push({
         id: whatTypeIs.ID,
-        imgSrc: whatTypeIs.imgSrc,
         price: whatTypeIs.price,
         name: whatTypeIs.name,
-        quantitySold: cart.product[0].quantity
+        quantitySold: cart.product[0].quantity,
+        dateCreate: cart.dateCreate
       });
     } else if (whatTypeIs.type === 'kids') {
       kidsStatistic.push({
         id: whatTypeIs.ID,
-        imgSrc: whatTypeIs.imgSrc,
         price: whatTypeIs.price,
         name: whatTypeIs.name,
-        quantitySold: cart.product[0].quantity
+        quantitySold: cart.product[0].quantity,
+        dateCreate: cart.dateCreate
       });
     }
   });
@@ -373,9 +288,9 @@ calculateTotalQuantitySold(kidsStatistic, groupKidsQuantityStatistic);
 
 function renderDetailStatisticUniqueType(inputGroupArray) {
   modal.classList.add('active');
-  modalTableContent.innerHTML = '';
-
   overlay.classList.add('active');
+
+  modalTableContent.innerHTML = '';
 
   inputGroupArray.forEach(item => {
     const html = `
@@ -387,5 +302,204 @@ function renderDetailStatisticUniqueType(inputGroupArray) {
       </tr>
     `;
     modalTableContent.insertAdjacentHTML('afterbegin', html);
+  });
+}
+
+// Xử lý khi bấm nút lọc thì mới hiển thị thống kê từng loại
+const filterStatisticBtn = document.querySelector('#filterStatisticBtn');
+
+filterStatisticBtn.addEventListener('click', e => {
+  // Hiện thị UI bảng thống kê
+  document.querySelector('.dashboard__wrapper').style.display = 'flex';
+
+  // Khởi tạo mạng mới để có thể lọc ngày phù hợp rồi add vào
+  // từ đó chỉ render mảng này
+  const validMountainStatistic = [];
+  const validRoadStatistic = [];
+  const validTouringStatistic = [];
+  const validKidsStatistic = [];
+
+  const filterStatisticStartDate = document.querySelector('#filterStatisticStartDate input');
+  const filterStatisticEndDate = document.querySelector('#filterStatisticEndDate input');
+
+  const filterStatisticStartDateMessage = document.querySelector('.filterStatisticStartDateMessage');
+  const filterStatisticEndDateMessage = document.querySelector('.filterStatisticEndDateMessage');
+
+  let isValidStartDate = true;
+  let isValidEndDate = true;
+
+  // Tháng vì lấy tháng hiện tại nhưng trong new date thì
+  // phải trừ đi -1 mới lấy được tháng hiện tại
+  const startDateDay = filterStatisticStartDate.value.split('-')[2];
+  const startDateMonth = +filterStatisticStartDate.value.split('-')[1] - 1;
+  const startDateYear = filterStatisticStartDate.value.split('-')[0];
+
+  const endDateDay = filterStatisticEndDate.value.split('-')[2];
+  const endDateMonth = +filterStatisticEndDate.value.split('-')[1] - 1;
+  const endDateYear = filterStatisticEndDate.value.split('-')[0];
+
+  const convertStartDate = new Date(startDateYear, startDateMonth, startDateDay);
+  const convertEndDate = new Date(endDateYear, endDateMonth, endDateDay);
+
+  if (filterStatisticStartDate.value === '') {
+    isValidStartDate = false;
+    filterStatisticStartDateMessage.innerHTML = '* Vui lòng chọn ngày bắt đầu';
+  } else {
+    isValidStartDate = true;
+    filterStatisticStartDateMessage.innerHTML = '';
+  }
+
+  if (filterStatisticEndDate.value === '') {
+    isValidEndDate = false;
+    filterStatisticEndDateMessage.innerHTML = '* Vui lòng chọn ngày kết thúc';
+  } else if (convertEndDate < convertStartDate) {
+    isValidEndDate = false;
+    filterStatisticEndDateMessage.innerHTML = '* Vui lòng chọn ngày kết thúc lớn hơn hoặc bằng ngày bắt đầu';
+  } else {
+    isValidEndDate = true;
+    filterStatisticEndDateMessage.innerHTML = '';
+  }
+
+  const isValidForm = isValidStartDate && isValidEndDate;
+
+  // Nếu input hợp lệ thì xử lý dữ liệu thống kê
+  if (isValidForm) {
+    filterProductToPushNewArray(groupMountainQuantityStatistic, validMountainStatistic);
+    filterProductToPushNewArray(groupTouringQuantityStatistic, validTouringStatistic);
+    filterProductToPushNewArray(groupRoadQuantityStatistic, validRoadStatistic);
+    filterProductToPushNewArray(groupKidsQuantityStatistic, validKidsStatistic);
+
+    // Xử dụng lại hàm viết bên dưới để render
+    mountainBtn.addEventListener('click', e => {
+      renderDetailStatisticUniqueType(validMountainStatistic);
+    });
+
+    touringBtn.addEventListener('click', e => {
+      renderDetailStatisticUniqueType(validTouringStatistic);
+    });
+
+    roadBtn.addEventListener('click', e => {
+      renderDetailStatisticUniqueType(validRoadStatistic);
+    });
+
+    kidsBtn.addEventListener('click', e => {
+      renderDetailStatisticUniqueType(validKidsStatistic);
+    });
+
+    // XỬ LÝ HIỆN TỔNG TIỀN, SỐ LƯỢNG TỪNG LOẠI ===================================================
+    // Thống kê từng loại sản phẩm
+    const productBought = [];
+    const statisticType = [
+      { type: 'mountain', quantity: 0, totalPrice: 0 },
+      { type: 'touring', quantity: 0, totalPrice: 0 },
+      { type: 'road', quantity: 0, totalPrice: 0 },
+      { type: 'kids', quantity: 0, totalPrice: 0 }
+    ];
+
+    // Trích ra sản phẩm, số lượng người dùng đã mua vào mảng productBought
+    DUMMY_API.forEach(user => {
+      user.cart.forEach(order => {
+        const createDate = new Date(order.dateCreate);
+
+        const dateCreateDay = createDate.getDate();
+        const dateCreateMonth = createDate.getMonth();
+        const dateCreateYear = createDate.getFullYear();
+
+        if (
+          order.product[0].processed &&
+          convertStartDate <= new Date(dateCreateYear, dateCreateMonth, dateCreateDay) &&
+          convertEndDate >= new Date(dateCreateYear, dateCreateMonth, dateCreateDay)
+        ) {
+          productBought.push({
+            id: order.product[0].id,
+            quantity: order.product[0].quantity
+          });
+        }
+      });
+    });
+
+    // Hàm chuyển đổi định dạng price trong database sang số có thể sử dụng được
+    function convertToPrice(price) {
+      // Ex: 105.000.000 VND -> Left is 105.000.000 -> True price is 105000000
+      const getLeftString = price.split(' ')[0];
+      const convertToTruePrice = +getLeftString.replaceAll('.', '');
+      return convertToTruePrice;
+    }
+
+    // Đếm số sản phẩm theo loại và tính giá tiền
+    DUMMY_PRODUCTS.forEach(product => {
+      productBought.forEach(productB => {
+        if (productB.id === product.ID) {
+          statisticType.forEach(statisticItem => {
+            if (statisticItem.type === product.type) {
+              statisticItem.quantity += productB.quantity;
+              statisticItem.totalPrice += convertToPrice(product.price) * productB.quantity;
+            }
+          });
+        }
+      });
+    });
+
+    // Set giá và số lượng lên UI để người dùng thấy
+    const mountainTotalPriceElement = document.querySelector('#mountainTotalPrice');
+    const roadTotalPriceElement = document.querySelector('#roadTotalPrice');
+    const touringTotalPriceElement = document.querySelector('#touringTotalPrice');
+    const kidsTotalPriceElement = document.querySelector('#kidsTotalPrice');
+
+    const mountainTotalQuantityElement = document.querySelector('#mountainTotalQuantity');
+    const roadTotalQuantityElement = document.querySelector('#roadTotalQuantity');
+    const touringTotalQuantityElement = document.querySelector('#touringTotalQuantity');
+    const kidsTotalQuantityElement = document.querySelector('#kidsTotalQuantity');
+
+    statisticType.forEach(type => {
+      if (type.type === 'mountain') {
+        mountainTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
+        mountainTotalQuantityElement.textContent = type.quantity;
+      } else if (type.type === 'road') {
+        roadTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
+        roadTotalQuantityElement.textContent = type.quantity;
+      } else if (type.type === 'touring') {
+        touringTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
+        touringTotalQuantityElement.textContent = type.quantity;
+      } else if (type.type === 'kids') {
+        kidsTotalPriceElement.textContent = type.totalPrice.toLocaleString('vi-VN') + ' VNĐ';
+        kidsTotalQuantityElement.textContent = type.quantity;
+      }
+    });
+  }
+  // end: XỬ LÝ HIỆN TỔNG TIỀN, SỐ LƯỢNG TỪNG LOẠI ===================================================
+});
+
+// Hàm hỗ trợ chuyển sản phẩm thỏa ngày vào mảng
+function filterProductToPushNewArray(oldArray, newArray) {
+  const filterStatisticStartDate = document.querySelector('#filterStatisticStartDate input');
+  const filterStatisticEndDate = document.querySelector('#filterStatisticEndDate input');
+
+  // Tháng vì lấy tháng hiện tại nhưng trong new date thì
+  // phải trừ đi -1 mới lấy được tháng hiện tại
+  const startDateDay = filterStatisticStartDate.value.split('-')[2];
+  const startDateMonth = +filterStatisticStartDate.value.split('-')[1] - 1;
+  const startDateYear = filterStatisticStartDate.value.split('-')[0];
+
+  const endDateDay = filterStatisticEndDate.value.split('-')[2];
+  const endDateMonth = +filterStatisticEndDate.value.split('-')[1] - 1;
+  const endDateYear = filterStatisticEndDate.value.split('-')[0];
+
+  const convertStartDate = new Date(startDateYear, startDateMonth, startDateDay);
+  const convertEndDate = new Date(endDateYear, endDateMonth, endDateDay);
+
+  oldArray.forEach(item => {
+    const dateCreate = new Date(item.dateCreate);
+    const dateCreateDay = dateCreate.getDate();
+    const dateCreateMonth = dateCreate.getMonth();
+    const dateCreateYear = dateCreate.getFullYear();
+
+    // Nếu thỏa trong khoảng ngày thì render ra
+    if (
+      convertStartDate <= new Date(dateCreateYear, dateCreateMonth, dateCreateDay) &&
+      convertEndDate >= new Date(dateCreateYear, dateCreateMonth, dateCreateDay)
+    ) {
+      newArray.push(item);
+    }
   });
 }

@@ -634,11 +634,6 @@ addProductBtn.addEventListener('click', e => {
               <input type="text" id="price" placeholder="Nhập giá sản phẩm">
               <p class="newProcductPriceMessage"></p>
           </div>
-          <div class="form-item form-item__productCodeColor">
-              <label for="codeColor">Mã màu sản phẩm</label>
-              <input type="text" id="codeColor" placeholder="Nhập mã màu sản phẩm">
-              <p class="newProductColorMessage"></p>
-          </div>
         </div>
         
 
@@ -667,12 +662,12 @@ addProductBtn.addEventListener('click', e => {
     var id = form.querySelector('#productCodeForm');
     var category = form.querySelector('#category');
     var price = form.querySelector('#price');
-    var codeColor = form.querySelector('#codeColor');
+    // var codeColor = form.querySelector('#codeColor');
 
     const showMessageNameRes = document.querySelector('.newProductNameMessage');
     const showMessageIdRes = document.querySelector('.newProcductIdMessage');
     const showMessagePrice = document.querySelector('.newProcductPriceMessage');
-    const showMessageColor = document.querySelector('.newProductColorMessage');
+    // const showMessageColor = document.querySelector('.newProductColorMessage');
     const showMessageCategory = document.querySelector('.newMessageCategory');
 
     let isValidName = true;
@@ -717,19 +712,19 @@ addProductBtn.addEventListener('click', e => {
       isValidPrice = true;
     }
 
-    const patternCodeColor = /^#[a-zA-Z0-9]{6}/gi;
+    // const patternCodeColor = /^#[a-zA-Z0-9]{6}/gi;
 
-    if (codeColor.value.trim().length === 0) {
-      showMessageColor.innerHTML = '* Vui lòng nhập mã màu sản phẩm';
-      isValidColor = false;
-    } else if (!patternCodeColor.test(codeColor.value.trim())) {
-      showMessageColor.innerHTML = '* Mã màu phải bắt đầu bằng kí tự # và kết thúc bằng 6 kí tự (vd: #333aaa)';
-      isValidColor = false;
-    } else {
-      showMessageColor.innerText = '';
-      codeColor.style.border = '1px solid #333';
-      isValidColor = true;
-    }
+    // if (codeColor.value.trim().length === 0) {
+    //   showMessageColor.innerHTML = '* Vui lòng nhập mã màu sản phẩm';
+    //   isValidColor = false;
+    // } else if (!patternCodeColor.test(codeColor.value.trim())) {
+    //   showMessageColor.innerHTML = '* Mã màu phải bắt đầu bằng kí tự # và kết thúc bằng 6 kí tự (vd: #333aaa)';
+    //   isValidColor = false;
+    // } else {
+    //   showMessageColor.innerText = '';
+    //   codeColor.style.border = '1px solid #333';
+    //   isValidColor = true;
+    // }
 
     if (category.value.trim().length === 0) {
       showMessageCategory.innerHTML = '* Vui lòng chọn thể loại xe';
@@ -740,9 +735,10 @@ addProductBtn.addEventListener('click', e => {
       isValidCategory = true;
     }
 
-    if (imgUrl.value === '' && name.value === '' && id.value === '' && price.value === '' && codeColor.value === '') {
+    if (imgUrl.value === '' && name.value === '' && id.value === '' && price.value === '') {
       return null;
     }
+
     if (imgUrl.value === '') {
       imgUrl.style.border = '1px solid red';
     }
@@ -755,9 +751,9 @@ addProductBtn.addEventListener('click', e => {
     if (price.value === '') {
       price.style.border = '1px solid red';
     }
-    if (codeColor.value === '') {
-      codeColor.style.border = '1px solid red';
-    }
+    // if (codeColor.value === '') {
+    //   codeColor.style.border = '1px solid red';
+    // }
     if (category.value === '') {
       category.style.border = '1px solid red';
     }
@@ -784,7 +780,6 @@ addProductBtn.addEventListener('click', e => {
         name: name.value,
         imgSrc: imgLink,
         price: priveValue.toLocaleString('vi-VN') + ' VND',
-        dataColors: [codeColor.value],
         ID: id.value,
         type: category.value,
         dateCreate: currentISOString,

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../../../components/HomeAdmin/HomeAdmin.css" />
     <link rel="stylesheet" href="../../../components/OrderAdmin/OrderAdmin.css" />
     <link rel="stylesheet" href="../../../components/ManageUserList/ManageUserList.css" />
-    <link rel="stylesheet" href="../../../components/AdminProduct/adminProduct.css">
+    <link rel="stylesheet" href="../../../components/AdminProduct/adminProduct.css" />
 
     <script defer src="../../../components/HomeAdmin/HomeAdmin.js"></script>
     <script type="module" defer src="../../../components/OrderAdmin/OrderAdmin.js"></script>
@@ -123,41 +123,58 @@
             <h1 class="statisticDashboard">Thống kê doanh thu từng loại</h1>
 
             <div class="dashboard-section">
-              <div class="box box-4">
-                <h3>Mountain</h3>
-                <p id="mountainTotalPrice">0 VNĐ</p>
-                <div class="box-4--wrapper">
-                  <h3>Số lượng bán được:</h3>
-                  <p id="mountainTotalQuantity">0</p>
+              <div class="admin__content--body__filter--gr1" style="display: flex; width: 100%">
+                <div class="body__filter--field body__filter--dateClient" id="filterStatisticStartDate">
+                  <label for="userDate">Từ ngày:</label>
+                  <input type="date" />
+                  <p class="filterStatisticStartDateMessage"></p>
                 </div>
-                <button id="mountainBtn">Bấm xem chi tiết</button>
+
+                <div class="body__filter--field body__filter--dateClient" id="filterStatisticEndDate">
+                  <label for="userDate">Đến ngày:</label>
+                  <input type="date" />
+                  <p class="filterStatisticEndDateMessage"></p>
+                </div>
+
+                <button id="filterStatisticBtn">Lọc</button>
               </div>
-              <div class="box box-4">
-                <h3>Road</h3>
-                <p id="roadTotalPrice">0 VNĐ</p>
-                <div class="box-4--wrapper">
-                  <h3>Số lượng bán được:</h3>
-                  <p id="roadTotalQuantity">0</p>
+              <div class="dashboard__wrapper">
+                <div class="box box-4">
+                  <h3>Mountain</h3>
+                  <p id="mountainTotalPrice">0 VNĐ</p>
+                  <div class="box-4--wrapper">
+                    <h3>Số lượng bán được:</h3>
+                    <p id="mountainTotalQuantity">0</p>
+                  </div>
+                  <button id="mountainBtn">Bấm xem chi tiết</button>
                 </div>
-                <button id="roadBtn">Bấm xem chi tiết</button>
-              </div>
-              <div class="box box-4">
-                <h3>Touring</h3>
-                <p id="touringTotalPrice">0 VNĐ</p>
-                <div class="box-4--wrapper">
-                  <h3>Số lượng bán được:</h3>
-                  <p id="touringTotalQuantity">0</p>
+                <div class="box box-4">
+                  <h3>Road</h3>
+                  <p id="roadTotalPrice">0 VNĐ</p>
+                  <div class="box-4--wrapper">
+                    <h3>Số lượng bán được:</h3>
+                    <p id="roadTotalQuantity">0</p>
+                  </div>
+                  <button id="roadBtn">Bấm xem chi tiết</button>
                 </div>
-                <button id="touringBtn">Bấm xem chi tiết</button>
-              </div>
-              <div class="box box-4">
-                <h3>Kids</h3>
-                <p id="kidsTotalPrice">0 VNĐ</p>
-                <div class="box-4--wrapper">
-                  <h3>Số lượng bán được:</h3>
-                  <p id="kidsTotalQuantity">0</p>
+                <div class="box box-4">
+                  <h3>Touring</h3>
+                  <p id="touringTotalPrice">0 VNĐ</p>
+                  <div class="box-4--wrapper">
+                    <h3>Số lượng bán được:</h3>
+                    <p id="touringTotalQuantity">0</p>
+                  </div>
+                  <button id="touringBtn">Bấm xem chi tiết</button>
                 </div>
-                <button id="kidsBtn">Bấm xem chi tiết</button>
+                <div class="box box-4">
+                  <h3>Kids</h3>
+                  <p id="kidsTotalPrice">0 VNĐ</p>
+                  <div class="box-4--wrapper">
+                    <h3>Số lượng bán được:</h3>
+                    <p id="kidsTotalQuantity">0</p>
+                  </div>
+                  <button id="kidsBtn">Bấm xem chi tiết</button>
+                </div>
               </div>
             </div>
           </div>
@@ -329,8 +346,6 @@
                     <option value="invalid">Chưa xử lý</option>
                   </select>
                 </div>
-
-               
               </div>
 
               <div class="admin__content--body__filter--gr1">
