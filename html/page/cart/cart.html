@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="../../../components/fonts.css" />
 
     <link rel="stylesheet" href="./cart.css" />
+    <link rel="stylesheet" href="../../../components/menu/menu.css">
+    <link rel="stylesheet" href="../../../components/login/login.css">
     <link rel="stylesheet" href="reponsive.css" />
+
 
     <title>Document</title>
   </head>
@@ -162,8 +165,53 @@
       </div>
     </div>
 
-    <script type="module" src="../../../database/products.js"></script>
+    <div class="hide__menu">
+      <button class="hide__menu--close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h1>TREK</h1>
+      <div class="hide__menu--list__extention">
+        <div class="header__bottom--extention-item header__bottom--extention-user active-down" id="userLowDeviceBtn">
+          <i class="fa-solid fa-user"></i>
+          <span>Tài khoản</span>
+          <i class="header__bottom--extention__icon header__bottom--extention__icon--down fa-solid fa-caret-down"></i>
+          <i class="header__bottom--extention__icon header__bottom--extention__icon--up fa-solid fa-caret-up"></i>
+        </div>
+        <div class="hide__menu--user__list">
+          <div class="hide__menu--list__type adminManager__item" style="display: none"><button>Quản lý</button></div>
+          <div class="hide__menu--list__type logout__item"><button>Đăng xuất</button></div>
+        </div>
+        <!-- <a href="./html/page/saveProduct/save.html" class="header__bottom--extention-item header__bottom--extention-love">
+          <i class="fa-solid fa-heart"></i>
+          <span>Yêu thích</span>
+          <i class="header__bottom--extention__icon fa-solid fa-arrow-right"></i>
+        </a> -->
+        <!-- <a href="./html/page/cart/cart.html" class="header__bottom--extention-item header__bottom--extention-cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Giỏ hàng</span>
+          <i class="header__bottom--extention__icon fa-solid fa-arrow-right"></i>
+        </a> -->
 
+        <div class="header__bottom--extention-item header__bottom--extention-cate">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>Danh mục</span>
+          <i class="header__bottom--extention__icon header__bottom--extention__icon--down fa-solid fa-caret-down"></i>
+          <i class="header__bottom--extention__icon header__bottom--extention__icon--up fa-solid fa-caret-up"></i>
+        </div>
+        <div class="hide__menu--list__types">
+          <div class="hide__menu--list__type"><a href="../../../html/page/product/product.html">ALL</a></div>
+          <div class="hide__menu--list__type"><a href="../../../html/page/product/product.html">MOUNTAIN</a></div>
+          <div class="hide__menu--list__type"><a href="../../../html/page/product/product.html">ROAD</a></div>
+          <div class="hide__menu--list__type"><a href="../../../html/page/product/product.html">TOURING</a></div>
+          <div class="hide__menu--list__type"><a href="../../../html/page/product/product.html">KIDS</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay"></div>
+
+    <script type="module" src="../../../database/products.js"></script>
+    <script src="../../../components/menu/menu.js"></script>
     <script type="module" src="cart.js"></script>
   </body>
 </html>

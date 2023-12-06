@@ -162,7 +162,7 @@ registerSubmitBtn.addEventListener('click', e => {
     showMessageNameRes.innerText = '';
   }
 
-  const patternEmail = /@.*[a-z]{2,3}$/gi;
+  const patternEmail =  /@.*\.[a-zA-z]{2,3}$/gi;
 
   if (email.length === 0) {
     showMessageEmailRes.innerText = '* Bạn chưa nhập email';

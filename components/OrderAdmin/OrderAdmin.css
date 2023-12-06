@@ -657,3 +657,7 @@
   width: 25%;
 }
 /* end: Modal */
+
+.hide {
+  display: none;
+}

@@ -140,7 +140,7 @@ registerSubmitBtn.addEventListener('click', e => {
     showMessageNameRes.innerText = '';
   }
 
-  const patternEmail = /@.*[a-z]{2,3}$/gi;
+  const patternEmail = /@.*\.[a-zA-z]{2,3}$/gi;
 
   if (email.length === 0) {
     showMessageEmailRes.innerText = '* Bạn chưa nhập email';
@@ -200,7 +200,7 @@ registerSubmitBtn.addEventListener('click', e => {
     } else {
       // Nếu đã có dữ liệu DUMMY API thì chỉ cần thêm mới
       DUMMY_API = isHasDummyAPI;
-      console.log(DUMMY_API);
+      // console.log(DUMMY_API);
       accounts.forEach(account => {
         const isExistUserCart = DUMMY_API.find(userCart => account.id === userCart.idUser);
         if (!isExistUserCart) {
