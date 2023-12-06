@@ -314,10 +314,10 @@ infoContainer.forEach((element, index) => {
   buyId.addEventListener('click', () => {
     if (checked) {
       const overlay = document.querySelector('.overlay');
-      overlay.classList.add('active');
+      overlay.classList.add('active__overlay');
 
       overlay.addEventListener('click', e => {
-        overlay.classList.remove('active');
+        overlay.classList.remove('active__overlay');
         dialog.style.display = 'none';
       });
 
@@ -628,7 +628,7 @@ const dialogCloseBtn = document.querySelector('.dialog-close');
 const overlay = document.querySelector('.overlay');
 dialogCloseBtn.addEventListener('click', e => {
   dialog.style.display = 'none';
-  overlay.classList.remove('active');
+  overlay.classList.remove('active__overlay');
 });
 
 // XỬ LÝ THÊM ==================================================
@@ -688,3 +688,45 @@ manageBtn.addEventListener('click', e => {
   window.location.href = '/html/page/admin/Home.html';
 });
 // =========================== end: GO TO ADMIN PAGE ===========================
+
+// Thêm sự kiện click vào tài khoản trên hideMenu
+const userLowDeviceBtn = document.querySelector('#userLowDeviceBtn');
+
+// Kiểm tra quyền truy cập User nếu là admin thì hiển thị btn Quản lý
+if (userLogin.isAdmin) {
+  document.querySelectorAll('.adminManager__item').forEach(item => (item.style.display = 'block'));
+}
+
+// Cập nhật tên người dùng hiện tại
+const userNameOnLowDevice = document.querySelector('.hide__menu--list__extention .header__bottom--extention-user span');
+userNameOnLowDevice.innerHTML = userLogin.name;
+const userListOnLowDevice = document.querySelector('.hide__menu--user__list');
+
+// FOR ACOUNT BTN ON HIDE MENU
+userLowDeviceBtn.classList.add('active-down');
+userLowDeviceBtn.addEventListener('click', e => {
+  userListOnLowDevice.classList.toggle('active__onHideMenu');
+  userLowDeviceBtn.classList.toggle('active-down');
+  userLowDeviceBtn.classList.toggle('active-up');
+});
+
+const manageLowDeviceBtn = document.querySelector('.hide__menu--list__type.adminManager__item');
+
+manageLowDeviceBtn.addEventListener('click', e => {
+  window.location.href = '/html/page/admin/Home.html';
+});
+
+const logoutLowDeviceBtn = document.querySelector('.hide__menu--list__type.logout__item');
+logoutLowDeviceBtn.addEventListener('click', logoutHandler);
+
+// Kiểm tra trên thiết bị nhỏ hơn
+const typeProductsSidebarMenu = document.querySelectorAll('.hide__menu--list__type');
+typeProductsSidebarMenu.forEach(item =>
+  item.addEventListener('click', e => {
+    const firstString = item.textContent.trim().charAt(0).toUpperCase(); //Cắt chữ đầu viết hoa
+    const secondString = item.textContent.trim().substring(1).toLocaleLowerCase(); //Vế còn lại viết thường
+    const type = firstString + secondString;
+    // Khi có sự kiện load trang thì set data
+    localStorage.setItem('typeToFilter', JSON.stringify(type));
+  })
+);

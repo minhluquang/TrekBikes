@@ -3,7 +3,6 @@ const closeMenuBtn = document.querySelector('.hide__menu--close');
 const hideMenu = document.querySelector('.hide__menu');
 const overlay = document.querySelector('.overlay');
 
-
 //Open hide menu
 hideMenuBtn.addEventListener('click', e => {
   hideMenu.classList.toggle('active');
@@ -27,7 +26,6 @@ overlay.addEventListener('click', e => {
 //Account click event
 const userBtn = document.querySelector('.hide__menu--list__extention .header__bottom--extention-user');
 const userWrapper = document.querySelector('.user__wrapper');
-
 // userBtn.addEventListener('click', (e) => {
 //   hideMenu.classList.remove('active');
 // })
