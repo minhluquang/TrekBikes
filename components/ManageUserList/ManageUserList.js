@@ -47,7 +47,7 @@ function renderAddUserModal() {
       <div class="showPassword">
         <input type="password" id="newUserPassword" name="newUserPassword" placeholder="Nhập mật khẩu người dùng" required>
         <i id="eyeIcon" class="fa-regular fa-eye"></i>
-   </div>
+      </div>
       <p class="newUserPasswordMessage"></p> <br>
       <label class= "lbUserRole" for="userRole">Quyền:</label>
       <select class= "userRole" id="userRole" required>
@@ -107,7 +107,7 @@ function addUserHandler() {
   } else {
     showMessageNameRes.innerText = '';
   }
-  const patternEmail = /@.*[a-z]{2,3}$/gi;
+  const patternEmail = /@.*\.[a-zA-z]{2,3}$/gi;
 
   if (newUserEmail.length === 0) {
     showMessageEmailRes.innerText = '* Bạn chưa nhập email';

@@ -163,7 +163,7 @@ const showModal = (user, currentPID, cart, currentQNT) => {
           <li class="product__title--name">Tên sản phẩm</li>
           <li class="product__title--qnt">Số lượng</li>
         </ul>
-        <ul class="modal__content--product__item">
+        <ul class="modal__content--product__item">  
           <li class="product__item--id">${productInfo.ID}</li>
           <li class="product__item--name">${productInfo.name}</li>
           <li class="product__item--qnt">${currentQNT}</li>
@@ -229,7 +229,7 @@ const uiElement = (idUser, idOrder, day, month, year, quantity, productInfo, idP
     }
 
     <li class="admin__content--body__btn products--item__btn">
-      <button><i class="fa-solid fa-x"></i></button>
+      <button class="${isProcessed ? 'hide' : ''}"><i class="fa-solid fa-x"></i></button>
     </li>
   </ul>`;
   return html;
@@ -514,25 +514,16 @@ const clickIconInfoHandler = () => {
 
 // start: logic click delete btn
 const deleteProduct = (currentUID, currentPID, currentOID, isNonActiveItem) => {
-  let deleted = false;
   userData.forEach(user => {
     if (user.idUser === currentUID) {
-      // Kiểm tra tiếp trong mảng cart của user check từng id đơn hàng để xóa chính xác
-      user.cart.forEach(cart => {
-        if (cart.idOrder === currentOID) {
-          cart.product = cart.product.filter(product => {
-            if (product.id === currentPID && product.processed === isNonActiveItem) {
-              deleted = true;
-              return true;
-            } else {
-              return false;
-            }
-          });
+      // Lọc ra đơn hàng khác với id đơn hàng xóa
+      user.cart = user.cart.filter(cart => {
+        if (cart.idOrder !== currentOID) {
+          return true;
         }
       });
     }
   });
-  return deleted;
 };
 
 function updateLocalStorageForDeleteHandler() {

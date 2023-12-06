@@ -216,7 +216,9 @@ const kidsStatistic = [];
 
 DUMMY_API.forEach(userCart => {
   userCart.cart.forEach(cart => {
-    const whatTypeIs = DUMMY_PRODUCTS.find(product => product.ID === cart.product[0].id && cart.product[0].processed);
+    const whatTypeIs = DUMMY_PRODUCTS.find(
+      product => product.ID === cart?.product[0]?.id && cart?.product[0]?.processed
+    );
 
     // Nếu tìm không thỏa thì thôi, khỏi cần tính tiếp
     if (!whatTypeIs) {
@@ -309,9 +311,6 @@ function renderDetailStatisticUniqueType(inputGroupArray) {
 const filterStatisticBtn = document.querySelector('#filterStatisticBtn');
 
 filterStatisticBtn.addEventListener('click', e => {
-  // Hiện thị UI bảng thống kê
-  document.querySelector('.dashboard__wrapper').style.display = 'flex';
-
   // Khởi tạo mạng mới để có thể lọc ngày phù hợp rồi add vào
   // từ đó chỉ render mảng này
   const validMountainStatistic = [];
@@ -364,6 +363,9 @@ filterStatisticBtn.addEventListener('click', e => {
 
   // Nếu input hợp lệ thì xử lý dữ liệu thống kê
   if (isValidForm) {
+    // Hiện thị UI bảng thống kê
+    document.querySelector('.dashboard__wrapper').style.display = 'flex'; 
+
     filterProductToPushNewArray(groupMountainQuantityStatistic, validMountainStatistic);
     filterProductToPushNewArray(groupTouringQuantityStatistic, validTouringStatistic);
     filterProductToPushNewArray(groupRoadQuantityStatistic, validRoadStatistic);
@@ -406,7 +408,7 @@ filterStatisticBtn.addEventListener('click', e => {
         const dateCreateYear = createDate.getFullYear();
 
         if (
-          order.product[0].processed &&
+          order?.product[0]?.processed &&
           convertStartDate <= new Date(dateCreateYear, dateCreateMonth, dateCreateDay) &&
           convertEndDate >= new Date(dateCreateYear, dateCreateMonth, dateCreateDay)
         ) {
