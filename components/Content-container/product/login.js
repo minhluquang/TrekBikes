@@ -438,40 +438,33 @@ if (isLoggedIn) {
 //   }
 
 
+
+
 function HienthiTaikhoan(){
+  var User = JSON.parse(localStorage.getItem('User'));
+  console.log(User);
   console.log( document.querySelector(".user__wrapper"));
-  // Hiển thị form đăng nhập
   document.querySelector(".user__wrapper").style.display = 'flex';
-  
-  // Kiểm tra xem tài khoản có đang đăng nhập hay không
   const userLogin = JSON.parse(localStorage.getItem('User'));
   const userList = document.querySelector('.header__bottom--user__list');
   const cartBtn = document.getElementById('cart');
   if (userLogin) {
-    // Nếu có, thì hiển thị nút đăng xuất
-    var li = document.getElementById("HienthiTaikhoan");
-    li.innerHTML = '<i class="fa-solid fa-door-open" style="color: white"></i><p style="color: white">Đăng xuất</p>';
+    document.querySelector(".user__wrapper").style.display = 'none';
+    var li = document.getElementById('HienthiTaikhoan');   
+    li.innerHTML = '<i class="fa-solid fa-door-open" style="color: white"></i><p style="color: white">Đăng xuất</p>'   
     li.setAttribute("id", "");
     li.setAttribute("onclick", "");
     li.setAttribute("class", "");
-    
-    // Thêm sự kiện click vào nút đăng xuất để đăng xuất tài khoản hiện tại
     li.addEventListener('click', function() {
-      // Xóa dữ liệu tài khoản khỏi localStorage
-      localStorage.removeItem('User');
-      // Chuyển hướng đến trang đăng nhập
-      window.location.href = "product.html";
+    localStorage.removeItem('User');
+    window.location.href = "product.html";
     });
   } else {
-    
     cartBtn.style.display = 'none';
     cartBtn.setAttribute('disabled', 'disabled');
     console.log('Tài khoản chưa đăng nhập');
   }
 }
-
-
-
 //end : checking login when click Tai khoan
 function Dangky__btn(){
     document.querySelector(".register").style.opacity = '1';
