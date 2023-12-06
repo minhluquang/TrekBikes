@@ -446,11 +446,11 @@ function HienthiTaikhoan(){
   // Kiểm tra xem tài khoản có đang đăng nhập hay không
   const userLogin = JSON.parse(localStorage.getItem('User'));
   const userList = document.querySelector('.header__bottom--user__list');
-  
+  const cartBtn = document.getElementById('cart');
   if (userLogin) {
     // Nếu có, thì hiển thị nút đăng xuất
     var li = document.getElementById("HienthiTaikhoan");
-    li.innerHTML = '<i class="fa-solid fa-door-open"></i><p color = "white">Đăng xuất</p>';
+    li.innerHTML = '<i class="fa-solid fa-door-open" style="color: white"></i><p style="color: white">Đăng xuất</p>';
     li.setAttribute("id", "");
     li.setAttribute("onclick", "");
     li.setAttribute("class", "");
@@ -463,10 +463,13 @@ function HienthiTaikhoan(){
       window.location.href = "product.html";
     });
   } else {
-    // Nếu không, thì không làm gì cả
+    
+    cartBtn.style.display = 'none';
+    cartBtn.setAttribute('disabled', 'disabled');
     console.log('Tài khoản chưa đăng nhập');
   }
 }
+
 
 
 //end : checking login when click Tai khoan
