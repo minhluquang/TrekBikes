@@ -264,7 +264,8 @@ submitBtn.addEventListener('click', e => {
   }
 
   if (inputRoleClinetValue === 'all') {
-    renderUsersInfo(data);
+    // 
+    data = data;
   } else {
     data = data.filter(item => item.isAdmin === isAdmiValid);
   }
