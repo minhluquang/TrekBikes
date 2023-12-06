@@ -2,7 +2,6 @@
 import DUMMY_PRODUCTS from '../../database/products.js';
 // const productsList = DUMMY_PRODUCTS;
 // console.log(productsList);
-
 // localStorage.setItem('DUMMY_PRODUCTS', JSON.stringify(DUMMY_PRODUCTS));
 const productsList = JSON.parse(localStorage.getItem('DUMMY_PRODUCTS'));
 // console.log(userData)
@@ -574,6 +573,7 @@ function clickDeleteBtnHandler() {
           deleteProduct(currentUID, currentPID, currentOID, isNonActiveItem);
           updateLocalStorageForDeleteHandler();
           closeModal();
+          alert('Xóa dữ liệu đơn hàng thành công!');
         });
 
         exitDeleteBtn.addEventListener('click', e => {

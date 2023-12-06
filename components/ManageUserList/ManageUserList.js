@@ -208,8 +208,8 @@ submitBtn.addEventListener('click', e => {
   const dayEnd = timeEnd.getDate();
   const monthEnd = timeEnd.getMonth();
   const yearEnd = timeEnd.getFullYear();
-  if(timeBegin > timeEnd) {
-    alert("Ngày bắt đầu phải nhỏ hơn ngày kết thúc");
+  if (timeBegin > timeEnd) {
+    alert('Ngày bắt đầu phải nhỏ hơn ngày kết thúc');
     return;
   }
   const inputRoleClinetValue = document.querySelector('#userRoleClient select').value;
@@ -254,17 +254,18 @@ submitBtn.addEventListener('click', e => {
       const dayUser = timeUser.getDate();
       const monthUser = timeUser.getMonth();
       const yearUser = timeUser.getFullYear();
-      const isAfterOrEqualBeginDate = new Date(yearUser, monthUser, dayUser) >= new Date(yearBegin, monthBegin, dayBegin);
+      const isAfterOrEqualBeginDate =
+        new Date(yearUser, monthUser, dayUser) >= new Date(yearBegin, monthBegin, dayBegin);
       const isBeforeOrEqualEndDate = new Date(yearUser, monthUser, dayUser) <= new Date(yearEnd, monthEnd, dayEnd);
       // const isAfterOrEqualBeginDate = timeBegin <= timeUser;
       // const isBeforeOrEqualEndDate = timeUser <= timeEnd;
-  
+
       return isAfterOrEqualBeginDate && isBeforeOrEqualEndDate;
     });
   }
 
   if (inputRoleClinetValue === 'all') {
-    // 
+    //
     data = data;
   } else {
     data = data.filter(item => item.isAdmin === isAdmiValid);
@@ -390,9 +391,22 @@ const deleteUserHandler = btn => {
 
   data = data.filter(user => user.id !== currentUID);
   localStorage.setItem('accounts', JSON.stringify(data));
+
+  // Xóa tất cả đơn người dùng
+  let userDummyApi = JSON.parse(localStorage.getItem('DUMMY_API'));
+  userDummyApi = userDummyApi.filter(user => {
+    if (user.idUser !== currentUID) {
+      return true;
+    }
+  });
+  localStorage.setItem('DUMMY_API', JSON.stringify(userDummyApi));
+
   renderUsersInfo(data);
   clickedDeleteBtnHandler();
   paginationHandler();
+
+  alert('Xóa dữ liệu người dùng thành công!');
+  location.reload();
 };
 
 const clickedDeleteBtnHandler = () => {
