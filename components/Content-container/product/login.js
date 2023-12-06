@@ -426,10 +426,49 @@ if (isLoggedIn) {
 }
 ///-------------------------------
 // start : checking login when click Tai khoan
+
+// function HienthiTaikhoan(){ 
+//   console.log( document.querySelector(".user__wrapper")); 
+//   var x = document.querySelector(".user__wrapper"); 
+//   if (x.style.display === 'flex') { 
+//       x.style.display = 'none'; 
+//     } else { 
+//       x.style.display ='flex'; 
+//     } 
+//   }
+
+
 function HienthiTaikhoan(){
   console.log( document.querySelector(".user__wrapper"));
+  // Hiển thị form đăng nhập
   document.querySelector(".user__wrapper").style.display = 'flex';
+  
+  // Kiểm tra xem tài khoản có đang đăng nhập hay không
+  const userLogin = JSON.parse(localStorage.getItem('User'));
+  const userList = document.querySelector('.header__bottom--user__list');
+  
+  if (userLogin) {
+    // Nếu có, thì hiển thị nút đăng xuất
+    var li = document.getElementById("HienthiTaikhoan");
+    li.innerHTML = '<i class="fa-solid fa-door-open"></i><p color = "white">Đăng xuất</p>';
+    li.setAttribute("id", "");
+    li.setAttribute("onclick", "");
+    li.setAttribute("class", "");
+    
+    // Thêm sự kiện click vào nút đăng xuất để đăng xuất tài khoản hiện tại
+    li.addEventListener('click', function() {
+      // Xóa dữ liệu tài khoản khỏi localStorage
+      localStorage.removeItem('User');
+      // Chuyển hướng đến trang đăng nhập
+      window.location.href = "product.html";
+    });
+  } else {
+    // Nếu không, thì không làm gì cả
+    console.log('Tài khoản chưa đăng nhập');
+  }
 }
+
+
 //end : checking login when click Tai khoan
 function Dangky__btn(){
     document.querySelector(".register").style.opacity = '1';
