@@ -523,6 +523,7 @@ const deleteProduct = (currentUID, currentPID, currentOID, isNonActiveItem) => {
       });
     }
   });
+  alert('Xóa dữ liệu đơn hàng thành công!');
 };
 
 function updateLocalStorageForDeleteHandler() {
@@ -573,7 +574,6 @@ function clickDeleteBtnHandler() {
           deleteProduct(currentUID, currentPID, currentOID, isNonActiveItem);
           updateLocalStorageForDeleteHandler();
           closeModal();
-          alert('Xóa dữ liệu đơn hàng thành công!');
         });
 
         exitDeleteBtn.addEventListener('click', e => {
